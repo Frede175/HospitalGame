@@ -30,7 +30,7 @@ public enum CommandWord
     
     /**
      * Returns the string containing the player command.
-     * @return 
+     * @return Returns the command string as a String.
      */
     @Override
     public String toString()

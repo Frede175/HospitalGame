@@ -24,8 +24,8 @@ public class Command
 
     /**
      * Construct and initialize the Command object.
-     * @param commandWord
-     * @param secondWord 
+     * @param commandWord The command from the player as a CommandWord.
+     * @param secondWord The second string from the player as a String.
      */
     public Command(CommandWord commandWord, String secondWord)
     {
@@ -35,7 +35,7 @@ public class Command
 
     /**
      * Gets the command.
-     * @return The command as an CommandWord
+     * @return The command as an CommandWord.
      */
     public CommandWord getCommandWord()
     {
