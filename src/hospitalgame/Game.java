@@ -1,24 +1,42 @@
 package hospitalgame;
 
 /**
- * @author  Michael Kolling and David J. Barnes
- * @version 2006.03.30
+ * Game represents the core game functionality.
+ * 
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Tobias Ahrenschneider Sztuk
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
+ * @author Michael Kolling and David J. Barnes
  */
 public class Game 
 {
+    /**
+     * Contains the parser object.
+     */
     private Parser parser;
+    /**
+     * Contains the current room the player is in.
+     */
     private Room currentRoom;
-        
+    
+    /**
+     * Construct and initialize the game.
+     */
     public Game() 
     {
         createRooms();
         parser = new Parser();
     }
-
+    
+    /**
+     * Creating the game rooms and setting the current room.
+     */
     private void createRooms()
     {
         Room outside, theatre, pub, lab, office;
-      
+        
         outside = new Room("outside the main entrance of the university");
         theatre = new Room("in a lecture theatre");
         pub = new Room("in the campus pub");
@@ -41,6 +59,9 @@ public class Game
         currentRoom = outside;
     }
 
+    /**
+     * Starts the game.
+     */
     public void play() 
     {            
         printWelcome();
@@ -53,6 +74,9 @@ public class Game
         System.out.println("Thank you for playing.  Good bye.");
     }
 
+    /**
+     * Printing the welcome message.
+     */
     private void printWelcome()
     {
         System.out.println();
@@ -63,6 +87,11 @@ public class Game
         System.out.println(currentRoom.getLongDescription());
     }
 
+    /**
+     * Checking what command the player wants to use.
+     * @param command The player command.
+     * @return If the player wants to quit.
+     */
     private boolean processCommand(Command command) 
     {
         boolean wantToQuit = false;
@@ -86,6 +115,9 @@ public class Game
         return wantToQuit;
     }
 
+    /**
+     * Printing the help message.
+     */
     private void printHelp() 
     {
         System.out.println("You are lost. You are alone. You wander");
@@ -95,6 +127,10 @@ public class Game
         parser.showCommands();
     }
 
+    /**
+     * Goes to the room based on the player command.
+     * @param command The player command.
+     */
     private void goRoom(Command command) 
     {
         if(!command.hasSecondWord()) {
@@ -115,6 +151,11 @@ public class Game
         }
     }
 
+    /**
+     * Checking if the player want to quit.
+     * @param command The player command.
+     * @return True if the player wants to quit, false if the player dosen´t wants to quit.
+     */
     private boolean quit(Command command) 
     {
         if(command.hasSecondWord()) {
