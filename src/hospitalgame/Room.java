@@ -1,4 +1,4 @@
-package worldofzuul;
+package hospitalgame;
 
 import java.util.Set;
 import java.util.HashMap;
