@@ -54,9 +54,9 @@ public class Player {
     private long lastUpdate;
 
     /**
-     * The items that are active. These items apply effects on the player.
+     * The items that are active, and only PowerUpItems can be used. These items apply effects on the player.
      */
-    private ArrayList<Item> activeItems;
+    private ArrayList<PowerUpItem> activeItems;
 
     /**
      * Constructor for player
@@ -101,11 +101,11 @@ public class Player {
             Item item = inventory.getItem(index);
             
             if (item != null) { //Checking if the given index has an item
-                if (item.getName() == ItemName.BANDAGE || item.getName() == ItemName.MORPHINE ) { //refactor? item isstandsof PowerUpItem
+                if (item instanceof PowerUpItem) { //refactor? item isstandsof PowerUpItem
                     PowerUpItem power = (PowerUpItem) item;
                     power.startBuff(System.currentTimeMillis());
-                    activeItems.add(item);
-                    System.out.println("Actived item " + item.getName()); //Other way to print item maybe a function?
+                    activeItems.add(power);
+                    System.out.println("Actived item " + power.getName()); //Other way to print item maybe a function?
                 } else {
                     System.out.println("You can't use that item!");
                 }
@@ -244,18 +244,18 @@ public class Player {
         double loss = bloodRate * diff / 1000;
         
         //Using iterator to loop though, since we need to be able to remove a item the from the list
-        for (Iterator<Item> iterator = activeItems.iterator(); iterator.hasNext(); ) {
-            PowerUpItem power = (PowerUpItem) iterator.next();
+        for (Iterator<PowerUpItem> iterator = activeItems.iterator(); iterator.hasNext(); ) {
+            PowerUpItem item = iterator.next(); //Getting the next item in the list
             
-            long timeLeftBeforeUpdate = power.getTimeLeftOfBuff();
+            long timeLeftBeforeUpdate = item.getTimeLeftOfBuff();
                         
-            power.update(current);
+            item.update(current);
             //Using abs since if the timer is minus, we don't want to affect the remaing time that need to taking care of.
-            long powerDiff = timeLeftBeforeUpdate - Math.abs(power.getTimeLeftOfBuff()); 
+            long powerDiff = timeLeftBeforeUpdate - Math.abs(item.getTimeLeftOfBuff()); 
             
-            bloodRate -= power.getBuff() * powerDiff / 1000;
+            bloodRate -= item.getBuff() * powerDiff / 1000;
             
-            if (power.getTimeLeftOfBuff() <= 0) { // Buff is no longer active!
+            if (item.getTimeLeftOfBuff() <= 0) { // Buff is no longer active!
                 iterator.remove();
             }
         }
