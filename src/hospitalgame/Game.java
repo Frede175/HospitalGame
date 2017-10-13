@@ -1,5 +1,7 @@
 package hospitalgame;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 /**
  * Game represents the core game functionality.
  * 
@@ -20,6 +22,21 @@ public class Game
      * Contains the current room the player is in.
      */
     private Room currentRoom;
+    
+    /**
+     * Contains the map class, to generate the map
+     */
+    private Map map;
+    
+    /**
+     * Contains the player
+     */
+    private Player player;
+    
+    /**
+     * Contains all the NPCs
+     */
+    //private ArrayList<NPC> NPCs;
     
     /**
      * Construct and initialize the game.
@@ -165,5 +182,20 @@ public class Game
         else {
             return true;
         }
+    }
+    
+    /**
+     * Moves the NPC.
+     */
+    private void moveNPC() {
+        throw new NotImplementedException();
+    }
+    
+    /**
+     * Interacts with the NPC depending on the command.
+     * @param command Is the command choosing which NPC that the player wants to interact with.
+     */
+    private void interact(Command command) {
+        throw new NotImplementedException();
     }
 }
