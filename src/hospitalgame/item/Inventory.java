@@ -75,7 +75,7 @@ public class Inventory {
      * showIventory prints out the items with index numbers
      * getItem returns the item by number
      * @param index is the index number of the item to be returned
-     * @return returns an Item item object
+     * @return returns an item object
      */
     public Item getItem(int index) {
         throw new NotImplementedException();
