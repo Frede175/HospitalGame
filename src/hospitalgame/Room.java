@@ -90,18 +90,37 @@ public class Room
         return exits.get(direction);
     }
     
+    /**
+     * Make it possible to add a specific item to a room
+     * @param item
+     * @return 
+     */
     public boolean addItem(Item item){
         return true;
     }
     
+    /**
+     * Makes it possible to remove a specific item in the current room
+     * @param item
+     * @return 
+     */
     public boolean removeItem(Item item){
         return true;
     }
     
+    /**
+     * Finds a item in the ArrayList, if nothing is found it will return null
+     * @param index
+     * @return 
+     */    
     public Item getItem(int index){
         return null;
     }
     
+    /**
+     * Display which items are currently in the room
+     * 
+     */
     public void showItem(){
         
     }

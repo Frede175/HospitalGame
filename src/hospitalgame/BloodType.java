@@ -11,10 +11,16 @@ public enum BloodType {
         A, B, AB, O;
         
     /*
-    O can give blood to everyone & can only recieve from itself
-    A can give blood to A & AB
-    B can give blood to B & AB
+        O can give blood to everyone & can only recieve from itself
+        A can give blood to A & AB
+        B can give blood to B & AB
     */
+        
+    /**
+     * Checks if the bloodbags are of the correct type to give the player
+     * @param giving
+     * @return 
+     */
     public boolean canTransfuse(BloodType giving){
         
         switch(giving){
