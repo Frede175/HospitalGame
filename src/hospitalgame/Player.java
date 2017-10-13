@@ -54,7 +54,8 @@ public class Player {
     private long lastUpdate;
 
     /**
-     * The items that are active, and only PowerUpItems can be used. These items apply effects on the player.
+     * The items that are active, and only PowerUpItems can be used. These items
+     * apply effects on the player.
      */
     private ArrayList<PowerUpItem> activeItems;
 
@@ -89,17 +90,17 @@ public class Player {
     public void useItem(Command command) {
         if (command.hasSecondWord()) {
             int index;
-            
+
             //Getting the index(int) from the command
-            try { 
+            try {
                 index = Integer.parseInt(command.getSecondWord());
             } catch (NumberFormatException ex) {
                 System.out.println("That is not a number!");
                 return;
             }
-            
+
             Item item = inventory.getItem(index);
-            
+
             if (item != null) { //Checking if the given index has an item
                 if (item instanceof PowerUpItem) { //refactor? item isstandsof PowerUpItem
                     PowerUpItem power = (PowerUpItem) item;
@@ -154,9 +155,9 @@ public class Player {
     public double getBloodAmount() {
         return bloodAmount;
     }
-    
+
     /**
-     * 
+     *
      * @return the blood type the player has
      */
     public BloodType getBloodType() {
@@ -241,11 +242,11 @@ public class Player {
             System.out.println("Take what?");
         }
     }
-    
-    
+
     /**
-     * Process the drop item command.
-     * Drops the item from the inventory and puts it in the current room that the player is in.
+     * Process the drop item command. Drops the item from the inventory and puts
+     * it in the current room that the player is in.
+     *
      * @param command the drop item command
      */
     public void dropItem(Command command) {
@@ -284,28 +285,28 @@ public class Player {
         long current = System.currentTimeMillis();
         long diff = current - lastUpdate;
         lastUpdate = current;
-        
+
         double loss = bloodRate * diff / 1000;
-        
+
         //Using iterator to loop though, since we need to be able to remove a item the from the list
-        for (Iterator<PowerUpItem> iterator = activeItems.iterator(); iterator.hasNext(); ) {
+        for (Iterator<PowerUpItem> iterator = activeItems.iterator(); iterator.hasNext();) {
             PowerUpItem item = iterator.next(); //Getting the next item in the list
-            
+
             long timeLeftBeforeUpdate = item.getTimeLeftOfBuff();
-                        
+
             item.update(current);
-            
+
             //using an if to see if the value is negativ, since we don't want to affect the remaing time that need to taking care of.
-            long powerDiff = timeLeftBeforeUpdate - (item.getTimeLeftOfBuff() < 0 ? 0 : item.getTimeLeftOfBuff()); 
-            
+            long powerDiff = timeLeftBeforeUpdate - (item.getTimeLeftOfBuff() < 0 ? 0 : item.getTimeLeftOfBuff());
+
             bloodRate -= item.getBuff() * powerDiff / 1000;
-            
+
             if (item.getTimeLeftOfBuff() <= 0) { // Buff is no longer active!
                 iterator.remove();
             }
         }
         bloodAmount -= loss;
-        
+
         //There should maybe be a check here to see if the player is dead...
     }
 }
