@@ -294,8 +294,9 @@ public class Player {
             long timeLeftBeforeUpdate = item.getTimeLeftOfBuff();
                         
             item.update(current);
-            //Using abs since if the timer is minus, we don't want to affect the remaing time that need to taking care of.
-            long powerDiff = timeLeftBeforeUpdate - Math.abs(item.getTimeLeftOfBuff()); 
+            
+            //using an if to see if the value is negativ, since we don't want to affect the remaing time that need to taking care of.
+            long powerDiff = timeLeftBeforeUpdate - (item.getTimeLeftOfBuff() < 0 ? 0 : item.getTimeLeftOfBuff()); 
             
             bloodRate -= item.getBuff() * powerDiff / 1000;
             
