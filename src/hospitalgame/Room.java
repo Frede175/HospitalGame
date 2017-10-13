@@ -87,5 +87,21 @@ public class Room
     {
         return exits.get(direction);
     }
+    
+    public boolean addItem(Item item){
+        return true;
+    }
+    
+    public boolean removeItem(Item item){
+        return true;
+    }
+    
+    public Item getItem(int index){
+        
+    }
+    
+    public void showItem(){
+        
+    }
 }
 
