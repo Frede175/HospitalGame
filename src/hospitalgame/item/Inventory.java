@@ -16,6 +16,9 @@ public class Inventory {
      * maxWeight contains the max weight that the inventory can hold
      */
     private int maxWeight;
+    /**
+     * is an arraylist to hold the items in the inventory
+     */
     ArrayList<Item> inv = new ArrayList<>();
 
     /**
