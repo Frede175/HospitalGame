@@ -3,6 +3,7 @@ package hospitalgame;
 import java.util.Set;
 import java.util.HashMap;
 import hospitalgame.item.*; //hospitalgame.item package imported
+import java.util.ArrayList;
 import java.util.Iterator;
 
 
@@ -27,6 +28,11 @@ public class Room
      * Contains all the exit doors in the room.
      */
     private HashMap<String, Room> exits;
+    
+    /**
+     * ArrayList for which items that is in the room
+     */
+    private ArrayList<Item> itemArray;
 
     /**
      * Construct and initialize the room.
@@ -114,6 +120,7 @@ public class Room
      * @return an specific Item object 
      */    
     public Item getItem(int index){
+        //itemArray.get(0);
         return null;
     }
     
