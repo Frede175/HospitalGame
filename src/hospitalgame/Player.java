@@ -154,6 +154,14 @@ public class Player {
     public double getBloodAmount() {
         return bloodAmount;
     }
+    
+    /**
+     * 
+     * @return the blood type the player has
+     */
+    public BloodType getBloodType() {
+        return bloodType;
+    }
 
     /**
      * Print the contents of the inventory to the console.
