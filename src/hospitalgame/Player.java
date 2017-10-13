@@ -134,7 +134,7 @@ public class Player {
      * @return an array of items that has the specified name.
      */
     public Item[] getItemsByName(ItemName name) {
-        throw new NotImplementedException();
+        return inventory.getItemsByName(name);
     }
     
     /**
