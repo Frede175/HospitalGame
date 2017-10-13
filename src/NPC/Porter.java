@@ -1,11 +1,12 @@
 package NPC;
-
-import hospitalgame.Player;
-import hospitalgame.Room;
+import hospitalgame.*;
 
 /**
- *
- * @author Tobias
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Tobias Ahrenschneider Sztuk
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public class Porter extends Move {
     
