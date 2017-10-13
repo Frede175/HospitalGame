@@ -2,7 +2,9 @@ package hospitalgame;
 
 import java.util.Set;
 import java.util.HashMap;
+import hospitalgame.item.*; //hospitalgame.item package imported
 import java.util.Iterator;
+
 
 
 /**
@@ -97,7 +99,7 @@ public class Room
     }
     
     public Item getItem(int index){
-        
+        return null;
     }
     
     public void showItem(){

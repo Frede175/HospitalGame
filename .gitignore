@@ -19,8 +19,10 @@
 *.rar
 
 build/
-nbproject/
+nbproject/*
 dist/
+nbbuild/
+.nb-gradle/
 build.xml
 manifest.mf
 
