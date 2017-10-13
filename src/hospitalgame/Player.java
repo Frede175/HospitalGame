@@ -110,7 +110,7 @@ public class Player {
      * @return the current room.
      */
     public Room getCurrentRoom() {
-        throw new NotImplementedException();
+        return currentRoom;
     }
     
     /**
