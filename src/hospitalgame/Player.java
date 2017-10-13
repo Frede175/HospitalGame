@@ -93,7 +93,7 @@ public class Player {
      * @return true if the item is successfully added to the inventory
      */
     public boolean addItem(Item item) {
-        throw new NotImplementedException();
+        return inventory.addItem(item);
     }
     
     /**
