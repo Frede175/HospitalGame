@@ -5,6 +5,7 @@ import hospitalgame.item.Item;
 import hospitalgame.item.ItemName;
 import hospitalgame.item.PowerUpItem;
 import java.util.ArrayList;
+import java.util.Iterator;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -75,7 +76,7 @@ public class Player {
 
         inventory = new Inventory(2000);
 
-        lastUpdate = 0;
+        lastUpdate = System.currentTimeMillis();
 
         activeItems = new ArrayList<>();
     }
@@ -236,6 +237,30 @@ public class Player {
      * Calculates the current blood loss and updates the players blood amount.
      */
     private void update() {
-        throw new NotImplementedException();
+        long current = System.currentTimeMillis();
+        long diff = current - lastUpdate;
+        lastUpdate = current;
+        
+        double loss = bloodRate * diff / 1000;
+        
+        //Using iterator to loop though, since we need to be able to remove a item the from the list
+        for (Iterator<Item> iterator = activeItems.iterator(); iterator.hasNext(); ) {
+            PowerUpItem power = (PowerUpItem) iterator.next();
+            
+            long timeLeftBeforeUpdate = power.getTimeLeftOfBuff();
+                        
+            power.update(current);
+            //Using abs since if the timer is minus, we don't want to affect the remaing time that need to taking care of.
+            long powerDiff = timeLeftBeforeUpdate - Math.abs(power.getTimeLeftOfBuff()); 
+            
+            bloodRate -= power.getBuff() * powerDiff / 1000;
+            
+            if (power.getTimeLeftOfBuff() <= 0) { // Buff is no longer active!
+                iterator.remove();
+            }
+        }
+        bloodAmount -= loss;
+        
+        //There should maybe be a check here to see if the player is dead...
     }
 }
