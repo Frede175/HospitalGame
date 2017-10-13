@@ -3,6 +3,7 @@ package hospitalgame;
 import hospitalgame.item.Inventory;
 import hospitalgame.item.Item;
 import hospitalgame.item.ItemName;
+import hospitalgame.item.PowerUpItem;
 import java.util.ArrayList;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -85,7 +86,34 @@ public class Player {
      * @param command the use item command
      */
     public void useItem(Command command) {
-        throw new NotImplementedException();
+        if (command.hasSecondWord()) {
+            int index;
+            
+            //Getting the index(int) from the command
+            try { 
+                index = Integer.parseInt(command.getSecondWord());
+            } catch (NumberFormatException ex) {
+                System.out.println("That is not a number!");
+                return;
+            }
+            
+            Item item = inventory.getItem(index);
+            
+            if (item != null) { //Checking if the given index has an item
+                if (item.getName() == ItemName.BANDAGE || item.getName() == ItemName.MORPHINE ) { //refactor? item isstandsof PowerUpItem
+                    PowerUpItem power = (PowerUpItem) item;
+                    power.startBuff(System.currentTimeMillis());
+                    activeItems.add(item);
+                    System.out.println("Actived item " + item.getName()); //Other way to print item maybe a function?
+                } else {
+                    System.out.println("You can't use that item!");
+                }
+            } else {
+                System.out.println("Can't find that item!");
+            }
+        } else { //No index for item
+            System.out.println("Use what?");
+        }
     }
 
     /**
