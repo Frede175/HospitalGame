@@ -1,14 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package hospitalgame.item;
 
 /**
- *
- * @author andreasmolgaard-andersen
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Tobias Ahrenschneider Sztuk
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
-public class BloodBag {
+
+public class BloodBag extends BonusPointItem {
+    //private BloodType bloodType;
+
+    public BloodBag(/*BloodType bloodType, */int bonusPoints, ItemName name, int weight) {
+        super(bonusPoints, name, weight);
+        
+        //this.bloodType = bloodType;
+        
+    }
+    
+    
     
 }
