@@ -125,7 +125,7 @@ public class Player {
      * Print the contents of the inventory to the console.
      */
     public void showInventory() {
-        throw new NotImplementedException();
+        inventory.showItems();
     }
     
     /**
