@@ -118,7 +118,7 @@ public class Player {
      * @return the blood amount.
      */
     public double getBloodAmount() {
-        throw new NotImplementedException();
+        return bloodAmount;
     }
     
     /**
