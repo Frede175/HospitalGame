@@ -102,7 +102,7 @@ public class Player {
      * @return true if the item is removed successfully from the inventory.
      */
     public boolean removeItem(Item item) {
-        throw new NotImplementedException();
+        return inventory.removeItem(item);
     }
     
     /**
