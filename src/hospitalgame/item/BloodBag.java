@@ -13,7 +13,7 @@ public class BloodBag extends BonusPointItem {
     //private BloodType bloodType;
 
     /**
-     * constructs and initialized the BloodBag object
+     * constructs and initializes the BloodBag object
      * @param bonusPoints the bonusPoints the item is to hold
      * @param name is the name of the item
      * @param weight is the weight of the item

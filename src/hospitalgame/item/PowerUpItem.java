@@ -54,9 +54,9 @@ public class PowerUpItem extends Item{
     
     /**
      * updates the PowerUpItem
-     * @param CurrentTime is the time of the update, makes it possible to see the last update
+     * @param currentTime is the time of the update, makes it possible to see the last update
      */
-    public void update(long CurrentTime) {
+    public void update(long currentTime) {
         
     }
     
