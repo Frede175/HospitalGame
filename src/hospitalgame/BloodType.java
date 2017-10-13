@@ -18,8 +18,8 @@ public enum BloodType {
         
     /**
      * Checks if the bloodbags are of the correct type to give the player
-     * @param giving
-     * @return 
+     * @param giving, is the bloodtype of the bloodbag
+     * @return true if the bloodbag's bloodtype is correct compared to the player's bloodtype, otherwise it is false
      */
     public boolean canTransfuse(BloodType giving){
         
