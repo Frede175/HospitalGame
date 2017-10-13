@@ -10,7 +10,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  * @author Lars Bjerregaard Jørgensen
  * @author Robert Francisti
  */
-public class Item {
+public abstract class Item {
 
     /**
      * weight is the weight of the item
