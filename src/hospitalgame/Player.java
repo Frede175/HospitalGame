@@ -204,6 +204,9 @@ public class Player {
         } else {
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
+            //Showing items in room and inventory
+            currentRoom.showItem(); 
+            showInventory();
             return true;
         }
     }
