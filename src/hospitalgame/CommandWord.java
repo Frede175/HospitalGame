@@ -12,7 +12,8 @@ package hospitalgame;
  */
 public enum CommandWord
 {
-    GO("go"), QUIT("quit"), HELP("help"), UNKNOWN("?");
+    GO("go"), QUIT("quit"), HELP("help"), SHOW("show"), INTERACT("interact"), 
+    USE("use"), TAKE("take"), DROP("drop"), UNKNOWN("?");
     
     /**
      * Contains the command.
