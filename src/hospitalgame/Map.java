@@ -10,7 +10,6 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  * @author Tobias Ahrenschneider Sztuk
  * @author Lars Bjerregaard Jørgensen
  * @author Robert Francisti
- * @author Michael Kolling and David J. Barnes
  */
 public class Map {
     /**
