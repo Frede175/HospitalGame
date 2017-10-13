@@ -184,10 +184,17 @@ public class Game
         }
     }
     
+    /**
+     * Moves the NPC.
+     */
     private void moveNPC() {
         throw new NotImplementedException();
     }
     
+    /**
+     * Interacts with the NPC depending on the command.
+     * @param command Is the command choosing which NPC that the player wants to interact with.
+     */
     private void interact(Command command) {
         throw new NotImplementedException();
     }

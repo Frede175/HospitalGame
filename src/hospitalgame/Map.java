@@ -13,6 +13,11 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  * @author Michael Kolling and David J. Barnes
  */
 public class Map {
+    /**
+     * Generate the rooms for the game.
+     * @param roomCount The count of how many rooms that needs to be generated.
+     * @return The starting room for the player.
+     */
     public Room generateRoom(int roomCount) {
         throw new NotImplementedException();
     }
