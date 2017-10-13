@@ -10,15 +10,15 @@ package hospitalgame.item;
  */
 public class PowerUpItem extends Item{
     /**
-     * contains a variable, double, how powerful the buff is of the PowerUpItem
+     * contains a variable, how powerful the buff is of the PowerUpItem
      */
     private double buff;
     /**
-     * contains the time left of buff in currentTimeMillis
+     * contains the time left of buff
      */
     private long timeLeftOfBuff;
     /**
-     * contains the time of the last update in currentTimeMillis
+     * contains the time of the last update
      */
     private long lastUpdate;
     
