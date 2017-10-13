@@ -98,7 +98,7 @@ public class Player {
     
     /**
      * Removes the current item 
-     * @param item
+     * @param item the item to be removed
      * @return true if the item is removed successfully from the inventory.
      */
     public boolean removeItem(Item item) {
