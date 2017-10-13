@@ -222,6 +222,7 @@ public class Player {
             if (item != null) { //Checking if the given index has an item
                 if (addItem(item)) { //If addItem returns false, then the item has not been added to the inventory
                     currentRoom.removeItem(item);
+                    System.out.println("Picked up " + item.getName());
                 } else {
                     System.out.println("You don't have room for that");
                 }
@@ -230,6 +231,41 @@ public class Player {
             }
         } else { //No index for item
             System.out.println("Take what?");
+        }
+    }
+    
+    
+    /**
+     * Process the drop item command.
+     * Drops the item from the inventory and puts it in the current room that the player is in.
+     * @param command the drop item command
+     */
+    public void dropItem(Command command) {
+        if (command.hasSecondWord()) {
+            int index;
+
+            //Getting the index(int) from the command
+            try {
+                index = Integer.parseInt(command.getSecondWord());
+            } catch (NumberFormatException ex) {
+                System.out.println("That is not a number!");
+                return;
+            }
+
+            Item item = inventory.getItem(index);
+
+            if (item != null) { //Checking if the given index has an item
+                if (removeItem(item)) {
+                    currentRoom.addItem(item);
+                    System.out.println("Dropped " + item.getName());
+                } else {
+                    System.out.println("Can't remove item from inventory.");
+                }
+            } else {
+                System.out.println("Can't find that item!");
+            }
+        } else { //No index for item
+            System.out.println("Drop what?");
         }
     }
 
