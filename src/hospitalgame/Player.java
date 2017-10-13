@@ -143,7 +143,26 @@ public class Player {
      * @return true if the player was able to go the requested room
      */
     public boolean goRoom(Command command) {
-        throw new NotImplementedException();
+        update(); //Updating blood loss
+        
+        if(!command.hasSecondWord()) {
+            System.out.println("Go where?");
+            return false;
+        }
+
+        String direction = command.getSecondWord();
+
+        Room nextRoom = currentRoom.getExit(direction);
+
+        if (nextRoom == null) {
+            System.out.println("There is no door!");
+            return false;
+        }
+        else {
+            currentRoom = nextRoom;
+            System.out.println(currentRoom.getLongDescription());
+            return true;
+        }
     }
     
     /**
