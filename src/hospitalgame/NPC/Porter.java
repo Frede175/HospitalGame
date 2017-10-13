@@ -1,4 +1,4 @@
-package NPC;
+package hospitalgame.NPC;
 import hospitalgame.*;
 
 /**
