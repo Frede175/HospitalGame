@@ -288,6 +288,7 @@ public class Player {
         long diff = current - lastUpdate;
         lastUpdate = current;
 
+        //The player losses bloodRate every sec.
         double loss = bloodRate * diff / 1000;
 
         //Using iterator to loop though, since we need to be able to remove a item the from the list
@@ -301,7 +302,7 @@ public class Player {
             //using an if to see if the value is negativ, since we don't want to affect the remaing time that need to taking care of.
             long powerDiff = timeLeftBeforeUpdate - (item.getTimeLeftOfBuff() < 0 ? 0 : item.getTimeLeftOfBuff());
 
-            bloodRate -= item.getBuff() * powerDiff / 1000;
+            loss -= item.getBuff() * powerDiff / 1000;
 
             if (item.getTimeLeftOfBuff() <= 0) { // Buff is no longer active!
                 iterator.remove();
