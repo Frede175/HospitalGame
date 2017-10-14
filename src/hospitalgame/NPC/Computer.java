@@ -1,4 +1,4 @@
-package NPC;
+package hospitalgame.NPC;
 import hospitalgame.*;
 
 /**
@@ -8,15 +8,15 @@ import hospitalgame.*;
  * @author Lars Bjerregaard Jørgensen
  * @author Robert Francisti
  */
-public class Doctor extends NPC{
+public class Computer extends NPC{
     
-    /**
+     /**
      * Calls the NPC constructor through the super
      * @param currentRoom the room that the NPC is in right now
      * @param name name of the NPC  
      * @param description decription of the NPC 
      */
-    public Doctor (Room currentRoom, String name, String description){
+    public Computer (Room currentRoom, String name, String description){
         super(currentRoom, name, description);
     }
 
@@ -27,5 +27,5 @@ public class Doctor extends NPC{
     @Override
     public void interact(Player player) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    } 
+    }
 }
