@@ -2,7 +2,10 @@ package hospitalgame;
 
 import java.util.Set;
 import java.util.HashMap;
+import hospitalgame.item.*; //hospitalgame.item package imported
+import java.util.ArrayList;
 import java.util.Iterator;
+
 
 
 /**
@@ -25,6 +28,11 @@ public class Room
      * Contains all the exit doors in the room.
      */
     private HashMap<String, Room> exits;
+    
+    /**
+     * ArrayList for which items that is in the room
+     */
+    private ArrayList<Item> itemArray;
 
     /**
      * Construct and initialize the room.
@@ -86,6 +94,42 @@ public class Room
     public Room getExit(String direction) 
     {
         return exits.get(direction);
+    }
+    
+    /**
+     * Make it possible to add a specific item to a room
+     * @param item is an Item object that tells which item should be added
+     * @return true if it is possible to drop an item from the inventory
+     */
+    public boolean addItem(Item item){
+        return true;
+    }
+    
+    /**
+     * Makes it possible to remove a specific item in the current room
+     * @param item is which item that should be removed from the room 
+     * @return true if it is possible for the player to pick up the item, adding it to the inventory and removes it from the room
+     */
+    public boolean removeItem(Item item){
+        return true;
+    }
+    
+    /**
+     * Finds a item in the ArrayList, if nothing is found it will return null
+     * @param index is which index of the ArrayList that the item should be found
+     * @return an specific Item object 
+     */    
+    public Item getItem(int index){
+        //itemArray.get(0);
+        return null;
+    }
+    
+    /**
+     * Display which items are currently in the room
+     * 
+     */
+    public void showItem(){
+        
     }
 }
 
