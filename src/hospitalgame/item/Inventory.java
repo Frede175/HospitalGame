@@ -3,6 +3,7 @@ package hospitalgame.item;
 import java.util.ArrayList;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+
 /**
  * @author Frederik Schultz Rosenberg
  * @author Andreas Bøgh Mølgaard-Andersen
@@ -19,7 +20,7 @@ public class Inventory {
     /**
      * is an arraylist to hold the items in the inventory
      */
-    ArrayList<Item> inv = new ArrayList<>();
+    ArrayList<Item> inventory = new ArrayList<>();
 
     /**
      * constructs and initializes the inventory
@@ -35,7 +36,7 @@ public class Inventory {
      * @return returns true if the item has been added
      */
     public boolean addItem(Item item) {
-        throw new NotImplementedException();
+        return inventory.add(item);
     }
 
     /**
@@ -51,7 +52,7 @@ public class Inventory {
      * prints items from the inventory to console
      */
     public void showItems() {
-
+        throw new NotImplementedException();
     }
     
     /**
