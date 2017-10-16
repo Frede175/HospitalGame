@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-
 /**
  * @author Frederik Schultz Rosenberg
  * @author Andreas Bøgh Mølgaard-Andersen
@@ -25,6 +24,7 @@ public class Inventory {
 
     /**
      * constructs and initializes the inventory
+     *
      * @param maxWeight the max weight of the inventory
      */
     public Inventory(int maxWeight) {
@@ -33,6 +33,7 @@ public class Inventory {
 
     /**
      * adds an item to the inventory
+     *
      * @param item is the item object to be added to the inventory.
      * @return returns true if the item has been added
      */
@@ -42,6 +43,7 @@ public class Inventory {
 
     /**
      * removes and item from the inventory
+     *
      * @param item the item object to be added
      * @return returns true if the item has been removed
      */
@@ -53,35 +55,48 @@ public class Inventory {
      * prints items from the inventory to console
      */
     public void showItems() {
-                for (int i = 0; i <= inventory.size() ; i++) {
+        for (int i = 0; i <= inventory.size(); i++) {
             System.out.println(i + inventory.get(i).toString());
         }
     }
-    
+
     /**
      * returns the totalWeight of the items currently in the inventory
+     *
      * @return int
      */
     public int getTotalWeight() {
         int totalWeight = 0;
         for (int i = 0; i < inventory.size(); i++) {
-            totalWeight += inventory.get(i).getWeight();      
+            totalWeight += inventory.get(i).getWeight();
         }
         return totalWeight;
     }
 
     /**
      * returns an array of items from the inventory with the name specified
+     *
      * @param name is the name of the item(s) to be returned
      * @return an array of items with the specified name
      */
     public Item[] getItemsByName(ItemName name) {
-        throw new NotImplementedException();
+        
+        ArrayList<Item> itemList = new ArrayList<>();
+
+        for (int i = 0; i <= inventory.size(); i++) {
+            if (name.toString().equals(inventory.get(i).toString())) {
+                itemList.add(inventory.get(i));
+            }
+        }
+        Item[] item = new Item[itemList.size()];
+        itemList.toArray(item);
+        return item;
     }
 
     /**
-     * showIventory prints out the items with index numbers
-     * getItem returns the item by number
+     * showIventory prints out the items with index numbers getItem returns the
+     * item by number
+     *
      * @param index is the index number of the item to be returned
      * @return returns an item object
      */
