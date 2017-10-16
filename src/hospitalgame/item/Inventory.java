@@ -1,8 +1,8 @@
 package hospitalgame.item;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+
 
 /**
  * @author Frederik Schultz Rosenberg
@@ -101,7 +101,7 @@ public class Inventory {
      * @return returns an item object
      */
     public Item getItem(int index) {
-        throw new NotImplementedException();
+        return inventory.get(index);
     }
 
 }
