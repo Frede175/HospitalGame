@@ -28,7 +28,7 @@ public enum ItemName {
      */
     @Override
     public String toString() {
-        throw new NotImplementedException();
+        return name;
     }
 
 }
