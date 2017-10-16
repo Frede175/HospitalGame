@@ -1,6 +1,7 @@
 package hospitalgame.item;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 
@@ -62,7 +63,11 @@ public class Inventory {
      * @return int
      */
     public int getTotalWeight() {
-        throw new NotImplementedException();
+        int totalWeight = 0;
+        for (int i = 0; i < inventory.size(); i++) {
+            totalWeight += inventory.get(i).getWeight();      
+        }
+        return totalWeight;
     }
 
     /**
