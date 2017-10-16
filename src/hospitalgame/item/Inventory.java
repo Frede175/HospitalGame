@@ -52,7 +52,9 @@ public class Inventory {
      * prints items from the inventory to console
      */
     public void showItems() {
-        throw new NotImplementedException();
+                for (int i = 0; i <= inventory.size() ; i++) {
+            System.out.println(i + inventory.get(i).toString());
+        }
     }
     
     /**
