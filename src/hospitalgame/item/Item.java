@@ -42,7 +42,7 @@ public abstract class Item {
      * @return returns int the weight of the item
      */
     public int getWeight() {
-        throw new NotImplementedException();
+        return weight;
     }
 
 }
