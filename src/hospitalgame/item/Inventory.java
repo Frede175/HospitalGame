@@ -45,7 +45,7 @@ public class Inventory {
      * @return returns true if the item has been removed
      */
     public boolean removeItem(Item item) {
-        throw new NotImplementedException();
+        return inventory.remove(item);
     }
 
     /**
