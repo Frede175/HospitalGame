@@ -34,7 +34,7 @@ public abstract class Item {
      * @return returns enum name of the item
      */
     public ItemName getName() {
-        throw new NotImplementedException();
+        return name;
     }
 
     /**
