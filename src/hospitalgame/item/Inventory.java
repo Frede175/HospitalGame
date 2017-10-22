@@ -2,8 +2,6 @@ package hospitalgame.item;
 
 import java.util.ArrayList;
 
-
-
 /**
  * @author Frederik Schultz Rosenberg
  * @author Andreas Bøgh Mølgaard-Andersen
@@ -40,8 +38,10 @@ public class Inventory {
     public boolean addItem(Item item) {
         if (item.getWeight() + getTotalWeight() <= maxWeight) {
             return inventory.add(item);
-        } else { return false; }
-        
+        } else {
+            return false;
+        }
+
     }
 
     /**
@@ -66,7 +66,7 @@ public class Inventory {
     /**
      * returns the totalWeight of the items currently in the inventory
      *
-     * @return int
+     * @return the total weight in the inventory
      */
     public int getTotalWeight() {
         int totalWeight = 0;
@@ -83,7 +83,7 @@ public class Inventory {
      * @return an array of items with the specified name
      */
     public Item[] getItemsByName(ItemName name) {
-        
+
         ArrayList<Item> itemList = new ArrayList<>();
 
         for (int i = 0; i <= inventory.size(); i++) {
