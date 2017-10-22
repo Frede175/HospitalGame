@@ -38,7 +38,10 @@ public class Inventory {
      * @return returns true if the item has been added
      */
     public boolean addItem(Item item) {
-        return inventory.add(item);
+        if (item.getWeight() + getTotalWeight() <= maxWeight) {
+            return inventory.add(item);
+        } else { return false; }
+        
     }
 
     /**
