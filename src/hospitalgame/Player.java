@@ -105,7 +105,7 @@ public class Player {
                     PowerUpItem power = (PowerUpItem) item;
                     power.startBuff(System.currentTimeMillis());
                     activeItems.add(power);
-                    System.out.println("Actived " + power.getName()); //Other way to print item maybe a function?
+                    System.out.println("Activated " + power.getName()); //Other way to print item maybe a function?
                 } else {
                     System.out.println("You can't use that item!");
                 }
