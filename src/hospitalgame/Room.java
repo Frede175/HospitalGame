@@ -143,7 +143,7 @@ public class Room
         else{
             System.out.println("Current items in the room:");
             for (int i = 0; i < itemArray.size(); i++) {
-                System.out.println("Index: " + i + "\t" + itemArray.get(i).getName() + "\t" + itemArray.get(i).getWeight() + "g, ");
+                System.out.println(i + ":" + "\t" + itemArray.get(i).getName() + "\t" + itemArray.get(i).getWeight() + "g");
             }
         }
     }
