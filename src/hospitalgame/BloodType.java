@@ -14,6 +14,7 @@ public enum BloodType {
         O can give blood to everyone & can only recieve from itself
         A can give blood to A & AB
         B can give blood to B & AB
+        AB can only give blood to AB
     */
         
     /**
