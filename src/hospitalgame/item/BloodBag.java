@@ -27,4 +27,7 @@ public class BloodBag extends BonusPointItem {
 
     }
 
+    public BloodType getBloodType() {
+        return bloodType;
+    }
 }
