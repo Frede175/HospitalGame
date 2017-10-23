@@ -102,7 +102,7 @@ public class Room
      * @return true if it is possible to drop an item from the inventory
      */
     public boolean addItem(Item item){
-        return true;
+        return itemArray.add(item);
     }
     
     /**
@@ -111,7 +111,7 @@ public class Room
      * @return true if it is possible for the player to pick up the item, adding it to the inventory and removes it from the room
      */
     public boolean removeItem(Item item){
-        return true;
+        return itemArray.remove(item);
     }
     
     /**
@@ -120,8 +120,7 @@ public class Room
      * @return an specific Item object 
      */    
     public Item getItem(int index){
-        //itemArray.get(0);
-        return null;
+        return itemArray.get(index);
     }
     
     /**
@@ -129,7 +128,10 @@ public class Room
      * 
      */
     public void showItem(){
-        
+        System.out.println("Current items in the room:");
+        for (int i = 0; i < itemArray.size(); i++) {
+            System.out.println("Index: " + i + "\t" + itemArray.get(i).getName() + "\t" + itemArray.get(i).getWeight() + "g, ");
+        }
     }
 }
 
