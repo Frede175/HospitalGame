@@ -1,6 +1,7 @@
 package hospitalgame.NPC;
 import hospitalgame.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import java.util.Scanner;
 
 /**
  * @author Frederik Schultz Rosenberg
@@ -13,7 +14,13 @@ public abstract class NPC {
     /**
      * Name of the NPC
      */
+    
     private String name;
+    Scanner scanner = new Scanner(System.in);
+    String porterName = "Porter";
+    String doctorName = "Doctor";
+    String ComputerName = "Computer";
+    
     
     /**
      * Description of the NPC
@@ -40,7 +47,8 @@ public abstract class NPC {
      * @return which room the NPC is in
      */
     public Room getCurrentRoom(){
-        throw new NotImplementedException();
+        return Room;
+//throw new NotImplementedException();
     }
     
     /**
@@ -48,7 +56,9 @@ public abstract class NPC {
      * @return the name of the NPC
      */
     public String getName(){
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
+        return name;
+        
     }
     
     /**
@@ -56,7 +66,8 @@ public abstract class NPC {
      * @return the description of which NPC the player is interacting with
      */
     public String getDescription(){
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
+        return description;
     }
     
     /**
