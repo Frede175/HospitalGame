@@ -97,11 +97,11 @@ public class Room
     }
     
     /**
-     * Tells how many exits a room has
-     * @return a integer that tells the size of our Hashmap
-     */
-    public int getNumberOfExits(){
-        return exits.size();
+     * Get all keys from the hashmap
+     * @return a set of strings taken from the hashmap of exits
+     */   
+    public Set<String> getKeyset(){
+        return exits.keySet();
     }
     
     /**
