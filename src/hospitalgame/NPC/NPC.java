@@ -26,7 +26,7 @@ public abstract class NPC {
     /**
      * Room object to tell which the NPC is in
      */
-    private Room currentRoom;
+     protected Room currentRoom;
 
     /**
      * Constructor of the NPC objects
