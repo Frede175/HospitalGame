@@ -137,9 +137,14 @@ public class Room
      * 
      */
     public void showItem(){
-        System.out.println("Current items in the room:");
-        for (int i = 0; i < itemArray.size(); i++) {
-            System.out.println("Index: " + i + "\t" + itemArray.get(i).getName() + "\t" + itemArray.get(i).getWeight() + "g, ");
+        
+        if(itemArray.isEmpty())
+            System.out.println("There are no items in the room");
+        else{
+            System.out.println("Current items in the room:");
+            for (int i = 0; i < itemArray.size(); i++) {
+                System.out.println("Index: " + i + "\t" + itemArray.get(i).getName() + "\t" + itemArray.get(i).getWeight() + "g, ");
+            }
         }
     }
 }
