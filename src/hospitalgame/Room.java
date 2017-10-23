@@ -100,7 +100,7 @@ public class Room
      * Get all keys from the hashmap
      * @return a set of strings taken from the hashmap of exits
      */   
-    public Set<String> getKeyset(){
+    public Set<String> getKeySet(){
         return exits.keySet();
     }
     
