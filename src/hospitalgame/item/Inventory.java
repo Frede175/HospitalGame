@@ -18,7 +18,7 @@ public class Inventory {
     /**
      * is an arraylist to hold the items in the inventory
      */
-    ArrayList<Item> inventory = new ArrayList<>();
+    ArrayList<Item> items = new ArrayList<>();
 
     /**
      * constructs and initializes the inventory
@@ -37,7 +37,7 @@ public class Inventory {
      */
     public boolean addItem(Item item) {
         if (item.getWeight() + getTotalWeight() <= maxWeight) {
-            return inventory.add(item);
+            return items.add(item);
         } else {
             return false;
         }
@@ -51,15 +51,15 @@ public class Inventory {
      * @return returns true if the item has been removed
      */
     public boolean removeItem(Item item) {
-        return inventory.remove(item);
+        return items.remove(item);
     }
 
     /**
      * prints items from the inventory to console
      */
     public void showItems() {
-        for (int i = 0; i <= inventory.size(); i++) {
-            System.out.println(i + inventory.get(i).toString());
+        for (int i = 0; i <= items.size(); i++) {
+            System.out.println(i + items.get(i).toString());
         }
     }
 
@@ -70,8 +70,8 @@ public class Inventory {
      */
     public int getTotalWeight() {
         int totalWeight = 0;
-        for (int i = 0; i < inventory.size(); i++) {
-            totalWeight += inventory.get(i).getWeight();
+        for (Item item : items) {
+            totalWeight += item.getWeight();
         }
         return totalWeight;
     }
@@ -86,9 +86,9 @@ public class Inventory {
 
         ArrayList<Item> itemList = new ArrayList<>();
 
-        for (int i = 0; i <= inventory.size(); i++) {
-            if (name.toString().equals(inventory.get(i).toString())) {
-                itemList.add(inventory.get(i));
+        for (Item item : items) {
+            if (name == item.getName()) {
+                itemList.add(item);
             }
         }
         Item[] item = new Item[itemList.size()];
@@ -104,7 +104,7 @@ public class Inventory {
      * @return returns an item object
      */
     public Item getItem(int index) {
-        return inventory.get(index);
+        return items.get(index);
     }
 
 }
