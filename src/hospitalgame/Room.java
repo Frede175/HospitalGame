@@ -97,11 +97,20 @@ public class Room
     }
     
     /**
+     * Tells how many exits a room has
+     * @return a integer that tells the size of our Hashmap
+     */
+    public int getNumberOfExits(){
+        return exits.size();
+    }
+    
+    /**
      * Make it possible to add a specific item to a room
      * @param item is an Item object that tells which item should be added
      * @return true if it is possible to drop an item from the inventory
      */
     public boolean addItem(Item item){
+        
         return itemArray.add(item);
     }
     
