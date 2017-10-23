@@ -20,7 +20,7 @@ public class PowerUpItem extends Item {
     /**
      * contains the time of the last update
      */
-    private long lastUpdate;
+    private long lastUpdate = 0;
 
     /**
      * constructs and initializes the PowerUpItem
@@ -62,7 +62,8 @@ public class PowerUpItem extends Item {
      * the last update
      */
     public void update(long currentTime) {
-
+        timeLeftOfBuff -= currentTime - lastUpdate;
+        lastUpdate = currentTime;
     }
 
     /**
@@ -71,7 +72,7 @@ public class PowerUpItem extends Item {
      * @param startTime is the time when you started the buff
      */
     public void startBuff(long startTime) {
-
+        lastUpdate = startTime;
     }
 
 }
