@@ -178,6 +178,7 @@ public class Game {
         } else if (commandWord == CommandWord.USE) {
             player.useItem(command);
         } else if (commandWord == CommandWord.INTERACT) {
+            player.update();
             interact(command);
         }
         return wantToQuit;
