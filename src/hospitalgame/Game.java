@@ -43,6 +43,7 @@ public class Game
      */
     public Game() 
     {
+        map = new Map();
         createRooms();
         parser = new Parser();
     }
@@ -52,7 +53,8 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, theatre, pub, lab, office;
+        currentRoom = map.generateRoom(12);
+       /* Room outside, theatre, pub, lab, office;
         
         outside = new Room("outside the main entrance of the university");
         theatre = new Room("in a lecture theatre");
@@ -73,7 +75,7 @@ public class Game
 
         office.setExit("west", lab);
 
-        currentRoom = outside;
+        currentRoom = outside;*/
     }
 
     /**
