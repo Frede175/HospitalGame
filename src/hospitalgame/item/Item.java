@@ -1,4 +1,3 @@
-
 package hospitalgame.item;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -10,17 +9,17 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  * @author Lars Bjerregaard Jørgensen
  * @author Robert Francisti
  */
-public class Item {
+public abstract class Item {
 
     /**
-     * weight is the weight of the item
-     * name is the name of the item
+     * weight is the weight of the item name is the name of the item
      */
     private int weight;
     private ItemName name;
-    
+
     /**
      * constructs and initializes the Item
+     *
      * @param name is the name of the item to be constructed
      * @param weight is the weight of the item to be constructed
      */
@@ -31,18 +30,20 @@ public class Item {
 
     /**
      * is a method to get the name of the item
+     *
      * @return returns enum name of the item
      */
     public ItemName getName() {
-        throw new NotImplementedException();
+        return name;
     }
 
     /**
      * is a method to get the weight of the item
+     *
      * @return returns int the weight of the item
      */
     public int getWeight() {
-        throw new NotImplementedException();
+        return weight;
     }
 
 }

@@ -1,7 +1,6 @@
 package hospitalgame.item;
 
 import java.util.ArrayList;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * @author Frederik Schultz Rosenberg
@@ -19,10 +18,11 @@ public class Inventory {
     /**
      * is an arraylist to hold the items in the inventory
      */
-    ArrayList<Item> inv = new ArrayList<>();
+    ArrayList<Item> items = new ArrayList<>();
 
     /**
      * constructs and initializes the inventory
+     *
      * @param maxWeight the max weight of the inventory
      */
     public Inventory(int maxWeight) {
@@ -31,54 +31,80 @@ public class Inventory {
 
     /**
      * adds an item to the inventory
+     *
      * @param item is the item object to be added to the inventory.
      * @return returns true if the item has been added
      */
     public boolean addItem(Item item) {
-        throw new NotImplementedException();
+        if (item.getWeight() + getTotalWeight() <= maxWeight) {
+            return items.add(item);
+        } else {
+            return false;
+        }
+
     }
 
     /**
      * removes and item from the inventory
+     *
      * @param item the item object to be added
      * @return returns true if the item has been removed
      */
     public boolean removeItem(Item item) {
-        throw new NotImplementedException();
+        return items.remove(item);
     }
 
     /**
      * prints items from the inventory to console
      */
     public void showItems() {
-
+        for (int i = 0; i <= items.size(); i++) {
+            System.out.println(i + ":" + "\t" + items.get(i).getName() + "\t" + items.get(i).getWeight() + "g");
+        }
     }
-    
+
     /**
      * returns the totalWeight of the items currently in the inventory
-     * @return int
+     *
+     * @return the total weight in the inventory
      */
     public int getTotalWeight() {
-        throw new NotImplementedException();
+        int totalWeight = 0;
+        for (Item item : items) {
+            totalWeight += item.getWeight();
+        }
+        return totalWeight;
     }
 
     /**
      * returns an array of items from the inventory with the name specified
+     *
      * @param name is the name of the item(s) to be returned
      * @return an array of items with the specified name
      */
     public Item[] getItemsByName(ItemName name) {
-        throw new NotImplementedException();
+
+        ArrayList<Item> itemList = new ArrayList<>();
+
+        for (Item item : items) {
+            if (name == item.getName()) {
+                itemList.add(item);
+            }
+        }
+        Item[] item = new Item[itemList.size()];
+        itemList.toArray(item);
+        return item;
     }
 
     /**
-     * showIventory prints out the items with index numbers
-     * getItem returns the item by number
+     * showIventory prints out the items with index numbers getItem returns the
+     * item by number
+     *
      * @param index is the index number of the item to be returned
      * @return returns an item object
      */
     public Item getItem(int index) {
-        throw new NotImplementedException();
+        return items.get(index);
     }
 
 }
