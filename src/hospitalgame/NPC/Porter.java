@@ -31,8 +31,16 @@ public class Porter extends Move {
      * @param name name of the NPC moving
      * @param description decription of the NPC that moves
      */
-    public Porter(String name, String description, Room endRoom) {
+    public Porter(String name, String description) {
         super(name, description);
+    }
+
+    /**
+     * sets a room to endRoom.
+     *
+     * @param endRoom endRoom is the room where doctor is located.
+     */
+    public void setEndRoom(Room endRoom) {
         this.endRoom = endRoom;
     }
 
@@ -61,7 +69,7 @@ public class Porter extends Move {
      */
     public static List<String> pathfinder(Room startRoom, Room endRoom) {
         // Queue holds a list of the rooms that are going to be checked
-        Queue<Room> queue = new LinkedList<Room>();
+        Queue<Room> queue = new LinkedList<>();
         //Hashmap holds the checked rooms and what direction we came from, that points to startRoom.
         Map<Room, String> pathMap = new HashMap<>();
         //Priming while loop by taking all the exits in the startRoom by adding it to queue. 

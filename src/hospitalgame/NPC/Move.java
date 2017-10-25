@@ -29,7 +29,7 @@ public abstract class Move extends NPC {
      */
     public void move() {
 
-        List<String> keyList = new ArrayList<String>(currentRoom.getKeySet());
+        List<String> keyList = new ArrayList<>(currentRoom.getKeySet());
 
         int numberOfExits = keyList.size();
         int index = (int) (Math.random() * numberOfExits);
