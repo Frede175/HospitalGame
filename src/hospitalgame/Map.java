@@ -1,7 +1,7 @@
 package hospitalgame;
 
+import hospitalgame.NPC.Computer;
 import hospitalgame.NPC.Doctor;
-import hospitalgame.NPC.NPC;
 import hospitalgame.NPC.Porter;
 import hospitalgame.item.Item;
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class Map {
      * @param NPCs ArrayList of NPCs that needs to be set in the rooms.
      * @return The starting room for the player.
      */
-    public Room generateRoom(int roomCount, ArrayList<Item> items, ArrayList<NPC> NPCs) {
+    public Room generateRoom(int roomCount, ArrayList<Item> items, Computer computer, Porter porter, Doctor doctor) {
         // Creates the ArrayList that contains all the free rooms.
         ArrayList<Room> freeRooms = createRooms(roomCount);
         // Add every item to a random room.
@@ -36,12 +36,10 @@ public class Map {
             freeRooms.get((int) (Math.random() * roomCount)).addItem(item);
         }
         // Adds the NPCs to random rooms.
-        for (int i = 0; i < NPCs.size(); i++) {
-            NPCs.get(i).setRoom(freeRooms.get((int) (Math.random() * roomCount)));
-        }
+        computer.setRoom(freeRooms.get((int) (Math.random() * roomCount)));
+        porter.setRoom(freeRooms.get((int) (Math.random() * roomCount)));
+        doctor.setRoom(freeRooms.get((int) (Math.random() * roomCount)));
         // Sets the doctors room in the Porter object.
-        Porter porter = (Porter) NPCs.get(2);
-        Doctor doctor = (Doctor) NPCs.get(1);
         porter.setEndRoom(doctor.getCurrentRoom());
         
         // Sets the start room to the first free room.

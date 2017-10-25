@@ -45,9 +45,19 @@ public class Game {
     private Player player;
     
     /**
-     * Contains all the NPCs
+     * Contains the computer npc
      */
-    private ArrayList<NPC> NPCs;
+    private Computer computer;
+    
+    /**
+     * Contains the porter npc
+     */
+    private Porter porter;
+    
+    /**
+     * Contains the doctor npc
+     */
+    private Doctor doctor;
     
     /**
      * Construct and initialize the game.
@@ -97,16 +107,12 @@ public class Game {
                 default:
                     throw new AssertionError();
             }
-        }
-        
-        // Add new computer, doctor and porter npc object to the npc arraylist.
-        NPCs = new ArrayList<>();
-        NPCs.add(new Computer("Computer", "I´m a computer"));
-        NPCs.add(new Doctor("Peter", "I´m a doctor"));
-        NPCs.add(new Porter("Hans", "I´m a porter"));
-        
+        }     
         // Gets current room and generates the rooms with items and npc
-        currentRoom = map.generateRoom(numberOfRooms, items, NPCs);
+        computer = new Computer("Computer", "I´m a computer");
+        porter = new Porter("Peter", "I´m a porter");
+        doctor = new Doctor("Hans", "I´m a doctor");
+        currentRoom = map.generateRoom(numberOfRooms, items, computer, porter, doctor);
         player.setCurrentRoom(currentRoom);
     }
 
@@ -158,7 +164,9 @@ public class Game {
         if (commandWord == CommandWord.HELP) {
             printHelp();
         } else if (commandWord == CommandWord.GO) {
-            player.goRoom(command);
+            if(player.goRoom(command)) {
+                moveNPC();
+            }
         } else if (commandWord == CommandWord.QUIT) {
             wantToQuit = quit(command);
         } else if (commandWord == CommandWord.TAKE) {
@@ -233,7 +241,7 @@ public class Game {
      * Moves the NPC.
      */
     private void moveNPC() {
-        throw new NotImplementedException();
+        porter.move();
     }
     
     /**
@@ -249,22 +257,22 @@ public class Game {
         String npcInteract = command.getSecondWord();
         switch (npcInteract) {
             case "computer":
-                if (player.getCurrentRoom().equals(NPCs.get(0).getCurrentRoom())) {
-                    NPCs.get(0).interact(player);
+                if (player.getCurrentRoom().equals(computer.getCurrentRoom())) {
+                    computer.interact(player);
                 } else {
                     System.out.println("There is no computer in this room.");
                 }
                 break;
             case "doctor":
-                if (player.getCurrentRoom().equals(NPCs.get(1).getCurrentRoom())) {
-                    NPCs.get(1).interact(player);
+                if (player.getCurrentRoom().equals(porter.getCurrentRoom())) {
+                    porter.interact(player);
                 } else {
                     System.out.println("There is no doctor in this room.");
                 }
                 break;
             case "porter":
-                if (player.getCurrentRoom().equals(NPCs.get(2).getCurrentRoom())) {
-                    NPCs.get(2).interact(player);
+                if (player.getCurrentRoom().equals(doctor.getCurrentRoom())) {
+                    doctor.interact(player);
                 } else {
                     System.out.println("There is no porter in this room.");
                 }
