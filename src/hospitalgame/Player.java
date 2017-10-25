@@ -290,7 +290,7 @@ public class Player {
     /**
      * Calculates the current blood loss and updates the players blood amount.
      */
-    private void update() {
+    public void update() {
         long current = System.currentTimeMillis();
         long diff = current - lastUpdate;
         lastUpdate = current;
