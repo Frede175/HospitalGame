@@ -173,6 +173,7 @@ public class Player {
      * Print the contents of the inventory to the console.
      */
     public void showInventory() {
+        System.out.println("Items in players inventory:");
         inventory.showItems();
     }
 
