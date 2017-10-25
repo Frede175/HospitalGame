@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
-
 import java.util.Queue;
 
 /**
@@ -21,14 +20,17 @@ import java.util.Queue;
  */
 public class Porter extends Move {
 
+    private Room endRoom;
+
     /**
      * Calls the NPC constructor through the super
      *
      * @param name name of the NPC moving
      * @param description decription of the NPC that moves
      */
-    public Porter(String name, String description) {
+    public Porter(String name, String description, Room endRoom) {
         super(name, description);
+        this.endRoom = endRoom;
     }
 
     /**
@@ -38,8 +40,13 @@ public class Porter extends Move {
      */
     @Override
     public void interact(Player player) {
-        
 
+        System.out.print("These directions will lead you two rooms ahead ");
+        List<String> path = pathfinder(player.getCurrentRoom(), endRoom);
+        for (int i = 0; i < 2; i++) {
+           System.out.print(path.get(i) + " "); 
+        }
+        System.out.println();
     }
 
     public static List<String> pathfinder(Room startRoom, Room endRoom) {
@@ -67,14 +74,18 @@ public class Porter extends Move {
         }
         List<String> path = new ArrayList<>();
         Room currentRoom = endRoom;
-        while (currentRoom != startRoom){
+        while (currentRoom != startRoom) {
             String s = pathMap.get(currentRoom);
             path.add(s);
             currentRoom = currentRoom.getExit(s);
-            
-            
+
         }
         Collections.reverse(path);
+        for (String dir : path) {
+            int index = GameConstants.DIRECTIONS.indexOf(dir);
+            int newIndex = (index + 2) % 4;
+            dir = GameConstants.DIRECTIONS.get(newIndex);
+        }
         return path;
     }
 
