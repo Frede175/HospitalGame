@@ -294,10 +294,10 @@ public class Player {
         long diff = current - lastUpdate;
         lastUpdate = current;
 
-        //The player losses bloodRate every sec.
+        //The player loses bloodRate every sec.
         double loss = bloodRate * diff / 1000;
 
-        //Using iterator to loop though, since we need to be able to remove a item the from the list
+        //Using iterator to loop through, since we need to be able to remove a item the from the list
         for (Iterator<PowerUpItem> iterator = activeItems.iterator(); iterator.hasNext();) {
             PowerUpItem item = iterator.next(); //Getting the next item in the list
 
