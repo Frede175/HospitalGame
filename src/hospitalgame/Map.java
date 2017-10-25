@@ -5,7 +5,10 @@ import hospitalgame.NPC.NPC;
 import hospitalgame.NPC.Porter;
 import hospitalgame.item.Item;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 /**
@@ -93,5 +96,56 @@ public class Map {
             rooms.add(new Room(String.valueOf((char) (a + i))));
         }
         return rooms;
+    }
+    
+    /**
+     * pathfinder finds the way from startRoom to endRoom.
+     *
+     * @param startRoom startRoom is the room where the player starts.
+     * @param endRoom endRoom is the location of the doctor
+     * @return returns all directions to endRoom
+     */
+    public static List<String> pathfinder(Room startRoom, Room endRoom) {
+        // Queue holds a list of the rooms that are going to be checked
+        Queue<Room> queue = new LinkedList<>();
+        //Hashmap holds the checked rooms and what direction we came from, that points to startRoom.
+        java.util.Map<Room, String> pathMap = new HashMap<>();
+        //Priming while loop by taking all the exits in the startRoom by adding it to queue. 
+        for (String key : startRoom.getKeySet()) {
+            Room r = startRoom.getExit(key);
+            queue.add(r);
+        }
+        pathMap.put(startRoom, "start");
+        while (!queue.isEmpty()) {
+            Room room = queue.poll();
+            for (String key : room.getKeySet()) {
+                Room r = room.getExit(key);
+                //If the room already has been checked, it then doesnt add it to the room.
+                if (pathMap.containsKey(r)) {
+                    //puts currentRoom r into visited rooms with a direction pointing towards start.
+                    pathMap.put(room, key);
+                } else {
+                    queue.add(r);
+                }
+            }
+        }
+        List<String> path = new ArrayList<>();
+        Room currentRoom = endRoom;
+        //going from endRoom to startRoom and storing directions. 
+        while (currentRoom != startRoom) {
+            String s = pathMap.get(currentRoom);
+            path.add(s);
+            currentRoom = currentRoom.getExit(s);
+
+        }
+        //reversing order of list.
+        Collections.reverse(path);
+        //reverses path i.e south to north
+        for (int i = 0; i < path.size(); i++) {
+            int index = GameConstants.DIRECTIONS.indexOf(path.get(i));
+            int newIndex = (index + 2) % 4;
+            path.set(i, GameConstants.DIRECTIONS.get(newIndex));
+        }
+        return path;
     }
 }

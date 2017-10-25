@@ -248,9 +248,14 @@ public class Game {
         // The NPC the player wants to interact with.
         String npcInteract = command.getSecondWord();
         switch (npcInteract) {
+            case "computer":
+                if (player.getCurrentRoom().equals(NPCs.get(0).getCurrentRoom())) {
+                    NPCs.get(0).interact(player);
+                } else {
+                    System.out.println("There is no computer in this room.");
+                }
+                break;
             case "doctor":
-                System.out.println("player place: " + player.getCurrentRoom().getShortDescription());
-                System.out.println("doctor place: " + NPCs.get(1).getCurrentRoom().getShortDescription());
                 if (player.getCurrentRoom().equals(NPCs.get(1).getCurrentRoom())) {
                     NPCs.get(1).interact(player);
                 } else {
@@ -258,16 +263,11 @@ public class Game {
                 }
                 break;
             case "porter":
-                System.out.println("player place: " + player.getCurrentRoom().getShortDescription());
-                System.out.println("porter place: " + NPCs.get(2).getCurrentRoom().getShortDescription());
                 if (player.getCurrentRoom().equals(NPCs.get(2).getCurrentRoom())) {
                     NPCs.get(2).interact(player);
                 } else {
                     System.out.println("There is no porter in this room.");
                 }
-                break;
-            case "computer":
-                
                 break;
             default:
                 System.out.println("I don´t know how to interact with that.");
