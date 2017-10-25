@@ -97,11 +97,11 @@ public class Room
     }
     
     /**
-     * Tells how many exits a room has
-     * @return a integer that tells the size of our Hashmap
-     */
-    public int getNumberOfExits(){
-        return exits.size();
+     * Get all keys from the hashmap
+     * @return a set of strings taken from the hashmap of exits
+     */   
+    public Set<String> getKeySet(){
+        return exits.keySet();
     }
     
     /**
@@ -143,7 +143,7 @@ public class Room
         else{
             System.out.println("Current items in the room:");
             for (int i = 0; i < itemArray.size(); i++) {
-                System.out.println("Index: " + i + "\t" + itemArray.get(i).getName() + "\t" + itemArray.get(i).getWeight() + "g, ");
+                System.out.println(i + ":" + "\t" + itemArray.get(i).getName() + "\t" + itemArray.get(i).getWeight() + "g");
             }
         }
     }
