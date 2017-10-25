@@ -97,12 +97,21 @@ public class Room
     }
     
     /**
+     * Get all keys from the hashmap
+     * @return a set of strings taken from the hashmap of exits
+     */   
+    public Set<String> getKeySet(){
+        return exits.keySet();
+    }
+    
+    /**
      * Make it possible to add a specific item to a room
      * @param item is an Item object that tells which item should be added
      * @return true if it is possible to drop an item from the inventory
      */
     public boolean addItem(Item item){
-        return true;
+        
+        return itemArray.add(item);
     }
     
     /**
@@ -111,7 +120,7 @@ public class Room
      * @return true if it is possible for the player to pick up the item, adding it to the inventory and removes it from the room
      */
     public boolean removeItem(Item item){
-        return true;
+        return itemArray.remove(item);
     }
     
     /**
@@ -120,8 +129,7 @@ public class Room
      * @return an specific Item object 
      */    
     public Item getItem(int index){
-        //itemArray.get(0);
-        return null;
+        return itemArray.get(index);
     }
     
     /**
@@ -130,6 +138,14 @@ public class Room
      */
     public void showItem(){
         
+        if(itemArray.isEmpty())
+            System.out.println("There are no items in the room");
+        else{
+            System.out.println("Current items in the room:");
+            for (int i = 0; i < itemArray.size(); i++) {
+                System.out.println(i + ":" + "\t" + itemArray.get(i).getName() + "\t" + itemArray.get(i).getWeight() + "g");
+            }
+        }
     }
 }
 
