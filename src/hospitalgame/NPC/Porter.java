@@ -62,7 +62,7 @@ public class Porter extends Move {
      */
     public static List<String> pathfinder(Room startRoom, Room endRoom) {
         // Queue holds a list of the rooms that are going to be checked
-        Queue<Room> queue = new LinkedList<Room>();
+        Queue<Room> queue = new LinkedList<>();
         //Hashmap holds the checked rooms and what direction we came from, that points to startRoom.
         Map<Room, String> pathMap = new HashMap<>();
         //Priming while loop by taking all the exits in the startRoom by adding it to queue. 
