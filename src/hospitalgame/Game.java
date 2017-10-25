@@ -1,5 +1,15 @@
 package hospitalgame;
 
+import hospitalgame.NPC.Computer;
+import hospitalgame.NPC.Doctor;
+import hospitalgame.NPC.NPC;
+import hospitalgame.NPC.Porter;
+import hospitalgame.item.BloodBag;
+import hospitalgame.item.Item;
+import hospitalgame.item.ItemName;
+import hospitalgame.item.PowerUpItem;
+import java.util.ArrayList;
+import java.util.Random;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -12,8 +22,9 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  * @author Robert Francisti
  * @author Michael Kolling and David J. Barnes
  */
-public class Game 
-{
+public class Game {
+    
+    
     /**
      * Contains the parser object.
      */
@@ -36,7 +47,7 @@ public class Game
     /**
      * Contains all the NPCs
      */
-    //private ArrayList<NPC> NPCs;
+    private ArrayList<NPC> NPCs;
     
     /**
      * Construct and initialize the game.
@@ -44,16 +55,58 @@ public class Game
     public Game() 
     {
         map = new Map();
-        createRooms();
+        createRooms(12);
         parser = new Parser();
     }
     
     /**
-     * Creating the game rooms and setting the current room.
+     * Creates the rooms and sets the current room for the player.
+     * @param numberOfRooms Sets the count of rooms to be generated.
      */
-    private void createRooms()
+    private void createRooms(int numberOfRooms)
     {
-        currentRoom = map.generateRoom(12);
+        // Gets all the bloodtypes into a BloodType array.
+        BloodType[] bloodType = BloodType.values();
+        // Creates a new Random object.
+        Random random = new Random();
+        // Random picks the players bloodtype.
+        BloodType playerBloodType = bloodType[random.nextInt(bloodType.length)];
+        // Initialize a new player object.
+        player = new Player(playerBloodType, GameConstants.PLAYER_BLOODRATE, GameConstants.PLAYER_BLOOD_AMOUNT, "Lars", null);
+        // Creates a new ArrayList to contain all items.
+        ArrayList<Item> items = new ArrayList<>();
+        // Adds a new item with the same bloodtype as the player, so the game is always winable.
+        items.add(new BloodBag(playerBloodType, GameConstants.BLOODBAG_SIZE, ItemName.BLOODBAG, GameConstants.BLOODBAG_SIZE));
+        // Loops as many times as roomCount * 1.5
+        for (int i = 0; i < numberOfRooms * 1.5; i++) {
+            // Generate a random int to define what type of item that will be generated.
+            int itemType = random.nextInt(2);
+            switch (itemType) {
+                // If 0 adds a new bloodbag
+                case 0:
+                    items.add(new BloodBag(bloodType[random.nextInt(bloodType.length)], GameConstants.BLOODBAG_SIZE, ItemName.BLOODBAG, GameConstants.BLOODBAG_SIZE));
+                    break;
+                // If 1 adds a new bandage
+                case 1:
+                    items.add(new PowerUpItem(GameConstants.BANDAGE_BUFF, GameConstants.BANDAGE_TIME, ItemName.BANDAGE, GameConstants.BANDAGE_WEIGHT));
+                    break;
+                // If 2 adds a new morphine
+                case 2:
+                    items.add(new PowerUpItem(GameConstants.MORPHINE_BUFF, GameConstants.MORPHINE_TIME, ItemName.MORPHINE, GameConstants.MORPHINE_WEIGHT));
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+        }
+        
+        // Add new computer, doctor and porter npc object to the npc arraylist.
+        NPCs.add(new Computer("Computer", "I´m a computer"));
+        NPCs.add(new Doctor("Peter", "I´m a doctor"));
+        NPCs.add(new Porter("Hans", "I´m a porter"));
+        
+        // Gets current room and generates the rooms with items and npc
+        currentRoom = map.generateRoom(numberOfRooms, items, NPCs);
+        // TODO set current to player
        /* Room outside, theatre, pub, lab, office;
         
         outside = new Room("outside the main entrance of the university");

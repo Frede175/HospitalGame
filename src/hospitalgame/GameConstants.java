@@ -20,5 +20,7 @@ public interface GameConstants {
     long MORPHINE_TIME = 15;
     int MORPHINE_WEIGHT = 50;
     int BLOODBAG_SIZE = 450;
-    ArrayList<String> directions = new ArrayList<>(Arrays.asList("north", "east", "south", "west"));
+    double PLAYER_BLOODRATE = 10.0;
+    int PLAYER_BLOOD_AMOUNT = 5500;
+    ArrayList<String> DIRECTIONS = new ArrayList<>(Arrays.asList("north", "east", "south", "west"));
 }
