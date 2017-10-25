@@ -14,12 +14,11 @@ public class Computer extends NPC {
     /**
      * Calls the NPC constructor through the super
      *
-     * @param currentRoom the room that the NPC is in right now
      * @param name name of the NPC
      * @param description decription of the NPC
      */
-    public Computer(Room currentRoom, String name, String description) {
-        super(currentRoom, name, description);
+    public Computer(String name, String description) {
+        super(name, description);
 
     }
 

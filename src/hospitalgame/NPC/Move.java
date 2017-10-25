@@ -17,12 +17,11 @@ public abstract class Move extends NPC {
     /**
      * Calls the NPC constructor through the super
      *
-     * @param currentRoom the room that the NPC is in right now
      * @param name name of the NPC moving
      * @param description decription of the NPC that moves
      */
-    public Move(Room currentRoom, String name, String description) {
-        super(currentRoom, name, description);
+    public Move(String name, String description) {
+        super(name, description);
     }
 
     /**
@@ -37,6 +36,7 @@ public abstract class Move extends NPC {
         currentRoom = currentRoom.getExit(keyList.get(index));
 
     }
+    
 
     /**
      * has no function, but will call a method of the same name at a object

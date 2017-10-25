@@ -26,20 +26,17 @@ public abstract class NPC {
     /**
      * Room object to tell which the NPC is in
      */
-     protected Room currentRoom;
+    protected Room currentRoom;
 
     /**
      * Constructor of the NPC objects
      *
-     * @param currentRoom is which room the NPC is in
      * @param name is the name of the NPC
      * @param description gives a decription of the NPC
      */
-    public NPC(Room currentRoom, String name, String description) {
-        this.currentRoom = currentRoom;
+    public NPC(String name, String description) {
         this.description = description;
         this.name = name;
-
     }
 
     /**
@@ -64,6 +61,9 @@ public abstract class NPC {
      */
     public String getDescription() {
         return description;
+    }
+    public void setRoom(Room currentRoom){
+        this.currentRoom = currentRoom;
     }
 
     /**
