@@ -2,6 +2,7 @@ package hospitalgame.NPC;
 
 import hospitalgame.*;
 import hospitalgame.item.BloodBag;
+import hospitalgame.item.Item;
 import hospitalgame.item.ItemName;
 
 /**
@@ -32,9 +33,10 @@ public class Doctor extends NPC {
     public void interact(Player player) {
         BloodType bloodType = player.getBloodType();
 
-        BloodBag[] bloodBags = (BloodBag[]) player.getItemsByName(ItemName.BLOODBAG);
+        Item[] bloodBags = player.getItemsByName(ItemName.BLOODBAG);
         int points = (int) player.getBloodAmount();
-        for (BloodBag bloodBag : bloodBags) {
+        for (Item Item : bloodBags) {
+        BloodBag bloodBag = (BloodBag) Item;     
             if (!bloodType.canTransfuse(bloodBag.getBloodType())) {
                 System.out.println("You lost the game.");
                 return;
