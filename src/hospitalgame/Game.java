@@ -65,7 +65,7 @@ public class Game {
     public Game() 
     {
         map = new Map();
-        createRooms(4);
+        createRooms(1);
         parser = new Parser();
     }
     
@@ -263,14 +263,14 @@ public class Game {
                     System.out.println("There is no computer in this room.");
                 }
                 break;
-            case "doctor":
+            case "porter":
                 if (player.getCurrentRoom().equals(porter.getCurrentRoom())) {
                     porter.interact(player);
                 } else {
                     System.out.println("There is no doctor in this room.");
                 }
                 break;
-            case "porter":
+            case "doctor":
                 if (player.getCurrentRoom().equals(doctor.getCurrentRoom())) {
                     doctor.interact(player);
                 } else {

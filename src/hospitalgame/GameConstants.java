@@ -22,5 +22,6 @@ public interface GameConstants {
     int BLOODBAG_SIZE = 450;
     double PLAYER_BLOODRATE = 10.0;
     int PLAYER_BLOOD_AMOUNT = 5500;
+    int INVENTORY_MAX_WEIGHT = 2000;
     ArrayList<String> DIRECTIONS = new ArrayList<>(Arrays.asList("north", "east", "south", "west"));
 }
