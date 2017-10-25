@@ -72,7 +72,7 @@ public class Game {
         // Random picks the players bloodtype.
         BloodType playerBloodType = bloodType[random.nextInt(bloodType.length)];
         // Initialize a new player object.
-        player = new Player(playerBloodType, GameConstants.PLAYER_BLOODRATE, GameConstants.PLAYER_BLOOD_AMOUNT, "Lars", null);
+        player = new Player(playerBloodType, GameConstants.PLAYER_BLOODRATE, GameConstants.PLAYER_BLOOD_AMOUNT, "Lars");
         // Creates a new ArrayList to contain all items.
         ArrayList<Item> items = new ArrayList<>();
         // Adds a new item with the same bloodtype as the player, so the game is always winable.
@@ -100,35 +100,14 @@ public class Game {
         }
         
         // Add new computer, doctor and porter npc object to the npc arraylist.
+        NPCs = new ArrayList<>();
         NPCs.add(new Computer("Computer", "I´m a computer"));
         NPCs.add(new Doctor("Peter", "I´m a doctor"));
         NPCs.add(new Porter("Hans", "I´m a porter"));
         
         // Gets current room and generates the rooms with items and npc
         currentRoom = map.generateRoom(numberOfRooms, items, NPCs);
-        // TODO set current to player
-       /* Room outside, theatre, pub, lab, office;
-        
-        outside = new Room("outside the main entrance of the university");
-        theatre = new Room("in a lecture theatre");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
-        
-        outside.setExit("east", theatre);
-        outside.setExit("south", lab);
-        outside.setExit("west", pub);
-
-        theatre.setExit("west", outside);
-
-        pub.setExit("east", outside);
-
-        lab.setExit("north", outside);
-        lab.setExit("east", office);
-
-        office.setExit("west", lab);
-
-        currentRoom = outside;*/
+        player.setCurrentRoom(currentRoom);
     }
 
     /**
@@ -177,12 +156,14 @@ public class Game {
 
         if (commandWord == CommandWord.HELP) {
             printHelp();
-        }
-        else if (commandWord == CommandWord.GO) {
+        } else if (commandWord == CommandWord.GO) {
             goRoom(command);
-        }
-        else if (commandWord == CommandWord.QUIT) {
+        } else if (commandWord == CommandWord.QUIT) {
             wantToQuit = quit(command);
+        } else if (commandWord == CommandWord.TAKE) {
+            player.takeItem(command);
+        } else if (commandWord == CommandWord.SHOW) {
+            player.showInventory();
         }
         return wantToQuit;
     }
@@ -220,6 +201,7 @@ public class Game {
         else {
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
+            currentRoom.showItem();
         }
     }
 

@@ -1,6 +1,8 @@
 package hospitalgame;
 
+import hospitalgame.NPC.Doctor;
 import hospitalgame.NPC.NPC;
+import hospitalgame.NPC.Porter;
 import hospitalgame.item.Item;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -28,8 +30,17 @@ public class Map {
         ArrayList<Room> freeRooms = createRooms(roomCount);
         // Add every item to a random room.
         for (Item item : items) {
-            freeRooms.get((int) Math.random() * roomCount).addItem(item);
+            freeRooms.get((int) (Math.random() * roomCount)).addItem(item);
         }
+        // Adds the NPCs to random rooms.
+        for (int i = 0; i < NPCs.size(); i++) {
+            NPCs.get(i).setRoom(freeRooms.get((int) (Math.random() * roomCount)));
+        }
+        // Sets the doctors room in the Porter object.
+        Porter porter = (Porter) NPCs.get(2);
+        Doctor doctor = (Doctor) NPCs.get(1);
+        porter.setEndRoom(doctor.getCurrentRoom());
+        
         // Sets the start room to the first free room.
         Room startRoom = freeRooms.get(0);
         // Creates the queue where all the rooms that needs to be processed is stored.
@@ -65,6 +76,7 @@ public class Map {
                 i++;
             }  
         }
+        // returns the start room.
         return startRoom;
     }
     
@@ -74,6 +86,7 @@ public class Map {
      * @return A arraylist of all the generated rooms.
      */
     private ArrayList<Room> createRooms(int roomCount) {
+        // TODO Create room descs array
         ArrayList<Room> rooms = new ArrayList<>();
         char a = 'a';
         for (int i = 0; i < roomCount; i++) {
