@@ -65,20 +65,26 @@ public class Player {
      * @param bloodRate the default amount of blood the player losses.
      * @param bloodAmount the amount of blood the player.
      * @param name player name.
-     * @param startRoom the room the player starts in.
      */
-    public Player(BloodType bloodType, double bloodRate, double bloodAmount, String name, Room startRoom) {
+    public Player(BloodType bloodType, double bloodRate, double bloodAmount, String name) {
         this.bloodType = bloodType;
         this.bloodRate = bloodRate;
         this.bloodAmount = bloodAmount;
         this.name = name;
-        this.currentRoom = startRoom;
 
         inventory = new Inventory(2000);
 
         lastUpdate = System.currentTimeMillis();
 
         activeItems = new ArrayList<>();
+    }
+    
+    /**
+     * Sets the room of the player.
+     * @param currentRoom the room that the player is in.
+     */
+    public void setCurrentRoom(Room currentRoom) {
+        this.currentRoom = currentRoom;
     }
 
     /**
