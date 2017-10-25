@@ -2,7 +2,6 @@ package hospitalgame.NPC;
 
 import hospitalgame.*;
 import hospitalgame.item.BloodBag;
-import hospitalgame.item.Item;
 import hospitalgame.item.ItemName;
 
 /**
