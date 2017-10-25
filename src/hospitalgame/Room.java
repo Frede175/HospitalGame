@@ -42,6 +42,7 @@ public class Room
     {
         this.description = description;
         exits = new HashMap<String, Room>();
+        itemArray = new ArrayList<>();
     }
 
     /**
@@ -110,7 +111,6 @@ public class Room
      * @return true if it is possible to drop an item from the inventory
      */
     public boolean addItem(Item item){
-        
         return itemArray.add(item);
     }
     

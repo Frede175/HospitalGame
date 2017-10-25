@@ -55,7 +55,7 @@ public class Game {
     public Game() 
     {
         map = new Map();
-        createRooms(12);
+        createRooms(4);
         parser = new Parser();
     }
     
@@ -136,6 +136,7 @@ public class Game {
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
+        currentRoom.showItem();
     }
 
     /**
@@ -157,13 +158,19 @@ public class Game {
         if (commandWord == CommandWord.HELP) {
             printHelp();
         } else if (commandWord == CommandWord.GO) {
-            goRoom(command);
+            player.goRoom(command);
         } else if (commandWord == CommandWord.QUIT) {
             wantToQuit = quit(command);
         } else if (commandWord == CommandWord.TAKE) {
             player.takeItem(command);
         } else if (commandWord == CommandWord.SHOW) {
             player.showInventory();
+        } else if (commandWord == CommandWord.DROP) {
+            player.dropItem(command);
+        } else if (commandWord == CommandWord.USE) {
+            player.useItem(command);
+        } else if (commandWord == CommandWord.INTERACT) {
+            interact(command);
         }
         return wantToQuit;
     }
@@ -200,6 +207,7 @@ public class Game {
         }
         else {
             currentRoom = nextRoom;
+            player.setCurrentRoom(currentRoom);
             System.out.println(currentRoom.getLongDescription());
             currentRoom.showItem();
         }
@@ -232,7 +240,38 @@ public class Game {
      * Interacts with the NPC depending on the command.
      * @param command Is the command choosing which NPC that the player wants to interact with.
      */
-    private void interact(Command command) {
-        throw new NotImplementedException();
+    private boolean interact(Command command) {
+        if (!command.hasSecondWord()) {
+            System.out.println("Interact with who?");
+            return false;
+        }
+        // The NPC the player wants to interact with.
+        String npcInteract = command.getSecondWord();
+        switch (npcInteract) {
+            case "doctor":
+                System.out.println("player place: " + player.getCurrentRoom().getShortDescription());
+                System.out.println("doctor place: " + NPCs.get(1).getCurrentRoom().getShortDescription());
+                if (player.getCurrentRoom().equals(NPCs.get(1).getCurrentRoom())) {
+                    NPCs.get(1).interact(player);
+                } else {
+                    System.out.println("There is no doctor in this room.");
+                }
+                break;
+            case "porter":
+                System.out.println("player place: " + player.getCurrentRoom().getShortDescription());
+                System.out.println("porter place: " + NPCs.get(2).getCurrentRoom().getShortDescription());
+                if (player.getCurrentRoom().equals(NPCs.get(2).getCurrentRoom())) {
+                    NPCs.get(2).interact(player);
+                } else {
+                    System.out.println("There is no porter in this room.");
+                }
+                break;
+            case "computer":
+                
+                break;
+            default:
+                System.out.println("I don´t know how to interact with that.");
+        }
+        return true;
     }
 }
