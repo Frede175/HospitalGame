@@ -173,6 +173,7 @@ public class Player {
      * Print the contents of the inventory to the console.
      */
     public void showInventory() {
+        System.out.println("Items in player's inventory:");
         inventory.showItems();
     }
 
@@ -289,7 +290,7 @@ public class Player {
     /**
      * Calculates the current blood loss and updates the players blood amount.
      */
-    private void update() {
+    public void update() {
         long current = System.currentTimeMillis();
         long diff = current - lastUpdate;
         lastUpdate = current;
