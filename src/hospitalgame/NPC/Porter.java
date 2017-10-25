@@ -30,6 +30,7 @@ public class Porter extends Move {
      *
      * @param name name of the NPC moving
      * @param description decription of the NPC that moves
+     * @param endRoom endRoom gets the room where the doctor is in. 
      */
     public Porter(String name, String description, Room endRoom) {
         super(name, description);
