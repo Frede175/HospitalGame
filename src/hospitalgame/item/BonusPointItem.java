@@ -35,5 +35,10 @@ public class BonusPointItem extends Item {
     public int getBonusPoints() {
         return bonusPoints;
     }
+    
+    @Override
+    public String toString() {
+        return getName().toString();
+    }
 
 }

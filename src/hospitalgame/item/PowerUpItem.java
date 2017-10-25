@@ -74,5 +74,10 @@ public class PowerUpItem extends Item {
     public void startBuff(long startTime) {
         lastUpdate = startTime;
     }
+    
+     @Override
+    public String toString() {
+        return getName().toString();
+    }
 
 }

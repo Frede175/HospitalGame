@@ -30,4 +30,13 @@ public class BloodBag extends BonusPointItem {
     public BloodType getBloodType() {
         return bloodType;
     }
+    
+    @Override
+    public String toString() {
+        return getName() + " (" + bloodType + ")";
+        
+    }
+    
+    
+    
 }
