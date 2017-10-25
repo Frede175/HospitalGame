@@ -32,7 +32,6 @@ public class Doctor extends NPC {
     @Override
     public void interact(Player player) {
         BloodType bloodType = player.getBloodType();
-
         Item[] bloodBags = player.getItemsByName(ItemName.BLOODBAG);
         int points = (int) player.getBloodAmount();
         for (Item Item : bloodBags) {

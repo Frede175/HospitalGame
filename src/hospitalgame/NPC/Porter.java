@@ -47,8 +47,7 @@ public class Porter extends Move {
      * @param player is the player object
      */
     @Override
-    public void interact(Player player) {
-
+    public void interact(Player player) {      
         System.out.print("These directions will lead you two rooms ahead ");
         List<String> path = Map.pathfinder(player.getCurrentRoom(), endRoom);
         for (int i = 0; i < 2 && i < path.size(); i++) {
