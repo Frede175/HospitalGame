@@ -1,7 +1,6 @@
 package hospitalgame.NPC;
 
 import hospitalgame.*;
-import java.util.Scanner;
 
 /**
  * @author Frederik Schultz Rosenberg
@@ -16,7 +15,6 @@ public abstract class NPC {
      * Name of the NPC
      */
     private String name;
-    Scanner scanner = new Scanner(System.in);
 
     /**
      * Description of the NPC
@@ -62,7 +60,12 @@ public abstract class NPC {
     public String getDescription() {
         return description;
     }
-    public void setRoom(Room currentRoom){
+
+    /**
+     * setRoom sets currentRoom 
+     * @param currentRoom the room needs to be set
+     */
+    public void setRoom(Room currentRoom) {
         this.currentRoom = currentRoom;
     }
 

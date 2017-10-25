@@ -34,17 +34,14 @@ public class Doctor extends NPC {
         BloodType bloodType = player.getBloodType();
 
         BloodBag[] bloodBags = (BloodBag[]) player.getItemsByName(ItemName.BLOODBAG);
+        int points = (int) player.getBloodAmount();
         for (BloodBag bloodBag : bloodBags) {
             if (!bloodType.canTransfuse(bloodBag.getBloodType())) {
                 System.out.println("You lost the game.");
                 return;
-
+            } else {
+                points += bloodBag.getBonusPoints();
             }
-
-        }
-        int points = (int) player.getBloodAmount();
-        for (BloodBag bloodBag : bloodBags) {
-            points += bloodBag.getBonusPoints();
 
         }
         System.out.println("You've earned " + points + " points! ");

@@ -20,6 +20,9 @@ import java.util.Queue;
  */
 public class Porter extends Move {
 
+    /**
+     * endRoom holds the location of the doctor
+     */
     private Room endRoom;
 
     /**
@@ -43,16 +46,25 @@ public class Porter extends Move {
 
         System.out.print("These directions will lead you two rooms ahead ");
         List<String> path = pathfinder(player.getCurrentRoom(), endRoom);
-        for (int i = 0; i < 2; i++) {
-           System.out.print(path.get(i) + " "); 
+        for (int i = 0; i < 2 && i < path.size(); i++) {
+            System.out.print(path.get(i) + " ");
         }
         System.out.println();
     }
 
+    /**
+     * pathfinder finds the way from startRoom to endRoom.
+     *
+     * @param startRoom startRoom is the room where the player starts.
+     * @param endRoom endRoom is the location of the doctor
+     * @return returns all directions to endRoom
+     */
     public static List<String> pathfinder(Room startRoom, Room endRoom) {
-
-        Queue<Room> queue = new LinkedList<Room>(); //
+        // Queue holds a list of the rooms that are going to be checked
+        Queue<Room> queue = new LinkedList<Room>();
+        //Hashmap holds the checked rooms and what direction we came from, that points to startRoom.
         Map<Room, String> pathMap = new HashMap<>();
+        //Priming while loop by taking all the exits in the startRoom by adding it to queue. 
         for (String key : startRoom.getKeySet()) {
             Room r = startRoom.getExit(key);
             queue.add(r);
@@ -63,7 +75,9 @@ public class Porter extends Move {
 
             for (String key : room.getKeySet()) {
                 Room r = room.getExit(key);
+                //If the room already has been checked, it then doesnt add it to the room.
                 if (pathMap.containsKey(r)) {
+                    //puts currentRoom r into visited rooms with a direction pointing towards start.
                     pathMap.put(r, key);
                 } else {
                     queue.add(r);
@@ -74,13 +88,16 @@ public class Porter extends Move {
         }
         List<String> path = new ArrayList<>();
         Room currentRoom = endRoom;
+        //going from endRoom to startRoom and storing directions. 
         while (currentRoom != startRoom) {
             String s = pathMap.get(currentRoom);
             path.add(s);
             currentRoom = currentRoom.getExit(s);
 
         }
+        //reversing order of list.
         Collections.reverse(path);
+        //reverses path i.e south to north
         for (String dir : path) {
             int index = GameConstants.DIRECTIONS.indexOf(dir);
             int newIndex = (index + 2) % 4;
