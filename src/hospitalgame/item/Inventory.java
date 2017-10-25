@@ -106,5 +106,4 @@ public class Inventory {
     public Item getItem(int index) {
         return items.get(index);
     }
-
 }

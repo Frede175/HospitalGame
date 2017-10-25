@@ -46,4 +46,6 @@ public abstract class Item {
         return weight;
     }
 
+    @Override
+    public abstract String toString();
 }

@@ -34,7 +34,6 @@ public class PowerUpItem extends Item {
         super(name, weight);
         this.buff = buff;
         this.timeLeftOfBuff = timeLeftOfBuff;
-
     }
 
     /**
@@ -74,5 +73,9 @@ public class PowerUpItem extends Item {
     public void startBuff(long startTime) {
         lastUpdate = startTime;
     }
-
+    
+     @Override
+    public String toString() {
+        return getName().toString();
+    }
 }
