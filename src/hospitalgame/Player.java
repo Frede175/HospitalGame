@@ -78,28 +78,31 @@ public class Player {
 
         activeItems = new ArrayList<>();
     }
-    
+
     /**
      * Sets the room of the player.
+     *
      * @param currentRoom the room that the player is in.
      */
     public void setCurrentRoom(Room currentRoom) {
         this.currentRoom = currentRoom;
     }
-    
+
     /**
-     * Prints the status of the player 
-     * Blood amount
-     * Blood loss
-     * Active items
+     * Prints the status of the player Blood amount Blood loss Active items
      */
     public void printStatus() {
-        System.out.println("You have " + bloodAmount + " left.");
-        System.out.println("Yuo are losing " + calculateLoss() + " blood every second"); 
-        System.out.println("Currently active items: ");
-        for (PowerUpItem item : activeItems) {
-            System.out.printf("%15s (%.2f blood/sec)", item, item.getBuff());
+        System.out.println("You have " + bloodAmount + " ml. blood left");
+        System.out.println("You are losing " + calculateLoss() + " blood every second");
+        if (!activeItems.isEmpty()) {
+            System.out.println("Currently active items: ");
+            for (PowerUpItem item : activeItems) {
+                System.out.printf("%15s (%.2f ml. blood/sec)", item, item.getBuff());
+            }
+        } else {
+            System.out.println("You have no active items!");
         }
+
     }
 
     /**
@@ -146,18 +149,20 @@ public class Player {
 
     /**
      * The number of item of the item type in the active item list.
+     *
      * @param item the item to look for.
      * @return the number of items with that type.
      */
     private int getNumberOfItemInActiveItems(ItemName item) {
         int count = 0;
         for (PowerUpItem activeItem : activeItems) {
-            if (activeItem.getName() == item) count++;
+            if (activeItem.getName() == item) {
+                count++;
+            }
         }
         return count;
     }
-    
-    
+
     /**
      * Added the item to the inventory.
      *
@@ -208,8 +213,12 @@ public class Player {
      * Print the contents of the inventory to the console.
      */
     public void showInventory() {
-        System.out.println("Items in player's inventory:");
-        inventory.showItems();
+        if (inventory.getTotalCount() <= 0) {
+            System.out.println("You have no items");
+        } else {
+            System.out.println("Items in player's inventory:");
+            inventory.showItems();
+        }
     }
 
     /**
@@ -245,7 +254,7 @@ public class Player {
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
             //Showing items in room and inventory
-            currentRoom.showItem(); 
+            currentRoom.showItem();
             showInventory();
             return true;
         }
@@ -355,14 +364,16 @@ public class Player {
             Game.getGameInstance().setGameOver();
         }
     }
-    
+
     /**
-     * Returns the blood loss that happens every sec (this is calculated from the last update)
+     * Returns the blood loss that happens every sec (this is calculated from
+     * the last update)
+     *
      * @return the blood loss per sec.
      */
     private double calculateLoss() {
         double loss = bloodRate;
-        
+
         for (PowerUpItem item : activeItems) {
             loss -= item.getBuff();
         }
