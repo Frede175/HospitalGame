@@ -60,21 +60,37 @@ public class Game {
     private Doctor doctor;
     
     /**
+     * Determines if the game is over
+     */
+    private boolean gameOver = false;
+    
+    private static Game instance;
+    
+    /**
      * Construct and initialize the game.
      */
-    public Game() 
-    {
+    private Game() {
         map = new Map();
         createRooms(1);
         parser = new Parser();
+    }
+    
+    public static Game getGameInstance() {
+        if(instance == null) {
+            instance = new Game();
+        }
+        return instance;
+    }
+    
+    public void setGameOver() {
+        gameOver = true;
     }
     
     /**
      * Creates the rooms and sets the current room for the player.
      * @param numberOfRooms Sets the count of rooms to be generated.
      */
-    private void createRooms(int numberOfRooms)
-    {
+    private void createRooms(int numberOfRooms) {
         // Gets all the bloodtypes into a BloodType array.
         BloodType[] bloodType = BloodType.values();
         // Creates a new Random object.
@@ -119,14 +135,13 @@ public class Game {
     /**
      * Starts the game.
      */
-    public void play() 
-    {            
+    public void play() {            
         printWelcome();
 
         boolean finished = false;
         while (! finished) {
             Command command = parser.getCommand();
-            finished = processCommand(command);
+            finished = processCommand(command) || gameOver;
         }
         System.out.println("Thank you for playing.  Good bye.");
     }
@@ -134,8 +149,7 @@ public class Game {
     /**
      * Printing the welcome message.
      */
-    private void printWelcome()
-    {
+    private void printWelcome() {
         System.out.println();
         System.out.println("Welcome to the World of Zuul!");
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
@@ -150,16 +164,16 @@ public class Game {
      * @param command The player command.
      * @return If the player wants to quit.
      */
-    private boolean processCommand(Command command) 
-    {
+    private boolean processCommand(Command command) {
         boolean wantToQuit = false;
 
         CommandWord commandWord = command.getCommandWord();
-
+        
         if(commandWord == CommandWord.UNKNOWN) {
             System.out.println("I don't know what you mean...");
             return false;
         }
+        player.update();
 
         if (commandWord == CommandWord.HELP) {
             printHelp();
@@ -178,17 +192,16 @@ public class Game {
         } else if (commandWord == CommandWord.USE) {
             player.useItem(command);
         } else if (commandWord == CommandWord.INTERACT) {
-            player.update();
             interact(command);
         }
+        
         return wantToQuit;
     }
 
     /**
      * Printing the help message.
      */
-    private void printHelp() 
-    {
+    private void printHelp() {
         System.out.println("You are lost. You are alone. You wander");
         System.out.println("around at the university.");
         System.out.println();
@@ -197,38 +210,11 @@ public class Game {
     }
 
     /**
-     * Goes to the room based on the player command.
-     * @param command The player command.
-     */
-    private void goRoom(Command command) 
-    {
-        if(!command.hasSecondWord()) {
-            System.out.println("Go where?");
-            return;
-        }
-
-        String direction = command.getSecondWord();
-
-        Room nextRoom = currentRoom.getExit(direction);
-
-        if (nextRoom == null) {
-            System.out.println("There is no door!");
-        }
-        else {
-            currentRoom = nextRoom;
-            player.setCurrentRoom(currentRoom);
-            System.out.println(currentRoom.getLongDescription());
-            currentRoom.showItem();
-        }
-    }
-
-    /**
      * Checking if the player want to quit.
      * @param command The player command.
      * @return True if the player wants to quit, false if the player dosen´t wants to quit.
      */
-    private boolean quit(Command command) 
-    {
+    private boolean quit(Command command) {
         if(command.hasSecondWord()) {
             System.out.println("Quit what?");
             return false;

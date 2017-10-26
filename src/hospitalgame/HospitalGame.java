@@ -20,7 +20,7 @@ public class HospitalGame {
         /**
          * Make the game run
          */
-        Game game = new Game();
+        Game game = Game.getGameInstance();
         game.play();
     }
     
