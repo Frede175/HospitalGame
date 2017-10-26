@@ -65,20 +65,26 @@ public class Player {
      * @param bloodRate the default amount of blood the player losses.
      * @param bloodAmount the amount of blood the player.
      * @param name player name.
-     * @param startRoom the room the player starts in.
      */
-    public Player(BloodType bloodType, double bloodRate, double bloodAmount, String name, Room startRoom) {
+    public Player(BloodType bloodType, double bloodRate, double bloodAmount, String name) {
         this.bloodType = bloodType;
         this.bloodRate = bloodRate;
         this.bloodAmount = bloodAmount;
         this.name = name;
-        this.currentRoom = startRoom;
 
         inventory = new Inventory(2000);
 
         lastUpdate = System.currentTimeMillis();
 
         activeItems = new ArrayList<>();
+    }
+    
+    /**
+     * Sets the room of the player.
+     * @param currentRoom the room that the player is in.
+     */
+    public void setCurrentRoom(Room currentRoom) {
+        this.currentRoom = currentRoom;
     }
 
     /**
@@ -105,6 +111,7 @@ public class Player {
                     PowerUpItem power = (PowerUpItem) item;
                     power.startBuff(System.currentTimeMillis());
                     activeItems.add(power);
+                    inventory.removeItem(item);
                     System.out.println("Activated " + power.getName()); //Other way to print item maybe a function?
                 } else {
                     System.out.println("You can't use that item!");
@@ -167,6 +174,7 @@ public class Player {
      * Print the contents of the inventory to the console.
      */
     public void showInventory() {
+        System.out.println("Items in player's inventory:");
         inventory.showItems();
     }
 
@@ -283,7 +291,7 @@ public class Player {
     /**
      * Calculates the current blood loss and updates the players blood amount.
      */
-    private void update() {
+    public void update() {
         long current = System.currentTimeMillis();
         long diff = current - lastUpdate;
         lastUpdate = current;
