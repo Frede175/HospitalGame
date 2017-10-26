@@ -184,6 +184,7 @@ public class Game {
         player.update();
         if(gameOver) return true;
         System.out.println("");
+        player.getCurrentRoom().getLongDescription();
         player.printStatus();
         
         
