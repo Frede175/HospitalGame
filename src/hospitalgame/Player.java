@@ -213,8 +213,12 @@ public class Player {
      * Print the contents of the inventory to the console.
      */
     public void showInventory() {
-        System.out.println("Items in player's inventory:");
-        inventory.showItems();
+        if (inventory.getTotalCount() <= 0) {
+            System.out.println("You have no items");
+        } else {
+            System.out.println("Items in player's inventory:");
+            inventory.showItems();
+        }
     }
 
     /**
