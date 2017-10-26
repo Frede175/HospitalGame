@@ -183,8 +183,9 @@ public class Game {
         }
         player.update();
         if(gameOver) return true;
+        System.out.println("");
         player.printStatus();
-        printNPCsInRoom();
+        
         
         if (null != commandWord) switch (commandWord) {
             case HELP:
@@ -193,6 +194,7 @@ public class Game {
             case GO:
                 if(player.goRoom(command)) {
                     moveNPC();
+                    printNPCsInRoom();
                 }   
                 break;
             case QUIT:
@@ -200,7 +202,7 @@ public class Game {
                 break;
             case TAKE:
                 player.takeItem(command);
-                currentRoom.showItem();
+                player.getCurrentRoom().showItem();
                 break;
             case SHOW:
                 player.showInventory();
@@ -277,14 +279,14 @@ public class Game {
                 if (player.getCurrentRoom().equals(porter.getCurrentRoom())) {
                     porter.interact(player);
                 } else {
-                    System.out.println("There is no doctor in this room.");
+                    System.out.println("There is no porter in this room.");
                 }
                 break;
             case "doctor":
                 if (player.getCurrentRoom().equals(doctor.getCurrentRoom())) {
                     doctor.interact(player);
                 } else {
-                    System.out.println("There is no porter in this room.");
+                    System.out.println("There is no doctor in this room.");
                 }
                 break;
             default:
