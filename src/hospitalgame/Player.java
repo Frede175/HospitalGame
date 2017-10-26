@@ -86,6 +86,21 @@ public class Player {
     public void setCurrentRoom(Room currentRoom) {
         this.currentRoom = currentRoom;
     }
+    
+    /**
+     * Prints the status of the player 
+     * Blood amount
+     * Blood loss
+     * Active items
+     */
+    public void printStatus() {
+        System.out.println("You have " + bloodAmount + " left.");
+        System.out.println("Yuo are losing " + calculateLoss() + " blood every second"); 
+        System.out.println("Currently active items: ");
+        for (PowerUpItem item : activeItems) {
+            System.out.printf("%15s (%.2f blood/sec)", item, item.getBuff());
+        }
+    }
 
     /**
      * Uses the item that is specified in the command.
@@ -339,5 +354,18 @@ public class Player {
             System.out.println("You died from blood loss!");
             Game.getGameInstance().setGameOver();
         }
+    }
+    
+    /**
+     * Returns the blood loss that happens every sec (this is calculated from the last update)
+     * @return the blood loss per sec.
+     */
+    private double calculateLoss() {
+        double loss = bloodRate;
+        
+        for (PowerUpItem item : activeItems) {
+            loss -= item.getBuff();
+        }
+        return loss;
     }
 }
