@@ -78,7 +78,7 @@ public class Game {
     
     /**
      * Checks if instance is null, if true sets the instance to a new instance of the Game class.
-     * @return 
+     * @return The instance of Game.
      */
     public static Game getGameInstance() {
         if(instance == null) {
