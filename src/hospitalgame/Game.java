@@ -295,8 +295,8 @@ public class Game {
     }
     
     public void printNPCsInRoom() {
-        if(this.currentRoom.equals(computer.getCurrentRoom())) System.out.println("There is a computer in this room.");
-        if(this.currentRoom.equals(porter.getCurrentRoom())) System.out.println("There is a porter in this room.");
-        if(this.currentRoom.equals(doctor.getCurrentRoom())) System.out.println("The doctor in this room.");
+        if(player.getCurrentRoom().equals(computer.getCurrentRoom())) System.out.println("There is a computer in this room.");
+        if(player.getCurrentRoom().equals(porter.getCurrentRoom())) System.out.println("There is a porter in this room.");
+        if(player.getCurrentRoom().equals(doctor.getCurrentRoom())) System.out.println("The doctor in this room.");
     }
 }
