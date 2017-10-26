@@ -112,7 +112,12 @@ public class Player {
                     power.startBuff(System.currentTimeMillis());
                     activeItems.add(power);
                     inventory.removeItem(item);
-                    System.out.println("Activated " + power.getName()); //Other way to print item maybe a function?
+                    if (getNumberOfItemInActiveItems(ItemName.MORPHINE) >= 3) {
+                        System.out.println("You died from an overdoes of morphine");
+                        Game.getGameInstance().setGameOver();
+                    } else {
+                        System.out.println("Activated " + power.getName()); //Other way to print item maybe a function?
+                    }
                 } else {
                     System.out.println("You can't use that item!");
                 }
@@ -124,6 +129,20 @@ public class Player {
         }
     }
 
+    /**
+     * The number of item of the item type in the active item list.
+     * @param item the item to look for.
+     * @return the number of items with that type.
+     */
+    private int getNumberOfItemInActiveItems(ItemName item) {
+        int count = 0;
+        for (PowerUpItem activeItem : activeItems) {
+            if (activeItem.getName() == item) count++;
+        }
+        return count;
+    }
+    
+    
     /**
      * Added the item to the inventory.
      *
@@ -195,8 +214,6 @@ public class Player {
      * @return true if the player was able to go the requested room
      */
     public boolean goRoom(Command command) {
-        update(); //Updating blood loss
-
         if (!command.hasSecondWord()) {
             System.out.println("Go where?");
             return false;
@@ -318,6 +335,9 @@ public class Player {
         }
         bloodAmount -= loss;
 
-        //There should maybe be a check here to see if the player is dead...
+        if (bloodAmount <= 0) {
+            System.out.println("You died from blood loss!");
+            Game.getGameInstance().setGameOver();
+        }
     }
 }
