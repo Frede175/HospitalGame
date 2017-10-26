@@ -184,9 +184,7 @@ public class Game {
         player.update();
         if(gameOver) return true;
         System.out.println("");
-        player.getCurrentRoom().getLongDescription();
         player.printStatus();
-        
         
         if (null != commandWord) switch (commandWord) {
             case HELP:
@@ -220,7 +218,7 @@ public class Game {
             default:
                 break;
         }
-        
+        System.out.println(player.getCurrentRoom().getLongDescription());
         return wantToQuit;
     }
 
