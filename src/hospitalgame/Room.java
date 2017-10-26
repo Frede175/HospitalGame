@@ -134,7 +134,10 @@ public class Room {
      * @return an specific Item object
      */
     public Item getItem(int index) {
-        return itemArray.get(index);
+        if(index >= 0 && index < itemArray.size()){
+            return itemArray.get(index);
+        }
+        return null;
     }
 
     /**
@@ -148,7 +151,7 @@ public class Room {
         } else {
             System.out.println("Current items in the room:");
             for (int i = 0; i < itemArray.size(); i++) {
-                System.out.println(i + ":" + "\t" + itemArray.get(i).getName() + "\t" + itemArray.get(i).getWeight() + "g");
+                System.out.printf("%d: %-15s %4d g \n", i, itemArray.get(i), itemArray.get(i).getWeight());
             }
         }
     }
