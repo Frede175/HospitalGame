@@ -72,7 +72,7 @@ public class Game {
      */
     private Game() {
         map = new Map();
-        createRooms(1);
+        createRooms(2);
         parser = new Parser();
     }
     
@@ -182,7 +182,10 @@ public class Game {
             return false;
         }
         player.update();
-
+        if(gameOver) return true;
+        player.printStatus();
+        printNPCsInRoom();
+        
         if (null != commandWord) switch (commandWord) {
             case HELP:
                 printHelp();
@@ -190,12 +193,14 @@ public class Game {
             case GO:
                 if(player.goRoom(command)) {
                     moveNPC();
-                }   break;
+                }   
+                break;
             case QUIT:
                 wantToQuit = quit(command);
                 break;
             case TAKE:
                 player.takeItem(command);
+                currentRoom.showItem();
                 break;
             case SHOW:
                 player.showInventory();
@@ -286,5 +291,11 @@ public class Game {
                 System.out.println("I don´t know how to interact with that.");
         }
         return true;
+    }
+    
+    public void printNPCsInRoom() {
+        if(this.currentRoom.equals(computer.getCurrentRoom())) System.out.println("There is a computer in this room.");
+        if(this.currentRoom.equals(porter.getCurrentRoom())) System.out.println("There is a porter in this room.");
+        if(this.currentRoom.equals(doctor.getCurrentRoom())) System.out.println("The doctor in this room.");
     }
 }
