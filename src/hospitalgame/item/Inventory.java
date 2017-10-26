@@ -59,7 +59,7 @@ public class Inventory {
      */
     public void showItems() {
         for (int i = 0; i < items.size(); i++) {
-            System.out.println(i + ":" + "\t" + items.get(i) + "\t" + items.get(i).getWeight() + "g");
+            System.out.printf("%d: %-15s %4d g \n", i, items.get(i), items.get(i).getWeight());
         }
     }
 
@@ -104,6 +104,9 @@ public class Inventory {
      * @return returns an item object
      */
     public Item getItem(int index) {
-        return items.get(index);
+        if (index >= 0 && index < items.size()) {
+            return items.get(index);
+        }
+        return null;
     }
 }
