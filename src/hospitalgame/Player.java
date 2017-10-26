@@ -94,11 +94,11 @@ public class Player {
      * Active items
      */
     public void printStatus() {
-        System.out.println("You have " + bloodAmount + " left.");
-        System.out.println("Yuo are losing " + calculateLoss() + " blood every second"); 
+        System.out.println("You have " + bloodAmount + " ml. blood left");
+        System.out.println("You are losing " + calculateLoss() + " blood every second"); 
         System.out.println("Currently active items: ");
         for (PowerUpItem item : activeItems) {
-            System.out.printf("%15s (%.2f blood/sec)", item, item.getBuff());
+            System.out.printf("%15s (%.2f ml. blood/sec)", item, item.getBuff());
         }
     }
 
