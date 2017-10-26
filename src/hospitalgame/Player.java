@@ -92,7 +92,7 @@ public class Player {
      * Prints the status of the player Blood amount Blood loss Active items
      */
     public void printStatus() {
-        System.out.println("You have " + (int)bloodAmount + " ml. blood left and losing " + calculateLoss() + " blood every second");
+        System.out.println("You have " + (int)bloodAmount + " ml. blood left and losing " + calculateLoss() + " ml. blood/sec");
         if (!activeItems.isEmpty()) {
             System.out.println("Currently active items: ");
             for (PowerUpItem item : activeItems) {
