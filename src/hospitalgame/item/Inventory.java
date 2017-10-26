@@ -75,6 +75,14 @@ public class Inventory {
         }
         return totalWeight;
     }
+    
+    /**
+     * returns the total amount of items currently in the inventory
+     * @return returns an int 
+     */
+    public int getTotalCount() {
+        return items.size();
+    }
 
     /**
      * returns an array of items from the inventory with the name specified
