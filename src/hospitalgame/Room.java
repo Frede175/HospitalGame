@@ -6,11 +6,9 @@ import hospitalgame.item.*; //hospitalgame.item package imported
 import java.util.ArrayList;
 import java.util.Iterator;
 
-
-
 /**
  * Room contains all information about a room.
- * 
+ *
  * @author Frederik Schultz Rosenberg
  * @author Andreas Bøgh Mølgaard-Andersen
  * @author Tobias Ahrenschneider Sztuk
@@ -18,8 +16,8 @@ import java.util.Iterator;
  * @author Robert Francisti
  * @author Michael Kolling and David J. Barnes
  */
-public class Room 
-{
+public class Room {
+
     /**
      * Contains the description of the room
      */
@@ -28,7 +26,7 @@ public class Room
      * Contains all the exit doors in the room.
      */
     private HashMap<String, Room> exits;
-    
+
     /**
      * ArrayList for which items that is in the room
      */
@@ -36,52 +34,53 @@ public class Room
 
     /**
      * Construct and initialize the room.
+     *
      * @param description The description of the room.
      */
-    public Room(String description) 
-    {
+    public Room(String description) {
         this.description = description;
         exits = new HashMap<String, Room>();
         itemArray = new ArrayList<>();
     }
 
     /**
-     * Sets an exit door in the room. The neighbor room is the room the door leads to.
+     * Sets an exit door in the room. The neighbor room is the room the door
+     * leads to.
+     *
      * @param direction The direction the door is in the room.
      * @param neighbor The neighbor room.
      */
-    public void setExit(String direction, Room neighbor) 
-    {
+    public void setExit(String direction, Room neighbor) {
         exits.put(direction, neighbor);
     }
 
     /**
      * Gets the rooms description.
+     *
      * @return The description.
      */
-    public String getShortDescription()
-    {
+    public String getShortDescription() {
         return description;
     }
 
     /**
      * Gets the long description of the room.
+     *
      * @return The long description.
      */
-    public String getLongDescription()
-    {
+    public String getLongDescription() {
         return "You are " + description + ".\n" + getExitString();
     }
 
     /**
      * Gets the exit string.
+     *
      * @return The exit string.
      */
-    private String getExitString()
-    {
+    private String getExitString() {
         String returnString = "Exits:";
         Set<String> keys = exits.keySet();
-        for(String exit : keys) {
+        for (String exit : keys) {
             returnString += " " + exit;
         }
         return returnString;
@@ -89,58 +88,64 @@ public class Room
 
     /**
      * Gets the room based on the player command.
+     *
      * @param direction The direction the player wants to go.
      * @return The room based on the player command.
      */
-    public Room getExit(String direction) 
-    {
+    public Room getExit(String direction) {
         return exits.get(direction);
     }
-    
+
     /**
      * Get all keys from the hashmap
+     *
      * @return a set of strings taken from the hashmap of exits
-     */   
-    public Set<String> getKeySet(){
+     */
+    public Set<String> getKeySet() {
         return exits.keySet();
     }
-    
+
     /**
      * Make it possible to add a specific item to a room
+     *
      * @param item is an Item object that tells which item should be added
      * @return true if it is possible to drop an item from the inventory
      */
-    public boolean addItem(Item item){
+    public boolean addItem(Item item) {
         return itemArray.add(item);
     }
-    
+
     /**
      * Makes it possible to remove a specific item in the current room
-     * @param item is which item that should be removed from the room 
-     * @return true if it is possible for the player to pick up the item, adding it to the inventory and removes it from the room
+     *
+     * @param item is which item that should be removed from the room
+     * @return true if it is possible for the player to pick up the item, adding
+     * it to the inventory and removes it from the room
      */
-    public boolean removeItem(Item item){
+    public boolean removeItem(Item item) {
         return itemArray.remove(item);
     }
-    
+
     /**
      * Finds a item in the ArrayList, if nothing is found it will return null
-     * @param index is which index of the ArrayList that the item should be found
-     * @return an specific Item object 
-     */    
-    public Item getItem(int index){
+     *
+     * @param index is which index of the ArrayList that the item should be
+     * found
+     * @return an specific Item object
+     */
+    public Item getItem(int index) {
         return itemArray.get(index);
     }
-    
+
     /**
      * Display which items are currently in the room
-     * 
+     *
      */
-    public void showItem(){
-        
-        if(itemArray.isEmpty())
+    public void showItem() {
+
+        if (itemArray.isEmpty()) {
             System.out.println("There are no items in the room");
-        else{
+        } else {
             System.out.println("Current items in the room:");
             for (int i = 0; i < itemArray.size(); i++) {
                 System.out.println(i + ":" + "\t" + itemArray.get(i).getName() + "\t" + itemArray.get(i).getWeight() + "g");
@@ -148,4 +153,3 @@ public class Room
         }
     }
 }
-

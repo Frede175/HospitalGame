@@ -2,7 +2,6 @@ package hospitalgame;
 
 import hospitalgame.NPC.Computer;
 import hospitalgame.NPC.Doctor;
-import hospitalgame.NPC.NPC;
 import hospitalgame.NPC.Porter;
 import hospitalgame.item.BloodBag;
 import hospitalgame.item.Item;
@@ -10,7 +9,6 @@ import hospitalgame.item.ItemName;
 import hospitalgame.item.PowerUpItem;
 import java.util.ArrayList;
 import java.util.Random;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Game represents the core game functionality.
@@ -35,35 +33,38 @@ public class Game {
     private Room currentRoom;
     
     /**
-     * Contains the map class, to generate the map
+     * Contains the map class, to generate the map.
      */
     private Map map;
     
     /**
-     * Contains the player
+     * Contains the player.
      */
     private Player player;
     
     /**
-     * Contains the computer npc
+     * Contains the computer npc.
      */
     private Computer computer;
     
     /**
-     * Contains the porter npc
+     * Contains the porter npc.
      */
     private Porter porter;
     
     /**
-     * Contains the doctor npc
+     * Contains the doctor npc.
      */
     private Doctor doctor;
     
     /**
-     * Determines if the game is over
+     * Determines if the game is over.
      */
     private boolean gameOver = false;
     
+    /**
+     * Contains the Game instance.
+     */
     private static Game instance;
     
     /**
@@ -75,6 +76,10 @@ public class Game {
         parser = new Parser();
     }
     
+    /**
+     * Checks if instance is null, if true sets the instance to a new instance of the Game class.
+     * @return 
+     */
     public static Game getGameInstance() {
         if(instance == null) {
             instance = new Game();
@@ -82,6 +87,9 @@ public class Game {
         return instance;
     }
     
+    /**
+     * Sets the gameOver variable to true.
+     */
     public void setGameOver() {
         gameOver = true;
     }
@@ -98,7 +106,7 @@ public class Game {
         // Random picks the players bloodtype.
         BloodType playerBloodType = bloodType[random.nextInt(bloodType.length)];
         // Initialize a new player object.
-        player = new Player(playerBloodType, GameConstants.PLAYER_BLOODRATE, GameConstants.PLAYER_BLOOD_AMOUNT, "Lars");
+        player = new Player(playerBloodType, GameConstants.PLAYER_BLOODRATE, GameConstants.PLAYER_BLOOD_AMOUNT, "Player");
         // Creates a new ArrayList to contain all items.
         ArrayList<Item> items = new ArrayList<>();
         // Adds a new item with the same bloodtype as the player, so the game is always winable.
@@ -143,7 +151,7 @@ public class Game {
             Command command = parser.getCommand();
             finished = processCommand(command) || gameOver;
         }
-        System.out.println("Thank you for playing.  Good bye.");
+        System.out.println("Thank you for playing.  Goodbye.");
     }
 
     /**
@@ -175,24 +183,34 @@ public class Game {
         }
         player.update();
 
-        if (commandWord == CommandWord.HELP) {
-            printHelp();
-        } else if (commandWord == CommandWord.GO) {
-            if(player.goRoom(command)) {
-                moveNPC();
-            }
-        } else if (commandWord == CommandWord.QUIT) {
-            wantToQuit = quit(command);
-        } else if (commandWord == CommandWord.TAKE) {
-            player.takeItem(command);
-        } else if (commandWord == CommandWord.SHOW) {
-            player.showInventory();
-        } else if (commandWord == CommandWord.DROP) {
-            player.dropItem(command);
-        } else if (commandWord == CommandWord.USE) {
-            player.useItem(command);
-        } else if (commandWord == CommandWord.INTERACT) {
-            interact(command);
+        if (null != commandWord) switch (commandWord) {
+            case HELP:
+                printHelp();
+                break;
+            case GO:
+                if(player.goRoom(command)) {
+                    moveNPC();
+                }   break;
+            case QUIT:
+                wantToQuit = quit(command);
+                break;
+            case TAKE:
+                player.takeItem(command);
+                break;
+            case SHOW:
+                player.showInventory();
+                break;
+            case DROP:
+                player.dropItem(command);
+                break;
+            case USE:
+                player.useItem(command);
+                break;
+            case INTERACT:
+                interact(command);
+                break;
+            default:
+                break;
         }
         
         return wantToQuit;
@@ -210,7 +228,7 @@ public class Game {
     }
 
     /**
-     * Checking if the player want to quit.
+     * Checking if the player wants to quit.
      * @param command The player command.
      * @return True if the player wants to quit, false if the player dosen´t wants to quit.
      */

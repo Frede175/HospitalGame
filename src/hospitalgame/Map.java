@@ -22,7 +22,7 @@ import java.util.Queue;
  */
 public class Map {
     /**
-     * Generate the rooms for the game.
+     * Generates the rooms for the game.
      * @param roomCount The count of how many rooms that needs to be generated.
      * @param items ArrayList of items that needs to be set in the rooms.
      * @param NPCs ArrayList of NPCs that needs to be set in the rooms.
@@ -48,14 +48,14 @@ public class Map {
         Queue<Room> roomsToProcess = new LinkedList<>();
         // Adds the first free room to the queue.
         roomsToProcess.add(freeRooms.remove(0));
-        // Aslong as the queue is not empty.
+        // As long as the queue is not empty.
         while (!roomsToProcess.isEmpty()) {
             // Gets the next room in the queue.
             Room currentRoom = roomsToProcess.poll();
             int i = 0;
             // Generates a random number of exits the room have.
             int exitCount = (int)(Math.random() * 4) + 1;
-            // Aslong as there is free rooms left and the room needs more exits.
+            // As long as there is free rooms left and the room needs more exits.
             while (i <=  exitCount && !freeRooms.isEmpty()) {
                 // Generates the random direction.
                 int direction = (int)(Math.random() * 4);
@@ -84,7 +84,7 @@ public class Map {
     /**
      * Creates the rooms.
      * @param roomCount The count of how many rooms that will be generated.
-     * @return A arraylist of all the generated rooms.
+     * @return An arraylist of all the generated rooms.
      */
     private ArrayList<Room> createRooms(int roomCount) {
         // TODO Create room descs array
