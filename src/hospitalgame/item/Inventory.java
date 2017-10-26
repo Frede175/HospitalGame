@@ -78,7 +78,7 @@ public class Inventory {
     
     /**
      * returns the total amount of items currently in the inventory
-     * @return returns an int 
+     * @return the number of items in inventory
      */
     public int getTotalCount() {
         return items.size();
