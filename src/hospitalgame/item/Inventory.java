@@ -104,6 +104,9 @@ public class Inventory {
      * @return returns an item object
      */
     public Item getItem(int index) {
-        return items.get(index);
+        if (index >= 0 && index < items.size()) {
+            return items.get(index);
+        }
+        return null;
     }
 }
