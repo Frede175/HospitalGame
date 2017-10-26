@@ -1,12 +1,9 @@
 package hospitalgame.NPC;
 
 import hospitalgame.*;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Collections;
 
-import java.util.Queue;
+
 
 /**
  * @author Frederik Schultz Rosenberg
@@ -26,7 +23,7 @@ public class Porter extends Move {
      * Calls the NPC constructor through the super
      *
      * @param name name of the NPC moving
-     * @param description decription of the NPC that moves
+     * @param description description of the NPC that moves
      */
     public Porter(String name, String description) {
         super(name, description);
