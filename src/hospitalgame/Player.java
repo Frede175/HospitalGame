@@ -113,7 +113,7 @@ public class Player {
                     activeItems.add(power);
                     inventory.removeItem(item);
                     if (getNumberOfItemInActiveItems(ItemName.MORPHINE) >= 3) {
-                        System.out.println("You died from an overdoes of morphine");
+                        System.out.println("You died from an overdose of morphine");
                         Game.getGameInstance().setGameOver();
                     } else {
                         System.out.println("Activated " + power.getName()); //Other way to print item maybe a function?
