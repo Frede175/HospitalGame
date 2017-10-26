@@ -39,12 +39,14 @@ public class Doctor extends NPC {
                 BloodBag bloodBag = (BloodBag) Item;
                 if (!bloodType.canTransfuse(bloodBag.getBloodType())) {
                     System.out.println("You lost the game.");
+                    Game.getGameInstance().setGameOver();
                     return;
                 } else {
                     points += bloodBag.getBonusPoints();
                 }
             }
             System.out.println("You've earned " + points + " points! ");
+            Game.getGameInstance().setGameOver();
         } else {
             System.out.println("You need to get a bloodbag");
         }
