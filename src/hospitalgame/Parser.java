@@ -1,7 +1,6 @@
 package hospitalgame;
 
 import java.util.Scanner;
-import java.util.StringTokenizer;
 
 /**
  * Parser is reading the player input and parsing it to the right command.

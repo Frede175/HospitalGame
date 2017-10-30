@@ -4,7 +4,6 @@ import java.util.Set;
 import java.util.HashMap;
 import hospitalgame.item.*; //hospitalgame.item package imported
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Room contains all information about a room.
