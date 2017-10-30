@@ -29,8 +29,8 @@ public enum BloodType {
                 return this == A || this == AB;
             case B:
                 return this == B || this == AB;
-            case O:
-                return this == O;
+            case AB:
+                return this == AB;
             default:
                 return true;
         }
