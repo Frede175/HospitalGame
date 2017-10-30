@@ -27,10 +27,6 @@ public class Game {
      * Contains the parser object.
      */
     private Parser parser;
-    /**
-     * Contains the current room the player is in.
-     */
-    private Room currentRoom;
     
     /**
      * Contains the map class, to generate the map.
@@ -72,7 +68,7 @@ public class Game {
      */
     private Game() {
         map = new Map();
-        createRooms(2);
+        createRooms(12);
         parser = new Parser();
     }
     
@@ -106,7 +102,7 @@ public class Game {
         // Random picks the players bloodtype.
         BloodType playerBloodType = bloodType[random.nextInt(bloodType.length)];
         // Initialize a new player object.
-        player = new Player(playerBloodType, GameConstants.PLAYER_BLOODRATE, GameConstants.PLAYER_BLOOD_AMOUNT, "Player");
+        player = new Player(playerBloodType, GameConstants.PLAYER_BLOODRATE, GameConstants.PLAYER_BLOOD_AMOUNT, "Jakob");
         // Creates a new ArrayList to contain all items.
         ArrayList<Item> items = new ArrayList<>();
         // Adds a new item with the same bloodtype as the player, so the game is always winable.
@@ -132,12 +128,12 @@ public class Game {
                     throw new AssertionError();
             }
         }     
-        // Gets current room and generates the rooms with items and npc
+        // Gets current room and generates the rooms with items and npc.
         computer = new Computer("Computer", "I´m a computer");
         porter = new Porter("Peter", "I´m a porter");
         doctor = new Doctor("Hans", "I´m a doctor");
-        currentRoom = map.generateRoom(numberOfRooms, items, computer, porter, doctor);
-        player.setCurrentRoom(currentRoom);
+        // Sets the current room for the player, and generates the rooms.
+        player.setCurrentRoom(map.generateRoom(numberOfRooms, items, computer, porter, doctor));
     }
 
     /**
