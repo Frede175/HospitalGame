@@ -3,7 +3,6 @@ package hospitalgame.NPC;
 import hospitalgame.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Frederik Schultz Rosenberg
