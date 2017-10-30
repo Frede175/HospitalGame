@@ -18,9 +18,10 @@ public abstract class Move extends NPC {
      *
      * @param name name of the NPC moving
      * @param description decription of the NPC that moves
+     * @param canMove checks if the object can move. 
      */
-    public Move(String name, String description) {
-        super(name, description);
+    public Move(String name, String description, boolean canMove) {
+        super(name, description, canMove);
     }
 
     /**
