@@ -25,7 +25,9 @@ public class Map {
      * Generates the rooms for the game.
      * @param roomCount The count of how many rooms that needs to be generated.
      * @param items ArrayList of items that needs to be set in the rooms.
-     * @param NPCs ArrayList of NPCs that needs to be set in the rooms.
+     * @param computer Contains the computer object.
+     * @param porter Contains the porter object.
+     * @param doctor Contains the doctor object.
      * @return The starting room for the player.
      */
     public Room generateRoom(int roomCount, ArrayList<Item> items, Computer computer, Porter porter, Doctor doctor) {
