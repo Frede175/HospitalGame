@@ -1,7 +1,5 @@
 package hospitalgame.item;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 /**
  * @author Frederik Schultz Rosenberg
  * @author Andreas Bøgh Mølgaard-Andersen
