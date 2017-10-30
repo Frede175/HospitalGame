@@ -25,18 +25,23 @@ public abstract class NPC {
      * Room object to tell which the NPC is in
      */
     protected Room currentRoom;
-
+    /**
+     * canMove checks if objects can move.
+     */
+    private boolean canMove;
     /**
      * Constructor of the NPC objects
      *
      * @param name is the name of the NPC
      * @param description gives a decription of the NPC
+     * @param canMove checks if an object can move. 
      */
-    public NPC(String name, String description) {
+    public NPC(String name, String description, boolean canMove) {
         this.description = description;
         this.name = name;
+        this.canMove = canMove;     
     }
-
+    
     /**
      *
      * @return which room the NPC is in
@@ -67,6 +72,14 @@ public abstract class NPC {
      */
     public void setRoom(Room currentRoom) {
         this.currentRoom = currentRoom;
+    }
+
+    /**
+     * getCanMove creates a returntype for canMove. 
+     * @return returns canMove.
+     */
+    public boolean getCanMove(){
+        return canMove;
     }
 
     /**

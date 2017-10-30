@@ -19,9 +19,10 @@ public class Doctor extends NPC {
      *
      * @param name name of the NPC
      * @param description decription of the NPC
+     * @param canMove checks if the object can move.
      */
-    public Doctor(String name, String description) {
-        super(name, description);
+    public Doctor(String name, String description, boolean canMove) {
+        super(name, description, canMove);
     }
 
     /**

@@ -3,7 +3,6 @@ package hospitalgame.NPC;
 import hospitalgame.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Frederik Schultz Rosenberg
@@ -19,9 +18,10 @@ public abstract class Move extends NPC {
      *
      * @param name name of the NPC moving
      * @param description decription of the NPC that moves
+     * @param canMove checks if the object can move. 
      */
-    public Move(String name, String description) {
-        super(name, description);
+    public Move(String name, String description, boolean canMove) {
+        super(name, description, canMove);
     }
 
     /**

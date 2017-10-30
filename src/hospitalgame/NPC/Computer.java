@@ -16,9 +16,10 @@ public class Computer extends NPC {
      *
      * @param name name of the NPC
      * @param description decription of the NPC
+     * @param canMove checks if the object can move.
      */
-    public Computer(String name, String description) {
-        super(name, description);
+    public Computer(String name, String description, boolean canMove) {
+        super(name, description, canMove);
 
     }
 

@@ -24,9 +24,10 @@ public class Porter extends Move {
      *
      * @param name name of the NPC moving
      * @param description description of the NPC that moves
+     * @param canMove checks if the object can move.
      */
-    public Porter(String name, String description) {
-        super(name, description);
+    public Porter(String name, String description, boolean canMove) {
+        super(name, description, canMove);
     }
 
     /**
