@@ -7,6 +7,7 @@ package business.Data;
 
 import common.INPC;
 import common.IRoom;
+import common.NPCID;
 
 /**
  *
@@ -19,12 +20,17 @@ public class DataNPC implements INPC {
             
 
     @Override
-    public IRoom getRoom() {
+    public String getName() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public String getName() {
+    public IRoom getCurrentRoom() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public NPCID getNPCID() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -14,20 +14,20 @@ import common.IRoom;
  * @author andreasmolgaard-andersen
  */
 public class Porter {
-    
-    public Porter(String name, boolean canMove, IRoom currentRoom){
-        
+
+    public Porter(String name, boolean canMove, IRoom currentRoom) {
+
     }
-    
-    public Porter(INPC npc){
-        
+
+    public Porter(INPC npc) {
+
     }
-    
-    public void interact(Player player){
-        
+
+    public void interact(Player player) {
+
     }
-    
-    public boolean move(String direction){
-        return false; 
+
+    public boolean move(String direction) {
+        return false;
     }
 }

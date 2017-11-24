@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class NPCFacade implements INPCFacade {
 
     private ArrayList<NPC> npcs = new ArrayList<>();
-    
+
     @Override
     public IPlayer getPlayer() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -39,5 +39,5 @@ public class NPCFacade implements INPCFacade {
     public INPC[] getNPCs() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
