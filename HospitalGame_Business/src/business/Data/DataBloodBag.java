@@ -6,15 +6,21 @@
 package business.Data;
 
 import common.BloodType;
+import common.IBloodBag;
 
 /**
  *
  * @author andreasmolgaard-andersen
  */
-public class DataBloodBag {
-    private BloodType bloodType;
+public class DataBloodBag extends DataBonusPointItem implements IBloodBag{
     
-    public BloodType getBloodType(){
+    private BloodType bloodType;
+
+    @Override
+    public BloodType getBloodType() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
 }
+//public class DataBloodBag extend DataBonusItem implements IBloodBag {
+    
