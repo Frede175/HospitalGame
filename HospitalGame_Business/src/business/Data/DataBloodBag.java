@@ -5,10 +5,16 @@
  */
 package business.Data;
 
+import common.BloodType;
+
 /**
  *
  * @author andreasmolgaard-andersen
  */
 public class DataBloodBag {
+    private BloodType bloodType;
     
+    public BloodType getBloodType(){
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
