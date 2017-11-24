@@ -31,6 +31,7 @@ public class UI extends Application implements IUI{
     
     private Stage stage;
     
+    private Sprites sprites;
     
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -58,6 +59,10 @@ public class UI extends Application implements IUI{
     
     Stage getStage() {
         return stage;
+    }
+    
+    Sprites getSprites() {
+        return sprites;
     }
     
 }

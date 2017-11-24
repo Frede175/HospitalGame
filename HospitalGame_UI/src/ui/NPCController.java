@@ -6,9 +6,11 @@
 package ui;
 
 import common.IBusiness;
+import common.INPC;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+import javafx.scene.image.ImageView;
 
 /**
  * FXML Controller class
@@ -22,6 +24,20 @@ public class NPCController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         business = UI.getInstance().getBusiness();
-    }    
+        loadNPCImages();
+    } 
+    
+    public void loadNPCImages() {
+        INPC[] npcs = business.getNPCs();
+        for(INPC npc : npcs) {
+            
+        }
+    }
+    
+    public ImageView getImageOfNPC() {
+        ImageView img = new ImageView();
+        img.setImage(UI.getInstance().getSprites().getImage(1));
+        return img;
+    }
     
 }
