@@ -1,0 +1,42 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package business.Item;
+
+import common.BloodType;
+import common.IBloodBag;
+import common.ItemName;
+
+/**
+ *
+ * @author andreasmolgaard-andersen
+ */
+
+public class BloodBag extends BonusPointItem implements IBloodBag{
+
+    private BloodType bloodType;
+
+    public BloodBag(int bonusPoints, ItemName name, int weight) {
+        super(bonusPoints, name, weight);
+    }
+    
+    
+    
+    @Override
+    public boolean equals(Object p0){
+        return false;    
+    }
+    
+    @Override
+    public BloodType getBloodType() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public int getWeight() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+}
+
