@@ -5,10 +5,27 @@
  */
 package business.Data;
 
+import common.INPC;
+import common.IRoom;
+
 /**
  *
  * @author andreasmolgaard-andersen
  */
-public class DataNPC {
+public class DataNPC implements INPC {
+    
+    private int currentRoom;
+    private String name;;
+            
+
+    @Override
+    public IRoom getRoom() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getName() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
