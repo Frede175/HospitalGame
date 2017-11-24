@@ -27,6 +27,7 @@ public class BusinessFacade implements IBusiness {
     private Map map;
     private BusinessHighScore highScore;
     private boolean gameOver;
+    private IPersistence persistence;
     
      public INPC[] getNPCs(){
         throw new UnsupportedOperationException("not yet implemented.");
@@ -87,9 +88,13 @@ public class BusinessFacade implements IBusiness {
         throw new UnsupportedOperationException("not yet implemented.");
     }
 
+    /**
+     * injection of injectionFacade
+     * @param persistence the persistence facade to inject
+     */
     @Override
     public void injectPersistenceFacade(IPersistence persistence) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.persistence = persistence;
     }
 
     @Override
