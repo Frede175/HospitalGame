@@ -21,16 +21,13 @@ public class HelpController implements Initializable {
 
     @FXML
     private TextArea helpTextArea;
-    
-    private IBusiness business;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
     }    
-    
     
 }
