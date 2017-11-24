@@ -5,10 +5,25 @@
  */
 package business.NPC;
 
+import business.Player;
+import common.INPC;
+import common.IRoom;
+
 /**
  *
  * @author andreasmolgaard-andersen
  */
 public class Doctor {
     
+    public Doctor(String name, boolean canMove, IRoom currentRoom){
+        
+    }
+    
+    public Doctor(INPC npc){
+        
+    }
+    
+    public void interact(Player player){
+        
+    }
 }
