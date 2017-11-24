@@ -11,5 +11,5 @@ package common;
  */
 public interface IUI {
     void injectBusiness(IBusiness business);
-    void startApplication();
+    void startApplication(String[] args);
 }
