@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package business;
+package business.Item;
 
 /**
  *
- * @author fsr19
+ * @author andreasmolgaard-andersen
  */
-public class NewClass {
+public class ItemFacade {
     
 }
