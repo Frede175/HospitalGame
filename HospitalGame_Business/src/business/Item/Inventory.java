@@ -14,7 +14,7 @@ import java.util.ArrayList;
  *
  * @author andreasmolgaard-andersen
  */
-public class Inventory {
+public class Inventory implements IInventory {
 
     private int maxWeight;
     private int id;
@@ -51,5 +51,10 @@ public class Inventory {
 
     public int getTotalWeight() {
         return 0;
+    }
+
+    @Override
+    public IItem[] getItemsByName(ItemName name) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
