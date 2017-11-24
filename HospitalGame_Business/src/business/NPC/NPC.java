@@ -8,7 +8,7 @@ package business.NPC;
 import common.INPC;
 import common.IPlayer;
 import common.IRoom;
-import business.common.NPCID;
+import common.NPCID;
 
 /**
  *
@@ -19,26 +19,27 @@ public class NPC implements INPC {
     private String name;
     private String description;
     private boolean CanMove;
-    
-    public NPC(String name, boolean canMove, IRoom currentRoom){
-        
+
+    public NPC(String name, boolean canMove, IRoom currentRoom) {
+
     }
-    
-    public NPC(INPC npc){
-        
+
+    public NPC(INPC npc) {
+
     }
-    public void serCurrentRoom(IRoom currentRoom){
-        
+
+    public void serCurrentRoom(IRoom currentRoom) {
+
     }
-    
+
     public String getDescription() {
-        return null;  
+        return null;
     }
-    
-    public String interact(IPlayer player){
-        return null;  
+
+    public String interact(IPlayer player) {
+        return null;
     }
-    
+
     @Override
     public IRoom getCurrentRoom() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -53,6 +54,5 @@ public class NPC implements INPC {
     public NPCID getNPCID() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-}
 
+}

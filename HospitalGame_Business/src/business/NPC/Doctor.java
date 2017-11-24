@@ -14,16 +14,16 @@ import common.IRoom;
  * @author andreasmolgaard-andersen
  */
 public class Doctor {
-    
-    public Doctor(String name, boolean canMove, IRoom currentRoom){
-        
+
+    public Doctor(String name, boolean canMove, IRoom currentRoom) {
+
     }
-    
-    public Doctor(INPC npc){
-        
+
+    public Doctor(INPC npc) {
+
     }
-    
-    public void interact(Player player){
-        
+
+    public void interact(Player player) {
+
     }
 }

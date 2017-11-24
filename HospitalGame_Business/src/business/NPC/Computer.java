@@ -14,17 +14,17 @@ import common.IRoom;
  * @author andreasmolgaard-andersen
  */
 public class Computer {
-    
-    public Computer(String name, boolean canMove, IRoom currentRoom){
-        
+
+    public Computer(String name, boolean canMove, IRoom currentRoom) {
+
     }
-    
-    public Computer(INPC npc){
-        
+
+    public Computer(INPC npc) {
+
     }
-    
-    public void interact(Player player){
-        
+
+    public void interact(Player player) {
+
     }
-    
+
 }

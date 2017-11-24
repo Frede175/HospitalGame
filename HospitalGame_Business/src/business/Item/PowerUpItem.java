@@ -17,6 +17,10 @@ public class PowerUpItem extends Item implements IPowerUpItem {
     private double buff;
     private long timeLeftOfBuff;
     private long lastUpdate;
+
+    public PowerUpItem(int weight, ItemName name) {
+        super(weight, name);
+    }
     
 
     @Override
