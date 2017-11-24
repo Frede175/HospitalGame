@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ui.fxml;
+package ui;
 
+import common.IBusiness;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
@@ -16,12 +17,11 @@ import javafx.fxml.Initializable;
  */
 public class NPCController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
+    private IBusiness business;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        business = UI.getInstance().getBusiness();
     }    
     
 }
