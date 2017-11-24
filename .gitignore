@@ -29,3 +29,8 @@ manifest.mf
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/HospitalGame_Starter/nbproject/private/
+/HospitalGame_Business/nbproject/private/
+/HospitalGame_UI/nbproject/private/
+/HospitalGame_Persistence/nbproject/private/
+/HospitalGame_Common/nbproject/private/
