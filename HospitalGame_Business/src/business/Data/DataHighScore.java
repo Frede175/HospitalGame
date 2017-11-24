@@ -5,10 +5,29 @@
  */
 package business.Data;
 
+import common.IHighScore;
+import java.util.HashMap;
+
 /**
  *
  * @author andreasmolgaard-andersen
  */
-public class DataHighScore {
-    
+public class DataHighScore implements IHighScore {
+
+    private HashMap<String, Integer> highScore;
+
+    @Override
+    public HashMap<String, Integer> getHighScore() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    boolean save(IHighScore highscore) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.  
+    }
+
+    boolean load() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+}
+
 }
