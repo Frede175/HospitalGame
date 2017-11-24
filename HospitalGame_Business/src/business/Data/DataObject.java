@@ -5,10 +5,40 @@
  */
 package business.Data;
 
+import business.common.IDataObject;
+import common.IInventory;
+import common.INPC;
+import common.IPlayer;
+import common.IRoom;
+
 /**
  *
  * @author andreasmolgaard-andersen
  */
-public class DataObject {
+public class DataObject implements IDataObject {
+    private IRoom[] room;
+    private IPlayer player;
+    private INPC[] npcs;
+    private IInventory inventories;
+
+    @Override
+    public IPlayer getPlayer() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public IInventory[] getInventories() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public INPC[] getNPCs() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public IRoom[] getRooms() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
