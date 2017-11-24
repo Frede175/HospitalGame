@@ -10,6 +10,6 @@ package common;
  * @author fsr19
  */
 public interface INPC {
-    IRoom getRoom();
+    IRoom getCurrentRoom();
     String getName();
 }
