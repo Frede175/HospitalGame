@@ -12,4 +12,5 @@ package common;
 public interface INPC {
     IRoom getCurrentRoom();
     String getName();
+    NPCID getNPCID();
 }
