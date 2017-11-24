@@ -13,7 +13,7 @@
         </data>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
             <reference>
-                <foreign-project>Workshop_Business</foreign-project>
+                <foreign-project>HospitalGame_Business</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>
@@ -21,7 +21,7 @@
                 <id>jar</id>
             </reference>
             <reference>
-                <foreign-project>Workshop_Common</foreign-project>
+                <foreign-project>HospitalGame_Common</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>
@@ -29,7 +29,7 @@
                 <id>jar</id>
             </reference>
             <reference>
-                <foreign-project>Workshop_Persistence</foreign-project>
+                <foreign-project>HospitalGame_Persistence</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>
@@ -37,7 +37,7 @@
                 <id>jar</id>
             </reference>
             <reference>
-                <foreign-project>Workshop_UI</foreign-project>
+                <foreign-project>HospitalGame_UI</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>
