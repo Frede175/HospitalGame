@@ -5,10 +5,26 @@
  */
 package business.NPC;
 
+import business.Player;
+import common.INPC;
+import common.IRoom;
+
 /**
  *
  * @author andreasmolgaard-andersen
  */
 public class Computer {
+    
+    public Computer(String name, boolean canMove, IRoom currentRoom){
+        
+    }
+    
+    public Computer(INPC npc){
+        
+    }
+    
+    public void interact(Player player){
+        
+    }
     
 }
