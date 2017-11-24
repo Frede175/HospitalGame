@@ -6,15 +6,10 @@
 package persistence;
 
 import com.google.gson.Gson;
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -22,8 +17,14 @@ import java.util.logging.Logger;
  */
 public class JsonParser {
 
+    /**
+     * GSON library 
+     */
     private Gson gson;
 
+    /**
+     * Prefix to the file names
+     */
     private String fileCommon = "data_";
 
     public JsonParser() {
@@ -69,6 +70,12 @@ public class JsonParser {
         return object;
     }
 
+    /**
+     * Get the file name for file given a class
+     * @param <T>
+     * @param type the class 
+     * @return the file name for the class
+     */
     private <T> String getFileName(Class<T> type) {
         return String.format("%s%s.txt", fileCommon, type.getSimpleName());
     }
