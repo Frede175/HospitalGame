@@ -1,16 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package persistence;
 
 import common.IPersistence;
 import java.lang.reflect.Type;
 
 /**
+ * Facade for the persistence layer
  * 
- * @author fsr19
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Tobias Ahrenschneider Sztuk
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public class PersistenceFacade implements IPersistence {
     
@@ -45,7 +45,7 @@ public class PersistenceFacade implements IPersistence {
      *
      * @param <T>
      * @param type The class that needs to be loaded
-     * @return the an object with the given class or null if an error occurs.
+     * @return an object with the given class or null if an error occurs.
      */
     @Override
     public <T> T load(Class<T> type) {

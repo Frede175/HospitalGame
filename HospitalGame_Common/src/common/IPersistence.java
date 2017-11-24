@@ -1,13 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package common;
 
 /**
- *
- * @author fsr19
+ * Persistence interface
+ * 
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Tobias Ahrenschneider Sztuk
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public interface IPersistence {
 
@@ -25,7 +25,7 @@ public interface IPersistence {
      *
      * @param <T>
      * @param type The class that needs to be loaded
-     * @return the an object with the given class or null if an error occurs.
+     * @return the object with the given class or null if an error occurs.
      */
     <T> T load(Class<T> type);
 }
