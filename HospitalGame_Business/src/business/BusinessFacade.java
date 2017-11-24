@@ -88,6 +88,10 @@ public class BusinessFacade implements IBusiness {
         throw new UnsupportedOperationException("not yet implemented.");
     }
 
+    /**
+     * injection of injectionFacade
+     * @param persistence the persistence facade to inject
+     */
     @Override
     public void injectPersistenceFacade(IPersistence persistence) {
         this.persistence = persistence;
