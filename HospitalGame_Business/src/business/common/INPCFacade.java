@@ -5,10 +5,18 @@
  */
 package business.common;
 
+import common.IInventory;
+import common.INPC;
+import common.IPlayer;
+import common.IRoom;
+
 /**
  *
  * @author andreasmolgaard-andersen
  */
 public interface INPCFacade {
-    
+    public IPlayer getPlayer();
+    public IRoom[] getRooms();
+    public IInventory[] getInventories();
+    public INPC[] getNPCs();
 }
