@@ -8,14 +8,17 @@ package business;
 import business.common.IData;
 import business.common.IItemFacade;
 import business.common.INPCFacade;
+import common.IBusiness;
+import common.IHighScore;
 import common.INPC;
+import common.IPersistence;
 import common.IPlayer;
 
 /**
  *
  * @author andreasmolgaard-andersen
  */
-public class BusinessFacade {
+public class BusinessFacade implements IBusiness {
 
     private IItemFacade itemFacade;
     private INPCFacade npcFacade;
@@ -24,18 +27,6 @@ public class BusinessFacade {
     private Map map;
     private BusinessHighScore highScore;
     private boolean gameOver;
-
-    public void injectItemFacade(IItemFacade itemFacade){
-        throw new UnsupportedOperationException("not yet implemented.");
-    }
-    
-    public void injectNPCFacade(INPCFacade npcFacade){
-        throw new UnsupportedOperationException("not yet implemented.");
-    }
-    
-    public void injectDataFacade(IData dataFacade){
-        throw new UnsupportedOperationException("not yet implemented.");
-    }
     
      public INPC[] getNPCs(){
         throw new UnsupportedOperationException("not yet implemented.");
@@ -46,6 +37,7 @@ public class BusinessFacade {
         throw new UnsupportedOperationException("not yet implemented.");
     } 
     
+    @Override
     public void play(){
         throw new UnsupportedOperationException("not yet implemented.");
     }
@@ -58,27 +50,33 @@ public class BusinessFacade {
         throw new UnsupportedOperationException("not yet implemented.");
     }
     
+    @Override
     public void quit(){
         throw new UnsupportedOperationException("not yet implemented.");
     }
     
-    public int getHighScore(){
+    @Override
+    public IHighScore getHighScore(){
         throw new UnsupportedOperationException("not yet implemented.");
     }
     
+    @Override
     public void pause(){
         throw new UnsupportedOperationException("not yet implemented.");
     }
     
+    @Override
     public void resume(){
         throw new UnsupportedOperationException("not yet implemented.");
     }
     
-    public void save(){
+    @Override
+    public boolean save(){
         throw new UnsupportedOperationException("not yet implemented.");
     }
     
-    public void load(){
+    @Override
+    public boolean load(){
         throw new UnsupportedOperationException("not yet implemented.");
     }
     void createRooms(int numberOfRooms){
@@ -87,6 +85,16 @@ public class BusinessFacade {
     
     void setGameOver(){
         throw new UnsupportedOperationException("not yet implemented.");
+    }
+
+    @Override
+    public void injectPersistenceFacade(IPersistence persistence) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public IPlayer getPlayer() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

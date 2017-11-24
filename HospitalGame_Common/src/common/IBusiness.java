@@ -10,7 +10,7 @@ package common;
  * @author fsr19
  */
 public interface IBusiness {
-    void injectPersistenceFacade();
+    void injectPersistenceFacade(IPersistence persistence);
     INPC[] getNPCs();
     IPlayer getPlayer();
     void play();
