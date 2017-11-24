@@ -5,10 +5,24 @@
  */
 package business;
 
+import common.IHighScore;
+import java.util.HashMap;
+
 /**
  *
  * @author andreasmolgaard-andersen
  */
-public class BusinessHighScore {
-    
+public class BusinessHighScore implements IHighScore {
+
+    private HashMap<String, Integer> scores;
+
+    public void BusinessHighScore(IHighScore BusinessHighScore) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public HashMap<String, Integer> getHighScore() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
