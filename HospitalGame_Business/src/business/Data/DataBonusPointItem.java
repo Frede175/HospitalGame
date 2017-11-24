@@ -5,10 +5,19 @@
  */
 package business.Data;
 
+import common.IBonusPointItem;
+
 /**
  *
  * @author andreasmolgaard-andersen
  */
-public class DataBonusPointItem {
+public class DataBonusPointItem implements IBonusPointItem{
+
+    public int bonusPoints;
+    
+    @Override
+    public int getBonusPoints() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
