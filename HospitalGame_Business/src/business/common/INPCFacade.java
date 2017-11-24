@@ -9,6 +9,6 @@ package business.common;
  *
  * @author andreasmolgaard-andersen
  */
-public class INPCFacade {
+public interface INPCFacade {
     
 }

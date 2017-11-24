@@ -5,6 +5,7 @@
  */
 package business;
 
+import business.common.IData;
 import business.common.IItemFacade;
 import business.common.INPCFacade;
 import common.INPC;
@@ -62,10 +63,6 @@ public class BusinessFacade {
     }
     
     public int getHighScore(){
-        throw new UnsupportedOperationException("not yet implemented.");
-    }
-    
-    public Game getGameInstance(){
         throw new UnsupportedOperationException("not yet implemented.");
     }
     
