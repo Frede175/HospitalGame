@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="103.0" prefWidth="275.0" styleClass="mainFxmlClass" stylesheets="@../css/Help.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.HelpController">
+   <children>
+      <Text layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HELP: &#10;W = North, A = East, S = South, D = West&#10;&#10;Tap = switch between inventories&#10;&#10;Number 1-9 = chose an item from the inventory&#10;&#10;E = Use item, Q = Drop item in room&#10;" wrappingWidth="255.076171875" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+   </children>
+</AnchorPane>

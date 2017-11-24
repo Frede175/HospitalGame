@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ui;
+package common;
 
 /**
  *
- * @author fsr19
+ * @author Tobias
  */
-public class NewClass {
-    
+public interface IUI {
+    void injectBusiness(IBusiness business);
+    void startApplication(String[] args);
 }
