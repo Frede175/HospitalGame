@@ -7,14 +7,13 @@ package business.Item;
 
 import common.BloodType;
 import common.IBloodBag;
-import common.IBonusPointItem;
-import common.IItem;
 import common.ItemName;
 
 /**
  *
  * @author andreasmolgaard-andersen
  */
+
 public class BloodBag extends BonusPointItem implements IBloodBag{
 
     private BloodType bloodType;
