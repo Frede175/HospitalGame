@@ -6,11 +6,13 @@
 package business.NPC;
 
 import business.common.INPCFacade;
-import common.IInventory;
+import common.Directions;
 import common.INPC;
 import common.IPlayer;
 import common.IRoom;
+import common.NPCID;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
@@ -18,26 +20,41 @@ import java.util.ArrayList;
  */
 public class NPCFacade implements INPCFacade {
 
-    private ArrayList<NPC> npcs = new ArrayList<>();
-
+    private ArrayList<NPC> NPCs = new ArrayList<>();
+    
     @Override
-    public IPlayer getPlayer() {
+    public String interact(IPlayer player, INPC NPC) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public IRoom[] getRooms() {
+    public boolean move(INPC npc, Directions dir) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public IInventory[] getInventories() {
+    public void load(Objects[] objects) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 
+    @Override
+    public void create(NPCID id, boolean canMove, String name, IRoom currentRoom) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.        
+    }
+
+    /**
+     * getter method for all NPCs
+     * @return an Array with INPCs 
+     */
     @Override
     public INPC[] getNPCs() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        INPC[] ArrayNPCs = new INPC[NPCs.size()];
+        NPCs.toArray(ArrayNPCs);
+        return ArrayNPCs;
     }
-
+    
+    
 }
+
+
