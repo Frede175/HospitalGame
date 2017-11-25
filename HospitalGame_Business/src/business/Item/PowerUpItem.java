@@ -68,7 +68,7 @@ public class PowerUpItem extends Item implements IPowerUpItem {
      * updates the time of powerUpItem
      * @param currentTime is the currentTime 
      */
-    @Override
+    
     public void update(long currentTime) {
         timeLeftOfBuff -= currentTime - lastUpdate;
         lastUpdate = currentTime;

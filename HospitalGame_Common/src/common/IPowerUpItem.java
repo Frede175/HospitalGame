@@ -12,5 +12,4 @@ package common;
 public interface IPowerUpItem {
     double getBuff();
     long getTimeLeftOfBuff();
-    void update(long currentTime);
 }

@@ -28,14 +28,9 @@ public class ItemFacade implements IItemFacade {
      */
     private long lastUpdate;
     
+
     /**
-     *  creates an inventory
-     * @param maxWeight the maxWeight of the inventory being constructed
-     * @return the ID of the inventory constructed
-     */
-            
-    /**
-     * creates an inventory
+     * Creates an inventory
      * @param maxWeight the maxWeight of the item being created
      * @return the ID of the inventory created
      */
@@ -47,10 +42,10 @@ public class ItemFacade implements IItemFacade {
     }
     
     /**
-     * 
-     * @param inventoryID
-     * @param item
-     * @return 
+     * Adds an item to inventory with gives ID
+     * @param inventoryID ID of the inventory to add item to
+     * @param item the item being added
+     * @return true if the item has been added, else false
      */
     @Override
     public boolean addItem(int inventoryID, IItem item){
@@ -80,6 +75,11 @@ public class ItemFacade implements IItemFacade {
         return false;
     }
     
+    /**
+     * Activates a powerUpItem
+     * @param item the item being activated
+     * @return true if the item has been activated
+     */
     @Override
     public boolean activateItem(IItem item){
         return false;
@@ -88,10 +88,11 @@ public class ItemFacade implements IItemFacade {
     /**
      * updates the timeLeftOfBuff of a powerUpItem
      * @param powerUpItem is the item being updated
+     * @param inventory
      */
-    @Override
+    
     public void update(IPowerUpItem powerUpItem) {
-        powerUpItem.update(System.currentTimeMillis()); 
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     /**
