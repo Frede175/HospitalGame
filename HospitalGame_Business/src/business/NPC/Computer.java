@@ -17,7 +17,7 @@ import common.NPCID;
 public class Computer extends NPC {
 
     /**
-     * Constructor for Comuter
+     * Constructor for Computer
      * @param name name of the NPC
      * @param canMove boolean true if the NPC can move
      * @param currentRoom the room the NPC being created to be in
@@ -28,7 +28,7 @@ public class Computer extends NPC {
     }
 
     public Computer(INPC npc) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        super(((INPC)npc).getName(), ((INPC)npc).canMove(), ((INPC)npc).getCurrentRoom(), ((INPC)npc).getNPCID());
     }
 
     public void interact(Player player) {

@@ -11,6 +11,7 @@ package common;
  */
 public interface INPC {
     IRoom getCurrentRoom();
+    boolean canMove();
     String getName();
     NPCID getNPCID();
 }

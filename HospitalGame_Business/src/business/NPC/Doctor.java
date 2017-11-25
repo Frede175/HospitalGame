@@ -28,7 +28,7 @@ public class Doctor extends NPC {
     }
 
     public Doctor(INPC npc) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        super(((INPC)npc).getName(), ((INPC)npc).canMove(), ((INPC)npc).getCurrentRoom(), ((INPC)npc).getNPCID());
     }
 
     public void interact(Player player) {
