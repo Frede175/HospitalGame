@@ -9,23 +9,40 @@ import common.ItemName;
  */
 public class Item implements IItem {
 
-    
+    /**
+     * is the weight of the item
+     */
     private int weight;
-    private ItemName name;
     
+    /**
+     * is the name of the item
+     */
+    private ItemName name;
+    /**
+     * constructor for Item
+     * @param weight the weight of the item
+     * @param name the name of the item
+     */
     public Item(int weight, ItemName name) {
         this.name = name;
         this.weight = weight;
     }
-    
+    /**
+     * getter for Item
+     * @return the weight of the item
+     */
     @Override
     public int getWeight() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return weight;
     }
 
+    /**
+     * getter for name of the item
+     * @return name
+     */
     @Override
     public ItemName getName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return name;
     }
     
 }
