@@ -60,7 +60,10 @@ public class NPC implements INPC {
      * @param npc is the INPC npc object being constructed to be an NPC instead
      */
     public NPC(INPC npc) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        name = npc.getName();
+        canMove = npc.canMove();
+        currentRoom = npc.getCurrentRoom();
+        npcId = npc.getNPCID();
     }
     
 
@@ -109,6 +112,15 @@ public class NPC implements INPC {
     @Override
     public NPCID getNPCID() {
         return npcId;
+    }
+
+    /**
+     * 
+     * @return if the NPC can move.
+     */
+    @Override
+    public boolean canMove() {
+        return canMove;
     }
     
     
