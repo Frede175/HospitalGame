@@ -18,25 +18,34 @@ public class BloodBag extends BonusPointItem implements IBloodBag{
 
     private BloodType bloodType;
 
-    public BloodBag(int bonusPoints, ItemName name, int weight) {
+    public BloodBag(int bonusPoints, ItemName name, int weight,BloodType bloodType) {
         super(bonusPoints, name, weight);
+        this.bloodType = bloodType;    
     }
     
-    
-    
-    @Override
-    public boolean equals(Object p0){
-        return false;    
+    /**
+     * compares the bloodType of two BloodBags
+     * @param pO is the bloodbag being compared
+     * @return true if bloodType is the same
+     */
+    public boolean equals(BloodBag pO){
+        if (pO.getBloodType() == bloodType) {
+            return true;
+        } else {
+            return false;
+        }          
     }
     
+    /**
+     * 
+     * @return the bloodType of the bloodBag
+     */
     @Override
     public BloodType getBloodType() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return bloodType;
     }
 
-    public int getWeight() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
     
 }
 
