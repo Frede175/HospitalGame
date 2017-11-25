@@ -16,9 +16,24 @@ import java.util.ArrayList;
  */
 public class Inventory implements IInventory {
 
+    /**
+     * is the maxWeight the inventory can hold
+     */
     private int maxWeight;
+    
+    /**
+     * is the ID of the inventory
+     */
     private int id;
+    
+    /**
+     * is an arrayList of IItem to hold the items in inventory
+     */
     private ArrayList<IItem> items = new ArrayList<>();
+    
+    /**
+     * a static variable to always create an inventory with a new ID
+     */
     private static int nextID;
 
     /**

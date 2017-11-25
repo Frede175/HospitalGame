@@ -10,6 +10,9 @@ import common.ItemName;
  */
 public class BonusPointItem extends Item implements IBonusPointItem {
 
+    /**
+     * the amount of bonusPoints the gives
+     */
     private int bonusPoints;
     
     /**

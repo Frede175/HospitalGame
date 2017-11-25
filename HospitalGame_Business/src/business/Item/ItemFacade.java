@@ -17,7 +17,15 @@ import java.util.Objects;
  * @author andreasmolgaard-andersen
  */
 public class ItemFacade implements IItemFacade {
+    
+    /**
+     * an arrayList of all the inventories existing
+     */
     private ArrayList<Inventory> inventoryList = new ArrayList<>();
+    
+    /**
+     * hold the time of the lastUpdatee
+     */
     private long lastUpdate;
     
     /**
@@ -103,7 +111,7 @@ public class ItemFacade implements IItemFacade {
     
     @Override
     public void load(Objects[] objects){
-        
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     public IInventory[] getInventories() {

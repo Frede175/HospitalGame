@@ -14,38 +14,71 @@ import common.ItemName;
  */
 public class PowerUpItem extends Item implements IPowerUpItem {
     
+    /**
+     * holds variable buff, how powerful the item should be
+     */
     private double buff;
+    
+    /**
+     * holds how much time is left of the buff
+     */
     private long timeLeftOfBuff;
+    
+    /**
+     * holds the time of the lastUpdate
+     */
     private long lastUpdate;
 
-    public PowerUpItem(int weight, ItemName name) {
+    /**
+     * is the constructor for powerUpItem
+     * @param buff 
+     * @param timeLeftOfBuff
+     * @param name
+     * @param weight 
+     */
+    public PowerUpItem(double buff, long timeLeftOfBuff, ItemName name, int weight) {
         super(weight, name);
+        this.buff = buff;
+        this.timeLeftOfBuff = timeLeftOfBuff; 
     }
     
-
+    public PowerUpItem(IPowerUpItem item){
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    /**
+     * getter method for buff
+     * @return buff
+     */
     @Override
     public double getBuff() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return buff;
     }
 
+    /**
+     * getter method for the timeLeftOfBuff
+     * @return timeLeftOfBuff
+     */
     @Override
     public long getTimeLeftOfBuff() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return timeLeftOfBuff;
     }
 
-    public void PowerUpItem(double buff, long timeLeftOfBuff, ItemName name, int weight) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void PowerUpItem(IPowerUpItem item) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    /**
+     * updates the time of powerUpItem
+     * @param currentTime is the currentTime 
+     */
+    @Override
     public void update(long currentTime) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        timeLeftOfBuff -= currentTime - lastUpdate;
+        lastUpdate = currentTime;
     }
 
+    /**
+     * starts the PowerUpItem's buff
+     * @param startTime is the time when you started the buff
+     */
     public void startBuff(long startTime) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        lastUpdate = startTime;
     }
 }

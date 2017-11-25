@@ -16,8 +16,18 @@ import common.ItemName;
 
 public class BloodBag extends BonusPointItem implements IBloodBag{
 
+    /**
+     * is the BloodType that the bloodBag holds
+     */
     private BloodType bloodType;
 
+    /**
+     * constructor for the bloodBag
+     * @param bonusPoints is the amount of bonusPoints the bloodBag should give
+     * @param name is the name of the item
+     * @param weight is the weight of the item
+     * @param bloodType is the bloodType of the item
+     */
     public BloodBag(int bonusPoints, ItemName name, int weight,BloodType bloodType) {
         super(bonusPoints, name, weight);
         this.bloodType = bloodType;    

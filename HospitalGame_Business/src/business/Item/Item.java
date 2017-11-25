@@ -9,8 +9,14 @@ import common.ItemName;
  */
 public class Item implements IItem {
 
-    
+    /**
+     * is the weight of the item
+     */
     private int weight;
+    
+    /**
+     * is the name of the item
+     */
     private ItemName name;
     /**
      * constructor for Item
