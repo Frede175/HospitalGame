@@ -24,7 +24,7 @@ public class Porter extends NPC {
     }
 
     public Porter(INPC npc) {
-        super(((INPC)npc).getName(), ((INPC)npc).canMove(), ((INPC)npc).getCurrentRoom(), ((INPC)npc).getNPCID());
+        super(npc.getName(), npc.canMove(), npc.getCurrentRoom(), npc.getNPCID());
     }
     
     public void interact(Player player) {
