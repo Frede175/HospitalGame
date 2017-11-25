@@ -29,9 +29,12 @@ public class BusinessFacade implements IBusiness {
     private boolean gameOver;
     private IPersistence persistence;
     
+    /**
+     * 
+     * @return Array with INPCs
+     */
      public INPC[] getNPCs(){
-        throw new UnsupportedOperationException("not yet implemented.");
-        
+        return npcFacade.getNPCs();
     }
      
     public IPlayer getPLayer(){
