@@ -5,6 +5,7 @@
  */
 package business.Item;
 
+import common.IItem;
 import common.IPowerUpItem;
 import common.ItemName;
 
@@ -43,7 +44,10 @@ public class PowerUpItem extends Item implements IPowerUpItem {
     }
     
     public PowerUpItem(IPowerUpItem item){
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        super(((IItem)item).getWeight(), ((IItem)item).getName());
+        buff = item.getBuff();
+        lastUpdate = System.currentTimeMillis();
+        timeLeftOfBuff = item.getTimeLeftOfBuff();
     }
     
     /**

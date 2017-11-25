@@ -24,7 +24,7 @@ public class Porter extends NPC {
     }
 
     public Porter(INPC npc) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        super(npc.getName(), npc.canMove(), npc.getCurrentRoom(), npc.getNPCID());
     }
     
     public void interact(Player player) {
