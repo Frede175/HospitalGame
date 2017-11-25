@@ -5,29 +5,33 @@
  */
 package business.NPC;
 
+import business.Map;
 import business.Player;
 import common.INPC;
 import common.IRoom;
+import common.NPCID;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author andreasmolgaard-andersen
  */
-public class Porter {
+public class Porter extends NPC {
 
-    public Porter(String name, boolean canMove, IRoom currentRoom) {
-
+    public Porter(String name, boolean canMove, IRoom currentRoom, NPCID npcId) {
+        super(name, canMove, currentRoom, npcId);
     }
 
     public Porter(INPC npc) {
-
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     public void interact(Player player) {
-
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public boolean move(String direction) {
-        return false;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
