@@ -12,15 +12,24 @@ public class BonusPointItem extends Item implements IBonusPointItem {
 
     private int bonusPoints;
     
+    /**
+     * constructor for a bonusPointItem
+     * @param bonusPoints the bonusPoints of the item to be constructed
+     * @param name the name of the item to be constructed
+     * @param weight the weight of the item to be constructed
+     */
     public BonusPointItem(int bonusPoints, ItemName name, int weight) {
         super(weight, name);
         this.bonusPoints = bonusPoints;
     }
     
-    
+    /**
+     * 
+     * @return bonusPoints of the item
+     */
     @Override
     public int getBonusPoints() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return bonusPoints;
     }
     
 }
