@@ -1,5 +1,9 @@
 package ui;
 
+import common.Images;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.scene.image.Image;
 
 /**
@@ -16,6 +20,7 @@ public class Sprites {
         "doctor.png",
         "player.png",
         "porter.png",
+        "computer.png",
         "sprite.png",
         "victoryScreen.png"
     };
@@ -23,24 +28,26 @@ public class Sprites {
     /**
      * Contains all the images.
      */
-    Image[] images;
+    Map<Images, Image> images;
     
     /**
      * Sprites constructor loading all images.
      */
     public Sprites() {
-        images = new Image[names.length];
-        for (int i = 0; i < images.length; i++) {
-            images[i] = new Image("../ui/images/" + names[i]);
+        images = new HashMap<>();
+        Images[] imgKeys = Images.values();
+        for (int i = 0; i < names.length; i++) {
+            URL url = getClass().getClassLoader().getResource("ui/images/" + names[i]);
+            images.put(imgKeys[i], new Image(url.toString()));
         }
     }
     
     /**
-     * Gets an image from the images.
-     * @param i is the index of which image that needs to be returned.
-     * @return the requested image.
+     * Returns the image required.
+     * @param image defines which image.
+     * @return an image of the selected image.
      */
-    public Image getImage(int i) {
-        return images[i];
+    public Image getImage(Images image) {
+        return images.get(image);
     }
 }

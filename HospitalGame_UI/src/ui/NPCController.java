@@ -7,10 +7,13 @@ package ui;
 
 import common.IBusiness;
 import common.INPC;
+import common.Images;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 
 /**
  * FXML Controller class
@@ -21,6 +24,9 @@ public class NPCController implements Initializable {
 
     private IBusiness business;
     
+    @FXML
+    private VBox vBox;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         business = UI.getInstance().getBusiness();
@@ -30,13 +36,30 @@ public class NPCController implements Initializable {
     public void loadNPCImages() {
         INPC[] npcs = business.getNPCs();
         for(INPC npc : npcs) {
-            
-        }
+            vBox.getChildren().add(getImageOfNPC(npc));
+        } 
     }
     
-    public ImageView getImageOfNPC() {
+    /**
+     * 
+     * @param image
+     * @return 
+     */
+    public ImageView getImageOfNPC(INPC npc) {
         ImageView img = new ImageView();
-        img.setImage(UI.getInstance().getSprites().getImage(1));
+        switch (npc.getNPCID()) {
+            case COMPUTER:
+                img.setImage(UI.getInstance().getSprites().getImage(Images.COMPUTER));
+                break;
+            case DOCTOR:
+                img.setImage(UI.getInstance().getSprites().getImage(Images.DOCTOR));
+                break;
+            case PORTER:
+                img.setImage(UI.getInstance().getSprites().getImage(Images.PORTER));
+                break;
+            default:
+                throw new AssertionError();
+        }
         return img;
     }
     
