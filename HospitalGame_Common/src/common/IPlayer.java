@@ -17,4 +17,6 @@ public interface IPlayer {
     int getBloodAmount();
     double getBloodLoss();
     ArrayList<IItem> getActiveItems();
+    int getInventoryID();
+    IInventory getInventory();
 }
