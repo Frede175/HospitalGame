@@ -9,6 +9,7 @@ import business.Item.PowerUpItem;
 import business.common.IItemFacade;
 import common.BloodType;
 import common.Directions;
+import common.IInventory;
 import common.IItem;
 import common.IPlayer;
 import common.IRoom;
@@ -28,6 +29,8 @@ public class Player implements IPlayer {
     private long lastUpdate;
     private PowerUpItem[] activeItems;
     private BusinessFacade businessFacade;
+    private int inventoryID;
+    
 
     @Override
     public IRoom getCurrentRoom() {
@@ -100,6 +103,16 @@ public class Player implements IPlayer {
 
     private double calculateLoss() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getInventoryID() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public IInventory getInventory() {
+        return itemFacade.getInventory(inventoryID);
     }
 
 }
