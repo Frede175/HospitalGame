@@ -7,7 +7,6 @@ package ui;
 
 import common.IBusiness;
 import common.INPC;
-import common.Images;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -41,9 +40,9 @@ public class NPCController implements Initializable {
     }
     
     /**
-     * 
-     * @param image
-     * @return 
+     * Returns the npc type image for the given npc.
+     * @param npc which npc type image to return
+     * @return the given npc type image.
      */
     public ImageView getImageOfNPC(INPC npc) {
         ImageView img = new ImageView();
