@@ -5,28 +5,39 @@
  */
 package ui;
 
+import common.IBusiness;
+import common.IRoom;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 
 /**
  * FXML Controller class
  *
  * @author Tobias
  */
-public class HelpController implements Initializable {
+public class MapController implements Initializable {
 
-    @FXML
-    private TextArea helpTextArea;
-
+    private ImageView mapImageView;
+    
+    private IRoom currentRoom;
+    
+    private IBusiness business;
+    
+    
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-    }    
+        business = UI.getInstance().getBusiness();
+    }  
+    
+    public void setRoom(IRoom currentRoom){
+        
+    }
     
 }
