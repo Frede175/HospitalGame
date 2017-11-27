@@ -28,6 +28,7 @@ public class BusinessFacade implements IBusiness {
     private BusinessHighScore highScore;
     private boolean gameOver;
     private IPersistence persistence;
+    private boolean isGameOver = false;
     
     /**
      * 
@@ -88,7 +89,7 @@ public class BusinessFacade implements IBusiness {
     }
     
     void setGameOver(){
-        throw new UnsupportedOperationException("not yet implemented.");
+        isGameOver = true;
     }
 
     /**
@@ -104,5 +105,7 @@ public class BusinessFacade implements IBusiness {
     public IPlayer getPlayer() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+
     
 }
