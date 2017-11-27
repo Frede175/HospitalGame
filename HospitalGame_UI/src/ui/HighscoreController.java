@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import java.io.IOException;
+import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -35,6 +36,7 @@ public class HighscoreController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        business = UI.getInstance().getBusiness();
         TableColumn nameColumn = new TableColumn("Name");
         TableColumn scoreColumn = new TableColumn("Score");
         nameColumn.setPrefWidth(500);
@@ -56,7 +58,12 @@ public class HighscoreController implements Initializable {
     private void loadScores() {
         ObservableList<Score> allData = FXCollections.observableArrayList();
 
-        allData.addAll(new UIHighScore(business.getHighScore()).getScoreList());
+        UIHighScore highScore = new UIHighScore(business.getHighScore()); 
+        List<Score> scores = highScore.getScoreList();
+        
+        if(scores != null){
+            allData.addAll(scores);
+        }
 
         ScoreTabel.setItems(allData);
     }

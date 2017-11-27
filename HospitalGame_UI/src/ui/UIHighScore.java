@@ -27,8 +27,10 @@ public class UIHighScore {
      */
     public UIHighScore(IHighScore highScore){
         scoreList = new ArrayList<>();
-        for(Entry<String, Integer> entry : highScore.getHighScore().entrySet()){
-            scoreList.add(new Score(entry.getKey(), entry.getValue()));
+        if(highScore != null){
+            for(Entry<String, Integer> entry : highScore.getHighScore().entrySet()){
+                scoreList.add(new Score(entry.getKey(), entry.getValue()));
+            }
         }
     }
 
