@@ -12,6 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 
 /**
  * FXML Controller class
@@ -40,7 +41,7 @@ public class MenuController implements Initializable {
 
     @FXML
     private void highscoreButtonAction(ActionEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("fxml/Help.fxml"));
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("fxml/Highscore.fxml"));
         Scene scene = new Scene(pane);
         UI.getInstance().getStage().setScene(scene);
     }
@@ -57,7 +58,7 @@ public class MenuController implements Initializable {
 
     @FXML
     private void playButtonAction(ActionEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("fxml/Help.fxml"));
+        BorderPane pane = FXMLLoader.load(getClass().getResource("fxml/Main.fxml"));
         Scene scene = new Scene(pane);
         UI.getInstance().getStage().setScene(scene);
     }

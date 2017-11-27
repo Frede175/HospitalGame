@@ -37,7 +37,7 @@ public class UI extends Application implements IUI{
     public void start(Stage primaryStage) throws IOException {
         UI.getInstance().stage = primaryStage;
         UI.getInstance().sprites = new Sprites();
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/Main.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/Menu.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setMinHeight(600);
