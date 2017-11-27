@@ -14,22 +14,22 @@ import java.util.ArrayList;
  *
  * @author andreasmolgaard-andersen
  */
-public class Inventory implements IInventory {
+public class Inventory implements IInventory, Comparable<Inventory> {
 
     /**
      * is the maxWeight the inventory can hold
      */
-    private int maxWeight;
+    final private int maxWeight;
     
     /**
      * is the ID of the inventory
      */
-    private int id;
+    final private int id;
     
     /**
      * is an arrayList of IItem to hold the items in inventory
      */
-    private ArrayList<IItem> items = new ArrayList<>();
+    private ArrayList<Item> items = new ArrayList<>();
     
     /**
      * a static variable to always create an inventory with a new ID
@@ -51,9 +51,10 @@ public class Inventory implements IInventory {
      * @param inventory takes and IInventory and creates an Inventory
      */
     public Inventory(IInventory inventory) {
-        // mangler getMaxWeight fra inventory this.maxWeight = inventory.getMaxWeight();
-        // mangler getID fra inventory this.id = inventory.getID();
-        // mangler getArrayListOfItems fra inventory this.items = inventory.getArrayListOfItems();
+        this.maxWeight = inventory.getMaxWeight();
+        this.id = inventory.getInventoryID();
+        this.items = (ArrayList<Item>) inventory.getItems();
+        if (nextID <= id) nextID = id + 1;
     }
 
     /**
@@ -63,7 +64,7 @@ public class Inventory implements IInventory {
      */
     public boolean addItem(IItem item) {
         if (item.getWeight() + getTotalWeight() <= maxWeight) {
-            return items.add(item);
+            return items.add((Item)item);
         } else {
             return false;
         }
@@ -75,10 +76,7 @@ public class Inventory implements IInventory {
      * @return true if the item has been removed, false if not
      */
     public boolean removeItem(IItem item) {
-        if (items.remove(item)) {
-            return true;
-        }
-        return false;
+        return items.remove((Item)item);
     }
 
     /**
@@ -86,15 +84,25 @@ public class Inventory implements IInventory {
      * @param index is the index of the item being retrieved from items ArrayList
      * @return an IItem object
      */
-    public IItem getItem(int index) {
+    @Override
+    public Item getItem(int index) {
         return items.get(index);
+    }
+    
+    public Item getItem(IItem item) {
+        int i = items.indexOf(item);
+        if (i != -1) {
+            return items.get(i);
+        }
+        return null;
     }
 
     /**
      * returns IItems
      * @return the whole ArrayList items
      */
-    public ArrayList<IItem> getItems() {
+    @Override
+    public ArrayList<? extends IItem> getItems() {
         return items;
     }
 
@@ -130,7 +138,54 @@ public class Inventory implements IInventory {
         return IItem;
     }
     
+    /**
+     * 
+     * @return ID of inventory 
+     */
+    @Override
     public int getInventoryID() {
         return id;
     }
+
+    /**
+     * 
+     * @param obj
+     * @return 
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Inventory) {
+            return ((Inventory)obj).getInventoryID() == id;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + this.id;
+        return hash;
+    }
+
+    /**
+     * 
+     * @param o
+     * @return 
+     */
+    @Override
+    public int compareTo(Inventory o) {
+        if (id > o.getInventoryID()) return 1;
+        if (id < o.getInventoryID()) return -1;
+        return 0;
+    }
+
+    /**
+     * 
+     * @return maxWeight of inventory
+     */
+    @Override
+    public int getMaxWeight() {
+        return maxWeight;
+    }
+
 }

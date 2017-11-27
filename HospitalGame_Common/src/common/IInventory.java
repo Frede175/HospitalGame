@@ -13,6 +13,8 @@ import java.util.ArrayList;
  */
 public interface IInventory {
     IItem getItem(int index);
-    ArrayList<IItem> getItems();
+    ArrayList<? extends IItem> getItems();
     IItem[] getItemsByName(ItemName name);
+    int getInventoryId();
+    int getMaxWeight();
 }
