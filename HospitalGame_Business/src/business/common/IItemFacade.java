@@ -18,8 +18,8 @@ public interface IItemFacade {
     public int createInventory(int maxWeight);
     public boolean addItem(int inventoryID, IItem item);
     public boolean removeItem(int inventoryID, IItem item);
-    public boolean activateItem(IItem item);
-    public void update(IPowerUpItem powerUpItem);
+    public boolean activateItem(IItem item, int inventoryID, long startTime);
+    public boolean update(IPowerUpItem powerUpItem, int inventoryID, long lastUpdate);
     public IInventory getInventory(int InventoryID);
     public void load(Objects[] objects);    
 }
