@@ -42,6 +42,7 @@ public class UI extends Application implements IUI{
         primaryStage.setScene(scene);
         primaryStage.setMinHeight(600);
         primaryStage.setMinWidth(1000);
+        primaryStage.setMaximized(true);
         primaryStage.show();
     }
 

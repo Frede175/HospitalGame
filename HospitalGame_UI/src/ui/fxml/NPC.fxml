@@ -9,17 +9,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" maxWidth="200.0" style="-fx-background-color: none;" styleClass="mainFxmlClass" stylesheets="@../css/NPC.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.NPCController">
-   <children>
-      <VBox fx:id="vBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: none;">
+<VBox fx:id="vBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minWidth="-Infinity" style="-fx-background-color: none;" styleClass="mainFxmlClass" stylesheets="@../css/NPC.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.NPCController">
          <children>
-            <Label text="NPCS In Room">
+            <Label fx:id="title" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" text="NPCS In Room" VBox.vgrow="ALWAYS">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
          </children>
       </VBox>
-   </children>
-</AnchorPane>

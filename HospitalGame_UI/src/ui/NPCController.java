@@ -11,6 +11,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
@@ -35,8 +37,10 @@ public class NPCController implements Initializable {
     public void loadNPCImages() {
         INPC[] npcs = business.getNPCs();
         for(INPC npc : npcs) {
-            vBox.getChildren().add(getImageOfNPC(npc));
-        } 
+            Label label = new Label(npc.getNPCID().toString());
+            label.setPadding(new Insets(0, 0, 10, 0));
+            vBox.getChildren().addAll(getImageOfNPC(npc), label);
+        }
     }
     
     /**
@@ -46,6 +50,9 @@ public class NPCController implements Initializable {
      */
     public ImageView getImageOfNPC(INPC npc) {
         ImageView img = new ImageView();
+        img.setPreserveRatio(true);
+        img.setFitHeight(70);
+        img.setFitWidth(70);
         switch (npc.getNPCID()) {
             case COMPUTER:
                 img.setImage(UI.getInstance().getSprites().getImage(Images.COMPUTER));
