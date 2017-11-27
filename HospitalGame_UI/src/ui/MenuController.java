@@ -9,9 +9,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Screen;
 
 /**
  * FXML Controller class
@@ -81,8 +83,10 @@ public class MenuController implements Initializable {
      */
     @FXML
     private void playButtonAction(ActionEvent event) throws IOException {
-        BorderPane pane = FXMLLoader.load(getClass().getResource("fxml/Main.fxml"));
-        Scene scene = new Scene(pane);
+        Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
+        GridPane pane = FXMLLoader.load(getClass().getResource("fxml/Main.fxml"));
+        Scene scene = new Scene(pane, screenSize.getWidth(), screenSize.getHeight());
+        UI.getInstance().getStage().setMaximized(true);
         UI.getInstance().getStage().setScene(scene);
     }
     

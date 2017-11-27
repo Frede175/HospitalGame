@@ -31,7 +31,7 @@ public class NPCController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         business = UI.getInstance().getBusiness();
-        //loadNPCImages();
+        loadNPCImages();
     } 
     
     public void loadNPCImages() {
