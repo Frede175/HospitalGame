@@ -46,7 +46,7 @@ public class SpriteSheet {
      */
     public SpriteSheet(Image spriteSheet, int spriteSize, int numberOfSprites) {
         this.spriteSheet = spriteSheet;
-        this.spriteSheet = spriteSheet;
+        this.spriteSize = spriteSize;
         pixelReader = spriteSheet.getPixelReader();
         images = new Image[numberOfSprites];
         spritesPerRow = (int)(this.spriteSheet.getWidth() / spriteSize);
