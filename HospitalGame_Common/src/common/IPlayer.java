@@ -19,4 +19,5 @@ public interface IPlayer {
     ArrayList<IItem> getActiveItems();
     int getInventoryID();
     IInventory getInventory();
+    String getName();
 }

@@ -5,7 +5,6 @@
  */
 package business;
 
-import business.Item.PowerUpItem;
 import business.common.IItemFacade;
 import common.BloodType;
 import common.Directions;
@@ -27,46 +26,64 @@ public class Player implements IPlayer {
     private double bloodAmount;
     private double bloodRate;
     private long lastUpdate;
-    private PowerUpItem[] activeItems;
+    private ArrayList<IItem> activeItems = new ArrayList<>();
     private BusinessFacade businessFacade;
     private int inventoryID;
+    private Room currentRoom;
+    private BloodType bloodType;
     
 
     @Override
     public IRoom getCurrentRoom() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return currentRoom;
     }
 
     @Override
     public BloodType getBloodType() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return bloodType;
+        
     }
-
+        
     @Override
     public int getBloodAmount() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (int)bloodAmount;
     }
 
     @Override
     public double getBloodLoss() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return bloodRate;
     }
 
     @Override
     public ArrayList<IItem> getActiveItems() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return activeItems;
     }
 
     public Player(BloodType bloodType, double bloodRate, double bloodAmount, String name, BusinessFacade businessFacade) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates. 
-    }
+        this.bloodType = bloodType;
+        this.bloodRate = bloodRate;
+        this.bloodAmount = bloodAmount;
+        this.name = name;
+        this.businessFacade = businessFacade;
+        
+        inventoryID = itemFacade.createInventory(2000);
 
-    public void Player(IPlayer player) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        lastUpdate = System.currentTimeMillis();
+
+        activeItems = new ArrayList<>();
     }
+/*
+    public Player(IPlayer player) {
+        this.bloodType = player.getBloodType();
+        this.bloodRate = player.getBloodLoss();
+        this.bloodAmount = player.getBloodAmount();
+        this.name = player.getName();
+        this.businessFacade = player.getBusinessFacade();
+    }
+*/
 
     public void injectItemFacade(IItemFacade itemFacade) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.itemFacade = itemFacade;
     }
 
     public boolean useItem(IItem item) {
@@ -113,6 +130,11 @@ public class Player implements IPlayer {
     @Override
     public IInventory getInventory() {
         return itemFacade.getInventory(inventoryID);
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
 }

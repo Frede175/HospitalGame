@@ -5,10 +5,6 @@
  */
 package business;
 
-import business.Item.Item;
-import business.NPC.Computer;
-import business.NPC.Doctor;
-import business.NPC.Porter;
 import business.common.IItemFacade;
 import business.common.INPCFacade;
 import common.Directions;
@@ -16,7 +12,6 @@ import common.IItem;
 import common.INPC;
 import common.IRoom;
 import common.NPCID;
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -33,7 +28,7 @@ public class Map {
     private IItemFacade itemFacade;
     private INPCFacade npcFacade;
     private ArrayList<IRoom> rooms;
-    private HashMap<Point, IRoom> gameMap;
+    private HashMap<Coordinate, IRoom> gameMap;
 
     public void Map() {
         
@@ -106,8 +101,6 @@ public class Map {
                 i++;
             }  
         }
-        // returns the start room.
-        return startRoom;
     }
     
     
