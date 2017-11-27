@@ -17,62 +17,73 @@ import java.util.Set;
  * @author andreasmolgaard-andersen
  */
 public class Room implements IRoom {
+
     private IItemFacade itemFacade;
     private String name;
-    private HashMap<String, IRoom> exits;
-    private boolean inspected;
-    
-    public Room(String name){
-        
+    private HashMap<Directions, IRoom> exits;
+    private boolean inspected = false;
+    private int inventoryID;
+    private boolean locked;
+    private Coordinate c;
+
+    /**
+     * constructor for room. inspected Is set to false as standard.
+     *
+     * @param name is the name assigned to the room.
+     */
+    public Room(String name) {
+        this.name = name;
     }
-    
-    public void injectItemFacade(IItemFacade itemFacade){
-        
+
+    public void injectItemFacade(IItemFacade itemFacade) {
+        this.itemFacade = itemFacade;
+        this.inventoryID = itemFacade.createInventory(2000);
     }
-    
+
     public void setExit(Directions direction, IRoom roomNeighbour) {
-        
+        exits.put(direction, roomNeighbour);
     }
-   
+
     public boolean addItem(IItem item) {
-        return false;
+        return itemFacade.addItem(inventoryID, item);
     }
-    
+
     public boolean removeItem(IItem item) {
-        return false;
+        return itemFacade.removeItem(inventoryID, item);
     }
-    
+
     public IItem getItem(int index) {
-        return null;
+        return itemFacade.getInventory(inventoryID).getItem(index);
     }
-    
-    public Set getKeySet() {
-        return null;
-    }
-    
+
     @Override
-    public IRoom getExit(Directions direction){
-        return null;   
+    public IRoom getExit(Directions direction) {
+        return exits.get(direction);
     }
 
     @Override
     public String getName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return name;
     }
 
     @Override
-    public Set<String> getExitStrings() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Set<Directions> getExitDirections() {
+        return exits.keySet();
     }
 
     @Override
     public boolean isLocked() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return locked;
     }
 
     @Override
     public boolean isInspected() {
+        return inspected;
+    }
+
+    Iterable<Object> getKeySet() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+
 }
