@@ -15,6 +15,6 @@ public interface IInventory {
     IItem getItem(int index);
     ArrayList<? extends IItem> getItems();
     IItem[] getItemsByName(ItemName name);
-    int getInventoryId();
+    int getInventoryID();
     int getMaxWeight();
 }

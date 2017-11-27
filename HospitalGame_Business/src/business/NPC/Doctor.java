@@ -7,6 +7,7 @@ package business.NPC;
 
 import business.Player;
 import common.INPC;
+import common.IPlayer;
 import common.IRoom;
 import common.NPCID;
 
@@ -32,6 +33,11 @@ public class Doctor extends NPC {
     }
 
     public void interact(Player player) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String interact(IPlayer player) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

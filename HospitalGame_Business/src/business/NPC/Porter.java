@@ -8,6 +8,7 @@ package business.NPC;
 import business.Map;
 import business.Player;
 import common.INPC;
+import common.IPlayer;
 import common.IRoom;
 import common.NPCID;
 import java.util.ArrayList;
@@ -32,6 +33,11 @@ public class Porter extends NPC {
     }
 
     public boolean move(String direction) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String interact(IPlayer player) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

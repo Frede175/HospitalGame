@@ -7,6 +7,7 @@ package business.NPC;
 
 import business.Player;
 import common.INPC;
+import common.IPlayer;
 import common.IRoom;
 import common.NPCID;
 
@@ -31,8 +32,9 @@ public class Computer extends NPC {
         super(npc.getName(), npc.canMove(), npc.getCurrentRoom(), npc.getNPCID());
     }
 
-    public void interact(Player player) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.        
+    @Override
+    public String interact(IPlayer player) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
