@@ -36,10 +36,10 @@ public class UI extends Application implements IUI{
     @Override
     public void start(Stage primaryStage) throws IOException {
         UI.getInstance().stage = primaryStage;
-        /*Parent root = FXMLLoader.load(getClass().getResource("fxml/Menu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/Menu.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        primaryStage.show();*/
+        primaryStage.show();
     }
 
     @Override
