@@ -12,52 +12,55 @@ import javafx.stage.Stage;
 
 /**
  * Starts the UI application
- * 
+ *
  * @author Frederik Schultz Rosenberg
  * @author Andreas Bøgh Mølgaard-Andersen
  * @author Tobias Ahrenschneider Sztuk
  * @author Lars Bjerregaard Jørgensen
  * @author Robert Francisti
  */
-public class UI extends Application implements IUI{
-    
+public class UI extends Application implements IUI {
+
     /**
      * Reference to the UI instance that contains IBusiness reference.
      */
     private static UI ui;
-    
+
     /**
-     * 
+     *
      * @return the instance of the UI that contains a reference to business
      */
-    public static UI getInstance(){
+    public static UI getInstance() {
         return ui;
     }
-    
+
     /**
      * Reference to the business layer
      */
     private IBusiness business;
-    
+
     /**
      * The current stage.
      */
     private Stage stage;
-    
+
     /**
      * All images used in the application
      */
-    private Sprites sprites;
-    
+    private ImageResource imageResource;
+
     /**
-     * Called at the start of the application. Creates and loads the menu controller
+     * Called at the start of the application. Creates and loads the menu
+     * controller
+     *
      * @param primaryStage of the window
-     * @throws IOException if someone wrong with loading the file for the controller.
+     * @throws IOException if someone wrong with loading the file for the
+     * controller.
      */
     @Override
     public void start(Stage primaryStage) throws IOException {
         UI.getInstance().stage = primaryStage;
-        UI.getInstance().sprites = new Sprites();
+        UI.getInstance().imageResource = new ImageResource();
         Parent root = FXMLLoader.load(getClass().getResource("fxml/Menu.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -69,6 +72,7 @@ public class UI extends Application implements IUI{
 
     /**
      * Sets the reference to business
+     *
      * @param business the business layer
      */
     @Override
@@ -78,6 +82,7 @@ public class UI extends Application implements IUI{
 
     /**
      * Starts the application and sets the static instance of UI.
+     *
      * @param args from the command line.
      */
     @Override
@@ -87,27 +92,27 @@ public class UI extends Application implements IUI{
     }
 
     /**
-     * 
+     *
      * @return the reference to the business layer
      */
     IBusiness getBusiness() {
         return business;
     }
-    
+
     /**
-     * 
+     *
      * @return the main stage of the program
      */
     Stage getStage() {
         return stage;
     }
-    
+
     /**
-     * 
+     *
      * @return the class with all images for the application
      */
-    Sprites getSprites() {
-        return sprites;
+    ImageResource getImageResource() {
+        return imageResource;
     }
-    
+
 }

@@ -1,52 +1,40 @@
 package ui;
 
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import javafx.scene.image.Image;
-
 /**
  *
- * @author larsjorgensen
+ * @author fsr19
  */
-public class Sprites {
+public enum Sprites {
+    ARROW_RIGHT(0),
+    ARROW_UP(1),
+    ARROW_DOWN(2),
+    ARROW_LEFT(3),
+    BANDAGE(4),
+    BLOODBAG_A(5),
+    BLOODBAG_AB(6),
+    BLOODBAG_B(7),
+    BLOODBAG_O(8),
+    BUTTON_PRESSED(9),
+    BUTTON_RELEASED(10),
+    DOCTOR(11),
+    PLAYER(12),
+    PORTER(13),
+    EXIT_RIGHT(14),
+    EXIT_UP(15),
+    EXIT_DOWN(16),
+    EXIT_LEFT(17),
+    LOCK(18),
+    MORPHINE(19),
+    COMPUTER(20);
+        
+    private int index;
     
-    /**
-     * Contains all the names of the images
-     */
-    String[] names = {
-        "deathScreen.png",
-        "doctor.png",
-        "player.png",
-        "porter.png",
-        "computer.png",
-        "sprite.png",
-        "victoryScreen.png"
-    };
-    
-    /**
-     * Contains all the images.
-     */
-    Map<Images, Image> images;
-    
-    /**
-     * Sprites constructor loading all images.
-     */
-    public Sprites() {
-        images = new HashMap<>();
-        Images[] imgKeys = Images.values();
-        for (int i = 0; i < names.length; i++) {
-            URL url = getClass().getClassLoader().getResource("ui/images/" + names[i]);
-            images.put(imgKeys[i], new Image(url.toString()));
-        }
+    private Sprites(int index) {
+        this.index = index;
+    }
+
+    int getIndex() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    /**
-     * Returns the image required.
-     * @param image defines which image.
-     * @return an image of the selected image.
-     */
-    public Image getImage(Images image) {
-        return images.get(image);
-    }
 }
