@@ -19,6 +19,8 @@ import java.util.List;
  * @author andreasmolgaard-andersen
  */
 public class Porter extends NPC {
+    
+    private IRoom endRoom;
 
     public Porter(String name, boolean canMove, IRoom currentRoom, NPCID npcId) {
         super(name, canMove, currentRoom, npcId);
@@ -27,7 +29,7 @@ public class Porter extends NPC {
     public Porter(INPC npc) {
         super(npc.getName(), npc.canMove(), npc.getCurrentRoom(), npc.getNPCID());
     }
-    
+
     public void interact(Player player) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -38,6 +40,16 @@ public class Porter extends NPC {
 
     @Override
     public String interact(IPlayer player) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.print("These directions will lead you two rooms ahead ");
+        List<String> path = Map.(player.getCurrentRoom(), endRoom);
+        for (int i = 0; i < 2 && i < path.size(); i++) {
+            System.out.print(path.get(i) + " ");
+        }
+        System.out.println();
+        return null;
     }
+    public void setEndRoom(IRoom room){
+        endRoom = room;
+    }
+
 }
