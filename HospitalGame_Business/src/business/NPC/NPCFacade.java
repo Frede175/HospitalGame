@@ -53,6 +53,18 @@ public class NPCFacade implements INPCFacade {
         NPCs.toArray(ArrayNPCs);
         return ArrayNPCs;
     }
+
+    @Override
+    public void setRoom(INPC npc, IRoom room) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setEndRoom(INPC npc, IRoom endRoom) {
+        if (npc instanceof Porter) {
+            ((Porter)npc).setEndRoom(endRoom);
+        }
+    }
     
     
 }
