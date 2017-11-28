@@ -20,4 +20,5 @@ public interface IBusiness {
     void resume();
     boolean save();
     boolean load();
+    
 }
