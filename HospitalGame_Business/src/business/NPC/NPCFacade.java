@@ -40,7 +40,26 @@ public class NPCFacade implements INPCFacade {
 
     @Override
     public void create(NPCID id, boolean canMove, String name, IRoom currentRoom) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.        
+       
+        switch(id) {
+            case COMPUTER: 
+                    Computer computer = new Computer(name, canMove, currentRoom, id);
+                    NPCs.add(computer);
+                    break;
+            case DOCTOR: 
+                    Doctor docter = new Doctor(name, canMove, currentRoom, id);
+                    NPCs.add(docter);
+                    break;
+            case PORTER: 
+                    Porter porter = new Porter(name, canMove, currentRoom, id);
+                    NPCs.add(porter);
+                    break;
+            default:
+                throw new AssertionError();
+        }
+            
+            
+        
     }
 
     /**
