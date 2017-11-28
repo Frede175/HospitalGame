@@ -38,7 +38,7 @@ public class BusinessFacade implements IBusiness {
     }
      
     public IPlayer getPLayer(){
-        throw new UnsupportedOperationException("not yet implemented.");
+        return player;
     } 
     
     @Override

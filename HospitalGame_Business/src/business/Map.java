@@ -5,10 +5,6 @@
  */
 package business;
 
-import business.Item.Item;
-import business.NPC.Computer;
-import business.NPC.Doctor;
-import business.NPC.Porter;
 import business.common.IItemFacade;
 import business.common.INPCFacade;
 import common.Directions;
@@ -20,9 +16,12 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Set;
+import java.util.Vector;
 
 /**
  *
@@ -36,7 +35,7 @@ public class Map {
     private HashMap<Point, IRoom> gameMap;
 
     public void Map() {
-        
+
     }
 
     public void injectItemFacade(IItemFacade itemFacade) {
@@ -57,73 +56,82 @@ public class Map {
         // Adds the NPCs to random rooms.
         INPC porter = null;
         INPC doctor = null;
-        
+
         for (INPC npc : npcs) {
-            if (npc.getNPCID() == NPCID.DOCTOR) doctor = npc;
-            if (npc.getNPCID() == NPCID.PORTER) porter = npc;
-            
+            if (npc.getNPCID() == NPCID.DOCTOR) {
+                doctor = npc;
+            }
+            if (npc.getNPCID() == NPCID.PORTER) {
+                porter = npc;
+            }
+
             npcFacade.setRoom(npc, freeRooms.get((int) (Math.random() * roomCount)));
         }
-        
+
         // Sets the doctors room in the Porter object.
-        if (porter != null && doctor != null)
+        if (porter != null && doctor != null) {
             npcFacade.setEndRoom(porter, doctor.getCurrentRoom());
-        
+        }
+
         Directions[] directions = Directions.values();
         // Sets the start room to the first free room.
         Room startRoom = freeRooms.get(0);
+        startRoom.setCoordinate(new Coordinate(0,0));
         // Creates the queue where all the rooms that needs to be processed is stored.
         Queue<Room> roomsToProcess = new LinkedList<>();
         // Adds the first free room to the queue.
         roomsToProcess.add(freeRooms.remove(0));
+        Set<Coordinate> usedCoordinates = new HashSet<>();
+        usedCoordinates.add(new Coordinate(0,0));
         // As long as the queue is not empty.
         while (!roomsToProcess.isEmpty()) {
             // Gets the next room in the queue.
             Room currentRoom = roomsToProcess.poll();
             int i = 0;
-            // Generates a random number of exits the room have.
-            int exitCount = (int)(Math.random() * 4) + 1;
+            // Generates a random number of exits the room has.
+            int exitCount = (int) (Math.random() * 4) + 1;
             // As long as there is free rooms left and the room needs more exits.
-            while (i <=  exitCount && !freeRooms.isEmpty()) {
+            while (i <= exitCount && !freeRooms.isEmpty()) {
                 // Generates the random direction.
-                int index = (int)(Math.random() * 4);
+                int index = (int) (Math.random() * 4);
                 Directions direction = directions[index];
                 // Calculates the opponent direction.
                 Directions oppoDirection = directions[(index + 2) % 4];
                 // Random selecting the neighbor room.
-                int neighbor = (int)(Math.random() * freeRooms.size());
+                int neighbor = (int) (Math.random() * freeRooms.size());
                 // If the room dosent have an exit at that direction
-                if(currentRoom.getExit(direction) == null) {
+                Coordinate c = Coordinate.add(currentRoom.getCoordinate(), getCoordinateDirection(direction));
+                if (currentRoom.getExit(direction) == null && !usedCoordinates.contains(c)) {
                     // Sets an exit with the direction and the neighbor.
-                    currentRoom.setExit(direction, freeRooms.get(neighbor));
+                    currentRoom.setExit(direction, freeRooms.get(neighbor));                   
+                    freeRooms.get(neighbor).setCoordinate(c);
+                    usedCoordinates.add(c);
                     // Sets the neighbor rooms exit to be the current room.
                     freeRooms.get(neighbor).setExit(oppoDirection, currentRoom);
                     // Adds the neighbor room to the queue.
                     roomsToProcess.add(freeRooms.get(neighbor));
                     // Remove the neighbor room from the free rooms ArrayList.
                     freeRooms.remove(freeRooms.get(neighbor));
+
                 }
                 i++;
-            }  
+            }
         }
         // returns the start room.
-        return startRoom;
+
     }
-    
-    
-    
+
     /**
      * Creates the rooms.
+     *
      * @param roomCount The count of how many rooms that will be generated.
      * @return An arraylist of all the generated rooms.
      */
-    
-
     private ArrayList<Room> createRooms(int roomCount) {
         ArrayList<Room> rooms = new ArrayList<>();
         char a = 'a';
         for (int i = 0; i < roomCount; i++) {
-            rooms.add(new Room(String.valueOf((char)(a + i))));
+            rooms.add(new Room(String.valueOf((char) (a + i))));
         }
         return rooms;
     }
@@ -172,11 +180,25 @@ public class Map {
         return path;
     }
 
-    
-    public IRoom[] getRooms(){
+    public IRoom[] getRooms() {
         IRoom[] array = new IRoom[rooms.size()];
         rooms.toArray(array);
         return array;
     }
-}
 
+    private Coordinate getCoordinateDirection(Directions d) {
+        switch (d) {
+            case SOUTH:
+                return new Coordinate(0, -1);
+            case NORTH:
+                return new Coordinate(0, 1);
+            case EAST:
+                return new Coordinate(1, 0);
+            case WEST:
+                return new Coordinate(-1, 0);
+            default:
+                throw new AssertionError(d.name());
+
+        }
+    }
+}

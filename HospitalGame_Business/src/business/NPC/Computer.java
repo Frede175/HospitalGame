@@ -34,7 +34,8 @@ public class Computer extends NPC {
 
     @Override
     public String interact(IPlayer player) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      String string = ("You have the blood type : " + player.getBloodType());
+      return string;
     }
 
 }

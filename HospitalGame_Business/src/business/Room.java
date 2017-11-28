@@ -80,6 +80,12 @@ public class Room implements IRoom {
     public boolean isInspected() {
         return inspected;
     }
+    public Coordinate getCoordinate(){
+        return c;
+    }
+    public void setCoordinate(Coordinate c){
+        this.c = c;
+    }
 
   
 

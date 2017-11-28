@@ -30,11 +30,12 @@ public class Player implements IPlayer {
     private PowerUpItem[] activeItems;
     private BusinessFacade businessFacade;
     private int inventoryID;
+    private int currentRoom;
     
 
     @Override
     public IRoom getCurrentRoom() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return currentRoom;
     }
 
     @Override
