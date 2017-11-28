@@ -25,23 +25,55 @@ import java.util.Queue;
  */
 public class Map {
 
+    /**
+     * to gain access to item facade
+     */
     private IItemFacade itemFacade;
+    
+    /**
+     * to gain access to npc facade
+     */
     private INPCFacade npcFacade;
+    
+    /**
+     * an ArrayList of rooms
+     */
     private ArrayList<IRoom> rooms;
+    
+    /**
+     * Hash map that holds the processed rooms, along with coordinates
+     */
     private HashMap<Coordinate, IRoom> gameMap;
 
+    /**
+     * no args constructor for map
+     */
     public void Map() {
         
     }
 
+    /**
+     * injector for item Facade
+     * @param itemFacade is the itemFacade to be injected
+     */
     public void injectItemFacade(IItemFacade itemFacade) {
         this.itemFacade = itemFacade;
     }
 
+    /**
+     * injector for npc facade
+     * @param npcFacade is the npcFacade to be injected
+     */
     public void InjectNPCFacade(INPCFacade npcFacade) {
         this.npcFacade = npcFacade;
     }
 
+    /**
+     * generates the map for the game
+     * @param roomCount how many rooms are to be in the game
+     * @param items which items are to be put in the game
+     * @param npcs which npcs are to be put in the game
+     */
     public void generateMap(int roomCount, ArrayList<IItem> items, ArrayList<INPC> npcs) {
         // Creates the ArrayList that contains all the free rooms.
         ArrayList<Room> freeRooms = createRooms(roomCount);
@@ -111,7 +143,6 @@ public class Map {
      * @return An arraylist of all the generated rooms.
      */
     
-
     private ArrayList<Room> createRooms(int roomCount) {
         ArrayList<Room> rooms = new ArrayList<>();
         char a = 'a';
@@ -121,6 +152,12 @@ public class Map {
         return rooms;
     }
 
+    /**
+     * used to find the shortest path towards the doctor NPC
+     * @param startRoom 
+     * @param endRoom
+     * @return 
+     */
     public static List<String> pathfinder(Room startRoom, Room endRoom) {
         // Queue holds a list of the rooms that are going to be checked
         Queue<Room> queue = new LinkedList<>();

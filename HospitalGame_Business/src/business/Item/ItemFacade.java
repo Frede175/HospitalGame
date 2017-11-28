@@ -101,13 +101,6 @@ public class ItemFacade implements IItemFacade {
         if (inventoryList.get(inventoryID).getInventoryID() == inventoryID) {
             return inventoryList.get(inventoryID);
         }
-
-        for (int i = 0; i < inventoryList.size(); i++) {
-            if (inventoryList.get(i).getInventoryID() == inventoryID) {
-                return inventoryList.get(i);
-            }
-        }
-
         return null;
     }
 
@@ -125,6 +118,10 @@ public class ItemFacade implements IItemFacade {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * getter method for inventories
+     * @return an array with all inventories
+     */
     public IInventory[] getInventories() {
         IInventory[] inventories = new IInventory[inventoryList.size()];
         inventoryList.toArray(inventories);
