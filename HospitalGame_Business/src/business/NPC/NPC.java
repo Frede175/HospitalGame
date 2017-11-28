@@ -14,28 +14,28 @@ import common.NPCID;
  *
  * @author andreasmolgaard-andersen
  */
-public class NPC implements INPC {
+public abstract class NPC implements INPC {
 
     /**
      * the current room of the NPC
      */
     private IRoom currentRoom;
-    
+
     /**
      * is the name of the NPC
      */
     private String name;
-    
+
     /**
      * is the description of the NPC
      */
     private String description;
-    
+
     /**
      * if the NPC can move is true, false if not
      */
     private boolean canMove;
-    
+
     /**
      * is the ID of the NPC
      */
@@ -43,6 +43,7 @@ public class NPC implements INPC {
 
     /**
      * Constructor for NPC
+     *
      * @param name name of the NPC
      * @param canMove boolean true if the NPC can move
      * @param currentRoom the room the NPC being created to be in
@@ -57,6 +58,7 @@ public class NPC implements INPC {
 
     /**
      * Construcfor for NPC
+     *
      * @param npc is the INPC npc object being constructed to be an NPC instead
      */
     public NPC(INPC npc) {
@@ -65,10 +67,10 @@ public class NPC implements INPC {
         currentRoom = npc.getCurrentRoom();
         npcId = npc.getNPCID();
     }
-    
 
     /**
      * sets the room of an NPC
+     *
      * @param currentRoom the new room
      */
     public void setCurrentRoom(IRoom currentRoom) {
@@ -76,19 +78,23 @@ public class NPC implements INPC {
     }
 
     /**
-     * 
+     *
      * @return description
      */
     public String getDescription() {
         return description;
     }
 
-    public String interact(IPlayer player) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    /**
+     * interact method for the npcs
+     * @param player is the payer to interact with the npc
+     * @return a String when interacting
+     */
+    public abstract String interact(IPlayer player);
+        
 
     /**
-     * 
+     *
      * @return the currentRoom of NPC
      */
     @Override
@@ -97,7 +103,7 @@ public class NPC implements INPC {
     }
 
     /**
-     * 
+     *
      * @return the name of NPC
      */
     @Override
@@ -106,7 +112,7 @@ public class NPC implements INPC {
     }
 
     /**
-     * 
+     *
      * @return the NPCID of the NPC
      */
     @Override
@@ -115,14 +121,12 @@ public class NPC implements INPC {
     }
 
     /**
-     * 
+     *
      * @return if the NPC can move.
      */
     @Override
     public boolean canMove() {
         return canMove;
     }
-    
-    
 
 }

@@ -22,4 +22,6 @@ public interface INPCFacade {
     public void load(Objects[] objects);
     public void create(NPCID id, boolean canMove, String name, IRoom currentRoom);
     public INPC[] getNPCs();
+    void setRoom(INPC npc, IRoom room);
+    public void setEndRoom(INPC porter, IRoom currentRoom);
 }
