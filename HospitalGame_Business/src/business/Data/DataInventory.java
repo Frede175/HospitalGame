@@ -34,12 +34,12 @@ public class DataInventory implements IInventory {
     }
 
     @Override
-    public int getInventoryId() {
+    public int getMaxWeight() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public int getMaxWeight() {
+    public int getInventoryID() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

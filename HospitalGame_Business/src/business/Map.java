@@ -177,7 +177,7 @@ public class Map {
      * @param endRoom
      * @return
      */
-    public static List<Directions> pathfinder(Room startRoom, Room endRoom) {
+    public static List<Directions> pathfinder(IRoom startRoom, IRoom endRoom) {
         // Queue holds a list of the rooms that are going to be checked
         Queue<Room> queue = new LinkedList<>();
         //Hashmap holds the checked rooms and what direction we came from, that points to startRoom.
@@ -187,7 +187,8 @@ public class Map {
             Room r = (Room) startRoom.getExit(key);
             queue.add(r);
         }
-        pathMap.put(startRoom, null);
+        
+        pathMap.put((Room)startRoom, null);
         while (!queue.isEmpty()) {
             Room room = queue.poll();
             for (Directions key : room.getExitDirections()) {
@@ -202,7 +203,7 @@ public class Map {
             }
         }
         List<Directions> path = new ArrayList<>();
-        Room currentRoom = endRoom;
+        Room currentRoom = (Room) endRoom;
         //going from endRoom to startRoom and storing directions. 
         while (currentRoom != startRoom) {
             Directions s = pathMap.get(currentRoom);

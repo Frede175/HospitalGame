@@ -63,7 +63,6 @@ public class Player implements IPlayer {
      * the inventoryID of the player's inventory
      */
     private int inventoryID;
-    private int currentRoom;
     
     /**
      * the room that the player is currently in

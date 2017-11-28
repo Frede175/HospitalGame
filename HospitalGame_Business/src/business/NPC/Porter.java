@@ -7,6 +7,7 @@ package business.NPC;
 
 import business.Map;
 import business.Player;
+import common.Directions;
 import common.INPC;
 import common.IPlayer;
 import common.IRoom;
@@ -60,7 +61,7 @@ public class Porter extends NPC {
     @Override
     public String interact(IPlayer player) {
         System.out.print("These directions will lead you two rooms ahead ");
-        List<String> path = Map.(player.getCurrentRoom(), endRoom);
+        List<Directions> path = Map.pathfinder(player.getCurrentRoom(), endRoom);
         for (int i = 0; i < 2 && i < path.size(); i++) {
             System.out.print(path.get(i) + " ");
         }
