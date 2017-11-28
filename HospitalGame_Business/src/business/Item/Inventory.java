@@ -89,6 +89,11 @@ public class Inventory implements IInventory, Comparable<Inventory> {
         return items.get(index);
     }
     
+    /**
+     * returns an item
+     * @param item equivalent item te be retrieved
+     * @return an item
+     */
     public Item getItem(IItem item) {
         int i = items.indexOf(item);
         if (i != -1) {
@@ -139,7 +144,7 @@ public class Inventory implements IInventory, Comparable<Inventory> {
     }
     
     /**
-     * 
+     * getter method
      * @return ID of inventory 
      */
     @Override
@@ -148,9 +153,9 @@ public class Inventory implements IInventory, Comparable<Inventory> {
     }
 
     /**
-     * 
-     * @param obj
-     * @return 
+     * equals method to check if two inventories are the same
+     * @param obj the inventory to check 
+     * @return true if they are the same, false if not
      */
     @Override
     public boolean equals(Object obj) {
@@ -160,6 +165,10 @@ public class Inventory implements IInventory, Comparable<Inventory> {
         return false;
     }
 
+    /**
+     * new hashCode for the inventory
+     * @return the int hashCode
+     */
     @Override
     public int hashCode() {
         int hash = 7;
@@ -168,9 +177,11 @@ public class Inventory implements IInventory, Comparable<Inventory> {
     }
 
     /**
-     * 
-     * @param o
-     * @return 
+     * comparator for inventories
+     * @param o is the inventory to be compared
+     * @return if id of 1st inventory is bigger than 2nd inventory returns 1
+     *  if id of 1st inventory is lower than that of the 2nd inventory returns -1
+     *  else returns 0
      */
     @Override
     public int compareTo(Inventory o) {

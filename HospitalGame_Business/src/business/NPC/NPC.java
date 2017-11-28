@@ -85,6 +85,11 @@ public abstract class NPC implements INPC {
         return description;
     }
 
+    /**
+     * interact method for the npcs
+     * @param player is the payer to interact with the npc
+     * @return a String when interacting
+     */
     public abstract String interact(IPlayer player);
         
 

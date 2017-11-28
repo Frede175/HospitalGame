@@ -20,14 +20,45 @@ import common.IPlayer;
  */
 public class BusinessFacade implements IBusiness {
 
+    /**
+     * to gain access to item facade
+     */
     private IItemFacade itemFacade;
+    
+    /**
+     * to gain access to npc facade
+     */
     private INPCFacade npcFacade;
+    
+    /**
+     * gives access to data facade
+     */
     private IData dataFacade;
+    
+    /**
+     * is the player for business facade to manage
+     */
     private Player player;
+    
+    /**
+     * is the map of the game to hold
+     */
     private Map map;
+    
+    /**
+     * high score to save score of the game
+     */
     private BusinessHighScore highScore;
-    private boolean gameOver;
+    
+    /**
+     * to gain access to persistence
+     */
     private IPersistence persistence;
+    
+    /**
+     * a
+     */
+    private boolean isGameOver = false;
     
     /**
      * 
@@ -87,8 +118,11 @@ public class BusinessFacade implements IBusiness {
         throw new UnsupportedOperationException("not yet implemented.");
     }
     
+    /**
+     * sets the game over if called
+     */
     void setGameOver(){
-        throw new UnsupportedOperationException("not yet implemented.");
+        isGameOver = true;
     }
 
     /**
@@ -104,5 +138,7 @@ public class BusinessFacade implements IBusiness {
     public IPlayer getPlayer() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+
     
 }

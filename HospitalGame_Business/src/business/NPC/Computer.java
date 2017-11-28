@@ -28,10 +28,19 @@ public class Computer extends NPC {
         super(name, canMove, currentRoom, npcId);
     }
 
+    /**
+     * constructor for Computer
+     * @param npc is the npc to be constructed
+     */
     public Computer(INPC npc) {
         super(npc.getName(), npc.canMove(), npc.getCurrentRoom(), npc.getNPCID());
     }
 
+    /**
+     * interact with the computer
+     * @param player is the player to interact with
+     * @return a String when interacting
+     */
     @Override
     public String interact(IPlayer player) {
       String string = ("You have the blood type : " + player.getBloodType());
