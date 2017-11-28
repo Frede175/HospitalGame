@@ -149,6 +149,8 @@ public class Player implements IPlayer {
         this.bloodRate = player.getBloodRate();
         this.bloodAmount = player.getBloodAmount();
         this.name = player.getName();
+        this.activeItems = (ArrayList<PowerUpItem>) player.getActiveItems();
+        this.inventoryID = player.getInventoryID();
     }
 
     /**
