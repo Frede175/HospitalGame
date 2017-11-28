@@ -84,8 +84,12 @@ public class MenuController implements Initializable {
     @FXML
     private void playButtonAction(ActionEvent event) throws IOException {
         Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
-        GridPane pane = FXMLLoader.load(getClass().getResource("fxml/Main.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Main.fxml"));
+        GridPane pane = loader.load();
+        MainController mainController = loader.getController();
         Scene scene = new Scene(pane, screenSize.getWidth(), screenSize.getHeight());
+        mainController.injectScene(scene);
+        mainController.setup();
         UI.getInstance().getStage().setMaximized(true);
         UI.getInstance().getStage().setScene(scene);
     }

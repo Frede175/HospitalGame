@@ -14,19 +14,20 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
+import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Screen;
+import javafx.scene.layout.HBox;
 
 /**
  * FXML Controller class
@@ -57,6 +58,8 @@ public class MainController implements Initializable {
     @FXML
     private GridPane root;
     
+    private Scene scene;
+    
     /**
      * 
      * @param url
@@ -66,15 +69,36 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         business = UI.getInstance().getBusiness();
         imgRes = UI.getInstance().getImageResource();
-        root.add(createButton(Directions.NORTH), 1, 1);
+        // TODO Add buttons via addButton(IRoom room);
     }    
+    
+    public void injectScene(Scene scene) {
+        this.scene = scene;
+    }
     
     /**
      * Adds buttons to the main layout depending on the rooms direction.
      * @param room The room to get the directions from.
      */
     public void addButtons(IRoom room) {
-        
+        for(Directions dir : room.getExitDirections()) {
+            switch (dir) {
+                case NORTH:
+                    root.add(createButton(dir), 1, 0);
+                    break;
+                case SOUTH:
+                    root.add(createButton(dir), 1, 2);
+                    break;
+                case EAST:
+                    root.add(createButton(dir), 2, 1);
+                    break;
+                case WEST:
+                    root.add(createButton(dir), 0, 1);
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+        }
     }
     
     /**
@@ -82,10 +106,13 @@ public class MainController implements Initializable {
      * @param direction The direction the arrow points and which direction to go.
      * @return A button with the direction given.
      */
-    public Button createButton(Directions direction) {
+    public HBox createButton(Directions direction) {
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.CENTER);
         Button btn = new Button();
-        btn.setPrefHeight(100);
-        btn.setPrefWidth(100);
+        btn.setPrefHeight(70);
+        btn.setPrefWidth(70);
+        btn.setCursor(Cursor.HAND);
         Image img;
         switch (direction) {
             case EAST:
@@ -113,12 +140,101 @@ public class MainController implements Initializable {
                 System.err.println("Need move");
             }
         });
-        return btn;
+        hBox.getChildren().add(btn);
+        return hBox;
     }
     
     public void openMenu() throws IOException {
         UI.getInstance().getStage().setMaximized(true);
         UI.getInstance().getStage().setScene(UI.getInstance().getMenuScene());
+    }
+    
+    public void setup() {
+        Directions[] directions = {
+            Directions.EAST, Directions.NORTH, Directions.SOUTH, Directions.WEST
+        };
+        for(Directions dir : directions) {
+            switch (dir) {
+                case NORTH:
+                    root.add(createButton(dir), 1, 0);
+                    break;
+                case SOUTH:
+                    root.add(createButton(dir), 1, 2);
+                    break;
+                case EAST:
+                    root.add(createButton(dir), 2, 1);
+                    break;
+                case WEST:
+                    root.add(createButton(dir), 0, 1);
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+        }
+        // Adding key listeners
+        scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                switch (event.getCode()) {
+                    case W:
+                        System.err.println("Go north");
+                        break;
+                    case S:
+                        System.err.println("Go south");
+                        break;
+                    case D:
+                        System.err.println("Go east");
+                        break;
+                    case A:
+                        System.err.println("Go west");
+                        break;
+                    case TAB:
+                        System.err.println("Switch Inventory");
+                        break;
+                    case E:
+                        System.err.println("Use selected item");
+                        break;
+                    case Q:
+                        System.err.println("Drop selected item");
+                        break;
+                    case SHIFT:
+                        System.err.println("Next page in selected inventory");
+                        break;
+                    case CONTROL:
+                        System.err.println("Previous page in selected inventory");
+                        break;
+                    case DIGIT1:
+                        System.err.println("1");
+                        break;
+                    case DIGIT2:
+                        System.err.println("2");
+                        break;
+                    case DIGIT3:
+                        System.err.println("3");
+                        break;
+                    case DIGIT4:
+                        System.err.println("4");
+                        break;
+                    case DIGIT5:
+                        System.err.println("5");
+                        break;
+                    case DIGIT6:
+                        System.err.println("6");
+                        break;
+                    case DIGIT7:
+                        System.err.println("7");
+                        break;
+                    case DIGIT8:
+                        System.err.println("8");
+                        break;
+                    case DIGIT9:
+                        System.err.println("9");
+                        break;
+                    default:
+                        System.err.println("Dont have anyhting to do on that button");
+                }
+            }
+        });
     }
     
 }
