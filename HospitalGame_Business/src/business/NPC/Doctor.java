@@ -5,9 +5,15 @@
  */
 package business.NPC;
 
+import business.Item.BloodBag;
+import business.Item.Item;
 import business.Player;
+import common.BloodType;
+import common.IBusiness;
 import common.INPC;
+import common.IPlayer;
 import common.IRoom;
+import common.ItemName;
 import common.NPCID;
 
 /**
@@ -16,8 +22,10 @@ import common.NPCID;
  */
 public class Doctor extends NPC {
 
+    private IBusiness business; 
     /**
      * Constructor for Doctor
+     *
      * @param name name of the NPC
      * @param canMove boolean true if the NPC can move
      * @param currentRoom the room the NPC being created to be in
@@ -33,5 +41,28 @@ public class Doctor extends NPC {
 
     public void interact(Player player) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String interact(IPlayer player) {
+
+        BloodType bloodType = player.getBloodType();
+        Item[] bloodBags = (Item[]) player.getInventory().getItemsByName(ItemName.BLOODBAG);
+        int points = (int) player.getBloodAmount();
+        if (bloodBags.length != 0) {
+            for (Item Item : bloodBags) {
+                BloodBag bloodBag = (BloodBag) Item;
+                if (!bloodType.canTransfuse(bloodBag.getBloodType())) {
+                    return ("You lost the game.");
+                    //Game.getGameInstance().setGameOver();
+                } else {
+                    points += bloodBag.getBonusPoints();
+                }
+            }
+            return ("You've earned " + points + " points! ");
+            // Game.getGameInstance().setGameOver();
+        } else {
+            return ("You need to get a bloodbag");
+        }
     }
 }

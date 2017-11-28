@@ -6,8 +6,10 @@
 package business.Data;
 
 import common.BloodType;
+import common.IInventory;
 import common.IItem;
 import common.IPlayer;
+import common.IPowerUpItem;
 import common.IRoom;
 import java.util.ArrayList;
 
@@ -36,13 +38,29 @@ public class DataPlayer implements IPlayer {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+
     @Override
-    public double getBloodLoss() {
+    public double getBloodRate() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<IItem> getActiveItems() {
+    public int getInventoryID() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public IInventory getInventory() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getName() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<? extends IPowerUpItem> getActiveItems() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
