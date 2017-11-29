@@ -36,8 +36,6 @@ import java.util.Random;
  */
 public class BusinessFacade implements IBusiness {
 
-    private ArrayList<IItem> items = new ArrayList<>();
-
     /**
      * to gain access to item facade
      */
@@ -87,11 +85,11 @@ public class BusinessFacade implements IBusiness {
         
     }
 
-    public final ArrayList<INPC> makeUpNpcs() {
+    private final ArrayList<INPC> makeUpNpcs() {
         ArrayList<INPC> npcs = new ArrayList<>();
-        Computer computer = new Computer("computer", false, null, NPCID.COMPUTER);
-        Porter porter = new Porter("porter", false, null, NPCID.PORTER);
-        Doctor doctor = new Doctor("doctor", false, null, NPCID.DOCTOR);
+        Computer computer = new Computer("Computer", false, null, NPCID.COMPUTER);
+        Porter porter = new Porter("Porter", true, null, NPCID.PORTER);
+        Doctor doctor = new Doctor("Doctor", false, null, NPCID.DOCTOR);
         npcs.add(computer);
         npcs.add(porter);
         npcs.add(doctor);
