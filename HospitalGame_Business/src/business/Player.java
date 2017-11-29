@@ -127,16 +127,14 @@ public class Player implements IPlayer {
      * @param bloodRate is the rate that the player loses blood
      * @param bloodAmount is how much blood the player has
      * @param name is the name of the player
-     * @param itemFacade
-     * @param businessFacade
+     * @param itemFacade is the facade for the player
      */
-    public Player(BloodType bloodType, double bloodRate, double bloodAmount, String name, ItemFacade itemFacade, BusinessFacade businessFacade) {
+    public Player(BloodType bloodType, double bloodRate, double bloodAmount, String name, IItemFacade itemFacade) {
         this.bloodType = bloodType;
         this.bloodRate = bloodRate;
         this.bloodAmount = bloodAmount;
         this.name = name;
         this.itemFacade = itemFacade;
-        this.businessFacade = businessFacade;
 
         inventoryID = itemFacade.createInventory(2000);
 
@@ -148,14 +146,17 @@ public class Player implements IPlayer {
     /**
      * Constructor for player 
      * @param player is the dataPlayer to be restored
+     * @param itemFacade of the player
      */
-    public Player(IPlayer player) {
+    public Player(IPlayer player,IItemFacade itemFacade) {
         this.bloodType = player.getBloodType();
         this.bloodRate = player.getBloodRate();
         this.bloodAmount = player.getBloodAmount();
         this.name = player.getName();
         this.activeItems = (ArrayList<PowerUpItem>) player.getActiveItems();
         this.inventoryID = player.getInventoryID();
+        this.itemFacade = itemFacade;
+
     }
 
     /**
