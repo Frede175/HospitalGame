@@ -12,8 +12,10 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
@@ -26,20 +28,24 @@ public class NPCController implements Initializable {
     private IBusiness business;
     
     @FXML
-    private VBox vBox;
+    private HBox hBox;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         business = UI.getInstance().getBusiness();
-        //loadNPCImages();
+        loadNPCImages();
     } 
     
     public void loadNPCImages() {
         INPC[] npcs = business.getNPCs();
         for(INPC npc : npcs) {
+            VBox vBox = new VBox();
+            vBox.setAlignment(Pos.CENTER);
+            vBox.setPadding(new Insets(5));
             Label label = new Label(npc.getNPCID().toString());
             label.setPadding(new Insets(0, 0, 10, 0));
             vBox.getChildren().addAll(getImageOfNPC(npc), label);
+            hBox.getChildren().add(vBox);
         }
     }
     
