@@ -7,6 +7,7 @@ package ui;
 
 import common.Directions;
 import common.IBusiness;
+import common.IPlayer;
 import common.IRoom;
 import java.io.IOException;
 import java.net.URL;
@@ -20,7 +21,6 @@ import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -52,6 +52,9 @@ public class MainController implements Initializable {
     @FXML
     private NPCController npcController;
     
+    @FXML 
+    private PlayerStatusController playerStatusController;
+    
     /**
      * The root container element
      */
@@ -63,6 +66,8 @@ public class MainController implements Initializable {
      */
     private Scene scene;
     
+    private IPlayer player;
+    
     /**
      * 
      * @param url
@@ -72,6 +77,7 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         business = UI.getInstance().getBusiness();
         imgRes = UI.getInstance().getImageResource();
+        //player = business.getPlayer();
         // TODO Add buttons via addButton(IRoom room);
     }    
     
@@ -187,6 +193,11 @@ public class MainController implements Initializable {
         }
         // Adding key listeners
         scene.setOnKeyReleased(new KeyListener());
+    }
+    
+    private void updateGUI() {
+        npcController.updateNPCSToGUI(player.getCurrentRoom());
+        playerStatusController.updatePlayerDataToGUI();
     }
     
 }

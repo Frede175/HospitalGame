@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
 <GridPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.MainController">
   <columnConstraints>
@@ -15,16 +16,28 @@
   </columnConstraints>
   <rowConstraints>
     <RowConstraints percentHeight="34.0" valignment="TOP" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="176.0" percentHeight="33.0" vgrow="SOMETIMES" />
-    <RowConstraints percentHeight="33.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="344.66668701171875" minHeight="6.666656494140625" percentHeight="33.0" prefHeight="67.99998474121094" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="328.6666564941406" minHeight="51.33331298828125" percentHeight="33.0" prefHeight="130.00001525878906" valignment="BOTTOM" vgrow="SOMETIMES" />
   </rowConstraints>
   <children>
-      <fx:include fx:id="npc" source="NPC.fxml" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-      <fx:include fx:id="help" source="Help.fxml" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
-         <children>
-            <Button mnemonicParsing="false" onAction="#openMenu" text="Menu" />
+      <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="3" GridPane.rowIndex="2">
+          <children>
+             <fx:include fx:id="playerStatus" maxWidth="1.7976931348623157E308" source="PlayerStatus.fxml" />
+            <Button mnemonicParsing="false" onAction="#openMenu" text="Menu">
+               <VBox.margin>
+                  <Insets bottom="20.0" top="-15.0" />
+               </VBox.margin></Button>
          </children>
-      </HBox>
+      </VBox>
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+         <children>
+            <fx:include fx:id="npc" source="NPC.fxml" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+         </children>
+      </VBox>
+      <VBox alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.rowIndex="2">
+         <children>
+            <fx:include fx:id="help" source="Help.fxml" />
+         </children>
+      </VBox>
   </children>
 </GridPane>
