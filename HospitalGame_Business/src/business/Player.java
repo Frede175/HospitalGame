@@ -5,6 +5,7 @@
  */
 package business;
 
+import business.Item.ItemFacade;
 import business.Item.PowerUpItem;
 import business.common.IItemFacade;
 import common.BloodType;
@@ -126,12 +127,16 @@ public class Player implements IPlayer {
      * @param bloodRate is the rate that the player loses blood
      * @param bloodAmount is how much blood the player has
      * @param name is the name of the player
+     * @param itemFacade
+     * @param businessFacade
      */
-    public Player(BloodType bloodType, double bloodRate, double bloodAmount, String name) {
+    public Player(BloodType bloodType, double bloodRate, double bloodAmount, String name, ItemFacade itemFacade, BusinessFacade businessFacade) {
         this.bloodType = bloodType;
         this.bloodRate = bloodRate;
         this.bloodAmount = bloodAmount;
         this.name = name;
+        this.itemFacade = itemFacade;
+        this.businessFacade = businessFacade;
 
         inventoryID = itemFacade.createInventory(2000);
 
