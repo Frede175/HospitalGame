@@ -83,6 +83,7 @@ public class MenuController implements Initializable {
      */
     @FXML
     private void playButtonAction(ActionEvent event) throws IOException {
+        business.play();
         Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Main.fxml"));
         GridPane pane = loader.load();

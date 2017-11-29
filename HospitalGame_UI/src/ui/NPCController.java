@@ -7,6 +7,7 @@ package ui;
 
 import common.IBusiness;
 import common.INPC;
+import common.IPlayer;
 import common.IRoom;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -37,6 +38,9 @@ public class NPCController implements Initializable {
     @FXML
     private HBox hBox;
     
+    @FXML
+    private IPlayer player;
+    
     /**
      * 
      * @param url
@@ -45,7 +49,8 @@ public class NPCController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         business = UI.getInstance().getBusiness();
-        //loadNPCImages();
+        player = business.getPlayer();
+        updateNPCSToGUI(player.getCurrentRoom());
     } 
     
     /**
