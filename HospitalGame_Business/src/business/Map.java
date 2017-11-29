@@ -80,7 +80,7 @@ public class Map {
      * @param items which items are to be put in the game
      * @param npcs which npcs are to be put in the game
      */
-    public void generateMap(int roomCount, ArrayList<IItem> items, ArrayList<INPC> npcs) {
+    public Room generateMap(int roomCount, List<IItem> items, List<INPC> npcs) {
         // Creates the ArrayList that contains all the free rooms.
         ArrayList<Room> freeRooms = createRooms(roomCount);
         // Add every item to a random room.
@@ -151,8 +151,9 @@ public class Map {
                 i++;
             }
         }
-
+        
         // returns the start room.
+        return startRoom;
     }
 
     /**
@@ -165,7 +166,9 @@ public class Map {
         ArrayList<Room> rooms = new ArrayList<>();
         char a = 'a';
         for (int i = 0; i < roomCount; i++) {
-            rooms.add(new Room(String.valueOf((char) (a + i))));
+            Room room = new Room(String.valueOf((char) (a + i)));
+            room.injectItemFacade(itemFacade);
+            rooms.add(room);
         }
         return rooms;
     }
