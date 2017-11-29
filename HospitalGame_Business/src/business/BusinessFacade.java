@@ -85,17 +85,6 @@ public class BusinessFacade implements IBusiness {
         
     }
 
-    private final ArrayList<INPC> makeUpNpcs() {
-        ArrayList<INPC> npcs = new ArrayList<>();
-        Computer computer = new Computer("Computer", false, null, NPCID.COMPUTER);
-        Porter porter = new Porter("Porter", true, null, NPCID.PORTER);
-        Doctor doctor = new Doctor("Doctor", false, null, NPCID.DOCTOR);
-        npcs.add(computer);
-        npcs.add(porter);
-        npcs.add(doctor);
-        return npcs;
-    }
-
     private void createRooms(int numberOfRooms) {
         // Gets all the bloodtypes into a BloodType array.
         BloodType[] bloodType = BloodType.values();
@@ -134,9 +123,6 @@ public class BusinessFacade implements IBusiness {
             }
         }
         // Gets current room and generates the rooms with items and npc.
-        //Computer computer = new Computer("computer", true, null, NPCID.COMPUTER);
-        //Doctor doctor = new Doctor("doctor", true, null, NPCID.DOCTOR);
-        //Porter porter = new Porter("porter", true, null, NPCID.PORTER);
         npcFacade.create(NPCID.DOCTOR, false, "doctor", null);
         npcFacade.create(NPCID.PORTER, false, "porter", null);
         npcFacade.create(NPCID.COMPUTER, false, "computer", null);
