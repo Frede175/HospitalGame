@@ -58,6 +58,9 @@ public class MainController implements Initializable {
     @FXML
     private GridPane root;
     
+    /**
+     * Contains the injected scene.
+     */
     private Scene scene;
     
     /**
@@ -72,6 +75,10 @@ public class MainController implements Initializable {
         // TODO Add buttons via addButton(IRoom room);
     }    
     
+    /**
+     * Inject a scene into the controller.
+     * @param scene 
+     */
     public void injectScene(Scene scene) {
         this.scene = scene;
     }
@@ -144,11 +151,18 @@ public class MainController implements Initializable {
         return hBox;
     }
     
+    /**
+     * Open the menu scene.
+     * @throws IOException 
+     */
     public void openMenu() throws IOException {
         UI.getInstance().getStage().setMaximized(true);
         UI.getInstance().getStage().setScene(UI.getInstance().getMenuScene());
     }
     
+    /**
+     * The setup function that calls the keylisteners.
+     */
     public void setup() {
         Directions[] directions = {
             Directions.EAST, Directions.NORTH, Directions.SOUTH, Directions.WEST

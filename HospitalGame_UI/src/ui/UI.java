@@ -45,10 +45,13 @@ public class UI extends Application implements IUI {
     private Stage stage;
 
     /**
-     * All images used in the application
+     * All images used in the application.
      */
     private ImageResource imageResource;
     
+    /**
+     * Contains the menu scene.
+     */
     private Scene scene;
 
     /**
@@ -73,6 +76,10 @@ public class UI extends Application implements IUI {
         primaryStage.show();
     }
     
+    /**
+     * Gets the menu scene.
+     * @return The menu scene.
+     */
     public Scene getMenuScene() {
         return scene;
     }

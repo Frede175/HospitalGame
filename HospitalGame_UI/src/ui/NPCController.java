@@ -25,18 +25,33 @@ import javafx.scene.layout.VBox;
  */
 public class NPCController implements Initializable {
 
+    /**
+     * Contains the reference to the business facade.
+     */
     private IBusiness business;
     
+    /**
+     * Containing all the npc images in the scene.
+     */
     @FXML
     private HBox hBox;
     
+    /**
+     * 
+     * @param url
+     * @param rb 
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         business = UI.getInstance().getBusiness();
         loadNPCImages();
     } 
     
+    /**
+     * Load npc images and adding them to the scene.
+     */
     public void loadNPCImages() {
+        hBox.getChildren().clear();
         INPC[] npcs = business.getNPCs();
         for(INPC npc : npcs) {
             VBox vBox = new VBox();
