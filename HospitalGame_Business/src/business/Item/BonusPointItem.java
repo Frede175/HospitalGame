@@ -1,7 +1,6 @@
 package business.Item;
 
 import common.IBonusPointItem;
-import common.IItem;
 import common.ItemName;
 
 /**

@@ -5,8 +5,6 @@
  */
 package business.Data;
 
-import business.Item.Inventory;
-import business.Player;
 import business.common.IData;
 import business.common.IDataObject;
 import common.IHighScore;

@@ -5,7 +5,6 @@
  */
 package business;
 
-import business.Item.ItemFacade;
 import business.Item.PowerUpItem;
 import business.common.IItemFacade;
 import common.BloodType;

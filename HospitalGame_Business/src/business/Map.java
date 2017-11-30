@@ -112,6 +112,7 @@ public class Map {
         Directions[] directions = Directions.values();
         // Sets the start room to the first free room.
         Room startRoom = freeRooms.get(0);
+        startRoom.setInspected();
         startRoom.setCoordinate(new Coordinate(0, 0));
         // Creates the queue where all the rooms that needs to be processed is stored.
         Queue<Room> roomsToProcess = new LinkedList<>();
@@ -243,9 +244,9 @@ public class Map {
     private Coordinate getCoordinateDirection(Directions d) {
         switch (d) {
             case SOUTH:
-                return new Coordinate(0, -1);
-            case NORTH:
                 return new Coordinate(0, 1);
+            case NORTH:
+                return new Coordinate(0, -1);
             case EAST:
                 return new Coordinate(1, 0);
             case WEST:

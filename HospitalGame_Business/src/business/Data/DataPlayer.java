@@ -7,7 +7,6 @@ package business.Data;
 
 import common.BloodType;
 import common.IInventory;
-import common.IItem;
 import common.IPlayer;
 import common.IPowerUpItem;
 import common.IRoom;
