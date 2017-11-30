@@ -5,11 +5,13 @@
  */
 package business;
 
+import common.ICoordinate;
+
 /**
  *
  * @author andreasmolgaard-andersen
  */
-public class Coordinate {
+public class Coordinate implements ICoordinate {
     /**
      * is the x value of coordinate
      */

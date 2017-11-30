@@ -8,6 +8,7 @@ package business;
 import business.common.IItemFacade;
 import business.common.INPCFacade;
 import common.Directions;
+import common.ICoordinate;
 import common.IItem;
 import common.INPC;
 import common.IRoom;
@@ -79,7 +80,7 @@ public class Map {
      * @param roomCount how many rooms are to be in the game
      * @param items which items are to be put in the game
      * @param npcs which npcs are to be put in the game
-     * @param 
+     * @param
      */
     public Room generateMap(int roomCount, List<IItem> items, List<INPC> npcs) {
         // Creates the ArrayList that contains all the free rooms.
@@ -116,7 +117,7 @@ public class Map {
         Queue<Room> roomsToProcess = new LinkedList<>();
         // Adds the first free room to the queue.
         roomsToProcess.add(freeRooms.remove(0));
-        Set<Coordinate> usedCoordinates = new HashSet<>();
+        Set<ICoordinate> usedCoordinates = new HashSet<>();
         usedCoordinates.add(new Coordinate(0, 0));
         // As long as the queue is not empty.
         while (!roomsToProcess.isEmpty()) {
@@ -135,11 +136,11 @@ public class Map {
                 // Random selecting the neighbor room.
                 int neighbor = (int) (Math.random() * freeRooms.size());
                 // If the room dosent have an exit at that direction
-                Coordinate c = Coordinate.add(currentRoom.getCoordinate(), getCoordinateDirection(direction));
+                Coordinate c = Coordinate.add((Coordinate) currentRoom.getCoordinate(), getCoordinateDirection(direction));
                 if (currentRoom.getExit(direction) == null && !usedCoordinates.contains(c)) {
                     // Sets an exit with the direction and the neighbor.
                     currentRoom.setExit(direction, freeRooms.get(neighbor));
-                    freeRooms.get(neighbor).setCoordinate(c);
+                    freeRooms.get(neighbor).setCoordinate((Coordinate) c);
                     usedCoordinates.add(c);
                     // Sets the neighbor rooms exit to be the current room.
                     freeRooms.get(neighbor).setExit(oppoDirection, currentRoom);
@@ -152,7 +153,7 @@ public class Map {
                 i++;
             }
         }
-        
+
         // returns the start room.
         return startRoom;
     }
@@ -178,8 +179,8 @@ public class Map {
      * used to find the shortest path towards the doctor NPC
      *
      * @param startRoom is the room where you start.
-     * @param endRoom is the room where you end. 
-     * @return rooms. 
+     * @param endRoom is the room where you end.
+     * @return rooms.
      */
     public static List<Directions> pathfinder(IRoom startRoom, IRoom endRoom) {
         // Queue holds a list of the rooms that are going to be checked
@@ -191,8 +192,8 @@ public class Map {
             Room r = (Room) startRoom.getExit(key);
             queue.add(r);
         }
-        
-        pathMap.put((Room)startRoom, null);
+
+        pathMap.put((Room) startRoom, null);
         while (!queue.isEmpty()) {
             Room room = queue.poll();
             for (Directions key : room.getExitDirections()) {
@@ -232,8 +233,9 @@ public class Map {
         rooms.toArray(array);
         return array;
     }
+
     /**
-     * 
+     *
      * @param d holds the coordinates to the directions in which room you're at.
      * @returns the SOUTH,EAST,WEST,NORTH coordinates.
      */
