@@ -5,6 +5,7 @@
  */
 package business.Data;
 
+import business.Coordinate;
 import common.Directions;
 import common.ICoordinate;
 import common.IRoom;
@@ -47,7 +48,7 @@ public class DataRoom implements IRoom{
 
     @Override
     public ICoordinate getCoordinate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         return Coordinate;
     }
     
 }
