@@ -167,5 +167,9 @@ public class Room implements IRoom {
     public IInventory getInventory() {
         return itemFacade.getInventory(inventoryID);
     }
+    
+    public void setInspected() {
+        this.inspected = true;
+    }
 
 }

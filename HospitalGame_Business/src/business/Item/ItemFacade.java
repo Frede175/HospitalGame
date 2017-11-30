@@ -104,24 +104,23 @@ public class ItemFacade implements IItemFacade {
         return null;
     }
 
+    /**
+     * load function for inventories
+     * @param inventories is the array list of inventories to be loaded into the game
+     */
     @Override
-    public void load(Objects[] objects) {
-        Collections.sort(inventoryList, (o1, o2) -> {
-            if (o1.getInventoryID() > o2.getInventoryID()) {
-                return 1;
-            }
-            if (o1.getInventoryID() < o2.getInventoryID()) {
-                return -1;
-            }
-            return 0; //To change body of generated lambdas, choose Tools | Templates.
-        });
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void load(IInventory[] inventories) {
+        Collections.sort(inventoryList);
+        for (int i = 0; i < inventories.length; i++) {
+            inventoryList.add(new Inventory(inventories[i]));
+        }
     }
 
     /**
      * getter method for inventories
      * @return an array with all inventories
      */
+    @Override
     public IInventory[] getInventories() {
         IInventory[] inventories = new IInventory[inventoryList.size()];
         inventoryList.toArray(inventories);

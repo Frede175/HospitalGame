@@ -64,6 +64,23 @@ public class Coordinate implements ICoordinate {
      */
     public static Coordinate subtract(Coordinate a, Coordinate b) {
         return new Coordinate (a.getX() - b.getX(), a.getY() - b.getY());
-    } 
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Coordinate) {
+            Coordinate c = (Coordinate)obj;
+            return x == c.getX() && y == c.getY();
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + this.x;
+        hash = 79 * hash + this.y;
+        return hash;
+    }
      
 }

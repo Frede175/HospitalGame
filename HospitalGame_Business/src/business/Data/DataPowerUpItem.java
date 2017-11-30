@@ -18,12 +18,12 @@ public class DataPowerUpItem implements IPowerUpItem {
 
     @Override
     public double getBuff() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return buff;
     }
 
     @Override
     public long getTimeLeftOfBuff() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return timeLeftOfBuff;
     }
     
 }
