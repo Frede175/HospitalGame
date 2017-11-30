@@ -17,7 +17,6 @@ public class DataBonusPointItem extends DataItem implements IBonusPointItem {
 
     @Override
     public int getBonusPoints() {
-        this.bonusPoints = bonusPoints;
         return bonusPoints; 
     }
 

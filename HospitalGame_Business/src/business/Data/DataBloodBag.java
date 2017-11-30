@@ -18,7 +18,6 @@ public class DataBloodBag extends DataBonusPointItem implements IBloodBag{
 
     @Override
     public BloodType getBloodType() {
-       this.bloodType = bloodType;
        return bloodType;
     }
     

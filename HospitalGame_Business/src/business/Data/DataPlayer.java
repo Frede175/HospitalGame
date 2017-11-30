@@ -28,7 +28,7 @@ public class DataPlayer implements IPlayer {
     private ArrayList<? extends IPowerUpItem> activeItems;
     
     public void DataPlayer(IPlayer player) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       this.activeItems = player.getActiveItems();
     }
 
     @Override
