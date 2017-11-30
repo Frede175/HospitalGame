@@ -104,6 +104,10 @@ public class ItemFacade implements IItemFacade {
         return null;
     }
 
+    /**
+     * 
+     * @param objects 
+     */
     @Override
     public void load(Objects[] objects) {
         Collections.sort(inventoryList, (o1, o2) -> {

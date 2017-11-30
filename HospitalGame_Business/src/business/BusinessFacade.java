@@ -17,7 +17,6 @@ import common.Directions;
 import common.GameConstants;
 import common.IBusiness;
 import common.IHighScore;
-import common.IInventory;
 import common.IItem;
 import common.INPC;
 import common.IPersistence;
@@ -176,7 +175,24 @@ public class BusinessFacade implements IBusiness {
 
     @Override
     public boolean load() {
-        throw new UnsupportedOperationException("not yet implemented.");
+        //dataFacade.load();
+        
+        //loads in the player
+        this.player = new Player(dataFacade.load().getPlayer());
+
+        //loads in the rooms
+        // for (int i = 0; i < dataFacade.load().getRooms().length; i++) {}
+            
+        
+        
+        
+        //loads in the inventories
+        itemFacade.load(dataFacade.load().getInventories());
+        
+        //loads in the npcs
+        npcFacade.load(dataFacade.load().getNPCs());
+        
+        return true; // change this
     }
 
     /**
@@ -204,5 +220,9 @@ public class BusinessFacade implements IBusiness {
     @Override
     public void move(Directions direction) {
         player.move(direction);
+    }
+    
+    public void useItem(int index) {
+        player.useItem(index);
     }
 }

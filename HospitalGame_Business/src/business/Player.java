@@ -73,6 +73,11 @@ public class Player implements IPlayer {
      * the blood type of the player
      */
     private BloodType bloodType;
+    
+    /**
+     * 
+     */
+    public boolean bloodTypeKnows;
 
     /**
      * 
@@ -147,7 +152,7 @@ public class Player implements IPlayer {
      * @param player is the dataPlayer to be restored
      * @param itemFacade of the player
      */
-    public Player(IPlayer player,IItemFacade itemFacade) {
+    public Player(IPlayer player) {
         this.bloodType = player.getBloodType();
         this.bloodRate = player.getBloodRate();
         this.bloodAmount = player.getBloodAmount();
