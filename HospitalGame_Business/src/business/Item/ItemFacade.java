@@ -123,6 +123,7 @@ public class ItemFacade implements IItemFacade {
      * getter method for inventories
      * @return an array with all inventories
      */
+    @Override
     public IInventory[] getInventories() {
         IInventory[] inventories = new IInventory[inventoryList.size()];
         inventoryList.toArray(inventories);

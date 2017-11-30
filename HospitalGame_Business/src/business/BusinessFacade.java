@@ -17,6 +17,7 @@ import common.Directions;
 import common.GameConstants;
 import common.IBusiness;
 import common.IHighScore;
+import common.IInventory;
 import common.IItem;
 import common.INPC;
 import common.IPersistence;
@@ -164,11 +165,13 @@ public class BusinessFacade implements IBusiness {
         throw new UnsupportedOperationException("not yet implemented.");
     }
 
+    /**
+     * saves the game
+     * @return true if the game has been saved
+     */
     @Override
     public boolean save() {
-        
-        System.out.println("You saved the game, have a nice day!");
-        return true;
+        return dataFacade.saveGame(player, itemFacade.getInventories(), map.getRooms(), npcFacade.getNPCs()); 
     }
 
     @Override
