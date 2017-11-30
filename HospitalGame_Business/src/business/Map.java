@@ -79,6 +79,7 @@ public class Map {
      * @param roomCount how many rooms are to be in the game
      * @param items which items are to be put in the game
      * @param npcs which npcs are to be put in the game
+     * @param 
      */
     public void generateMap(int roomCount, ArrayList<IItem> items, ArrayList<INPC> npcs) {
         // Creates the ArrayList that contains all the free rooms.
@@ -173,9 +174,9 @@ public class Map {
     /**
      * used to find the shortest path towards the doctor NPC
      *
-     * @param startRoom
-     * @param endRoom
-     * @return
+     * @param startRoom is the room where you start.
+     * @param endRoom is the room where you end. 
+     * @return rooms. 
      */
     public static List<Directions> pathfinder(Room startRoom, Room endRoom) {
         // Queue holds a list of the rooms that are going to be checked
@@ -227,6 +228,11 @@ public class Map {
         rooms.toArray(array);
         return array;
     }
+    /**
+     * 
+     * @param d holds the coordinates to the directions in which room you're at.
+     * @returns the SOUTH,EAST,WEST,NORTH coordinates.
+     */
 
     private Coordinate getCoordinateDirection(Directions d) {
         switch (d) {
