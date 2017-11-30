@@ -38,8 +38,8 @@ public class NPCFacade implements INPCFacade {
     }
 
     @Override
-    public void load(Objects[] objects
-    ) {
+    public void load(Objects[] objects)
+     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 
     }
