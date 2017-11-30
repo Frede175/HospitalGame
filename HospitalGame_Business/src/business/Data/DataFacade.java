@@ -34,7 +34,7 @@ public class DataFacade implements IData {
 
     @Override
     public boolean saveGame(IPlayer player, IInventory[] inventory, IRoom[] rooms, INPC[] npcs) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return persistence.save(new DataObject(rooms, player, npcs, inventory));
     }    
         
     @Override
