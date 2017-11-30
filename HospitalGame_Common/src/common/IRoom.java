@@ -18,5 +18,5 @@ public interface IRoom {
     boolean isLocked();
     boolean isInspected();
     ICoordinate getCoordinate();
-    
+    IInventory getInventory();
 }

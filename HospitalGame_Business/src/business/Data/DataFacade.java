@@ -5,6 +5,8 @@
  */
 package business.Data;
 
+import business.Item.Inventory;
+import business.Player;
 import business.common.IData;
 import business.common.IDataObject;
 import common.IHighScore;
@@ -19,26 +21,27 @@ import common.IRoom;
  * @author andreasmolgaard-andersen
  */
 public class DataFacade implements IData {
-   private IPersistence  persistence; 
+
+    private IPersistence persistence;
 
     @Override
     public void injectPersistence(IPersistence persistence) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.persistence = persistence;
     }
 
     @Override
     public IHighScore getHighScore() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return persistence.load(DataHighScore.class);
     }
 
     @Override
     public boolean saveGame(IPlayer player, IInventory[] inventory, IRoom[] rooms, INPC[] npcs) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    }    
+        
     @Override
     public boolean saveHighScore(IHighScore highScore) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     return persistence.save(highScore);    
     }
 
     @Override
@@ -46,5 +49,3 @@ public class DataFacade implements IData {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
-
-
