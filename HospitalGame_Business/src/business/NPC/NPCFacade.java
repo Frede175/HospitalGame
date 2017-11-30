@@ -45,9 +45,8 @@ public class NPCFacade implements INPCFacade {
     }
 
     @Override
-    public void create(NPCID id, boolean canMove, String name,
-             IRoom currentRoom
-    ) {
+    public void create(NPCID id, boolean canMove, String name,IRoom currentRoom)
+     {
 
         switch (id) {
             case COMPUTER:
@@ -87,8 +86,8 @@ public class NPCFacade implements INPCFacade {
      * @param room is the given room to set the npc in
      */
     @Override
-    public void setRoom(INPC npc, IRoom room
-    ) {
+    public void setRoom(INPC npc, IRoom room)
+     {
         NPCs.get(NPCs.indexOf(npc)).setCurrentRoom(room);
     }
 
@@ -99,8 +98,8 @@ public class NPCFacade implements INPCFacade {
      * @param endRoom is the end room
      */
     @Override
-    public void setEndRoom(INPC npc, IRoom endRoom
-    ) {
+    public void setEndRoom(INPC npc, IRoom endRoom)
+     {
         if (npc instanceof Porter) {
             ((Porter) npc).setEndRoom(endRoom);
         }
