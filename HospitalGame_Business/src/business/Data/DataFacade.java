@@ -36,9 +36,9 @@ public class DataFacade implements IData {
 
     @Override
     public boolean saveGame(IPlayer player, IInventory[] inventory, IRoom[] rooms, INPC[] npcs) {
-        return persistence.save(player) && persistence.save(rooms) && persistence.save(inventory) && persistence.save(npcs);
-    }
-
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }    
+        
     @Override
     public boolean saveHighScore(IHighScore highScore) {
      return persistence.save(highScore);    
