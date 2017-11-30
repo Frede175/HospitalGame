@@ -26,5 +26,6 @@
             <Button mnemonicParsing="false" onAction="#openMenu" text="Menu" />
          </children>
       </HBox>
+      <fx:include fx:id="map" source="Map.fxml" GridPane.columnIndex="3" GridPane.rowIndex="0" />
   </children>
 </GridPane>

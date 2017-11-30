@@ -30,7 +30,7 @@ public class NPCFacade implements INPCFacade {
     @Override
     public boolean move(INPC npc, Directions dir) {
       if(npc.canMove()){
-        NPCs.get(NPCs.indexOf(npc)).move(dir);
+        //NPCs.get(NPCs.indexOf(npc)).move(dir);
     }
       return true;
     }

@@ -48,7 +48,7 @@ public class DataRoom implements IRoom{
 
     @Override
     public ICoordinate getCoordinate() {
-         return Coordinate;
+        return new Coordinate(1,1);
     }
     
 }

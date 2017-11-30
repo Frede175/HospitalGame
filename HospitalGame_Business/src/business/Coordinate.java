@@ -66,4 +66,21 @@ public class Coordinate implements ICoordinate {
         return new Coordinate (a.getX() - b.getX(), a.getY() - b.getY());
     } 
      
+    @Override
+    public boolean equals(Object o) {
+        
+        if(o instanceof Coordinate){
+            Coordinate c = (Coordinate)o;
+            return x == c.getX() && y == c.getY();
+        }
+        return false; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 29 * hash + this.x;
+        hash = 29 * hash + this.y;
+        return hash;
+    }
 }

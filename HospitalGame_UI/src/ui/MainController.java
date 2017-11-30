@@ -63,6 +63,9 @@ public class MainController implements Initializable {
      */
     private Scene scene;
     
+    @FXML
+    private MapController mapController;
+    
     /**
      * 
      * @param url
