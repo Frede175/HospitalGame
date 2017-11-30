@@ -48,7 +48,8 @@ public class DataRoom implements IRoom{
 
     @Override
     public ICoordinate getCoordinate() {
-         return Coordinate;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose
+        
     }
     
 }
