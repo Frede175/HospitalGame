@@ -23,13 +23,16 @@ public class NPCFacade implements INPCFacade {
     private ArrayList<NPC> NPCs = new ArrayList<>();
     
     @Override
-    public String interact(IPlayer player, INPC NPC) {
-       
+    public String interact(IPlayer player, INPC npc) {
+      return NPCs.get(NPCs.indexOf(npc)).interact(player);
     }
 
     @Override
     public boolean move(INPC npc, Directions dir) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      if(npc.canMove()){
+        NPCs.get(NPCs.indexOf(npc)).move(dir);
+    }
+      return true;
     }
 
     @Override
