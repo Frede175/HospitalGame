@@ -25,7 +25,8 @@ public enum Sprites {
     EXIT_LEFT(17),
     LOCK(18),
     MORPHINE(19),
-    COMPUTER(20);
+    COMPUTER(20),
+    IDCARD(21);
         
     private int index;
     
