@@ -15,6 +15,10 @@ public interface IPlayer {
     IRoom getCurrentRoom();
     BloodType getBloodType();
     int getBloodAmount();
-    double getBloodLoss();
-    ArrayList<IItem> getActiveItems();
+    double getBloodRate();
+    ArrayList<? extends IPowerUpItem> getActiveItems();
+    int getInventoryID();
+    IInventory getInventory();
+    String getName();
+    
 }

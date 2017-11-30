@@ -14,7 +14,8 @@ import java.util.Set;
 public interface IRoom {
     IRoom getExit(Directions dir);
     String getName();
-    Set<String> getExitStrings();
+    Set<Directions> getExitDirections();
     boolean isLocked();
     boolean isInspected();
+    
 }
