@@ -154,7 +154,10 @@ public class Room implements IRoom {
     public ICoordinate getCoordinate() {
         return c;
     }
-
+    /**
+     * setCoordinate sets coordinate
+     * @param c is a coordinate
+     */
     public void setCoordinate(Coordinate c) {
         this.c = c;
     }
