@@ -22,5 +22,6 @@ public interface IItemFacade {
     public boolean update(IPowerUpItem powerUpItem, int inventoryID, long lastUpdate);
     public IInventory getInventory(int InventoryID);
     public void load(Objects[] objects);    
+    public IInventory[] getInventories();
 }
 
