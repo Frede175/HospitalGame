@@ -8,6 +8,7 @@ package business.Item;
 import business.common.IItemFacade;
 import common.IInventory;
 import common.IItem;
+import common.INPC;
 import common.IPowerUpItem;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -104,7 +105,7 @@ public class ItemFacade implements IItemFacade {
         return null;
     }
 
-    @Override
+    
     public void load(Objects[] objects) {
         Collections.sort(inventoryList, (o1, o2) -> {
             if (o1.getInventoryID() > o2.getInventoryID()) {
@@ -144,5 +145,10 @@ public class ItemFacade implements IItemFacade {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void load(INPC[] objects) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

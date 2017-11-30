@@ -39,11 +39,9 @@ public class NPCFacade implements INPCFacade {
         return false;
     }
 
-    @Override
-    public void load(Objects[] objects) {
-
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-
+    
+    public void load(INPC[] objects) {
+            
     }
 
     @Override
@@ -104,6 +102,11 @@ public class NPCFacade implements INPCFacade {
         if (npc instanceof Porter) {
             ((Porter) npc).setEndRoom(endRoom);
         }
+    }
+
+    @Override
+    public void load(Objects[] objects) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
