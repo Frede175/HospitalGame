@@ -8,6 +8,7 @@ package business;
 import business.common.IItemFacade;
 import common.Directions;
 import common.ICoordinate;
+import common.IInventory;
 import common.IItem;
 import common.IRoom;
 import java.util.HashMap;
@@ -154,9 +155,17 @@ public class Room implements IRoom {
     public ICoordinate getCoordinate() {
         return c;
     }
-
+    /**
+     * setCoordinate sets coordinate
+     * @param c is a coordinate
+     */
     public void setCoordinate(Coordinate c) {
         this.c = c;
+    }
+
+    @Override
+    public IInventory getInventory() {
+        return itemFacade.getInventory(inventoryID);
     }
 
 }

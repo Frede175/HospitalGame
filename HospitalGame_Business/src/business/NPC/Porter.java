@@ -6,14 +6,12 @@
 package business.NPC;
 
 import business.Map;
-import business.Player;
 import business.common.IMoveable;
 import common.Directions;
 import common.INPC;
 import common.IPlayer;
 import common.IRoom;
 import common.NPCID;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,6 +27,7 @@ public class Porter extends NPC implements IMoveable {
 
     /**
      * constructor for the porter
+     *
      * @param name is the name of the porter
      * @param canMove if the npc can move
      * @param currentRoom the room for the npc to be set in
@@ -40,6 +39,7 @@ public class Porter extends NPC implements IMoveable {
 
     /**
      * constructor for the porter when loading
+     *
      * @param npc the object to be loaded into the game
      */
     public Porter(INPC npc) {
@@ -48,16 +48,19 @@ public class Porter extends NPC implements IMoveable {
 
     /**
      * moves the porter
+     *
      * @param direction is the direction to move the porter
      * @return true if the porter has been moved
      */
     @Override
     public boolean move(Directions direction) {
-        List<Directions> keyList = new ArrayList<>();
+        setCurrentRoom(getCurrentRoom().getExit(direction));
         return true;
     }
+
     /**
      * interact method for the porter
+     *
      * @param player is the player for the porter to interact with
      * @return a String when interacting
      */
@@ -71,12 +74,13 @@ public class Porter extends NPC implements IMoveable {
         System.out.println();
         return null;
     }
-    
+
     /**
      * sets the endRoom so the porter knows where it is
-     * @param room 
+     *
+     * @param room
      */
-    public void setEndRoom(IRoom room){
+    public void setEndRoom(IRoom room) {
         endRoom = room;
     }
 

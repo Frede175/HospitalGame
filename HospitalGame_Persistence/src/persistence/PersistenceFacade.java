@@ -1,7 +1,6 @@
 package persistence;
 
 import common.IPersistence;
-import java.lang.reflect.Type;
 
 /**
  * Facade for the persistence layer

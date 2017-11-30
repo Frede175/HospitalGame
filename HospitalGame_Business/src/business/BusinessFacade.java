@@ -154,12 +154,12 @@ public class BusinessFacade implements IBusiness {
 
     @Override
     public IHighScore getHighScore() {
-        throw new UnsupportedOperationException("not yet implemented.");
+        return highScore;
     }
 
     @Override
     public void pause() {
-        throw new UnsupportedOperationException("not yet implemented.");
+        
     }
 
     @Override
@@ -169,7 +169,9 @@ public class BusinessFacade implements IBusiness {
 
     @Override
     public boolean save() {
-        throw new UnsupportedOperationException("not yet implemented.");
+        
+        System.out.println("You saved the game, have a nice day!");
+        return true;
     }
 
     @Override
