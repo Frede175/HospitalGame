@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -29,8 +28,6 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import static ui.Sprites.BANDAGE;
-import static ui.Sprites.MORPHINE;
 
 /**
  * FXML Controller class
@@ -93,20 +90,18 @@ public class InventoryController implements Initializable {
         player = business.getPlayer();
         nextBtn.setBackground(new Background(new BackgroundImage(imgRes.getSprite(Sprites.ARROW_RIGHT), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
         previousBtn.setBackground(new Background(new BackgroundImage(imgRes.getSprite(Sprites.ARROW_LEFT), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
-        updateItems();
     }    
     
     /**
      * Update the items of the selected page to the GUI.
      */
-    public void updateItems() {
-        IInventory playersInv = player.getInventory();
-        ArrayList<? extends IItem> items = playersInv.getItems();
+    public void updateItems(IInventory inventory) {
+        ArrayList<? extends IItem> items = inventory.getItems();
         if(items.size() > 9) {
-            //int column = i % 3;
-            //int row = ((int) Math.ceil((double) i / 3));
-            for (int i = 0; i < items.size(); i++) {
-            
+            for (int i = 0; i <= items.size(); i++) {
+                int column = i % 3;
+                int row = ((int) i / 3);
+                System.out.println(row);
             }
         } else {
             for (int i = 0; i < 9; i++) {
@@ -141,32 +136,6 @@ public class InventoryController implements Initializable {
         vBox.getChildren().addAll(img, name);
         return vBox;
     }
-    
-    public VBox getGUIItemTest(String derp, ItemName itemName) {
-        VBox vBox = new VBox();
-        ImageView img = new ImageView();
-        Label name = new Label(derp);
-        switch (itemName) {
-            case BANDAGE:
-                img.setImage(imgRes.getSprite(Sprites.BANDAGE));
-                break;
-            case BLOODBAG:
-                img.setImage(imgRes.getSprite(Sprites.BLOODBAG_A));
-                break;
-            case IDCARD:
-                img.setImage(imgRes.getSprite(Sprites.IDCARD));
-                break;
-            case MORPHINE:
-                img.setImage(imgRes.getSprite(Sprites.MORPHINE));
-                break;
-            default:
-                throw new AssertionError();
-        }
-        vBox.setAlignment(Pos.TOP_CENTER);
-        vBox.getChildren().addAll(img, name);
-        return vBox;
-    }
-    
     
     /**
      * Changes inventory page to the next page.

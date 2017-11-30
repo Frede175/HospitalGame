@@ -62,6 +62,18 @@ public class MainController implements Initializable {
     private GridPane root;
     
     /**
+     * Contains the inventory controller for player.
+     */
+    @FXML
+    private InventoryController inventoryPlayerController;
+    
+    /**
+     * Contains the inventory controller for current room.
+     */
+    @FXML
+    private InventoryController inventoryRoomController;
+    
+    /**
      * Contains the injected scene.
      */
     private Scene scene;
@@ -77,7 +89,7 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         business = UI.getInstance().getBusiness();
         imgRes = UI.getInstance().getImageResource();
-        //player = business.getPlayer();
+        player = business.getPlayer();
         // TODO Add buttons via addButton(IRoom room);
     }    
     
@@ -170,27 +182,8 @@ public class MainController implements Initializable {
      * The setup function that calls the keylisteners.
      */
     public void setup() {
-        Directions[] directions = {
-            Directions.EAST, Directions.NORTH, Directions.SOUTH, Directions.WEST
-        };
-        for(Directions dir : directions) {
-            switch (dir) {
-                case NORTH:
-                    root.add(createButton(dir), 1, 0);
-                    break;
-                case SOUTH:
-                    root.add(createButton(dir), 1, 2);
-                    break;
-                case EAST:
-                    root.add(createButton(dir), 2, 1);
-                    break;
-                case WEST:
-                    root.add(createButton(dir), 0, 1);
-                    break;
-                default:
-                    throw new AssertionError();
-            }
-        }
+        System.out.println(player);
+        addButtons(player.getCurrentRoom());
         // Adding key listeners
         scene.setOnKeyReleased(new KeyListener());
     }
@@ -198,6 +191,7 @@ public class MainController implements Initializable {
     private void updateGUI() {
         npcController.updateNPCSToGUI(player.getCurrentRoom());
         playerStatusController.updatePlayerDataToGUI();
+        inventoryPlayerController.updateItems(player.getInventory());
     }
     
 }

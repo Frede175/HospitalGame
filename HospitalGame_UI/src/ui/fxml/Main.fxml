@@ -48,5 +48,10 @@
             <fx:include fx:id="inventoryPlayer" source="Inventory.fxml" />  
           </children>
       </VBox>
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="2" >
+          <children>
+            <fx:include fx:id="inventoryRoom" source="Inventory.fxml" />  
+          </children>
+      </VBox>
   </children>
 </GridPane>
