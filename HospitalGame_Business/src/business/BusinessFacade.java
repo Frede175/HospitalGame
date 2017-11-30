@@ -225,4 +225,8 @@ public class BusinessFacade implements IBusiness {
     public void useItem(int index) {
         player.useItem(index);
     }
+    
+    public void dropItem(int index) {
+        player.dropItem(itemFacade.getInventory(player.getInventoryID()).getItem(index));
+    }
 }
