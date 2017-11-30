@@ -5,8 +5,6 @@
  */
 package business.Data;
 
-import business.Item.Inventory;
-import business.Player;
 import business.common.IData;
 import business.common.IDataObject;
 import common.IHighScore;
@@ -36,7 +34,7 @@ public class DataFacade implements IData {
 
     @Override
     public boolean saveGame(IPlayer player, IInventory[] inventory, IRoom[] rooms, INPC[] npcs) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return persistence.save(new DataObject(rooms, player, npcs, inventory));
     }    
         
     @Override
@@ -46,6 +44,6 @@ public class DataFacade implements IData {
 
     @Override
     public IDataObject load() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return persistence.load(DataObject.class);
     }
 }

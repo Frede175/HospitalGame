@@ -19,26 +19,33 @@ public class DataObject implements IDataObject {
     private IRoom[] room;
     private IPlayer player;
     private INPC[] npcs;
-    private IInventory inventories;
+    private IInventory[] inventories;
 
+    public DataObject(IRoom[] room, IPlayer player, INPC[] npcs, IInventory[] inventories) {
+        this.room = room;
+        this.player = player;
+        this.npcs = npcs;
+        this.inventories = inventories;
+    }
+    
     @Override
     public IPlayer getPlayer() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return player;
     }
 
     @Override
     public IInventory[] getInventories() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         return inventories;
     }
 
     @Override
     public INPC[] getNPCs() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return npcs;
     }
 
     @Override
     public IRoom[] getRooms() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return room;
     }
     
 }

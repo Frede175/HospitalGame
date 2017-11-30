@@ -40,9 +40,30 @@ public class NPCFacade implements INPCFacade {
     }
 
     @Override
-    public void load(Objects[] objects) {
-
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void load(INPC[] npcs) {
+        for (int i = 0; i < npcs.length; i++) {
+            NPCID id;
+            id = npcs[i].getNPCID();
+            switch (id) {
+            case COMPUTER:
+                Computer computer = new Computer(npcs[i]);
+                NPCs.add(computer);
+                break;
+            case DOCTOR:
+                Doctor docter = new Doctor(npcs[i]);
+                NPCs.add(docter);
+                break;
+            case PORTER:
+                Porter porter = new Porter(npcs[i]);
+                NPCs.add(porter);
+                break;
+            default:
+                throw new AssertionError();
+        }
+                    
+                    
+        }
+       
 
     }
 

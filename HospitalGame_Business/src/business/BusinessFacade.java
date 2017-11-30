@@ -8,10 +8,7 @@ package business;
 import business.Item.BloodBag;
 import business.Item.ItemFacade;
 import business.Item.PowerUpItem;
-import business.NPC.Computer;
-import business.NPC.Doctor;
 import business.NPC.NPCFacade;
-import business.NPC.Porter;
 import business.common.IData;
 import business.common.IItemFacade;
 import business.common.INPCFacade;
@@ -167,16 +164,35 @@ public class BusinessFacade implements IBusiness {
         throw new UnsupportedOperationException("not yet implemented.");
     }
 
+    /**
+     * saves the game
+     * @return true if the game has been saved
+     */
     @Override
     public boolean save() {
-        
-        System.out.println("You saved the game, have a nice day!");
-        return true;
+        return dataFacade.saveGame(player, itemFacade.getInventories(), map.getRooms(), npcFacade.getNPCs()); 
     }
 
     @Override
     public boolean load() {
-        throw new UnsupportedOperationException("not yet implemented.");
+        //dataFacade.load();
+        
+        //loads in the player
+        this.player = new Player(dataFacade.load().getPlayer());
+
+        //loads in the rooms
+        // for (int i = 0; i < dataFacade.load().getRooms().length; i++) {}
+            
+        
+        
+        
+        //loads in the inventories
+        itemFacade.load(dataFacade.load().getInventories());
+        
+        //loads in the npcs
+        npcFacade.load(dataFacade.load().getNPCs());
+        
+        return true; // change this
     }
 
     /**
@@ -204,5 +220,9 @@ public class BusinessFacade implements IBusiness {
     @Override
     public void move(Directions direction) {
         player.move(direction);
+    }
+    
+    public void useItem(int index) {
+        player.useItem(index);
     }
 }

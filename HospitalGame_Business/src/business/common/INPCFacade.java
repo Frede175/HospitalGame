@@ -10,7 +10,6 @@ import common.INPC;
 import common.IPlayer;
 import common.IRoom;
 import common.NPCID;
-import java.util.Objects;
 
 /**
  *
@@ -19,7 +18,7 @@ import java.util.Objects;
 public interface INPCFacade {
     public String interact(IPlayer player, INPC NPC);
     public boolean move(INPC npc, Directions dir);
-    public void load(Objects[] objects);
+    public void load(INPC[] npcs);
     public void create(NPCID id, boolean canMove, String name, IRoom currentRoom);
     public INPC[] getNPCs();
     void setRoom(INPC npc, IRoom room);

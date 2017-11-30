@@ -11,7 +11,7 @@ package common;
  */
 public enum Directions {
     SOUTH,
-    NORTH,
     EAST,
-    WEST
+    NORTH,
+    WEST;
 }
