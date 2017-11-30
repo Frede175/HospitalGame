@@ -24,7 +24,7 @@ public class NPCFacade implements INPCFacade {
     
     @Override
     public String interact(IPlayer player, INPC NPC) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       
     }
 
     @Override
@@ -80,7 +80,7 @@ public class NPCFacade implements INPCFacade {
      */
     @Override
     public void setRoom(INPC npc, IRoom room) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       NPCs.get(NPCs.indexOf(npc)).setCurrentRoom(room);
     }
 
     /**
