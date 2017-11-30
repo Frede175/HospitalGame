@@ -81,7 +81,7 @@ public class Map {
      * @param npcs which npcs are to be put in the game
      * @param 
      */
-    public void generateMap(int roomCount, ArrayList<IItem> items, ArrayList<INPC> npcs) {
+    public Room generateMap(int roomCount, List<IItem> items, List<INPC> npcs) {
         // Creates the ArrayList that contains all the free rooms.
         ArrayList<Room> freeRooms = createRooms(roomCount);
         // Add every item to a random room.
@@ -152,8 +152,9 @@ public class Map {
                 i++;
             }
         }
-
+        
         // returns the start room.
+        return startRoom;
     }
 
     /**
@@ -166,7 +167,9 @@ public class Map {
         ArrayList<Room> rooms = new ArrayList<>();
         char a = 'a';
         for (int i = 0; i < roomCount; i++) {
-            rooms.add(new Room(String.valueOf((char) (a + i))));
+            Room room = new Room(String.valueOf((char) (a + i)));
+            room.injectItemFacade(itemFacade);
+            rooms.add(room);
         }
         return rooms;
     }
@@ -178,7 +181,7 @@ public class Map {
      * @param endRoom is the room where you end. 
      * @return rooms. 
      */
-    public static List<Directions> pathfinder(Room startRoom, Room endRoom) {
+    public static List<Directions> pathfinder(IRoom startRoom, IRoom endRoom) {
         // Queue holds a list of the rooms that are going to be checked
         Queue<Room> queue = new LinkedList<>();
         //Hashmap holds the checked rooms and what direction we came from, that points to startRoom.
@@ -188,7 +191,8 @@ public class Map {
             Room r = (Room) startRoom.getExit(key);
             queue.add(r);
         }
-        pathMap.put(startRoom, null);
+        
+        pathMap.put((Room)startRoom, null);
         while (!queue.isEmpty()) {
             Room room = queue.poll();
             for (Directions key : room.getExitDirections()) {
@@ -203,7 +207,7 @@ public class Map {
             }
         }
         List<Directions> path = new ArrayList<>();
-        Room currentRoom = endRoom;
+        Room currentRoom = (Room) endRoom;
         //going from endRoom to startRoom and storing directions. 
         while (currentRoom != startRoom) {
             Directions s = pathMap.get(currentRoom);
