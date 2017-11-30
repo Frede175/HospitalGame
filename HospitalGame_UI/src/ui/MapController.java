@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 /**
@@ -30,14 +31,21 @@ public class MapController implements Initializable {
 
     private IBusiness business;
 
-    private ResizeableCanvas roomCanvas;
+    private ResizableCanvas roomCanvas;
 
     private GraphicsContext graphicsContext;
     
     @FXML
-    private AnchorPane anchor;
+    private StackPane stack;
 
     private int size = 30;
+    
+    
+    
+    private int minX;
+    private int maxX;
+    private int minY;
+    private int maxY;
 
     /**
      * Initializes the controller class.
@@ -48,54 +56,59 @@ public class MapController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         business = UI.getInstance().getBusiness();
-        
+        stack.autosize();
         ChangeListener<Number> anchorSizeListener = new ChangeListener<Number>(){
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                //anchor.autosize();
-                //System.out.println("anchor width: " + anchor.getLayoutX() + " anchor height: " + anchor.getHeight());
-                createCanvas((int)anchor.getWidth(), (int)anchor.getHeight());
-                
-                System.out.println("anchor width: " + anchor.widthProperty().getValue() + " anchor height: " + anchor.getHeight());              
+                calculateSizeAndDraw();
             }
         };
 
-        UI.getInstance().getStage().widthProperty().addListener(anchorSizeListener);
-        UI.getInstance().getStage().heightProperty().addListener(anchorSizeListener);
-
-        System.out.println("MapController");
-        createCanvas((int)anchor.getWidth(), (int)anchor.getHeight());
+        stack.widthProperty().addListener(anchorSizeListener);
+        stack.heightProperty().addListener(anchorSizeListener);
+        
+        createCanvas();
     }
 
     public void updateMap() {
+        graphicsContext.clearRect(0, 0, roomCanvas.getWidth(), roomCanvas.getHeight());
         IRoom currentRoom = business.getPlayer().getCurrentRoom();
         Set<IRoom> rooms = getRoomsInRoom(new HashSet<>(), currentRoom);
-        //System.out.println(rooms.size());
+        
+        int border = size / 10;
+        border = border < 1 ? 1 : border;
 
         for (IRoom room : rooms) {
             if (!room.isInspected()) {
-                //System.out.println("X: " + room.getCoordinate().getX() + " Y:" + room.getCoordinate().getY());
+                
+                int xOffset = room.getCoordinate().getX() + Math.abs(minX);
+                int yOffset = room.getCoordinate().getY() + Math.abs(minY);
+                int sizeOffsetX = (int)((roomCanvas.getWidth() - (size * (maxX - minX + 1))) / 2);
+                int sizeOffsetY = (int)((roomCanvas.getHeight()- (size * (maxY - minY + 1))) / 2);
+                int xStart = xOffset * size + sizeOffsetX;
+                int yStart = yOffset * size + sizeOffsetY; 
+                
                 if (room.getCoordinate().getX() == currentRoom.getCoordinate().getX() && room.getCoordinate().getY() == currentRoom.getCoordinate().getY()) {
                     graphicsContext.setFill(Color.RED);
                 } else {
                     graphicsContext.setFill(Color.BLACK);
                 }
 
-                graphicsContext.fillRect(room.getCoordinate().getX() * size + size * 12, room.getCoordinate().getY() * size + size * 12, size, size);
-                graphicsContext.clearRect(room.getCoordinate().getX() * size + size * 12 + 5, room.getCoordinate().getY() * size + size * 12 + 5, size - 10, size - 10);
+                graphicsContext.fillRect(xStart, yStart, size, size);
+                graphicsContext.clearRect(xStart + border, yStart + border, size - (border * 2), size - (border * 2));
                 for (Directions d : room.getExitDirections()) {
                     switch (d) {
                         case SOUTH:
-                            graphicsContext.clearRect(room.getCoordinate().getX() * size + size * 12 + size / 2 - size / 8, room.getCoordinate().getY() * size + size * 12 + size - 5, size / 4, 5);
+                            graphicsContext.clearRect(xStart + size / 2 - size / 8, yStart + size - border, size / 4, border);
                             break;
                         case NORTH:
-                            graphicsContext.clearRect(room.getCoordinate().getX() * size + size * 12 + size / 2 - size / 8, room.getCoordinate().getY() * size + size * 12, size / 4, 5);
+                            graphicsContext.clearRect(xStart + size / 2 - size / 8, yStart, size / 4, border);
                             break;
                         case EAST:
-                            graphicsContext.clearRect(room.getCoordinate().getX() * size + size * 12 + size - 5, room.getCoordinate().getY() * size + size * 12 + size / 2 - size / 8, 5, size / 4);
+                            graphicsContext.clearRect(xStart + size - border, yStart + size / 2 - size / 8, border, size / 4);
                             break;
                         case WEST:
-                            graphicsContext.clearRect(room.getCoordinate().getX() * size + size * 12, room.getCoordinate().getY() * size + size * 12 + size / 2 - size / 8, 5, size / 4);
+                            graphicsContext.clearRect(xStart, yStart + size / 2 - size / 8, border, size / 4);
                             break;
                         default:
                             throw new AssertionError(d.name());
@@ -105,11 +118,11 @@ public class MapController implements Initializable {
         }
     }
     
-    private void calculateSize(){
-        int minX = Integer.MAX_VALUE;
-        int maxX = Integer.MIN_VALUE;
-        int minY = Integer.MAX_VALUE;
-        int maxY = Integer.MIN_VALUE;
+    private void calculateSizeAndDraw(){
+        minX = Integer.MAX_VALUE;
+        maxX = Integer.MIN_VALUE;
+        minY = Integer.MAX_VALUE;
+        maxY = Integer.MIN_VALUE;
         
         IRoom currentRoom = business.getPlayer().getCurrentRoom();
         Set<IRoom> rooms = getRoomsInRoom(new HashSet<>(), currentRoom);
@@ -125,11 +138,11 @@ public class MapController implements Initializable {
                 minY = room.getCoordinate().getY();
         }
         
-        int differenceX = maxX - minX;
-        int differenceY = maxY - minY;
+        int differenceX = maxX - minX + 1;
+        int differenceY = maxY - minY + 1;
         
-        int sizeX = (int)anchor.getWidth() / differenceX;
-        int sizeY = (int)anchor.getHeight() / differenceY;
+        int sizeX = (int)stack.getWidth() / differenceX;
+        int sizeY = (int)stack.getHeight() / differenceY;
         
         if(sizeX < sizeY)
             size = sizeX;
@@ -137,28 +150,24 @@ public class MapController implements Initializable {
             size = sizeY;
         
         System.out.println(size);
+        
+        updateMap();
     }
     
-    private void createCanvas(int width, int height){
-        roomCanvas = new ResizeableCanvas(width, height);
-        //roomCanvas = new Canvas(width, height);
-        roomCanvas.widthProperty().bind(anchor.widthProperty());
-        roomCanvas.heightProperty().bind(anchor.heightProperty());
+    private void createCanvas(){
+        roomCanvas = new ResizableCanvas();
+        stack.getChildren().add(roomCanvas);
+        roomCanvas.widthProperty().bind(stack.widthProperty());
+        roomCanvas.heightProperty().bind(stack.heightProperty());
         graphicsContext = roomCanvas.getGraphicsContext2D();
-        anchor.getChildren().clear();
-        anchor.getChildren().add(roomCanvas);
-        calculateSize();
-        updateMap();
+        
+        calculateSizeAndDraw();
     }
 
     private Set<IRoom> getRoomsInRoom(Set<IRoom> roomSet, IRoom nextRoom) {
         if (!roomSet.contains(nextRoom)) {
-            //System.out.print(nextRoom.getCoordinate().getX() + ", " + nextRoom.getCoordinate().getY() + ": ");
             roomSet.add(nextRoom);
-            for (Directions d : nextRoom.getExitDirections()) {
-                //System.out.print(d + " , ");
-            }
-            //System.out.println("");
+            
             for (Directions d : nextRoom.getExitDirections()) {
                 roomSet.addAll(getRoomsInRoom(roomSet, nextRoom.getExit(d)));
             }
