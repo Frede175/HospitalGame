@@ -5,6 +5,7 @@
  */
 package business.Data;
 
+import business.Item.Item;
 import common.IInventory;
 import common.IItem;
 import common.ItemName;
@@ -15,32 +16,45 @@ import java.util.ArrayList;
  * @author andreasmolgaard-andersen
  */
 public class DataInventory implements IInventory {
-    private ArrayList<DataItem> items;
+
+    private ArrayList<IItem> items;
     private Integer maxWeight;
+    private IItem getItem;
+    private int inventoryID;
+    private ItemName name;
 
     @Override
     public IItem getItem(int index) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return getItem;
     }
 
     @Override
     public ArrayList<IItem> getItems() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return items;
     }
 
     @Override
     public IItem[] getItemsByName(ItemName name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        ArrayList<Item> itemList = new ArrayList<>();
 
-    @Override
-    public int getMaxWeight() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (IItem item : items) {
+            if (name == item.getName()) {
+                itemList.add((Item) item);
+            }
+        }
+        Item[] IItem = new Item[itemList.size()];
+        itemList.toArray(IItem);
+        return IItem;
     }
 
     @Override
     public int getInventoryID() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return inventoryID;
     }
-    
+
+    @Override
+    public int getMaxWeight() {
+       return maxWeight;
+    }
+
 }
