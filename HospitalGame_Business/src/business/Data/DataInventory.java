@@ -25,7 +25,7 @@ public class DataInventory implements IInventory {
 
     @Override
     public IItem getItem(int index) {
-        return getItem;
+       return items.get(index);
     }
 
     @Override
