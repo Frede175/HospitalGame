@@ -5,10 +5,13 @@
  */
 package business.common;
 
+import common.Directions;
+
 /**
  *
  * @author rober
  */
 public interface IMoveable {
+    boolean move(Directions direction);
     
 }

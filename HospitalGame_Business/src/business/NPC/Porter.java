@@ -7,18 +7,20 @@ package business.NPC;
 
 import business.Map;
 import business.Player;
+import business.common.IMoveable;
 import common.Directions;
 import common.INPC;
 import common.IPlayer;
 import common.IRoom;
 import common.NPCID;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author andreasmolgaard-andersen
  */
-public class Porter extends NPC {
+public class Porter extends NPC implements IMoveable {
 
     /**
      * to gain access to the end room
@@ -49,10 +51,11 @@ public class Porter extends NPC {
      * @param direction is the direction to move the porter
      * @return true if the porter has been moved
      */
-    public boolean move(String direction) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    @Override
+    public boolean move(Directions direction) {
+        List<Directions> keyList = new ArrayList<>();
+        return true;
     }
-
     /**
      * interact method for the porter
      * @param player is the player for the porter to interact with
