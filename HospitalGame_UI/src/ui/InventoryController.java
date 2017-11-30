@@ -135,7 +135,11 @@ public class InventoryController implements Initializable {
         this.inventory = inventory;
         items = this.inventory.getItems();
         refreshPageButtons();
-        pageLabel.setText(page + "/" + getPageCount());
+        if(getPageCount() == 0) {
+            pageLabel.setText("0/" + getPageCount());
+        } else {
+            pageLabel.setText(page + "/" + getPageCount());
+        }
         int calc = 0;
         for (int i = (page - 1) * itemsPerPage; i < (page - 1) * itemsPerPage + itemsPerPage && i < items.size(); i++) {
             int column = calc % 3;
@@ -153,7 +157,8 @@ public class InventoryController implements Initializable {
      * Checking if some of the buttons should be disabled or not.
      */
     private void refreshPageButtons() {
-        if(getPageCount() == 1) {
+        System.out.println("page count" + getPageCount());
+        if(getPageCount() == 1 || getPageCount() == 0) {
             nextBtn.setDisable(true);
             previousBtn.setDisable(true);
         } else if(getPageCount() > page && page == 1){

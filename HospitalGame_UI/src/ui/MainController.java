@@ -203,7 +203,7 @@ public class MainController implements Initializable {
         inventoryRoomController.setFocus(true);
     }
     
-    private void updateGUI() {
+    public void updateGUI() {
         npcController.updateNPCSToGUI(player.getCurrentRoom());
         playerStatusController.updatePlayerDataToGUI();
         inventoryPlayerController.updateItems(player.getInventory());

@@ -5,6 +5,7 @@
  */
 package ui;
 
+import common.Directions;
 import common.IBusiness;
 import common.IPlayer;
 import javafx.scene.input.KeyEvent;
@@ -35,16 +36,20 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
     public void handle(KeyEvent event) {
         switch (event.getCode()) {
             case W:
-                System.err.println("Go north");
+                business.move(Directions.NORTH);
+                mainController.updateGUI();
                 break;
             case S:
-                System.err.println("Go south");
+                business.move(Directions.SOUTH);
+                mainController.updateGUI();
                 break;
             case D:
-                System.err.println("Go east");
+                business.move(Directions.EAST);
+                mainController.updateGUI();
                 break;
             case A:
-                System.err.println("Go west");
+                business.move(Directions.WEST);
+                mainController.updateGUI();
                 break;
             case TAB:
                 playersInventory = ((playersInventory == true) ? false : true);
