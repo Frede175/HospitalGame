@@ -6,6 +6,7 @@
 package business.Data;
 
 import common.Directions;
+import common.ICoordinate;
 import common.IRoom;
 import java.util.HashMap;
 import java.util.Set;
@@ -41,6 +42,11 @@ public class DataRoom implements IRoom{
 
     @Override
     public Set<Directions> getExitDirections() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ICoordinate getCoordinate() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

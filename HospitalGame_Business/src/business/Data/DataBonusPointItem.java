@@ -20,7 +20,8 @@ public class DataBonusPointItem extends DataItem implements IBonusPointItem {
 
     @Override
     public int getBonusPoints() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.bonusPoints = bonusPoints;
+        return bonusPoints; 
     }
 
 }
