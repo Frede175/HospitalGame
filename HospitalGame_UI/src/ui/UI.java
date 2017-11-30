@@ -45,9 +45,14 @@ public class UI extends Application implements IUI {
     private Stage stage;
 
     /**
-     * All images used in the application
+     * All images used in the application.
      */
     private ImageResource imageResource;
+    
+    /**
+     * Contains the menu scene.
+     */
+    private Scene scene;
 
     /**
      * Called at the start of the application. Creates and loads the menu
@@ -59,15 +64,24 @@ public class UI extends Application implements IUI {
      */
     @Override
     public void start(Stage primaryStage) throws IOException {
+        System.out.println("Start of the program");
         UI.getInstance().stage = primaryStage;
         UI.getInstance().imageResource = new ImageResource();
         Parent root = FXMLLoader.load(getClass().getResource("fxml/Menu.fxml"));
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
+        UI.getInstance().scene = new Scene(root);
+        primaryStage.setScene(UI.getInstance().scene);
         primaryStage.setMinHeight(600);
         primaryStage.setMinWidth(1000);
         primaryStage.setMaximized(true);
         primaryStage.show();
+    }
+    
+    /**
+     * Gets the menu scene.
+     * @return The menu scene.
+     */
+    public Scene getMenuScene() {
+        return scene;
     }
 
     /**
