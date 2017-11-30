@@ -11,6 +11,7 @@ import common.IPlayer;
 import common.IRoom;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -73,6 +74,8 @@ public class MainController implements Initializable {
     @FXML
     private InventoryController inventoryRoomController;
     
+    private ArrayList<HBox> buttons;
+    
     /**
      * Contains the injected scene.
      */
@@ -90,7 +93,8 @@ public class MainController implements Initializable {
         business = UI.getInstance().getBusiness();
         imgRes = UI.getInstance().getImageResource();
         player = business.getPlayer();
-        // TODO Add buttons via addButton(IRoom room);
+        buttons = new ArrayList<>();
+        updateGUI();
     }    
     
     /**
@@ -100,12 +104,21 @@ public class MainController implements Initializable {
     public void injectScene(Scene scene) {
         this.scene = scene;
     }
+
+    public InventoryController getInventoryPlayerController() {
+        return inventoryPlayerController;
+    }
+
+    public InventoryController getInventoryRoomController() {
+        return inventoryRoomController;
+    }
     
     /**
      * Adds buttons to the main layout depending on the rooms direction.
      * @param room The room to get the directions from.
      */
     public void addButtons(IRoom room) {
+        root.getChildren().removeAll(buttons);
         for(Directions dir : room.getExitDirections()) {
             switch (dir) {
                 case NORTH:
@@ -161,11 +174,13 @@ public class MainController implements Initializable {
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                // TODO Create move function business Facade.
-                System.err.println("Need move");
+                System.out.println(direction.toString());
+                business.move(direction);
+                updateGUI();
             }
         });
         hBox.getChildren().add(btn);
+        buttons.add(hBox);
         return hBox;
     }
     
@@ -184,14 +199,16 @@ public class MainController implements Initializable {
     public void setup() {
         System.out.println(player);
         addButtons(player.getCurrentRoom());
-        // Adding key listeners
-        scene.setOnKeyReleased(new KeyListener());
+        scene.setOnKeyReleased(new KeyListener(this, inventoryPlayerController, inventoryRoomController, player, business));
+        inventoryRoomController.setFocus(true);
     }
     
     private void updateGUI() {
         npcController.updateNPCSToGUI(player.getCurrentRoom());
         playerStatusController.updatePlayerDataToGUI();
         inventoryPlayerController.updateItems(player.getInventory());
+        inventoryRoomController.updateItems(player.getCurrentRoom().getInventory());
+        addButtons(player.getCurrentRoom());
     }
     
 }

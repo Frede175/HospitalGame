@@ -5,10 +5,32 @@
  */
 package ui;
 
+import common.IBusiness;
+import common.IPlayer;
 import javafx.scene.input.KeyEvent;
 
 public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
-
+    
+    private MainController mainController;
+    
+    private InventoryController playerInventoryController;
+    
+    private InventoryController roomInventoryController;
+    
+    private IPlayer player;
+    
+    private IBusiness business;
+    
+    private boolean playersInventory;
+    
+    public KeyListener(MainController mainController, InventoryController playerInventoryController, InventoryController roomInventoryController, IPlayer player, IBusiness business) {
+        this.mainController = mainController;
+        this.playerInventoryController = playerInventoryController;
+        this.roomInventoryController = roomInventoryController;
+        this.player = player;
+        this.business = business;
+    }
+    
     @Override
     public void handle(KeyEvent event) {
         switch (event.getCode()) {
@@ -25,7 +47,16 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
                 System.err.println("Go west");
                 break;
             case TAB:
-                System.err.println("Switch Inventory");
+                playersInventory = ((playersInventory == true) ? false : true);
+                if(playersInventory) {
+                    playerInventoryController.setFocus(true);
+                    roomInventoryController.setFocus(false);
+                } else {
+                    playerInventoryController.setFocus(false);
+                    roomInventoryController.setFocus(true);
+                }
+                playerInventoryController.updateItems(playerInventoryController.getInventory());
+                roomInventoryController.updateItems(roomInventoryController.getInventory());
                 break;
             case E:
                 System.err.println("Use selected item");
@@ -34,38 +65,72 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
                 System.err.println("Drop selected item");
                 break;
             case SHIFT:
-                System.err.println("Next page in selected inventory");
+                if(playersInventory) {
+                    playerInventoryController.nextPage();
+                } else {
+                    roomInventoryController.nextPage();
+                }
                 break;
             case CONTROL:
-                System.err.println("Previous page in selected inventory");
+                if(playersInventory) {
+                    playerInventoryController.previousPage();
+                } else {
+                    roomInventoryController.previousPage();
+                }
                 break;
             case DIGIT1:
-                System.err.println("1");
+                if(playersInventory) {
+                    playerInventoryController.setSelectedIndex(0);
+                    playerInventoryController.updateItems(playerInventoryController.getInventory());
+                } else {
+                    roomInventoryController.setSelectedIndex(0);
+                    roomInventoryController.updateItems(roomInventoryController.getInventory());
+                }
                 break;
             case DIGIT2:
-                System.err.println("2");
+                if(playersInventory) {
+                    playerInventoryController.setSelectedIndex(1);
+                    playerInventoryController.updateItems(playerInventoryController.getInventory());
+                } else {
+                    roomInventoryController.setSelectedIndex(1);
+                    roomInventoryController.updateItems(roomInventoryController.getInventory());
+                }
                 break;
             case DIGIT3:
-                System.err.println("3");
+                if(playersInventory) {
+                    playerInventoryController.setSelectedIndex(2);
+                    playerInventoryController.updateItems(playerInventoryController.getInventory());
+                } else {
+                    roomInventoryController.setSelectedIndex(2);
+                    roomInventoryController.updateItems(roomInventoryController.getInventory());
+                }
                 break;
             case DIGIT4:
-                System.err.println("4");
+                if(playersInventory) {
+                    playerInventoryController.setSelectedIndex(3);
+                    playerInventoryController.updateItems(playerInventoryController.getInventory());
+                } else {
+                    roomInventoryController.setSelectedIndex(3);
+                    roomInventoryController.updateItems(roomInventoryController.getInventory());
+                }
                 break;
             case DIGIT5:
-                System.err.println("5");
+                if(playersInventory) {
+                    playerInventoryController.setSelectedIndex(4);
+                    playerInventoryController.updateItems(playerInventoryController.getInventory());
+                } else {
+                    roomInventoryController.setSelectedIndex(4);
+                    roomInventoryController.updateItems(roomInventoryController.getInventory());
+                }
                 break;
             case DIGIT6:
-                System.err.println("6");
-                break;
-            case DIGIT7:
-                System.err.println("7");
-                break;
-            case DIGIT8:
-                System.err.println("8");
-                break;
-            case DIGIT9:
-                System.err.println("9");
-                break;
+                if(playersInventory) {
+                    playerInventoryController.setSelectedIndex(5);
+                    playerInventoryController.updateItems(playerInventoryController.getInventory());
+                } else {
+                    roomInventoryController.setSelectedIndex(5);
+                    roomInventoryController.updateItems(roomInventoryController.getInventory());
+                }
             default:
                 System.err.println("Dont have anyhting to do on that button");
         }
