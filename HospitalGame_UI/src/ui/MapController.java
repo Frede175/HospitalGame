@@ -80,9 +80,10 @@ public class MapController implements Initializable {
 
         for (IRoom room : rooms) {
             if (!room.isInspected()) {
-                
-                int xOffset = room.getCoordinate().getX() + Math.abs(minX);
-                int yOffset = room.getCoordinate().getY() + Math.abs(minY);
+                int x = room.getCoordinate().getX();
+                int y = room.getCoordinate().getY() * -1;
+                int xOffset = x + minX * -1;
+                int yOffset = y + minY * -1;
                 int sizeOffsetX = (int)((roomCanvas.getWidth() - (size * (maxX - minX + 1))) / 2);
                 int sizeOffsetY = (int)((roomCanvas.getHeight()- (size * (maxY - minY + 1))) / 2);
                 int xStart = xOffset * size + sizeOffsetX;
@@ -118,7 +119,7 @@ public class MapController implements Initializable {
         }
     }
     
-    private void calculateSizeAndDraw(){
+    private void updateMinAndMax() {
         minX = Integer.MAX_VALUE;
         maxX = Integer.MIN_VALUE;
         minY = Integer.MAX_VALUE;
@@ -128,16 +129,20 @@ public class MapController implements Initializable {
         Set<IRoom> rooms = getRoomsInRoom(new HashSet<>(), currentRoom);
         
         for(IRoom room : rooms){
-            if(room.getCoordinate().getX() > maxX)
-                maxX = room.getCoordinate().getX();
-            else if(room.getCoordinate().getX() < minX)
-                minX = room.getCoordinate().getX();
-            else if(room.getCoordinate().getY() > maxY)
-                maxY = room.getCoordinate().getY();
-            else if(room.getCoordinate().getY() < minY)
-                minY = room.getCoordinate().getY();
+            int x = room.getCoordinate().getX();
+            int y = room.getCoordinate().getY() * -1;
+            if(x > maxX)
+                maxX = x;
+            if(x < minX)
+                minX = x;
+            if(y > maxY)
+                maxY = y;
+            if(y < minY)
+                minY = y;
         }
-        
+    }
+    
+    private void calculateSizeAndDraw(){
         int differenceX = maxX - minX + 1;
         int differenceY = maxY - minY + 1;
         
@@ -160,7 +165,7 @@ public class MapController implements Initializable {
         roomCanvas.widthProperty().bind(stack.widthProperty());
         roomCanvas.heightProperty().bind(stack.heightProperty());
         graphicsContext = roomCanvas.getGraphicsContext2D();
-        
+        updateMinAndMax();
         calculateSizeAndDraw();
     }
 
