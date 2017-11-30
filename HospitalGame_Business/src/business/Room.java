@@ -34,6 +34,7 @@ public class Room implements IRoom {
      */
     public Room(String name) {
         this.name = name;
+        exits = new HashMap<>();
     }
 
     /**
