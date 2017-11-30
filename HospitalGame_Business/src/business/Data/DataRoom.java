@@ -16,45 +16,52 @@ import java.util.Set;
  *
  * @author andreasmolgaard-andersen
  */
-public class DataRoom implements IRoom{
+public class DataRoom implements IRoom {
+
     private String name;
     private HashMap<String, IRoom> exits;
     private boolean inspected;
+    private IRoom exit;
+    private Set<Directions> exitDirections;
+    private ICoordinate coordinate;
+    private IInventory inventory;
+    private boolean isLocked;
 
     @Override
     public IRoom getExit(Directions dir) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return exit;
     }
 
     @Override
     public String getName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return name;
     }
-    
+
     @Override
     public boolean isLocked() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return isLocked;
     }
 
     @Override
     public boolean isInspected() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         return inspected;
     }
 
     @Override
     public Set<Directions> getExitDirections() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return exitDirections;
     }
 
     @Override
     public ICoordinate getCoordinate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose
-        
+        return coordinate;
+
     }
 
     @Override
     public IInventory getInventory() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return inventory;
+
     }
-    
+
 }

@@ -14,29 +14,30 @@ import common.NPCID;
  * @author andreasmolgaard-andersen
  */
 public class DataNPC implements INPC {
-    
-    private int currentRoom;
-    private String name;;
-            
 
+    private IRoom currentRoom;
+    private String name;
+    private NPCID npcID;
+    private boolean canMove;
+           
     @Override
     public String getName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return name;
     }
 
     @Override
     public IRoom getCurrentRoom() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return currentRoom;
     }
 
     @Override
     public NPCID getNPCID() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return npcID;
     }
 
     @Override
     public boolean canMove() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         return canMove;
     }
-    
+
 }
