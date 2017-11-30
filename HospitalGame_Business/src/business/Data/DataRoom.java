@@ -19,17 +19,15 @@ import java.util.Set;
 public class DataRoom implements IRoom {
 
     private String name;
-    private HashMap<String, IRoom> exits;
+    private HashMap<Directions, IRoom> exits;
     private boolean inspected;
-    private IRoom exit;
-    private Set<Directions> exitDirections;
     private ICoordinate coordinate;
     private IInventory inventory;
     private boolean isLocked;
 
     @Override
     public IRoom getExit(Directions dir) {
-        return exit;
+        return exits.get(dir);
     }
 
     @Override
@@ -49,7 +47,7 @@ public class DataRoom implements IRoom {
 
     @Override
     public Set<Directions> getExitDirections() {
-        return exitDirections;
+        return exits.keySet();
     }
 
     @Override
