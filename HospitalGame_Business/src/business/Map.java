@@ -52,12 +52,14 @@ public class Map {
     /**
      * no args constructor for map
      */
-    public void Map() {
+    public Map() {
 
     }
 
-    public void Map(IRoom[] rooms) {
+    public Map(IRoom[] rooms) {
         
+        
+                
     }
     
     /**
@@ -247,9 +249,9 @@ public class Map {
     private Coordinate getCoordinateDirection(Directions d) {
         switch (d) {
             case SOUTH:
-                return new Coordinate(0, 1);
-            case NORTH:
                 return new Coordinate(0, -1);
+            case NORTH:
+                return new Coordinate(0, 1);
             case EAST:
                 return new Coordinate(1, 0);
             case WEST:

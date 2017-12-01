@@ -6,6 +6,7 @@
 package business;
 
 import business.Item.BloodBag;
+import business.Item.IDCard;
 import business.Item.ItemFacade;
 import business.Item.PowerUpItem;
 import business.NPC.NPCFacade;
@@ -21,6 +22,7 @@ import common.IItem;
 import common.INPC;
 import common.IPersistence;
 import common.IPlayer;
+import common.IRoom;
 import common.ItemName;
 import common.NPCID;
 import java.util.ArrayList;
@@ -96,6 +98,7 @@ public class BusinessFacade implements IBusiness {
         ArrayList<IItem> items = new ArrayList<>();
         // Adds a new item with the same bloodtype as the player, so the game is always winable.
         items.add(new BloodBag(450, ItemName.BLOODBAG, 450, player.getBloodType()));
+        items.add(new IDCard(GameConstants.IDCARD_WEIGHT,ItemName.IDCARD));
         // Loops as many times as roomCount * 1.5
         for (int i = 0; i < numberOfRooms * 1.5; i++) {
             // Generate a random int to define what type of item that will be generated.
@@ -181,11 +184,9 @@ public class BusinessFacade implements IBusiness {
         this.player = new Player(dataFacade.load().getPlayer());
 
         //loads in the rooms
-        // for (int i = 0; i < dataFacade.load().getRooms().length; i++) {}
+        //IRoom[] arrayy = dataFacade.load().getRooms();
+        Map map = new Map(dataFacade.load().getRooms());
             
-        
-        
-        
         //loads in the inventories
         itemFacade.load(dataFacade.load().getInventories());
         
@@ -204,7 +205,6 @@ public class BusinessFacade implements IBusiness {
 
     /**
      * injection of injectionFacade
-     *
      * @param persistence the persistence facade to inject
      */
     @Override
@@ -212,21 +212,56 @@ public class BusinessFacade implements IBusiness {
         this.persistence = persistence;
     }
 
+    /**
+     * returns the player
+     * @return player
+     */
     @Override
     public IPlayer getPlayer() {
         return player;
     }
 
+    /**
+     * moves the player
+     * @param direction is the direction to move 
+     */
     @Override
     public void move(Directions direction) {
         player.move(direction);
     }
     
-    public void useItem(int index) {
-        player.useItem(index);
+    /**
+     * uses an item
+     * @param index is the index of the item to be used 
+     * @return  true if the item has been used
+     */
+    @Override
+    public boolean useItem(int index) {
+        return player.useItem(index);
     }
     
-    public void dropItem(int index) {
-        player.dropItem(itemFacade.getInventory(player.getInventoryID()).getItem(index));
+    /**
+     * drops an item from player to the room
+     * @param index is the index of the item to be dropped
+     * @return true if the item has been dropped
+     */
+    @Override
+    public boolean dropItem(int index) {
+        return player.dropItem(itemFacade.getInventory(player.getInventoryID()).getItem(index));
     }
+    
+    /**
+     * takes an item from the current room
+     * @param index of the item to be added to the 
+     * @return true if the item has been added to the player inventory
+     */
+    @Override
+    public boolean takeItem(int index) {
+        if (itemFacade.removeItem(player.getCurrentRoom().getInventory().getInventoryID(), player.getCurrentRoom().getInventory().getItem(index)) &&
+        itemFacade.addItem(player.getInventory().getInventoryID(), player.getCurrentRoom().getInventory().getItem(index))) { 
+            return true; 
+        }
+        return false;
+    }
+
 }

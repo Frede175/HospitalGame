@@ -9,6 +9,7 @@ import business.Item.PowerUpItem;
 import business.common.IItemFacade;
 import common.BloodType;
 import common.Directions;
+import common.GameConstants;
 import common.IInventory;
 import common.IItem;
 import common.IPlayer;
@@ -140,7 +141,7 @@ public class Player implements IPlayer {
         this.name = name;
         this.itemFacade = itemFacade;
 
-        inventoryID = itemFacade.createInventory(2000);
+        inventoryID = itemFacade.createInventory(GameConstants.INVENTORY_MAX_WEIGHT);
 
         lastUpdate = System.currentTimeMillis();
 
@@ -183,7 +184,7 @@ public class Player implements IPlayer {
      * uses an item
      * @param index is the index of the item to be used
      */
-    public void useItem(int index) {
+    public boolean useItem(int index) {
         IItem item = itemFacade.getInventory(inventoryID).getItem(index);
 
         if (item != null) { //Checking if the given index has an item
@@ -192,12 +193,16 @@ public class Player implements IPlayer {
                 power.startBuff(System.currentTimeMillis());
                 activeItems.add(power);
                 itemFacade.removeItem(inventoryID, item);
+                
                 if (getNumberOfItemInActiveItems(ItemName.MORPHINE) >= 3) //    Morphine overdose
                 {
                     businessFacade.setGameOver();
                 }
+                return true;
             }
+            
         }
+        return false;
     }
 
     /**
@@ -213,23 +218,12 @@ public class Player implements IPlayer {
         if (nextRoom.isLocked()) {
             if (itemFacade.getInventory(inventoryID).getItemsByName(ItemName.IDCARD).length > 0) {
                 currentRoom = nextRoom;
+                currentRoom.setInspected();
                 return true;
             }
         } else {
             currentRoom = nextRoom;
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * takes an item from the current room
-     * @param item is the item to take
-     * @return true if the item has been added to the player inventory
-     */
-    public boolean takeItem(IItem item) {
-        if (itemFacade.addItem(inventoryID, item)) {
-            itemFacade.removeItem(currentRoom.getInventoryID(), item);
+            currentRoom.setInspected();
             return true;
         }
         return false;
