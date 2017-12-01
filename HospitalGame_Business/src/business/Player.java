@@ -9,6 +9,7 @@ import business.Item.PowerUpItem;
 import business.common.IItemFacade;
 import common.BloodType;
 import common.Directions;
+import common.GameConstants;
 import common.IInventory;
 import common.IItem;
 import common.IPlayer;
@@ -140,7 +141,7 @@ public class Player implements IPlayer {
         this.name = name;
         this.itemFacade = itemFacade;
 
-        inventoryID = itemFacade.createInventory(2000);
+        inventoryID = itemFacade.createInventory(GameConstants.INVENTORY_MAX_WEIGHT);
 
         lastUpdate = System.currentTimeMillis();
 
