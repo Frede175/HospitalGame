@@ -64,10 +64,20 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
                 roomInventoryController.updateItems(roomInventoryController.getInventory());
                 break;
             case E:
-                System.err.println("Use selected item");
+                if(playersInventory) {
+                    business.useItem(playerInventoryController.getSelectedIndex());
+                    mainController.updateGUI();
+                } else {
+                }
                 break;
             case Q:
-                System.err.println("Drop selected item");
+                if(playersInventory) {
+                    business.dropItem(playerInventoryController.getSelectedIndex());
+                    mainController.updateGUI();
+                } else {
+                    
+                }
+                
                 break;
             case SHIFT:
                 if(playersInventory) {

@@ -269,5 +269,8 @@ public class InventoryController implements Initializable {
             updateItems(inventory);
         }
     }
-    
+
+    public int getSelectedIndex() {
+        return selectedIndex;
+    }
 }
