@@ -124,7 +124,7 @@ public class BusinessFacade implements IBusiness {
         // Gets current room and generates the rooms with items and npc.
         npcFacade.create(NPCID.DOCTOR, false, "doctor");
         npcFacade.create(NPCID.PORTER, false, "porter");
-        npcFacade.create(NPCID.COMPUTER, false, "compute");
+        npcFacade.create(NPCID.COMPUTER, false, "computer");
 
         // Sets the current room for the player, and generates the rooms.
         player.setCurrentRoom(map.generateMap(numberOfRooms, items, Arrays.asList(npcFacade.getNPCs())).getRoomID());

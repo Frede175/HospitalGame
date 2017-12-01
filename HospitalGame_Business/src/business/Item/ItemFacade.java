@@ -113,8 +113,8 @@ public class ItemFacade implements IItemFacade {
     @Override
     public void load(IInventory[] inventories) {
         Collections.sort(inventoryList);
-        for (IInventory inventorie : inventories) {
-            inventoryList.add(new Inventory(inventorie));
+        for (IInventory inventory : inventories) {
+            inventoryList.add(new Inventory(inventory));
         }
     }
 

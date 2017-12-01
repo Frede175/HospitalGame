@@ -45,26 +45,9 @@ public class NPCFacade implements INPCFacade {
 
     @Override
     public void load(INPC[] npcs) {
+        NPCs.clear();
         for (int i = 0; i < npcs.length; i++) {
-            NPCID id;
-            id = npcs[i].getNPCID();
-            switch (id) {
-                case COMPUTER:
-                    Computer computer = new Computer(npcs[i]);
-                    NPCs.add(computer);
-                    break;
-                case DOCTOR:
-                    Doctor docter = new Doctor(npcs[i]);
-                    NPCs.add(docter);
-                    break;
-                case PORTER:
-                    Porter porter = new Porter(npcs[i]);
-                    NPCs.add(porter);
-                    break;
-                default:
-                    throw new AssertionError();
-            }
-
+            create(npcs[i].getNPCID(), npcs[i].canMove(), npcs[i].getName(), npcs[i].getCurrentRoomID());
         }
 
     }
@@ -74,6 +57,7 @@ public class NPCFacade implements INPCFacade {
         this.map = map;
     }
     
+    @Override
     public void injectBusiness(BusinessFacade business) {
         this.business = business;
     }

@@ -26,7 +26,7 @@ public class DataObject implements IDataObject {
     public DataObject(IRoom[] rooms, IPlayer player, INPC[] npcs, IInventory[] inventories) {
         this.rooms = new DataRoom[rooms.length];
         for (int i = 0; i < rooms.length; i++) {
-            rooms[i] = new DataRoom(rooms[i]);
+            this.rooms[i] = new DataRoom(rooms[i]);
         }
         this.player = new DataPlayer(player);
         this.npcs = new DataNPC[npcs.length];
