@@ -214,10 +214,12 @@ public class Player implements IPlayer {
         if (nextRoom.isLocked()) {
             if (itemFacade.getInventory(inventoryID).getItemsByName(ItemName.IDCARD).length > 0) {
                 currentRoom = nextRoom;
+                currentRoom.setInspected();
                 return true;
             }
         } else {
             currentRoom = nextRoom;
+            currentRoom.setInspected();
             return true;
         }
         return false;
