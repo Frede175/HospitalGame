@@ -5,10 +5,12 @@
  */
 package business.common;
 
+import business.BusinessFacade;
+import business.Map;
 import common.Directions;
+import common.IBusiness;
 import common.INPC;
 import common.IPlayer;
-import common.IRoom;
 import common.NPCID;
 
 /**
@@ -23,11 +25,17 @@ public interface INPCFacade {
 
     public void load(INPC[] npcs);
 
-    public void create(NPCID id, boolean canMove, String name, IRoom currentRoom);
+    public void create(NPCID id, boolean canMove, String name, int currentRoomID);
+    
+    public void create(NPCID id, boolean canMove, String name);
+    
+    void injectMap(Map map);
+    
+    void injectBusiness(BusinessFacade business);
 
     public INPC[] getNPCs();
 
-    void setRoom(INPC npc, IRoom room);
+    void setRoom(INPC npc, int roomID);
 
-    public void setEndRoom(INPC porter, IRoom currentRoom);
+    public void setEndRoom(INPC porter, int currentRoomID);
 }

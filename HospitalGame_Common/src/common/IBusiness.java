@@ -38,4 +38,6 @@ public interface IBusiness {
     boolean dropItem(int index);
 
     boolean takeItem(int index);
+    
+    boolean isGameOver();
 }

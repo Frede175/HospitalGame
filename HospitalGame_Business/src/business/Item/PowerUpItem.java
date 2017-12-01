@@ -89,4 +89,8 @@ public class PowerUpItem extends Item implements IPowerUpItem {
     public void startBuff(long startTime) {
         lastUpdate = startTime;
     }
+    
+    public void setLastUpdate(long lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
 }

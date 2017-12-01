@@ -28,6 +28,7 @@ public class DataPlayer implements IPlayer {
     private int inventoryID;
     private String name;
     private DataPowerUpItem[] activeItems;
+    private boolean bloodTypeKnown;
 
     public DataPlayer(IPlayer player) {
         this.activeItems = new DataPowerUpItem[player.getActiveItems().size()];
@@ -40,6 +41,7 @@ public class DataPlayer implements IPlayer {
         bloodRate = player.getBloodRate();
         inventoryID = player.getInventoryID();
         name = player.getName();
+        bloodTypeKnown = player.isBloodTypeKnown();
         
     }
 
@@ -86,6 +88,11 @@ public class DataPlayer implements IPlayer {
     @Override
     public int getCurrentRoomID() {
         return currentRoom;
+    }
+
+    @Override
+    public boolean isBloodTypeKnown() {
+        return bloodTypeKnown;
     }
 
 }

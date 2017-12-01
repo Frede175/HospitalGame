@@ -31,5 +31,7 @@ public interface IPlayer {
     String getName();
 
     public int getCurrentRoomID();
+    
+    boolean isBloodTypeKnown();
 
 }

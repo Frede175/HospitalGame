@@ -5,12 +5,14 @@
  */
 package business.NPC;
 
+import business.BusinessFacade;
+import business.Map;
 import business.common.IMoveable;
 import business.common.INPCFacade;
 import common.Directions;
+import common.IBusiness;
 import common.INPC;
 import common.IPlayer;
-import common.IRoom;
 import common.NPCID;
 import java.util.ArrayList;
 
@@ -20,6 +22,9 @@ import java.util.ArrayList;
  */
 public class NPCFacade implements INPCFacade {
 
+    private Map map;
+    private BusinessFacade business;
+    
     private ArrayList<NPC> NPCs = new ArrayList<>();
 
     @Override
@@ -63,21 +68,35 @@ public class NPCFacade implements INPCFacade {
         }
 
     }
+    
+    @Override
+    public void injectMap(Map map) {
+        this.map = map;
+    }
+    
+    public void injectBusiness(BusinessFacade business) {
+        this.business = business;
+    }
 
     @Override
-    public void create(NPCID id, boolean canMove, String name, IRoom currentRoom) {
+    public void create(NPCID id, boolean canMove, String name, int currentRoomID) {
 
         switch (id) {
             case COMPUTER:
-                Computer computer = new Computer(name, canMove, currentRoom, id);
+                Computer computer = new Computer(name, canMove, currentRoomID, id);
+                computer.injectMap(map);
+                computer.injectBusiness(business);
                 NPCs.add(computer);
                 break;
             case DOCTOR:
-                Doctor docter = new Doctor(name, canMove, currentRoom, id);
-                NPCs.add(docter);
+                Doctor doctor = new Doctor(name, canMove, currentRoomID, id);
+                doctor.injectMap(map);
+                doctor.injectBusiness(business);
+                NPCs.add(doctor);
                 break;
             case PORTER:
-                Porter porter = new Porter(name, canMove, currentRoom, id);
+                Porter porter = new Porter(name, canMove, currentRoomID, id);
+                porter.injectMap(map);
                 NPCs.add(porter);
                 break;
             default:
@@ -85,6 +104,13 @@ public class NPCFacade implements INPCFacade {
         }
 
     }
+    
+    
+    @Override
+    public void create(NPCID id, boolean canMove, String name) {
+        create(id, canMove, name, -1);
+    }
+    
 
     /**
      * getter method for all NPCs
@@ -102,25 +128,25 @@ public class NPCFacade implements INPCFacade {
      * sets the room of an npc
      *
      * @param npc is the npc to set in a given room
-     * @param room is the given room to set the npc in
+     * @param roomID is the given room ID to set the npc in
      */
     @Override
-    public void setRoom(INPC npc, IRoom room) {
+    public void setRoom(INPC npc, int roomID) {
 
-        NPCs.get(NPCs.indexOf(npc)).setCurrentRoom(room);
+        NPCs.get(NPCs.indexOf(npc)).setCurrentRoom(roomID);
     }
 
     /**
      * sets an npc in the end room
      *
      * @param npc is the npc to be set in the end room
-     * @param endRoom is the end room
+     * @param endRoomID is the end room ID
      */
     @Override
-    public void setEndRoom(INPC npc, IRoom endRoom) {
+    public void setEndRoom(INPC npc, int endRoomID) {
 
         if (npc instanceof Porter) {
-            ((Porter) npc).setEndRoom(endRoom);
+            ((Porter) npc).setEndRoom(endRoomID);
         }
     }
 

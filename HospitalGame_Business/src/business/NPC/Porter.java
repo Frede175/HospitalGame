@@ -19,22 +19,22 @@ import java.util.List;
  * @author andreasmolgaard-andersen
  */
 public class Porter extends NPC implements IMoveable {
-
+    
     /**
      * to gain access to the end room
      */
-    private IRoom endRoom;
+    private int endRoomID;
 
     /**
      * constructor for the porter
      *
      * @param name is the name of the porter
      * @param canMove if the npc can move
-     * @param currentRoom the room for the npc to be set in
+     * @param currentRoomID the room ID for the npc to be set in
      * @param npcId ID of the NPC
      */
-    public Porter(String name, boolean canMove, IRoom currentRoom, NPCID npcId) {
-        super(name, canMove, currentRoom, npcId);
+    public Porter(String name, boolean canMove, int currentRoomID, NPCID npcId) {
+        super(name, canMove, currentRoomID, npcId);
     }
 
     /**
@@ -43,8 +43,9 @@ public class Porter extends NPC implements IMoveable {
      * @param npc the object to be loaded into the game
      */
     public Porter(INPC npc) {
-        super(npc.getName(), npc.canMove(), npc.getCurrentRoom(), npc.getNPCID());
+        super(npc.getName(), npc.canMove(), npc.getCurrentRoomID(), npc.getNPCID());
     }
+    
 
     /**
      * moves the porter
@@ -54,7 +55,7 @@ public class Porter extends NPC implements IMoveable {
      */
     @Override
     public boolean move(Directions direction) {
-        setCurrentRoom(getCurrentRoom().getExit(direction));
+        setCurrentRoom(getCurrentRoom().getExit(direction).getRoomID());
         return true;
     }
 
@@ -67,7 +68,7 @@ public class Porter extends NPC implements IMoveable {
     @Override
     public String interact(IPlayer player) {
         String output = "These directions will lead you two rooms ahead ";
-        List<Directions> path = Map.pathfinder(player.getCurrentRoom(), endRoom);
+        List<Directions> path = map.pathfinder(player.getCurrentRoomID(), endRoomID);
         for (int i = 0; i < 2 && i < path.size(); i++) {
             output += path.get(i) + " ";
         }
@@ -77,10 +78,10 @@ public class Porter extends NPC implements IMoveable {
     /**
      * sets the endRoom so the porter knows where it is
      *
-     * @param room
+     * @param roomID the room ID where to doctor is
      */
-    public void setEndRoom(IRoom room) {
-        endRoom = room;
+    public void setEndRoom(int roomID) {
+        endRoomID = roomID;
     }
 
     @Override

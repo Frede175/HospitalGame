@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package business;
 
 import business.Item.BloodBag;
@@ -83,6 +78,8 @@ public class BusinessFacade implements IBusiness {
         npcFacade = new NPCFacade();
         map.injectItemFacade(itemFacade);
         map.InjectNPCFacade(npcFacade);
+        npcFacade.injectBusiness(this);
+        npcFacade.injectMap(map);
 
     }
 
@@ -123,9 +120,9 @@ public class BusinessFacade implements IBusiness {
             }
         }
         // Gets current room and generates the rooms with items and npc.
-        npcFacade.create(NPCID.DOCTOR, false, "doctor", null);
-        npcFacade.create(NPCID.PORTER, false, "porter", null);
-        npcFacade.create(NPCID.COMPUTER, false, "computer", null);
+        npcFacade.create(NPCID.DOCTOR, false, "doctor");
+        npcFacade.create(NPCID.PORTER, false, "porter");
+        npcFacade.create(NPCID.COMPUTER, false, "compute");
 
         // Sets the current room for the player, and generates the rooms.
         player.setCurrentRoom(map.generateMap(numberOfRooms, items, Arrays.asList(npcFacade.getNPCs())).getRoomID());
@@ -140,33 +137,53 @@ public class BusinessFacade implements IBusiness {
         return npcFacade.getNPCs();
     }
 
+    /**
+     * 
+     * @return 
+     */
     public IPlayer getPLayer() {
         return player;
     }
 
+    /**
+     * 
+     */
     @Override
     public void play() {
         createRooms(12);
     }
 
+    /**
+     * 
+     */
     @Override
     public void quit() {
         throw new UnsupportedOperationException("not yet implemented.");
     }
 
+    /**
+     * 
+     * @return 
+     */
     @Override
     public IHighScore getHighScore() {
         return highScore;
     }
 
+    /**
+     * 
+     */
     @Override
     public void pause() {
-
+       player.pause();
     }
 
+    /**
+     * 
+     */
     @Override
     public void resume() {
-        throw new UnsupportedOperationException("not yet implemented.");
+        player.resume();
     }
 
     /**
@@ -176,9 +193,14 @@ public class BusinessFacade implements IBusiness {
      */
     @Override
     public boolean save() {
+        player.pause();
         return dataFacade.saveGame(player, itemFacade.getInventories(), map.getRooms(), npcFacade.getNPCs());
     }
 
+    /**
+     * Load a saved game from the persistence layer.
+     * @return true if the game got loaded.
+     */
     @Override
     public boolean load() {
         IDataObject data = dataFacade.load();
@@ -187,9 +209,6 @@ public class BusinessFacade implements IBusiness {
         this.player = new Player(data.getPlayer());
 
         //Loads the rooms
-        Map map = new Map();
-        map.InjectNPCFacade(npcFacade);
-        map.injectItemFacade(itemFacade);
         map.load(data.getRooms());
 
         //loads in the inventories
@@ -197,14 +216,16 @@ public class BusinessFacade implements IBusiness {
 
         //loads in the npcs
         npcFacade.load(data.getNPCs());
-
+        
+        player.resume();
+        
         return true; // change this
     }
 
     /**
      * sets the game over if called
      */
-    void setGameOver() {
+    public void setGameOver() {
         isGameOver = true;
     }
 
@@ -268,7 +289,24 @@ public class BusinessFacade implements IBusiness {
      */
     @Override
     public boolean takeItem(int index) {
-        return itemFacade.removeItem(player.getCurrentRoom().getInventory().getInventoryID(), player.getCurrentRoom().getInventory().getItem(index))
-                && itemFacade.addItem(player.getInventory().getInventoryID(), player.getCurrentRoom().getInventory().getItem(index));
+        return player.takeItem(index);
     }
+
+    /**
+     * 
+     * @return true if the game is over.
+     */
+    @Override
+    public boolean isGameOver() {
+        return isGameOver;
+    }
+    
+    /**
+     * Make the player know its blood type.
+     */
+    public void playerBloodTypeKnown() {
+        player.setBloodTypeKnown();
+    }
+    
+    
 }

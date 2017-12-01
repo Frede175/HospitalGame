@@ -100,12 +100,12 @@ public class Map {
                 porter = npc;
             }
 
-            npcFacade.setRoom(npc, freeRooms.get((int) (Math.random() * roomCount)));
+            npcFacade.setRoom(npc, freeRooms.get((int) (Math.random() * roomCount)).getRoomID());
         }
 
         // Sets the doctors room in the Porter object.
         if (porter != null && doctor != null) {
-            npcFacade.setEndRoom(porter, doctor.getCurrentRoom());
+            npcFacade.setEndRoom(porter, doctor.getCurrentRoomID());
         }
 
         Directions[] directions = Directions.values();
@@ -179,11 +179,13 @@ public class Map {
     /**
      * used to find the shortest path towards the doctor NPC
      *
-     * @param startRoom is the room where you start.
-     * @param endRoom is the room where you end.
+     * @param startRoomID is the room where you start.
+     * @param endRoomID is the room where you end.
      * @return rooms.
      */
-    public static List<Directions> pathfinder(IRoom startRoom, IRoom endRoom) {
+    public List<Directions> pathfinder(int startRoomID, int endRoomID) {
+        Room startRoom = rooms.get(startRoomID);
+        Room endRoom = rooms.get(endRoomID);
         // Queue holds a list of the rooms that are going to be checked
         Queue<Room> queue = new LinkedList<>();
         //Hashmap holds the checked rooms and what direction we came from, that points to startRoom.
