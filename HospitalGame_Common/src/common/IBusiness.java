@@ -21,5 +21,6 @@ public interface IBusiness {
     boolean save();
     boolean load();
     void move(Directions direction);
-    
+    void useItem(int index);
+    void dropItem(int index);
 }
