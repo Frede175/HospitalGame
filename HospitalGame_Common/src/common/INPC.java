@@ -10,8 +10,12 @@ package common;
  * @author fsr19
  */
 public interface INPC {
+
     IRoom getCurrentRoom();
+
     boolean canMove();
+
     String getName();
+
     NPCID getNPCID();
 }

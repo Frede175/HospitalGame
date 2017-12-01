@@ -12,13 +12,21 @@ import java.util.ArrayList;
  * @author fsr19
  */
 public interface IPlayer {
+
     IRoom getCurrentRoom();
+
     BloodType getBloodType();
+
     int getBloodAmount();
+
     double getBloodRate();
+
     ArrayList<? extends IPowerUpItem> getActiveItems();
+
     int getInventoryID();
+
     IInventory getInventory();
+
     String getName();
-    
+
 }

@@ -10,13 +10,13 @@ package common;
  * @author fsr19
  */
 public enum ItemName {
-    BLOODBAG("Blood bag"), 
-    BANDAGE("Bandage"), 
-    MORPHINE("Morphine"), 
+    BLOODBAG("Blood bag"),
+    BANDAGE("Bandage"),
+    MORPHINE("Morphine"),
     IDCARD("ID card");
-    
+
     private String name;
-    
+
     private ItemName(String name) {
         this.name = name;
     }
@@ -25,6 +25,5 @@ public enum ItemName {
     public String toString() {
         return name;
     }
-    
-    
+
 }

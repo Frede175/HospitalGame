@@ -2,7 +2,7 @@ package common;
 
 /**
  * Persistence interface
- * 
+ *
  * @author Frederik Schultz Rosenberg
  * @author Andreas Bøgh Mølgaard-Andersen
  * @author Tobias Ahrenschneider Sztuk
