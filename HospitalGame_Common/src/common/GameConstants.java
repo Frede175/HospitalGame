@@ -25,5 +25,4 @@ public interface GameConstants {
     int PLAYER_BLOOD_AMOUNT = 5500;
     int INVENTORY_MAX_WEIGHT = 2000;
     int IDCARD_WEIGHT = 50;
-    ArrayList<String> DIRECTIONS = new ArrayList<>(Arrays.asList("north", "east", "south", "west"));
 }

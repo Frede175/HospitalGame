@@ -78,6 +78,7 @@ public class ItemFacade implements IItemFacade {
      * @param powerUpItem is the item being updated
      * @param inventoryID
      * @param lastUpdate
+     * @return 
      */
     @Override
     public boolean update(IPowerUpItem powerUpItem, int inventoryID, long lastUpdate) {
@@ -110,8 +111,8 @@ public class ItemFacade implements IItemFacade {
     @Override
     public void load(IInventory[] inventories) {
         Collections.sort(inventoryList);
-        for (int i = 0; i < inventories.length; i++) {
-            inventoryList.add(new Inventory(inventories[i]));
+        for (IInventory inventorie : inventories) {
+            inventoryList.add(new Inventory(inventorie));
         }
     }
 

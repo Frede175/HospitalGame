@@ -39,11 +39,7 @@ public class BloodBag extends BonusPointItem implements IBloodBag{
      * @return true if bloodType is the same
      */
     public boolean equals(BloodBag pO){
-        if (pO.getBloodType() == bloodType) {
-            return true;
-        } else {
-            return false;
-        }          
+        return pO.getBloodType() == bloodType;          
     }
     
     /**

@@ -129,8 +129,5 @@ public abstract class NPC implements INPC {
     public boolean canMove() {
         return canMove;
     }
-    public boolean move(Directions dir){
-        return false;
-    }
 
 }
