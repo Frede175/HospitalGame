@@ -99,7 +99,7 @@ public class BusinessFacade implements IBusiness {
         // Loops as many times as roomCount * 1.5
         for (int i = 0; i < numberOfRooms * 1.5; i++) {
             // Generate a random int to define what type of item that will be generated.
-            int itemType = random.nextInt(2);
+            int itemType = random.nextInt(3);
             switch (itemType) {
                 // If 0 adds a new bloodbag
                 case 0:
@@ -224,5 +224,9 @@ public class BusinessFacade implements IBusiness {
     
     public void useItem(int index) {
         player.useItem(index);
+    }
+    
+    public void dropItem(int index) {
+        player.dropItem(itemFacade.getInventory(player.getInventoryID()).getItem(index));
     }
 }
