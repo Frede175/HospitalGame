@@ -3,15 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package business.common;
+package business.Item;
 
-import common.Directions;
+import common.ItemName;
 
 /**
  *
- * @author rober
+ * @author andreasmolgaard-andersen
  */
-public interface IMoveable {
-    boolean move(Directions direction);
+public class IDCard extends Item {
+    
+    public IDCard(int weight, ItemName name) {
+        super(weight, name);
+    }
     
 }

@@ -5,10 +5,7 @@
  */
 package business.Data;
 
-import business.Item.Item;
 import common.IBonusPointItem;
-import common.IItem;
-import common.ItemName;
 
 /**
  *
@@ -20,7 +17,6 @@ public class DataBonusPointItem extends DataItem implements IBonusPointItem {
 
     @Override
     public int getBonusPoints() {
-        this.bonusPoints = bonusPoints;
         return bonusPoints; 
     }
 

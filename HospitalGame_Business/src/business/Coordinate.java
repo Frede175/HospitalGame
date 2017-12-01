@@ -64,23 +64,22 @@ public class Coordinate implements ICoordinate {
      */
     public static Coordinate subtract(Coordinate a, Coordinate b) {
         return new Coordinate (a.getX() - b.getX(), a.getY() - b.getY());
-    } 
-     
+    }
+    
     @Override
-    public boolean equals(Object o) {
-        
-        if(o instanceof Coordinate){
-            Coordinate c = (Coordinate)o;
+    public boolean equals(Object obj) {
+        if (obj instanceof Coordinate) {
+            Coordinate c = (Coordinate)obj;
             return x == c.getX() && y == c.getY();
         }
-        return false; //To change body of generated methods, choose Tools | Templates.
+        return false;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 29 * hash + this.x;
-        hash = 29 * hash + this.y;
+        int hash = 7;
+        hash = 79 * hash + this.x;
+        hash = 79 * hash + this.y;
         return hash;
     }
 }

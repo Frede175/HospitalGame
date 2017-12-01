@@ -5,7 +5,6 @@
  */
 package business.Data;
 
-import business.common.IData;
 import common.IItem;
 import common.ItemName;
 
@@ -14,26 +13,23 @@ import common.ItemName;
  * @author andreasmolgaard-andersen
  */
 public class DataItem implements IItem {
-    
+
     private int weight;
     private ItemName name;
+    private String toString;
 
     @Override
     public int getWeight() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return weight;
     }
 
     @Override
     public ItemName getName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return name;
     }
-    
-    public String tostring(){
-         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+    public String tostring() {
+        return toString;
     }
-    
-    
-        
-    
-    
+
 }

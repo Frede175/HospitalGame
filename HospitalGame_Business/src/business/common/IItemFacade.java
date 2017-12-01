@@ -8,7 +8,6 @@ package business.common;
 import common.IInventory;
 import common.IItem;
 import common.IPowerUpItem;
-import java.util.Objects;
 
 /**
  *
@@ -21,6 +20,7 @@ public interface IItemFacade {
     public boolean activateItem(IItem item, int inventoryID, long startTime);
     public boolean update(IPowerUpItem powerUpItem, int inventoryID, long lastUpdate);
     public IInventory getInventory(int InventoryID);
-    public void load(Objects[] objects);    
+    public void load(IInventory[] inventories); 
+    public IInventory[] getInventories();
 }
 

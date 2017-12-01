@@ -19,32 +19,31 @@ import common.IRoom;
  * @author andreasmolgaard-andersen
  */
 public class DataFacade implements IData {
-   private IPersistence  persistence; 
+
+    private IPersistence persistence;
 
     @Override
     public void injectPersistence(IPersistence persistence) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.persistence = persistence;
     }
 
     @Override
     public IHighScore getHighScore() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return persistence.load(DataHighScore.class);
     }
 
     @Override
     public boolean saveGame(IPlayer player, IInventory[] inventory, IRoom[] rooms, INPC[] npcs) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+        return persistence.save(new DataObject(rooms, player, npcs, inventory));
+    }    
+        
     @Override
     public boolean saveHighScore(IHighScore highScore) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     return persistence.save(highScore);    
     }
 
     @Override
     public IDataObject load() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return persistence.load(DataObject.class);
     }
 }
-
-

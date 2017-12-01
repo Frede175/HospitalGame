@@ -6,7 +6,7 @@
 package business.NPC;
 
 import business.Map;
-import business.Player;
+import business.common.IMoveable;
 import common.Directions;
 import common.INPC;
 import common.IPlayer;
@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author andreasmolgaard-andersen
  */
-public class Porter extends NPC {
+public class Porter extends NPC implements IMoveable {
 
     /**
      * to gain access to the end room
@@ -27,6 +27,7 @@ public class Porter extends NPC {
 
     /**
      * constructor for the porter
+     *
      * @param name is the name of the porter
      * @param canMove if the npc can move
      * @param currentRoom the room for the npc to be set in
@@ -38,6 +39,7 @@ public class Porter extends NPC {
 
     /**
      * constructor for the porter when loading
+     *
      * @param npc the object to be loaded into the game
      */
     public Porter(INPC npc) {
@@ -46,15 +48,19 @@ public class Porter extends NPC {
 
     /**
      * moves the porter
+     *
      * @param direction is the direction to move the porter
      * @return true if the porter has been moved
      */
-    public boolean move(String direction) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    @Override
+    public boolean move(Directions direction) {
+        setCurrentRoom(getCurrentRoom().getExit(direction));
+        return true;
     }
 
     /**
      * interact method for the porter
+     *
      * @param player is the player for the porter to interact with
      * @return a String when interacting
      */
@@ -68,12 +74,13 @@ public class Porter extends NPC {
         System.out.println();
         return null;
     }
-    
+
     /**
      * sets the endRoom so the porter knows where it is
-     * @param room 
+     *
+     * @param room
      */
-    public void setEndRoom(IRoom room){
+    public void setEndRoom(IRoom room) {
         endRoom = room;
     }
 

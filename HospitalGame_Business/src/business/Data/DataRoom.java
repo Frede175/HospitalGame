@@ -5,9 +5,9 @@
  */
 package business.Data;
 
-import business.Coordinate;
 import common.Directions;
 import common.ICoordinate;
+import common.IInventory;
 import common.IRoom;
 import java.util.HashMap;
 import java.util.Set;
@@ -16,39 +16,49 @@ import java.util.Set;
  *
  * @author andreasmolgaard-andersen
  */
-public class DataRoom implements IRoom{
+public class DataRoom implements IRoom {
+
     private String name;
-    private HashMap<String, IRoom> exits;
+    private HashMap<Directions, IRoom> exits;
     private boolean inspected;
+    private ICoordinate coordinate;
+    private IInventory inventory;
+    private boolean isLocked;
 
     @Override
     public IRoom getExit(Directions dir) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return exits.get(dir);
     }
 
     @Override
     public String getName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return name;
     }
-    
+
     @Override
     public boolean isLocked() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return isLocked;
     }
 
     @Override
     public boolean isInspected() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         return inspected;
     }
 
     @Override
     public Set<Directions> getExitDirections() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return exits.keySet();
     }
 
     @Override
     public ICoordinate getCoordinate() {
-        return new Coordinate(1,1);
+        return coordinate;
+
     }
-    
+
+    @Override
+    public IInventory getInventory() {
+        return inventory;
+    }
+
 }

@@ -5,11 +5,11 @@
  */
 package business;
 
-import business.Item.ItemFacade;
 import business.Item.PowerUpItem;
 import business.common.IItemFacade;
 import common.BloodType;
 import common.Directions;
+import common.GameConstants;
 import common.IInventory;
 import common.IItem;
 import common.IPlayer;
@@ -74,6 +74,11 @@ public class Player implements IPlayer {
      * the blood type of the player
      */
     private BloodType bloodType;
+    
+    /**
+     * 
+     */
+    public boolean bloodTypeKnows;
 
     /**
      * 
@@ -136,7 +141,7 @@ public class Player implements IPlayer {
         this.name = name;
         this.itemFacade = itemFacade;
 
-        inventoryID = itemFacade.createInventory(2000);
+        inventoryID = itemFacade.createInventory(GameConstants.INVENTORY_MAX_WEIGHT);
 
         lastUpdate = System.currentTimeMillis();
 
@@ -148,7 +153,7 @@ public class Player implements IPlayer {
      * @param player is the dataPlayer to be restored
      * @param itemFacade of the player
      */
-    public Player(IPlayer player,IItemFacade itemFacade) {
+    public Player(IPlayer player) {
         this.bloodType = player.getBloodType();
         this.bloodRate = player.getBloodRate();
         this.bloodAmount = player.getBloodAmount();
@@ -209,10 +214,12 @@ public class Player implements IPlayer {
         if (nextRoom.isLocked()) {
             if (itemFacade.getInventory(inventoryID).getItemsByName(ItemName.IDCARD).length > 0) {
                 currentRoom = nextRoom;
+                currentRoom.setInspected();
                 return true;
             }
         } else {
             currentRoom = nextRoom;
+            currentRoom.setInspected();
             return true;
         }
         return false;

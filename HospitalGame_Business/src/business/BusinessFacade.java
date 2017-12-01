@@ -6,12 +6,10 @@
 package business;
 
 import business.Item.BloodBag;
+import business.Item.IDCard;
 import business.Item.ItemFacade;
 import business.Item.PowerUpItem;
-import business.NPC.Computer;
-import business.NPC.Doctor;
 import business.NPC.NPCFacade;
-import business.NPC.Porter;
 import business.common.IData;
 import business.common.IItemFacade;
 import business.common.INPCFacade;
@@ -99,10 +97,11 @@ public class BusinessFacade implements IBusiness {
         ArrayList<IItem> items = new ArrayList<>();
         // Adds a new item with the same bloodtype as the player, so the game is always winable.
         items.add(new BloodBag(450, ItemName.BLOODBAG, 450, player.getBloodType()));
+        items.add(new IDCard(GameConstants.IDCARD_WEIGHT,ItemName.IDCARD));
         // Loops as many times as roomCount * 1.5
         for (int i = 0; i < numberOfRooms * 1.5; i++) {
             // Generate a random int to define what type of item that will be generated.
-            int itemType = random.nextInt(2);
+            int itemType = random.nextInt(3);
             switch (itemType) {
                 // If 0 adds a new bloodbag
                 case 0:
@@ -154,12 +153,12 @@ public class BusinessFacade implements IBusiness {
 
     @Override
     public IHighScore getHighScore() {
-        throw new UnsupportedOperationException("not yet implemented.");
+        return highScore;
     }
 
     @Override
     public void pause() {
-        throw new UnsupportedOperationException("not yet implemented.");
+        
     }
 
     @Override
@@ -167,14 +166,35 @@ public class BusinessFacade implements IBusiness {
         throw new UnsupportedOperationException("not yet implemented.");
     }
 
+    /**
+     * saves the game
+     * @return true if the game has been saved
+     */
     @Override
     public boolean save() {
-        throw new UnsupportedOperationException("not yet implemented.");
+        return dataFacade.saveGame(player, itemFacade.getInventories(), map.getRooms(), npcFacade.getNPCs()); 
     }
 
     @Override
     public boolean load() {
-        throw new UnsupportedOperationException("not yet implemented.");
+        //dataFacade.load();
+        
+        //loads in the player
+        this.player = new Player(dataFacade.load().getPlayer());
+
+        //loads in the rooms
+        Map map = new Map(dataFacade.load().getRooms());
+            
+        
+        
+        
+        //loads in the inventories
+        itemFacade.load(dataFacade.load().getInventories());
+        
+        //loads in the npcs
+        npcFacade.load(dataFacade.load().getNPCs());
+        
+        return true; // change this
     }
 
     /**
@@ -186,7 +206,6 @@ public class BusinessFacade implements IBusiness {
 
     /**
      * injection of injectionFacade
-     *
      * @param persistence the persistence facade to inject
      */
     @Override
@@ -194,13 +213,39 @@ public class BusinessFacade implements IBusiness {
         this.persistence = persistence;
     }
 
+    /**
+     * returns the player
+     * @return player
+     */
     @Override
     public IPlayer getPlayer() {
         return player;
     }
 
+    /**
+     * moves the player
+     * @param direction is the direction to move 
+     */
     @Override
     public void move(Directions direction) {
         player.move(direction);
+    }
+    
+    /**
+     * uses an item
+     * @param index is the index of the item to be used 
+     */
+    @Override
+    public void useItem(int index) {
+        player.useItem(index);
+    }
+    
+    /**
+     * drops an item from player to the room
+     * @param index is the index of the item to be dropped
+     */
+    @Override
+    public void dropItem(int index) {
+        player.dropItem(itemFacade.getInventory(player.getInventoryID()).getItem(index));
     }
 }

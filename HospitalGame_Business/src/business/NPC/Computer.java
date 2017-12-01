@@ -5,7 +5,6 @@
  */
 package business.NPC;
 
-import business.Player;
 import common.INPC;
 import common.IPlayer;
 import common.IRoom;
