@@ -22,6 +22,7 @@ import common.IItem;
 import common.INPC;
 import common.IPersistence;
 import common.IPlayer;
+import common.IRoom;
 import common.ItemName;
 import common.NPCID;
 import java.util.ArrayList;
@@ -183,11 +184,9 @@ public class BusinessFacade implements IBusiness {
         this.player = new Player(dataFacade.load().getPlayer());
 
         //loads in the rooms
+        //IRoom[] arrayy = dataFacade.load().getRooms();
         Map map = new Map(dataFacade.load().getRooms());
             
-        
-        
-        
         //loads in the inventories
         itemFacade.load(dataFacade.load().getInventories());
         
@@ -234,18 +233,35 @@ public class BusinessFacade implements IBusiness {
     /**
      * uses an item
      * @param index is the index of the item to be used 
+     * @return  true if the item has been used
      */
     @Override
-    public void useItem(int index) {
-        player.useItem(index);
+    public boolean useItem(int index) {
+        return player.useItem(index);
     }
     
     /**
      * drops an item from player to the room
      * @param index is the index of the item to be dropped
+     * @return true if the item has been dropped
      */
     @Override
-    public void dropItem(int index) {
-        player.dropItem(itemFacade.getInventory(player.getInventoryID()).getItem(index));
+    public boolean dropItem(int index) {
+        return player.dropItem(itemFacade.getInventory(player.getInventoryID()).getItem(index));
     }
+    
+    /**
+     * takes an item from the current room
+     * @param index of the item to be added to the 
+     * @return true if the item has been added to the player inventory
+     */
+    @Override
+    public boolean takeItem(int index) {
+        if (itemFacade.removeItem(player.getCurrentRoom().getInventory().getInventoryID(), player.getCurrentRoom().getInventory().getItem(index)) &&
+        itemFacade.addItem(player.getInventory().getInventoryID(), player.getCurrentRoom().getInventory().getItem(index))) { 
+            return true; 
+        }
+        return false;
+    }
+
 }

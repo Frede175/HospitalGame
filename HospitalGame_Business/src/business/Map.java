@@ -58,6 +58,8 @@ public class Map {
 
     public Map(IRoom[] rooms) {
         
+        
+                
     }
     
     /**
