@@ -42,23 +42,18 @@ public class Map {
     /**
      * an ArrayList of rooms
      */
-    private ArrayList<IRoom> rooms;
+    private ArrayList<Room> rooms;
 
-    /**
-     * Hash map that holds the processed rooms, along with coordinates
-     */
-    private HashMap<Coordinate, IRoom> gameMap;
-
+    
     /**
      * no args constructor for map
      */
     public Map() {
-
+        rooms = new ArrayList<>();
     }
 
-    public Map(IRoom[] rooms) {
-
-    }
+    
+    
 
     /**
      * injector for item Facade
@@ -88,6 +83,7 @@ public class Map {
     public Room generateMap(int roomCount, List<IItem> items, List<INPC> npcs) {
         // Creates the ArrayList that contains all the free rooms.
         ArrayList<Room> freeRooms = createRooms(roomCount);
+        rooms.addAll(freeRooms);
         // Add every item to a random room.
         for (IItem item : items) {
             freeRooms.get((int) (Math.random() * roomCount)).addItem(item);
@@ -174,6 +170,7 @@ public class Map {
         for (int i = 0; i < roomCount; i++) {
             Room room = new Room(String.valueOf((char) (a + i)));
             room.injectItemFacade(itemFacade);
+            room.injectMap(this);
             rooms.add(room);
         }
         return rooms;
@@ -261,14 +258,19 @@ public class Map {
     }
 
     public Room getRoomByID(int ID) {
-        if (rooms.get(ID).getRoomID(ID) == ID) {
+        if (rooms.get(ID).getRoomID() == ID) {
             return (Room) rooms.get(ID);
         }
         return null;
     }
 
-    public void load(Room[] arrayRooms) {
-        rooms.addAll(Arrays.asList(arrayRooms));
+    public void load(IRoom[] arrayRooms) {
+        for (IRoom room : rooms) {
+            Room r = new Room(room);
+            r.injectItemFacade(itemFacade);
+            r.injectMap(this);
+            this.rooms.add(r);
+        }
 
     }
 }

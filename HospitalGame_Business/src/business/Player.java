@@ -68,7 +68,7 @@ public class Player implements IPlayer {
     /**
      * the room that the player is currently in
      */
-    private Room currentRoom;
+    private int roomID;
 
     /**
      * the blood type of the player
@@ -79,6 +79,8 @@ public class Player implements IPlayer {
      *
      */
     public boolean bloodTypeKnows;
+    
+    private Map map;
 
     /**
      *
@@ -86,8 +88,7 @@ public class Player implements IPlayer {
      */
     @Override
     public IRoom getCurrentRoom() {
-        return currentRoom;
-
+        return map.getRoomByID(roomID);
     }
 
     /**
@@ -219,20 +220,20 @@ public class Player implements IPlayer {
      * @return true if the player has moved
      */
     public boolean move(Directions direction) {
-        Room nextRoom = (Room) currentRoom.getExit(direction);
+        Room nextRoom = (Room) map.getRoomByID(roomID).getExit(direction);
 
         if (nextRoom == null) {
             return false;
         }
         if (nextRoom.isLocked()) {
             if (itemFacade.getInventory(inventoryID).getItemsByName(ItemName.IDCARD).length > 0) {
-                currentRoom = nextRoom;
-                currentRoom.setInspected();
+                roomID = nextRoom.getRoomID();
+                map.getRoomByID(roomID).setInspected();
                 return true;
             }
         } else {
-            currentRoom = nextRoom;
-            currentRoom.setInspected();
+            roomID = nextRoom.getRoomID();
+            map.getRoomByID(roomID).setInspected();
             return true;
         }
         return false;
@@ -246,7 +247,7 @@ public class Player implements IPlayer {
      */
     public boolean dropItem(IItem item) {
         if (itemFacade.removeItem(inventoryID, item)) {
-            itemFacade.addItem(currentRoom.getInventoryID(), item);
+            itemFacade.addItem(map.getRoomByID(roomID).getInventoryID(), item);
             return true;
         }
         return false;
@@ -257,8 +258,8 @@ public class Player implements IPlayer {
      *
      * @param currentRoom is the new room to become the current Room
      */
-    public void setCurrentRoom(IRoom currentRoom) {
-        this.currentRoom = (Room) currentRoom;
+    public void setCurrentRoom(int roomID) {
+        this.roomID = roomID;
     }
 
     /**
@@ -353,6 +354,11 @@ public class Player implements IPlayer {
     @Override
     public int getInventoryID() {
         return inventoryID;
+    }
+
+    @Override
+    public int getCurrentRoomID() {
+        return roomID;
     }
 
 }

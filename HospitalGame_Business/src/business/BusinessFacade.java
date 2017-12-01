@@ -11,6 +11,7 @@ import business.Item.ItemFacade;
 import business.Item.PowerUpItem;
 import business.NPC.NPCFacade;
 import business.common.IData;
+import business.common.IDataObject;
 import business.common.IItemFacade;
 import business.common.INPCFacade;
 import common.BloodType;
@@ -129,7 +130,7 @@ public class BusinessFacade implements IBusiness {
         npcFacade.create(NPCID.COMPUTER, false, "computer", null);
 
         // Sets the current room for the player, and generates the rooms.
-        player.setCurrentRoom(map.generateMap(numberOfRooms, items, Arrays.asList(npcFacade.getNPCs())));
+        player.setCurrentRoom(map.generateMap(numberOfRooms, items, Arrays.asList(npcFacade.getNPCs())).getRoomID());
     }
 
     /**
@@ -182,22 +183,22 @@ public class BusinessFacade implements IBusiness {
 
     @Override
     public boolean load() {
-        //dataFacade.load();
-
+        IDataObject data = dataFacade.load();
+        if (data == null) return false; 
         //loads in the player
-        this.player = new Player(dataFacade.load().getPlayer());
+        this.player = new Player(data.getPlayer());
 
-        //loads in the rooms
-        map.load((Room[]) dataFacade.load().getRooms());
-        //IRoom[] arrayy = dataFacade.load().getRooms();
-
-        Map map = new Map(dataFacade.load().getRooms());
+        //Loads the rooms
+        Map map = new Map();
+        map.InjectNPCFacade(npcFacade);
+        map.injectItemFacade(itemFacade);
+        map.load(data.getRooms());
 
         //loads in the inventories
-        itemFacade.load(dataFacade.load().getInventories());
+        itemFacade.load(data.getInventories());
 
         //loads in the npcs
-        npcFacade.load(dataFacade.load().getNPCs());
+        npcFacade.load(data.getNPCs());
 
         return true; // change this
     }

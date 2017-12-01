@@ -7,6 +7,7 @@ package business.Data;
 
 import common.BloodType;
 import common.IBloodBag;
+import common.IBonusPointItem;
 
 /**
  *
@@ -15,6 +16,11 @@ import common.IBloodBag;
 public class DataBloodBag extends DataBonusPointItem implements IBloodBag {
 
     private BloodType bloodType;
+
+    public DataBloodBag(IBloodBag item) {
+        super((IBonusPointItem)item);
+        bloodType = item.getBloodType();
+    }
 
     @Override
     public BloodType getBloodType() {

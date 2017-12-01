@@ -14,6 +14,8 @@ import java.util.Set;
 public interface IRoom {
 
     IRoom getExit(Directions dir);
+    
+    int getExitID(Directions dir);
 
     String getName();
 
@@ -26,6 +28,8 @@ public interface IRoom {
     ICoordinate getCoordinate();
 
     IInventory getInventory();
+    
+    int getInventoryID();
 
-    int getRoomID(int ID);
+    int getRoomID();
 }

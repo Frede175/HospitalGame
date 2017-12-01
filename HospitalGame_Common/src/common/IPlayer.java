@@ -6,6 +6,7 @@
 package common;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -21,12 +22,14 @@ public interface IPlayer {
 
     double getBloodRate();
 
-    ArrayList<? extends IPowerUpItem> getActiveItems();
+    List<? extends IPowerUpItem> getActiveItems();
 
     int getInventoryID();
 
     IInventory getInventory();
 
     String getName();
+
+    public int getCurrentRoomID();
 
 }

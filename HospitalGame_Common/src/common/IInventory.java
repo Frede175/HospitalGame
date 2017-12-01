@@ -6,6 +6,7 @@
 package common;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -15,7 +16,7 @@ public interface IInventory {
 
     IItem getItem(int index);
 
-    ArrayList<? extends IItem> getItems();
+    List<? extends IItem> getItems();
 
     IItem[] getItemsByName(ItemName name);
 

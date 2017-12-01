@@ -18,4 +18,7 @@ public interface INPC {
     String getName();
 
     NPCID getNPCID();
+
+    public int getCurrentRoomID();
+
 }

@@ -16,6 +16,12 @@ public class DataHighScore implements IHighScore {
 
     private HashMap<String, Integer> highScore;
 
+    
+    public DataHighScore(IHighScore highScore) {
+        this.highScore = highScore.getHighScore();
+    }
+    
+    
     @Override
     public HashMap<String, Integer> getHighScore() {
         return highScore;
