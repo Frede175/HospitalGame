@@ -11,7 +11,6 @@ import common.IItem;
 import common.IPowerUpItem;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Objects;
 
 /**
  *

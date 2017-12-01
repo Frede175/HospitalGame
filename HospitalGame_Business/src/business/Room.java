@@ -7,6 +7,7 @@ package business;
 
 import business.common.IItemFacade;
 import common.Directions;
+import common.GameConstants;
 import common.ICoordinate;
 import common.IInventory;
 import common.IItem;
@@ -45,7 +46,7 @@ public class Room implements IRoom {
      */
     public void injectItemFacade(IItemFacade itemFacade) {
         this.itemFacade = itemFacade;
-        this.inventoryID = itemFacade.createInventory(2000);
+        this.inventoryID = itemFacade.createInventory(GameConstants.INVENTORY_MAX_WEIGHT);
     }
 
     /**
