@@ -11,13 +11,10 @@ import javafx.scene.canvas.Canvas;
  *
  * @author Tobias
  */
-public class ResizeableCanvas extends Canvas{
+public class ResizableCanvas extends Canvas{
     
-    public ResizeableCanvas(int width, int height){
-        super(width, height);
-    }
-    
-    public boolean isResizeable(){
+    @Override
+    public boolean isResizable(){
         return true;
     }
     

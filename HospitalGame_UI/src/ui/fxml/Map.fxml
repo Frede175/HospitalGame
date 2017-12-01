@@ -8,8 +8,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" fx:id="anchor" style="-fx-background-color: PINK;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.MapController">
-    <stylesheets>
-        <URL value="@/ui/css/map.css" />
-    </stylesheets>
-</AnchorPane>
+
+<StackPane fx:id="stackPane" minHeight="0" minWidth="0" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.MapController"/>
+
