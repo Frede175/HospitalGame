@@ -6,6 +6,7 @@
 package business;
 
 import business.Item.BloodBag;
+import business.Item.IDCard;
 import business.Item.ItemFacade;
 import business.Item.PowerUpItem;
 import business.NPC.NPCFacade;
@@ -96,6 +97,7 @@ public class BusinessFacade implements IBusiness {
         ArrayList<IItem> items = new ArrayList<>();
         // Adds a new item with the same bloodtype as the player, so the game is always winable.
         items.add(new BloodBag(450, ItemName.BLOODBAG, 450, player.getBloodType()));
+        items.add(new IDCard(GameConstants.IDCARD_WEIGHT,ItemName.IDCARD));
         // Loops as many times as roomCount * 1.5
         for (int i = 0; i < numberOfRooms * 1.5; i++) {
             // Generate a random int to define what type of item that will be generated.
@@ -181,7 +183,7 @@ public class BusinessFacade implements IBusiness {
         this.player = new Player(dataFacade.load().getPlayer());
 
         //loads in the rooms
-        // for (int i = 0; i < dataFacade.load().getRooms().length; i++) {}
+        
             
         
         
