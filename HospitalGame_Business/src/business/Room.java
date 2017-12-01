@@ -22,8 +22,9 @@ import java.util.Set;
 public class Room implements IRoom {
 
     private IItemFacade itemFacade;
+    private Map map;
     private String name;
-    private HashMap<Directions, IRoom> exits;
+    private HashMap<Directions, Integer> exits;
     private boolean inspected = false;
     private int inventoryID;
     private boolean locked;
@@ -42,6 +43,20 @@ public class Room implements IRoom {
         this.roomID = nextID;
         nextID++;
     }
+    public Room(IRoom room){
+        roomID = room.getRoomID();
+        if (roomID >= nextID) nextID = roomID + 1;
+        
+        inventoryID = room.getInventoryID();
+        c = new Coordinate(room.getCoordinate().getX(), room.getCoordinate().getY());
+        name = room.getName();
+        exits = new HashMap<>();
+        for (Directions dir : room.getExitDirections()) {
+            exits.put(dir, room.getExitID(dir));
+        }
+        locked = room.isLocked();
+        
+    }
 
     /**
      * injector for the item facede
@@ -52,6 +67,10 @@ public class Room implements IRoom {
         this.itemFacade = itemFacade;
         this.inventoryID = itemFacade.createInventory(GameConstants.INVENTORY_MAX_WEIGHT);
     }
+    
+    public void injectMap(Map map) {
+        this.map = map;
+    }
 
     /**
      * sets exit for a room
@@ -60,7 +79,7 @@ public class Room implements IRoom {
      * @param roomNeighbour is the room that i leads to
      */
     public void setExit(Directions direction, IRoom roomNeighbour) {
-        exits.put(direction, roomNeighbour);
+        exits.put(direction, roomNeighbour.getRoomID());
     }
 
     /**
@@ -77,6 +96,7 @@ public class Room implements IRoom {
      *
      * @return the room's inventoryID
      */
+    @Override
     public int getInventoryID() {
         return inventoryID;
     }
@@ -109,7 +129,7 @@ public class Room implements IRoom {
      */
     @Override
     public IRoom getExit(Directions direction) {
-        return exits.get(direction);
+        return map.getRoomByID(exits.get(direction));
     }
 
     /**
@@ -181,13 +201,14 @@ public class Room implements IRoom {
         this.inspected = true;
     }
 
+    @Override
     public int getRoomID() {
         return roomID;
     }
 
     @Override
-    public int getRoomID(int ID) {
-        return roomID;
+    public int getExitID(Directions dir) {
+        return exits.get(dir);
     }
 
 }

@@ -44,25 +44,23 @@ public class NPCFacade implements INPCFacade {
             NPCID id;
             id = npcs[i].getNPCID();
             switch (id) {
-            case COMPUTER:
-                Computer computer = new Computer(npcs[i]);
-                NPCs.add(computer);
-                break;
-            case DOCTOR:
-                Doctor docter = new Doctor(npcs[i]);
-                NPCs.add(docter);
-                break;
-            case PORTER:
-                Porter porter = new Porter(npcs[i]);
-                NPCs.add(porter);
-                break;
-            default:
-                throw new AssertionError();
+                case COMPUTER:
+                    Computer computer = new Computer(npcs[i]);
+                    NPCs.add(computer);
+                    break;
+                case DOCTOR:
+                    Doctor docter = new Doctor(npcs[i]);
+                    NPCs.add(docter);
+                    break;
+                case PORTER:
+                    Porter porter = new Porter(npcs[i]);
+                    NPCs.add(porter);
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+
         }
-                    
-                    
-        }
-       
 
     }
 

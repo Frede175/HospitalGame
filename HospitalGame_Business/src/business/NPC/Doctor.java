@@ -22,7 +22,8 @@ import common.NPCID;
  */
 public class Doctor extends NPC {
 
-    private IBusiness business; 
+    private IBusiness business;
+
     /**
      * Constructor for Doctor
      *

@@ -18,6 +18,7 @@ public class Computer extends NPC {
 
     /**
      * Constructor for Computer
+     *
      * @param name name of the NPC
      * @param canMove boolean true if the NPC can move
      * @param currentRoom the room the NPC being created to be in
@@ -29,6 +30,7 @@ public class Computer extends NPC {
 
     /**
      * constructor for Computer
+     *
      * @param npc is the npc to be constructed
      */
     public Computer(INPC npc) {
@@ -37,13 +39,14 @@ public class Computer extends NPC {
 
     /**
      * interact with the computer
+     *
      * @param player is the player to interact with
      * @return a String when interacting
      */
     @Override
     public String interact(IPlayer player) {
-      String string = ("You have the blood type : " + player.getBloodType());
-      return string;
+        String string = ("You have the blood type : " + player.getBloodType());
+        return string;
     }
 
 }

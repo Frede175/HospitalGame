@@ -12,12 +12,24 @@ import java.util.Set;
  * @author fsr19
  */
 public interface IRoom {
+
     IRoom getExit(Directions dir);
+    
+    int getExitID(Directions dir);
+
     String getName();
+
     Set<Directions> getExitDirections();
+
     boolean isLocked();
+
     boolean isInspected();
+
     ICoordinate getCoordinate();
+
     IInventory getInventory();
-    int getRoomID(int ID);
+    
+    int getInventoryID();
+
+    int getRoomID();
 }

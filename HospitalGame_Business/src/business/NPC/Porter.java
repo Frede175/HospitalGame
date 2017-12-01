@@ -66,13 +66,12 @@ public class Porter extends NPC implements IMoveable {
      */
     @Override
     public String interact(IPlayer player) {
-        System.out.print("These directions will lead you two rooms ahead ");
+        String output = "These directions will lead you two rooms ahead ";
         List<Directions> path = Map.pathfinder(player.getCurrentRoom(), endRoom);
         for (int i = 0; i < 2 && i < path.size(); i++) {
-            System.out.print(path.get(i) + " ");
+            output += path.get(i) + " ";
         }
-        System.out.println();
-        return null;
+        return output;
     }
 
     /**
@@ -82,6 +81,11 @@ public class Porter extends NPC implements IMoveable {
      */
     public void setEndRoom(IRoom room) {
         endRoom = room;
+    }
+
+    @Override
+    public int getCurrentRoomID() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

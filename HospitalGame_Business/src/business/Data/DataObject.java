@@ -16,18 +16,29 @@ import common.IRoom;
  * @author andreasmolgaard-andersen
  */
 public class DataObject implements IDataObject {
-    private IRoom[] room;
-    private IPlayer player;
-    private INPC[] npcs;
-    private IInventory[] inventories;
 
-    public DataObject(IRoom[] room, IPlayer player, INPC[] npcs, IInventory[] inventories) {
-        this.room = room;
-        this.player = player;
-        this.npcs = npcs;
-        this.inventories = inventories;
-    }
+    private DataRoom[] rooms;
+    private DataPlayer player;
+    private DataNPC[] npcs;
+    private DataInventory[] inventories;
     
+
+    public DataObject(IRoom[] rooms, IPlayer player, INPC[] npcs, IInventory[] inventories) {
+        this.rooms = new DataRoom[rooms.length];
+        for (int i = 0; i < rooms.length; i++) {
+            rooms[i] = new DataRoom(rooms[i]);
+        }
+        this.player = new DataPlayer(player);
+        this.npcs = new DataNPC[npcs.length];
+        for (int i = 0; i < npcs.length; i++) {
+            this.npcs[i] = new DataNPC(npcs[i]);
+        }
+        this.inventories = new DataInventory[inventories.length];
+        for (int i = 0; i < inventories.length; i++) {
+            this.inventories[i] = new DataInventory(inventories[i]);
+        }
+    }
+
     @Override
     public IPlayer getPlayer() {
         return player;
@@ -35,7 +46,7 @@ public class DataObject implements IDataObject {
 
     @Override
     public IInventory[] getInventories() {
-         return inventories;
+        return inventories;
     }
 
     @Override
@@ -45,7 +56,7 @@ public class DataObject implements IDataObject {
 
     @Override
     public IRoom[] getRooms() {
-        return room;
+        return rooms;
     }
-    
+
 }

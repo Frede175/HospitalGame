@@ -35,11 +35,11 @@ public class DataFacade implements IData {
     @Override
     public boolean saveGame(IPlayer player, IInventory[] inventory, IRoom[] rooms, INPC[] npcs) {
         return persistence.save(new DataObject(rooms, player, npcs, inventory));
-    }    
-        
+    }
+
     @Override
     public boolean saveHighScore(IHighScore highScore) {
-     return persistence.save(highScore);    
+        return persistence.save(highScore);
     }
 
     @Override
