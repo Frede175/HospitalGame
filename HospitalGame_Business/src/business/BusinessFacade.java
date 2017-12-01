@@ -183,7 +183,7 @@ public class BusinessFacade implements IBusiness {
         this.player = new Player(dataFacade.load().getPlayer());
 
         //loads in the rooms
-        
+        Map map = new Map(rooms);
             
         
         
@@ -206,7 +206,6 @@ public class BusinessFacade implements IBusiness {
 
     /**
      * injection of injectionFacade
-     *
      * @param persistence the persistence facade to inject
      */
     @Override
@@ -214,20 +213,38 @@ public class BusinessFacade implements IBusiness {
         this.persistence = persistence;
     }
 
+    /**
+     * returns the player
+     * @return player
+     */
     @Override
     public IPlayer getPlayer() {
         return player;
     }
 
+    /**
+     * moves the player
+     * @param direction is the direction to move 
+     */
     @Override
     public void move(Directions direction) {
         player.move(direction);
     }
     
+    /**
+     * uses an item
+     * @param index is the index of the item to be used 
+     */
+    @Override
     public void useItem(int index) {
         player.useItem(index);
     }
     
+    /**
+     * drops an item from player to the room
+     * @param index is the index of the item to be dropped
+     */
+    @Override
     public void dropItem(int index) {
         player.dropItem(itemFacade.getInventory(player.getInventoryID()).getItem(index));
     }
