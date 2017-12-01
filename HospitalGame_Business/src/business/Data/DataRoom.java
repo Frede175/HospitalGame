@@ -38,12 +38,12 @@ public class DataRoom implements IRoom {
 
     @Override
     public boolean isLocked() {
-       return isLocked;
+        return isLocked;
     }
 
     @Override
     public boolean isInspected() {
-         return inspected;
+        return inspected;
     }
 
     @Override
@@ -65,7 +65,7 @@ public class DataRoom implements IRoom {
 
     @Override
     public int getRoomID(int ID) {
-       return roomID;
+        return roomID;
     }
 
 }

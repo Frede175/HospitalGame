@@ -19,7 +19,7 @@ public class DataNPC implements INPC {
     private String name;
     private NPCID npcID;
     private boolean canMove;
-           
+
     @Override
     public String getName() {
         return name;
@@ -37,7 +37,7 @@ public class DataNPC implements INPC {
 
     @Override
     public boolean canMove() {
-         return canMove;
+        return canMove;
     }
 
 }

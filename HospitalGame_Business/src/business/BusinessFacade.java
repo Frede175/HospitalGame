@@ -35,6 +35,7 @@ import java.util.Random;
  * @author andreasmolgaard-andersen
  */
 public class BusinessFacade implements IBusiness {
+
     private ArrayList<Room> rooms = new ArrayList<>();
 
     /**
@@ -189,7 +190,7 @@ public class BusinessFacade implements IBusiness {
         //loads in the rooms
         map.load((Room[]) dataFacade.load().getRooms());
         //IRoom[] arrayy = dataFacade.load().getRooms();
-        
+
         Map map = new Map(dataFacade.load().getRooms());
 
         //loads in the inventories

@@ -18,6 +18,7 @@ import java.util.ArrayList;
  * @author andreasmolgaard-andersen
  */
 public class DataPlayer implements IPlayer {
+
     private BloodType bloodType;
     private Room currentRoom;
     private int bloodAmount;
@@ -26,9 +27,9 @@ public class DataPlayer implements IPlayer {
     private IInventory inventory;
     private String name;
     private ArrayList<? extends IPowerUpItem> activeItems;
-    
+
     public void DataPlayer(IPlayer player) {
-       this.activeItems = player.getActiveItems();
+        this.activeItems = player.getActiveItems();
     }
 
     @Override
@@ -45,7 +46,6 @@ public class DataPlayer implements IPlayer {
     public int getBloodAmount() {
         return bloodAmount;
     }
-
 
     @Override
     public double getBloodRate() {
@@ -69,7 +69,7 @@ public class DataPlayer implements IPlayer {
 
     @Override
     public ArrayList<? extends IPowerUpItem> getActiveItems() {
-       return activeItems;
+        return activeItems;
     }
 
 }

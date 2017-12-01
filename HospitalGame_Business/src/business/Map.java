@@ -57,11 +57,9 @@ public class Map {
     }
 
     public Map(IRoom[] rooms) {
-        
-        
-                
+
     }
-    
+
     /**
      * injector for item Facade
      *
@@ -85,7 +83,7 @@ public class Map {
      *
      * @param roomCount how many rooms are to be in the game
      * @param items which items are to be put in the game
-     * @param npcs which npcs are to be put in the game     
+     * @param npcs which npcs are to be put in the game
      */
     public Room generateMap(int roomCount, List<IItem> items, List<INPC> npcs) {
         // Creates the ArrayList that contains all the free rooms.
@@ -163,7 +161,7 @@ public class Map {
         // returns the start room.
         return startRoom;
     }
-    
+
     /**
      * Creates the rooms.
      *
@@ -245,7 +243,6 @@ public class Map {
      * @param d holds the coordinates to the directions in which room you're at.
      * @returns the SOUTH,EAST,WEST,NORTH coordinates.
      */
-
     private Coordinate getCoordinateDirection(Directions d) {
         switch (d) {
             case SOUTH:
@@ -260,16 +257,18 @@ public class Map {
                 throw new AssertionError(d.name());
 
         }
-        
+
     }
-    public Room getRoomByID(int ID){
-        if(rooms.get(ID).getRoomID(ID) == ID){
-            return (Room) rooms.get(ID);          
+
+    public Room getRoomByID(int ID) {
+        if (rooms.get(ID).getRoomID(ID) == ID) {
+            return (Room) rooms.get(ID);
         }
         return null;
     }
-    public void load(Room[] arrayRooms){
+
+    public void load(Room[] arrayRooms) {
         rooms.addAll(Arrays.asList(arrayRooms));
-  
+
     }
 }

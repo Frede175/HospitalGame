@@ -12,18 +12,19 @@ import common.IPowerUpItem;
  * @author andreasmolgaard-andersen
  */
 public class DataPowerUpItem implements IPowerUpItem {
+
     double buff;
     long timeLeftOfBuff;
     long lastUpdate;
 
     @Override
     public double getBuff() {
-       return buff;
+        return buff;
     }
 
     @Override
     public long getTimeLeftOfBuff() {
-       return timeLeftOfBuff;
+        return timeLeftOfBuff;
     }
-    
+
 }

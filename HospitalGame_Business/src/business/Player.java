@@ -29,70 +29,70 @@ public class Player implements IPlayer {
      * access to itemFacade from player
      */
     private IItemFacade itemFacade;
-    
+
     /**
      * name of the player
      */
     private String name;
-    
+
     /**
      * how mcuh blood the player has
      */
     private double bloodAmount;
-    
+
     /**
      * how fast the player loses blood
      */
     private double bloodRate;
-    
+
     /**
      * the time of the last update
      */
     private long lastUpdate;
-    
+
     /**
      * an ArrayList of the items currently active
      */
     private ArrayList<PowerUpItem> activeItems = new ArrayList<>();
-    
+
     /**
      * access to business facade
      */
     private BusinessFacade businessFacade;
-    
+
     /**
      * the inventoryID of the player's inventory
      */
     private int inventoryID;
-    
+
     /**
      * the room that the player is currently in
      */
     private Room currentRoom;
-    
+
     /**
      * the blood type of the player
      */
     private BloodType bloodType;
-    
+
     /**
-     * 
+     *
      */
     public boolean bloodTypeKnows;
 
     /**
-     * 
-     * @return the current room of the player 
+     *
+     * @return the current room of the player
      */
     @Override
     public IRoom getCurrentRoom() {
         return currentRoom;
-        
+
     }
 
     /**
-     * 
-     * @return the blood type of the player 
+     *
+     * @return the blood type of the player
      */
     @Override
     public BloodType getBloodType() {
@@ -101,7 +101,7 @@ public class Player implements IPlayer {
     }
 
     /**
-     * 
+     *
      * @return how much blood the player has left
      */
     @Override
@@ -110,7 +110,7 @@ public class Player implements IPlayer {
     }
 
     /**
-     * 
+     *
      * @return the rate at which the player loses blood
      */
     @Override
@@ -120,6 +120,7 @@ public class Player implements IPlayer {
 
     /**
      * getter for activeItems arrayList
+     *
      * @return activeItems
      */
     @Override
@@ -129,6 +130,7 @@ public class Player implements IPlayer {
 
     /**
      * Constructor for player
+     *
      * @param bloodType is the bloodType for the player to hold
      * @param bloodRate is the rate that the player loses blood
      * @param bloodAmount is how much blood the player has
@@ -148,9 +150,10 @@ public class Player implements IPlayer {
 
         activeItems = new ArrayList<>();
     }
-    
+
     /**
-     * Constructor for player 
+     * Constructor for player
+     *
      * @param player is the dataPlayer to be restored
      * @param itemFacade of the player
      */
@@ -167,6 +170,7 @@ public class Player implements IPlayer {
 
     /**
      * injector for business facade
+     *
      * @param businessFacade is the facade to be injected
      */
     public void injectBusinessFacade(BusinessFacade businessFacade) {
@@ -175,14 +179,16 @@ public class Player implements IPlayer {
 
     /**
      * injector for item facade
+     *
      * @param itemFacade is the facade to be injected
      */
     public void injectItemFacade(IItemFacade itemFacade) {
         this.itemFacade = itemFacade;
     }
-    
+
     /**
      * uses an item
+     *
      * @param index is the index of the item to be used
      */
     public boolean useItem(int index) {
@@ -194,28 +200,30 @@ public class Player implements IPlayer {
                 power.startBuff(System.currentTimeMillis());
                 activeItems.add(power);
                 itemFacade.removeItem(inventoryID, item);
-                
+
                 if (getNumberOfItemInActiveItems(ItemName.MORPHINE) >= 3) //    Morphine overdose
                 {
                     businessFacade.setGameOver();
                 }
                 return true;
             }
-            
+
         }
         return false;
     }
 
     /**
      * moves the player
-     * @param direction is the direction 
+     *
+     * @param direction is the direction
      * @return true if the player has moved
      */
     public boolean move(Directions direction) {
         Room nextRoom = (Room) currentRoom.getExit(direction);
 
         if (nextRoom == null) {
-            return false; }
+            return false;
+        }
         if (nextRoom.isLocked()) {
             if (itemFacade.getInventory(inventoryID).getItemsByName(ItemName.IDCARD).length > 0) {
                 currentRoom = nextRoom;
@@ -232,6 +240,7 @@ public class Player implements IPlayer {
 
     /**
      * drops an item
+     *
      * @param item is the item to be dropped
      * @return true if the item has been dropped
      */
@@ -244,7 +253,8 @@ public class Player implements IPlayer {
     }
 
     /**
-     * sets the currentRoom 
+     * sets the currentRoom
+     *
      * @param currentRoom is the new room to become the current Room
      */
     public void setCurrentRoom(IRoom currentRoom) {
@@ -252,8 +262,7 @@ public class Player implements IPlayer {
     }
 
     /**
-     * updates the game
-     * blood and active items
+     * updates the game blood and active items
      */
     private void update() {
         long current = System.currentTimeMillis();
@@ -290,7 +299,8 @@ public class Player implements IPlayer {
 
     /**
      * returns the amount of a certain item by name
-     * @param item is the item to find 
+     *
+     * @param item is the item to find
      * @return the number of active items with the given ItemName
      */
     private int getNumberOfItemInActiveItems(ItemName item) {
@@ -305,6 +315,7 @@ public class Player implements IPlayer {
 
     /**
      * calculates the new blood amount
+     *
      * @return the amount of blood to lose
      */
     private double calculateLoss() {
@@ -318,7 +329,7 @@ public class Player implements IPlayer {
     }
 
     /**
-     * 
+     *
      * @return an IInventory
      */
     @Override
@@ -327,7 +338,7 @@ public class Player implements IPlayer {
     }
 
     /**
-     * 
+     *
      * @return the name of the player
      */
     @Override
@@ -336,7 +347,7 @@ public class Player implements IPlayer {
     }
 
     /**
-     * 
+     *
      * @return the ID of the inventory that the player "owns"
      */
     @Override

@@ -16,6 +16,7 @@ import common.IRoom;
  * @author andreasmolgaard-andersen
  */
 public class DataObject implements IDataObject {
+
     private IRoom[] room;
     private IPlayer player;
     private INPC[] npcs;
@@ -27,7 +28,7 @@ public class DataObject implements IDataObject {
         this.npcs = npcs;
         this.inventories = inventories;
     }
-    
+
     @Override
     public IPlayer getPlayer() {
         return player;
@@ -35,7 +36,7 @@ public class DataObject implements IDataObject {
 
     @Override
     public IInventory[] getInventories() {
-         return inventories;
+        return inventories;
     }
 
     @Override
@@ -47,5 +48,5 @@ public class DataObject implements IDataObject {
     public IRoom[] getRooms() {
         return room;
     }
-    
+
 }

@@ -12,15 +12,15 @@ import common.IBloodBag;
  *
  * @author andreasmolgaard-andersen
  */
-public class DataBloodBag extends DataBonusPointItem implements IBloodBag{
-    
+public class DataBloodBag extends DataBonusPointItem implements IBloodBag {
+
     private BloodType bloodType;
 
     @Override
     public BloodType getBloodType() {
-       return bloodType;
+        return bloodType;
     }
-    
+
 }
 //public class DataBloodBag extend DataBonusItem implements IBloodBag {
-    
+

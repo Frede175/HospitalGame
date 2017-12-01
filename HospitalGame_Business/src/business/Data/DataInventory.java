@@ -25,7 +25,7 @@ public class DataInventory implements IInventory {
 
     @Override
     public IItem getItem(int index) {
-       return items.get(index);
+        return items.get(index);
     }
 
     @Override
@@ -49,12 +49,12 @@ public class DataInventory implements IInventory {
 
     @Override
     public int getInventoryID() {
-       return inventoryID;
+        return inventoryID;
     }
 
     @Override
     public int getMaxWeight() {
-       return maxWeight;
+        return maxWeight;
     }
 
 }
