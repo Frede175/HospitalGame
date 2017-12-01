@@ -18,7 +18,7 @@ public class DataHighScore implements IHighScore {
 
     @Override
     public HashMap<String, Integer> getHighScore() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return highScore;
     }
 
     boolean save(IHighScore highscore) {

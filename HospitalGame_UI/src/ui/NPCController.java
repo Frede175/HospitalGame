@@ -7,6 +7,8 @@ package ui;
 
 import common.IBusiness;
 import common.INPC;
+import common.IPlayer;
+import common.IRoom;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -36,6 +38,9 @@ public class NPCController implements Initializable {
     @FXML
     private HBox hBox;
     
+    @FXML
+    private IPlayer player;
+    
     /**
      * 
      * @param url
@@ -44,23 +49,27 @@ public class NPCController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         business = UI.getInstance().getBusiness();
-        loadNPCImages();
+        player = business.getPlayer();
+        updateNPCSToGUI(player.getCurrentRoom());
     } 
     
     /**
-     * Load npc images and adding them to the scene.
+     * Updates the npc images of the npcs in the players current room.
+     * @param room Which room to check for npcs, typically the players current room.
      */
-    public void loadNPCImages() {
+    public void updateNPCSToGUI(IRoom room) {
         hBox.getChildren().clear();
         INPC[] npcs = business.getNPCs();
         for(INPC npc : npcs) {
-            VBox vBox = new VBox();
-            vBox.setAlignment(Pos.CENTER);
-            vBox.setPadding(new Insets(5));
-            Label label = new Label(npc.getNPCID().toString());
-            label.setPadding(new Insets(0, 0, 10, 0));
-            vBox.getChildren().addAll(getImageOfNPC(npc), label);
-            hBox.getChildren().add(vBox);
+            if(room.equals(npc.getCurrentRoom())) {            
+                VBox vBox = new VBox();
+                vBox.setAlignment(Pos.CENTER);
+                vBox.setPadding(new Insets(5));
+                Label label = new Label(npc.getNPCID().toString());
+                label.setPadding(new Insets(0, 0, 10, 0));
+                vBox.getChildren().addAll(getImageOfNPC(npc), label);
+                hBox.getChildren().add(vBox);
+            }
         }
     }
     
@@ -89,5 +98,4 @@ public class NPCController implements Initializable {
         }
         return img;
     }
-    
 }

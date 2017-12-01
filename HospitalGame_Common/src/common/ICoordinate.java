@@ -7,11 +7,12 @@ package common;
 
 /**
  *
- * @author fsr19
+ * @author rober
  */
-public enum Directions {
-    SOUTH,
-    EAST,
-    NORTH,
-    WEST;
+public  interface ICoordinate {
+    int getX();
+    int getY();
+    
+    
+    
 }

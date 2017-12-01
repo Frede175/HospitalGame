@@ -45,7 +45,7 @@ public class ImageResource {
             images.put(imgKeys[i], new Image(url.toString()));
         }
         
-        spriteSheet = new SpriteSheet(getImage(Images.SPRITE), 64, 21);
+        spriteSheet = new SpriteSheet(getImage(Images.SPRITE), 64, 22);
         
         
         

@@ -3,21 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package business.Data;
+package business.Item;
 
-import common.IBonusPointItem;
+import common.ItemName;
 
 /**
  *
  * @author andreasmolgaard-andersen
  */
-public class DataBonusPointItem extends DataItem implements IBonusPointItem {
-
-    public int bonusPoints;
-
-    @Override
-    public int getBonusPoints() {
-        return bonusPoints; 
+public class IDCard extends Item {
+    
+    public IDCard(int weight, ItemName name) {
+        super(weight, name);
     }
-
+    
 }

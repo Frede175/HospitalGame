@@ -5,6 +5,7 @@
  */
 package business.NPC;
 
+import business.common.IMoveable;
 import business.common.INPCFacade;
 import common.Directions;
 import common.INPC;
@@ -21,31 +22,77 @@ import java.util.Objects;
 public class NPCFacade implements INPCFacade {
 
     private ArrayList<NPC> NPCs = new ArrayList<>();
-    
+
     @Override
-    public String interact(IPlayer player, INPC NPC) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String interact(IPlayer player, INPC npc) {
+        return NPCs.get(NPCs.indexOf(npc)).interact(player);
     }
 
     @Override
     public boolean move(INPC npc, Directions dir) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (npc.canMove()) {
+            IMoveable imoveable = (IMoveable) NPCs.get(NPCs.indexOf(npc));
+            imoveable.move(dir);
+            return true;
+
+        }
+        return false;
     }
 
     @Override
-    public void load(Objects[] objects) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void load(INPC[] npcs) {
+        for (int i = 0; i < npcs.length; i++) {
+            NPCID id;
+            id = npcs[i].getNPCID();
+            switch (id) {
+            case COMPUTER:
+                Computer computer = new Computer(npcs[i]);
+                NPCs.add(computer);
+                break;
+            case DOCTOR:
+                Doctor docter = new Doctor(npcs[i]);
+                NPCs.add(docter);
+                break;
+            case PORTER:
+                Porter porter = new Porter(npcs[i]);
+                NPCs.add(porter);
+                break;
+            default:
+                throw new AssertionError();
+        }
+                    
+                    
+        }
+       
 
     }
 
     @Override
     public void create(NPCID id, boolean canMove, String name, IRoom currentRoom) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.        
+
+        switch (id) {
+            case COMPUTER:
+                Computer computer = new Computer(name, canMove, currentRoom, id);
+                NPCs.add(computer);
+                break;
+            case DOCTOR:
+                Doctor docter = new Doctor(name, canMove, currentRoom, id);
+                NPCs.add(docter);
+                break;
+            case PORTER:
+                Porter porter = new Porter(name, canMove, currentRoom, id);
+                NPCs.add(porter);
+                break;
+            default:
+                throw new AssertionError();
+        }
+
     }
 
     /**
      * getter method for all NPCs
-     * @return an Array with INPCs 
+     *
+     * @return an Array with INPCs
      */
     @Override
     public INPC[] getNPCs() {
@@ -56,27 +103,28 @@ public class NPCFacade implements INPCFacade {
 
     /**
      * sets the room of an npc
+     *
      * @param npc is the npc to set in a given room
      * @param room is the given room to set the npc in
      */
     @Override
     public void setRoom(INPC npc, IRoom room) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        NPCs.get(NPCs.indexOf(npc)).setCurrentRoom(room);
     }
 
     /**
      * sets an npc in the end room
+     *
      * @param npc is the npc to be set in the end room
      * @param endRoom is the end room
      */
     @Override
     public void setEndRoom(INPC npc, IRoom endRoom) {
+
         if (npc instanceof Porter) {
-            ((Porter)npc).setEndRoom(endRoom);
+            ((Porter) npc).setEndRoom(endRoom);
         }
     }
-    
-    
+
 }
-
-

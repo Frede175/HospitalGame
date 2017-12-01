@@ -9,6 +9,7 @@ import business.Item.PowerUpItem;
 import business.common.IItemFacade;
 import common.BloodType;
 import common.Directions;
+import common.GameConstants;
 import common.IInventory;
 import common.IItem;
 import common.IPlayer;
@@ -73,6 +74,11 @@ public class Player implements IPlayer {
      * the blood type of the player
      */
     private BloodType bloodType;
+    
+    /**
+     * 
+     */
+    public boolean bloodTypeKnows;
 
     /**
      * 
@@ -126,14 +132,16 @@ public class Player implements IPlayer {
      * @param bloodRate is the rate that the player loses blood
      * @param bloodAmount is how much blood the player has
      * @param name is the name of the player
+     * @param itemFacade is the facade for the player
      */
-    public Player(BloodType bloodType, double bloodRate, double bloodAmount, String name) {
+    public Player(BloodType bloodType, double bloodRate, double bloodAmount, String name, IItemFacade itemFacade) {
         this.bloodType = bloodType;
         this.bloodRate = bloodRate;
         this.bloodAmount = bloodAmount;
         this.name = name;
+        this.itemFacade = itemFacade;
 
-        inventoryID = itemFacade.createInventory(2000);
+        inventoryID = itemFacade.createInventory(GameConstants.INVENTORY_MAX_WEIGHT);
 
         lastUpdate = System.currentTimeMillis();
 
@@ -143,6 +151,7 @@ public class Player implements IPlayer {
     /**
      * Constructor for player 
      * @param player is the dataPlayer to be restored
+     * @param itemFacade of the player
      */
     public Player(IPlayer player) {
         this.bloodType = player.getBloodType();
@@ -151,6 +160,8 @@ public class Player implements IPlayer {
         this.name = player.getName();
         this.activeItems = (ArrayList<PowerUpItem>) player.getActiveItems();
         this.inventoryID = player.getInventoryID();
+        this.itemFacade = itemFacade;
+
     }
 
     /**
@@ -203,10 +214,12 @@ public class Player implements IPlayer {
         if (nextRoom.isLocked()) {
             if (itemFacade.getInventory(inventoryID).getItemsByName(ItemName.IDCARD).length > 0) {
                 currentRoom = nextRoom;
+                currentRoom.setInspected();
                 return true;
             }
         } else {
             currentRoom = nextRoom;
+            currentRoom.setInspected();
             return true;
         }
         return false;

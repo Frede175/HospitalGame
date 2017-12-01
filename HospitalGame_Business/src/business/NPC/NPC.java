@@ -5,6 +5,7 @@
  */
 package business.NPC;
 
+import common.Directions;
 import common.INPC;
 import common.IPlayer;
 import common.IRoom;
@@ -127,6 +128,9 @@ public abstract class NPC implements INPC {
     @Override
     public boolean canMove() {
         return canMove;
+    }
+    public boolean move(Directions dir){
+        return false;
     }
 
 }

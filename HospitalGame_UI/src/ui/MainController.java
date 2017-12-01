@@ -7,9 +7,11 @@ package ui;
 
 import common.Directions;
 import common.IBusiness;
+import common.IPlayer;
 import common.IRoom;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,7 +22,6 @@ import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -52,6 +53,9 @@ public class MainController implements Initializable {
     @FXML
     private NPCController npcController;
     
+    @FXML 
+    private PlayerStatusController playerStatusController;
+    
     /**
      * The root container element
      */
@@ -59,9 +63,25 @@ public class MainController implements Initializable {
     private GridPane root;
     
     /**
+     * Contains the inventory controller for player.
+     */
+    @FXML
+    private InventoryController inventoryPlayerController;
+    
+    /**
+     * Contains the inventory controller for current room.
+     */
+    @FXML
+    private InventoryController inventoryRoomController;
+    
+    private ArrayList<HBox> buttons;
+    
+    /**
      * Contains the injected scene.
      */
     private Scene scene;
+    
+    private IPlayer player;
     
     /**
      * 
@@ -72,7 +92,9 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         business = UI.getInstance().getBusiness();
         imgRes = UI.getInstance().getImageResource();
-        // TODO Add buttons via addButton(IRoom room);
+        player = business.getPlayer();
+        buttons = new ArrayList<>();
+        updateGUI();
     }    
     
     /**
@@ -82,12 +104,21 @@ public class MainController implements Initializable {
     public void injectScene(Scene scene) {
         this.scene = scene;
     }
+
+    public InventoryController getInventoryPlayerController() {
+        return inventoryPlayerController;
+    }
+
+    public InventoryController getInventoryRoomController() {
+        return inventoryRoomController;
+    }
     
     /**
      * Adds buttons to the main layout depending on the rooms direction.
      * @param room The room to get the directions from.
      */
     public void addButtons(IRoom room) {
+        root.getChildren().removeAll(buttons);
         for(Directions dir : room.getExitDirections()) {
             switch (dir) {
                 case NORTH:
@@ -143,11 +174,13 @@ public class MainController implements Initializable {
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                // TODO Create move function business Facade.
-                System.err.println("Need move");
+                System.out.println(direction.toString());
+                business.move(direction);
+                updateGUI();
             }
         });
         hBox.getChildren().add(btn);
+        buttons.add(hBox);
         return hBox;
     }
     
@@ -164,29 +197,18 @@ public class MainController implements Initializable {
      * The setup function that calls the keylisteners.
      */
     public void setup() {
-        Directions[] directions = {
-            Directions.EAST, Directions.NORTH, Directions.SOUTH, Directions.WEST
-        };
-        for(Directions dir : directions) {
-            switch (dir) {
-                case NORTH:
-                    root.add(createButton(dir), 1, 0);
-                    break;
-                case SOUTH:
-                    root.add(createButton(dir), 1, 2);
-                    break;
-                case EAST:
-                    root.add(createButton(dir), 2, 1);
-                    break;
-                case WEST:
-                    root.add(createButton(dir), 0, 1);
-                    break;
-                default:
-                    throw new AssertionError();
-            }
-        }
-        // Adding key listeners
-        scene.setOnKeyReleased(new KeyListener());
+        System.out.println(player);
+        addButtons(player.getCurrentRoom());
+        scene.setOnKeyReleased(new KeyListener(this, inventoryPlayerController, inventoryRoomController, player, business));
+        inventoryRoomController.setFocus(true);
+    }
+    
+    public void updateGUI() {
+        npcController.updateNPCSToGUI(player.getCurrentRoom());
+        playerStatusController.updatePlayerDataToGUI();
+        inventoryPlayerController.updateItems(player.getInventory());
+        inventoryRoomController.updateItems(player.getCurrentRoom().getInventory());
+        addButtons(player.getCurrentRoom());
     }
     
 }

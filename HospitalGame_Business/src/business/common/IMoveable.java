@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package common;
+package business.common;
+
+import common.Directions;
 
 /**
  *
- * @author fsr19
+ * @author rober
  */
-public enum Directions {
-    SOUTH,
-    EAST,
-    NORTH,
-    WEST;
+public interface IMoveable {
+    boolean move(Directions direction);
+    
 }

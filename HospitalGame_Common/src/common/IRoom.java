@@ -17,5 +17,6 @@ public interface IRoom {
     Set<Directions> getExitDirections();
     boolean isLocked();
     boolean isInspected();
-    
+    ICoordinate getCoordinate();
+    IInventory getInventory();
 }

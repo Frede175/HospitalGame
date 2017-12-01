@@ -7,6 +7,9 @@ package business;
 
 import business.common.IItemFacade;
 import common.Directions;
+import common.GameConstants;
+import common.ICoordinate;
+import common.IInventory;
 import common.IItem;
 import common.IRoom;
 import java.util.HashMap;
@@ -33,19 +36,22 @@ public class Room implements IRoom {
      */
     public Room(String name) {
         this.name = name;
+        exits = new HashMap<>();
     }
 
     /**
      * injector for the item facede
+     *
      * @param itemFacade is the item facade to be injected
      */
     public void injectItemFacade(IItemFacade itemFacade) {
         this.itemFacade = itemFacade;
-        this.inventoryID = itemFacade.createInventory(2000);
+        this.inventoryID = itemFacade.createInventory(GameConstants.INVENTORY_MAX_WEIGHT);
     }
 
     /**
      * sets exit for a room
+     *
      * @param direction the direction of the exit
      * @param roomNeighbour is the room that i leads to
      */
@@ -55,16 +61,17 @@ public class Room implements IRoom {
 
     /**
      * adds an item to a room's inventory
+     *
      * @param item is the item to be added
      * @return true if the item has been added
      */
     public boolean addItem(IItem item) {
         return itemFacade.addItem(inventoryID, item);
     }
-    
+
     /**
-     * 
-     * @return the room's inventoryID 
+     *
+     * @return the room's inventoryID
      */
     public int getInventoryID() {
         return inventoryID;
@@ -72,6 +79,7 @@ public class Room implements IRoom {
 
     /**
      * removes an item from a room's invenory
+     *
      * @param item the item to be removed
      * @return true if the item has been removed
      */
@@ -81,6 +89,7 @@ public class Room implements IRoom {
 
     /**
      * returns an item from an inventory based on index
+     *
      * @param index the index number to be retrieved
      * @return an IItem
      */
@@ -90,8 +99,9 @@ public class Room implements IRoom {
 
     /**
      * find a room given a direction
+     *
      * @param direction is the direction to find a room
-     * @return an IRoom 
+     * @return an IRoom
      */
     @Override
     public IRoom getExit(Directions direction) {
@@ -100,6 +110,7 @@ public class Room implements IRoom {
 
     /**
      * getter for name
+     *
      * @return name of the room
      */
     @Override
@@ -109,6 +120,7 @@ public class Room implements IRoom {
 
     /**
      * get exits of a room
+     *
      * @return Set of Directions
      */
     @Override
@@ -118,6 +130,7 @@ public class Room implements IRoom {
 
     /**
      * getter for isLocked
+     *
      * @return true or false if the room is locked
      */
     @Override
@@ -127,22 +140,37 @@ public class Room implements IRoom {
 
     /**
      * getter for isInspected
+     *
      * @return true if the room has been inspected
      */
     @Override
     public boolean isInspected() {
         return inspected;
     }
-    public Coordinate getCoordinate(){
+    /**
+     * c is the coordinate
+     * @return 
+     * @returns the coordinate
+     */
+    @Override
+    public ICoordinate getCoordinate() {
         return c;
     }
-    public void setCoordinate(Coordinate c){
+    /**
+     * setCoordinate sets coordinate
+     * @param c is a coordinate
+     */
+    public void setCoordinate(Coordinate c) {
         this.c = c;
     }
 
-  
-
+    @Override
+    public IInventory getInventory() {
+        return itemFacade.getInventory(inventoryID);
+    }
     
-
+    public void setInspected() {
+        this.inspected = true;
+    }
 
 }
