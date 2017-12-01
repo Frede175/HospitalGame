@@ -13,8 +13,7 @@ import common.ItemName;
  *
  * @author andreasmolgaard-andersen
  */
-
-public class BloodBag extends BonusPointItem implements IBloodBag{
+public class BloodBag extends BonusPointItem implements IBloodBag {
 
     /**
      * is the BloodType that the bloodBag holds
@@ -23,27 +22,29 @@ public class BloodBag extends BonusPointItem implements IBloodBag{
 
     /**
      * constructor for the bloodBag
+     *
      * @param bonusPoints is the amount of bonusPoints the bloodBag should give
      * @param name is the name of the item
      * @param weight is the weight of the item
      * @param bloodType is the bloodType of the item
      */
-    public BloodBag(int bonusPoints, ItemName name, int weight,BloodType bloodType) {
+    public BloodBag(int bonusPoints, ItemName name, int weight, BloodType bloodType) {
         super(bonusPoints, name, weight);
-        this.bloodType = bloodType;    
+        this.bloodType = bloodType;
     }
-    
+
     /**
      * compares the bloodType of two BloodBags
+     *
      * @param pO is the bloodbag being compared
      * @return true if bloodType is the same
      */
-    public boolean equals(BloodBag pO){
-        return pO.getBloodType() == bloodType;          
+    public boolean equals(BloodBag pO) {
+        return pO.getBloodType() == bloodType;
     }
-    
+
     /**
-     * 
+     *
      * @return the bloodType of the bloodBag
      */
     @Override
@@ -51,7 +52,4 @@ public class BloodBag extends BonusPointItem implements IBloodBag{
         return bloodType;
     }
 
-
-    
 }
-

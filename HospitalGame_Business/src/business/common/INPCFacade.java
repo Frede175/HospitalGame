@@ -16,11 +16,18 @@ import common.NPCID;
  * @author andreasmolgaard-andersen
  */
 public interface INPCFacade {
+
     public String interact(IPlayer player, INPC NPC);
+
     public boolean move(INPC npc, Directions dir);
+
     public void load(INPC[] npcs);
+
     public void create(NPCID id, boolean canMove, String name, IRoom currentRoom);
+
     public INPC[] getNPCs();
+
     void setRoom(INPC npc, IRoom room);
+
     public void setEndRoom(INPC porter, IRoom currentRoom);
 }
