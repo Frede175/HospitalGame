@@ -183,7 +183,7 @@ public class BusinessFacade implements IBusiness {
         this.player = new Player(dataFacade.load().getPlayer());
 
         //loads in the rooms
-        Map map = new Map(rooms);
+        Map map = new Map(dataFacade.load().getRooms());
             
         
         

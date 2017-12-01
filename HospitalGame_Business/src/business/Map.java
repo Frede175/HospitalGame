@@ -52,11 +52,11 @@ public class Map {
     /**
      * no args constructor for map
      */
-    public void Map() {
+    public Map() {
 
     }
 
-    public void Map(IRoom[] rooms) {
+    public Map(IRoom[] rooms) {
         
     }
     
