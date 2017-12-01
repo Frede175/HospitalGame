@@ -260,5 +260,16 @@ public class Map {
                 throw new AssertionError(d.name());
 
         }
+        
+    }
+    public Room getRoomByID(int ID){
+        if(rooms.get(ID).getRoomID(ID) == ID){
+            return (Room) rooms.get(ID);          
+        }
+        return null;
+    }
+    public void load(Room[] arrayRooms){
+        rooms.addAll(Arrays.asList(arrayRooms));
+  
     }
 }

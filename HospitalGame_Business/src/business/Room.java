@@ -28,6 +28,8 @@ public class Room implements IRoom {
     private int inventoryID;
     private boolean locked;
     private Coordinate c;
+    private int roomID;
+    public static int nextID = 0;
 
     /**
      * constructor for room. inspected Is set to false as standard.
@@ -37,6 +39,8 @@ public class Room implements IRoom {
     public Room(String name) {
         this.name = name;
         exits = new HashMap<>();
+        this.roomID = nextID;
+        nextID++;
     }
 
     /**
@@ -147,17 +151,21 @@ public class Room implements IRoom {
     public boolean isInspected() {
         return inspected;
     }
+
     /**
      * c is the coordinate
-     * @return 
+     *
+     * @return
      * @returns the coordinate
      */
     @Override
     public ICoordinate getCoordinate() {
         return c;
     }
+
     /**
      * setCoordinate sets coordinate
+     *
      * @param c is a coordinate
      */
     public void setCoordinate(Coordinate c) {
@@ -168,9 +176,18 @@ public class Room implements IRoom {
     public IInventory getInventory() {
         return itemFacade.getInventory(inventoryID);
     }
-    
+
     public void setInspected() {
         this.inspected = true;
+    }
+
+    public int getRoomID() {
+        return roomID;
+    }
+
+    @Override
+    public int getRoomID(int ID) {
+        return roomID;
     }
 
 }

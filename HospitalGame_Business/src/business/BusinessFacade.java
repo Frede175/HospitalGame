@@ -27,6 +27,7 @@ import common.ItemName;
 import common.NPCID;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -34,6 +35,7 @@ import java.util.Random;
  * @author andreasmolgaard-andersen
  */
 public class BusinessFacade implements IBusiness {
+    private ArrayList<Room> rooms = new ArrayList<>();
 
     /**
      * to gain access to item facade
@@ -81,7 +83,7 @@ public class BusinessFacade implements IBusiness {
         npcFacade = new NPCFacade();
         map.injectItemFacade(itemFacade);
         map.InjectNPCFacade(npcFacade);
-        
+
     }
 
     private void createRooms(int numberOfRooms) {
@@ -98,7 +100,7 @@ public class BusinessFacade implements IBusiness {
         ArrayList<IItem> items = new ArrayList<>();
         // Adds a new item with the same bloodtype as the player, so the game is always winable.
         items.add(new BloodBag(450, ItemName.BLOODBAG, 450, player.getBloodType()));
-        items.add(new IDCard(GameConstants.IDCARD_WEIGHT,ItemName.IDCARD));
+        items.add(new IDCard(GameConstants.IDCARD_WEIGHT, ItemName.IDCARD));
         // Loops as many times as roomCount * 1.5
         for (int i = 0; i < numberOfRooms * 1.5; i++) {
             // Generate a random int to define what type of item that will be generated.
@@ -106,7 +108,7 @@ public class BusinessFacade implements IBusiness {
             switch (itemType) {
                 // If 0 adds a new bloodbag
                 case 0:
-                    items.add(new BloodBag(GameConstants.BLOODBAG_SIZE, ItemName.BLOODBAG, GameConstants.BLOODBAG_SIZE,bloodType[random.nextInt(bloodType.length)]));
+                    items.add(new BloodBag(GameConstants.BLOODBAG_SIZE, ItemName.BLOODBAG, GameConstants.BLOODBAG_SIZE, bloodType[random.nextInt(bloodType.length)]));
                     break;
                 // If 1 adds a new bandage
                 case 1:
@@ -159,7 +161,7 @@ public class BusinessFacade implements IBusiness {
 
     @Override
     public void pause() {
-        
+
     }
 
     @Override
@@ -169,30 +171,33 @@ public class BusinessFacade implements IBusiness {
 
     /**
      * saves the game
+     *
      * @return true if the game has been saved
      */
     @Override
     public boolean save() {
-        return dataFacade.saveGame(player, itemFacade.getInventories(), map.getRooms(), npcFacade.getNPCs()); 
+        return dataFacade.saveGame(player, itemFacade.getInventories(), map.getRooms(), npcFacade.getNPCs());
     }
 
     @Override
     public boolean load() {
         //dataFacade.load();
-        
+
         //loads in the player
         this.player = new Player(dataFacade.load().getPlayer());
 
         //loads in the rooms
+        map.load((Room[]) dataFacade.load().getRooms());
         //IRoom[] arrayy = dataFacade.load().getRooms();
+        
         Map map = new Map(dataFacade.load().getRooms());
-            
+
         //loads in the inventories
         itemFacade.load(dataFacade.load().getInventories());
-        
+
         //loads in the npcs
         npcFacade.load(dataFacade.load().getNPCs());
-        
+
         return true; // change this
     }
 
@@ -205,6 +210,7 @@ public class BusinessFacade implements IBusiness {
 
     /**
      * injection of injectionFacade
+     *
      * @param persistence the persistence facade to inject
      */
     @Override
@@ -214,6 +220,7 @@ public class BusinessFacade implements IBusiness {
 
     /**
      * returns the player
+     *
      * @return player
      */
     @Override
@@ -223,25 +230,28 @@ public class BusinessFacade implements IBusiness {
 
     /**
      * moves the player
-     * @param direction is the direction to move 
+     *
+     * @param direction is the direction to move
      */
     @Override
     public void move(Directions direction) {
         player.move(direction);
     }
-    
+
     /**
      * uses an item
-     * @param index is the index of the item to be used 
-     * @return  true if the item has been used
+     *
+     * @param index is the index of the item to be used
+     * @return true if the item has been used
      */
     @Override
     public boolean useItem(int index) {
         return player.useItem(index);
     }
-    
+
     /**
      * drops an item from player to the room
+     *
      * @param index is the index of the item to be dropped
      * @return true if the item has been dropped
      */
@@ -249,16 +259,16 @@ public class BusinessFacade implements IBusiness {
     public boolean dropItem(int index) {
         return player.dropItem(itemFacade.getInventory(player.getInventoryID()).getItem(index));
     }
-    
+
     /**
      * takes an item from the current room
-     * @param index of the item to be added to the 
+     *
+     * @param index of the item to be added to the
      * @return true if the item has been added to the player inventory
      */
     @Override
     public boolean takeItem(int index) {
-        return itemFacade.removeItem(player.getCurrentRoom().getInventory().getInventoryID(), player.getCurrentRoom().getInventory().getItem(index)) &&
-                itemFacade.addItem(player.getInventory().getInventoryID(), player.getCurrentRoom().getInventory().getItem(index));
+        return itemFacade.removeItem(player.getCurrentRoom().getInventory().getInventoryID(), player.getCurrentRoom().getInventory().getItem(index))
+                && itemFacade.addItem(player.getInventory().getInventoryID(), player.getCurrentRoom().getInventory().getItem(index));
     }
-
 }

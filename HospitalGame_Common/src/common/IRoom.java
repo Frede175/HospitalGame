@@ -19,4 +19,5 @@ public interface IRoom {
     boolean isInspected();
     ICoordinate getCoordinate();
     IInventory getInventory();
+    int getRoomID(int ID);
 }

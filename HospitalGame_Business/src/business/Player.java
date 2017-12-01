@@ -87,6 +87,7 @@ public class Player implements IPlayer {
     @Override
     public IRoom getCurrentRoom() {
         return currentRoom;
+        
     }
 
     /**

@@ -24,6 +24,7 @@ public class DataRoom implements IRoom {
     private ICoordinate coordinate;
     private IInventory inventory;
     private boolean isLocked;
+    private int roomID;
 
     @Override
     public IRoom getExit(Directions dir) {
@@ -60,6 +61,11 @@ public class DataRoom implements IRoom {
     public IInventory getInventory() {
         return inventory;
 
+    }
+
+    @Override
+    public int getRoomID(int ID) {
+       return roomID;
     }
 
 }
