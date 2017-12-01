@@ -21,12 +21,4 @@ public class DataHighScore implements IHighScore {
         return highScore;
     }
 
-    boolean save(IHighScore highscore) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.  
-    }
-
-    boolean load() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
-
