@@ -184,7 +184,7 @@ public class Player implements IPlayer {
      * uses an item
      * @param index is the index of the item to be used
      */
-    public void useItem(int index) {
+    public boolean useItem(int index) {
         IItem item = itemFacade.getInventory(inventoryID).getItem(index);
 
         if (item != null) { //Checking if the given index has an item
@@ -193,12 +193,16 @@ public class Player implements IPlayer {
                 power.startBuff(System.currentTimeMillis());
                 activeItems.add(power);
                 itemFacade.removeItem(inventoryID, item);
+                
                 if (getNumberOfItemInActiveItems(ItemName.MORPHINE) >= 3) //    Morphine overdose
                 {
                     businessFacade.setGameOver();
                 }
+                return true;
             }
+            
         }
+        return false;
     }
 
     /**
@@ -220,19 +224,6 @@ public class Player implements IPlayer {
         } else {
             currentRoom = nextRoom;
             currentRoom.setInspected();
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * takes an item from the current room
-     * @param item is the item to take
-     * @return true if the item has been added to the player inventory
-     */
-    public boolean takeItem(IItem item) {
-        if (itemFacade.addItem(inventoryID, item)) {
-            itemFacade.removeItem(currentRoom.getInventoryID(), item);
             return true;
         }
         return false;
