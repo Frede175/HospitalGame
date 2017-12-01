@@ -247,9 +247,9 @@ public class Map {
     private Coordinate getCoordinateDirection(Directions d) {
         switch (d) {
             case SOUTH:
-                return new Coordinate(0, 1);
-            case NORTH:
                 return new Coordinate(0, -1);
+            case NORTH:
+                return new Coordinate(0, 1);
             case EAST:
                 return new Coordinate(1, 0);
             case WEST:

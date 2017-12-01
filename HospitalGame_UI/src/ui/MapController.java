@@ -54,6 +54,7 @@ public class MapController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         business = UI.getInstance().getBusiness();
+        System.out.println("DERP");
         
         ChangeListener<Number> stackPaneSizeListener = new ChangeListener<Number>(){
             @Override
@@ -76,7 +77,7 @@ public class MapController implements Initializable {
         border = border < 1 ? 1 : border;
         
         for (IRoom room : rooms) {
-            if (!room.isInspected()) {
+            if (room.isInspected()) {
                 int x = room.getCoordinate().getX();
                 int y = room.getCoordinate().getY() * -1;
                 int xOffset = x + minX * -1;
