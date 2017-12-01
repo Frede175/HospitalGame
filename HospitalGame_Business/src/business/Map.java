@@ -260,6 +260,7 @@ public class Map {
     }
 
     public Room getRoomByID(int ID) {
+        if (rooms.get(ID) == null) return null;
         if (rooms.get(ID).getRoomID() == ID) {
             return (Room) rooms.get(ID);
         }

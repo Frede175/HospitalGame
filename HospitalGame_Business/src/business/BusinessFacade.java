@@ -93,6 +93,8 @@ public class BusinessFacade implements IBusiness {
         // Initialize a new player object.
         player = new Player(playerBloodType, GameConstants.PLAYER_BLOODRATE, GameConstants.PLAYER_BLOOD_AMOUNT, "Jakob", itemFacade);
         player.injectBusinessFacade(this);
+        player.injectItemFacade(itemFacade);
+        player.injectMap(map);
         // Creates a new ArrayList to contain all items.
         ArrayList<IItem> items = new ArrayList<>();
         // Adds a new item with the same bloodtype as the player, so the game is always winable.

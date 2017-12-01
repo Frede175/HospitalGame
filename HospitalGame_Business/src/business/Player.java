@@ -194,6 +194,10 @@ public class Player implements IPlayer {
     public void injectItemFacade(IItemFacade itemFacade) {
         this.itemFacade = itemFacade;
     }
+    
+    public void injectMap(Map map) {
+        this.map = map;
+    }
 
     /**
      * uses an item
@@ -316,6 +320,7 @@ public class Player implements IPlayer {
                 iterator.remove();
             }
         }
+        loss = loss < 0 ? 0 : loss;
         bloodAmount -= loss;
 
         if (bloodAmount <= 0) {
@@ -351,6 +356,7 @@ public class Player implements IPlayer {
         for (IPowerUpItem item : activeItems) {
             loss -= item.getBuff();
         }
+        loss = loss < 0 ? 0 : loss;
         return loss;
 
     }

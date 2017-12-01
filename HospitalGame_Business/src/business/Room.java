@@ -129,6 +129,7 @@ public class Room implements IRoom {
      */
     @Override
     public IRoom getExit(Directions direction) {
+        if (exits.get(direction) == null) return null;
         return map.getRoomByID(exits.get(direction));
     }
 
