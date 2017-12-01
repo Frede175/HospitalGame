@@ -109,7 +109,6 @@ public class PlayerStatusController implements Initializable {
         bloodRate.setText("Blood rate : " + player.getBloodRate());
         // TODO check if player bloodtype is known.
         bloodType.setText("Bloodtype : " + player.getBloodType());
-        // TODO check how many active items the player has and update the numbers in gui.
         for(IPowerUpItem item : player.getActiveItems()) {
             
         }

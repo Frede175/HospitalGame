@@ -69,12 +69,12 @@ public class InventoryController implements Initializable {
     /**
      * Contains which page the inventory is showing.
      */
-    private int page = 1;
+    private int page = 0;
     
     /**
      * Contains how many items there is per page in the inventory.
      */
-    private int itemsPerPage = 6;
+    private final int ITEMS_PER_PAGE = 6;
     
     /**
      * Contains if the inventory is focussed.
@@ -135,13 +135,23 @@ public class InventoryController implements Initializable {
         this.inventory = inventory;
         items = this.inventory.getItems();
         refreshPageButtons();
-        if(getPageCount() == 0) {
-            pageLabel.setText("0/" + getPageCount());
+        
+        if (page > getPageCount()) page = getPageCount();
+        
+        
+        if(items.size() == 0) {
+            pageLabel.setText("0/" + (getPageCount()));
         } else {
-            pageLabel.setText(page + "/" + getPageCount());
+            
+                pageLabel.setText((page + 1) + "/" + (getPageCount() + 1));
+            
         }
+        
+        
+        
+        
         int calc = 0;
-        for (int i = (page - 1) * itemsPerPage; i < (page - 1) * itemsPerPage + itemsPerPage && i < items.size(); i++) {
+        for (int i = (page) * ITEMS_PER_PAGE; i < (page) * ITEMS_PER_PAGE + ITEMS_PER_PAGE && i < items.size(); i++) {
             int column = calc % 3;
             int row = calc / 3;
             if(i != selectedIndex) {
@@ -157,17 +167,17 @@ public class InventoryController implements Initializable {
      * Checking if some of the buttons should be disabled or not.
      */
     private void refreshPageButtons() {
-        System.out.println("page count" + getPageCount());
-        if(getPageCount() == 1 || getPageCount() == 0) {
+        if(getPageCount() == 0){
             nextBtn.setDisable(true);
             previousBtn.setDisable(true);
-        } else if(getPageCount() > page && page == 1){
+        }else if(getPageCount() > page){ //problem here
+            System.out.println("getPageCount() room inv: " + getPageCount());
             nextBtn.setDisable(false);
             previousBtn.setDisable(true);
-        } else if(getPageCount() == page) {
+        }else if(getPageCount() == page){
             nextBtn.setDisable(true);
             previousBtn.setDisable(false);
-        } else {
+        }else{
             nextBtn.setDisable(false);
             previousBtn.setDisable(false);
         }
@@ -178,9 +188,12 @@ public class InventoryController implements Initializable {
      * @return Count of pages.
      */
     private int getPageCount() {
-        return (int) Math.ceil(items.size() / (double) itemsPerPage);
-       
+        
+        //System.out.println("Page Count" +  (int) Math.ceil(items.size() / (double) ITEMS_PER_PAGE));
+        return ((items.size() == 0 ? 0 : items.size() - 1) / ITEMS_PER_PAGE);
     }
+    
+    
 
     /**
      * Get the inventory.
@@ -243,8 +256,8 @@ public class InventoryController implements Initializable {
      * @param index 
      */
     public void setSelectedIndex(int index) {
-        if(index + (page - 1) * itemsPerPage < items.size()) {
-            selectedIndex = index + (page - 1) * itemsPerPage;
+        if(index + (page) * ITEMS_PER_PAGE < items.size()) {
+            selectedIndex = index + (page) * ITEMS_PER_PAGE;
         }
     }
     
@@ -252,8 +265,9 @@ public class InventoryController implements Initializable {
      * Changes inventory page to the next page.
      */
     public void nextPage() {
-        if(page < getPageCount()) {
+        if(page < getPageCount() && page != getPageCount()) {
             page++;
+            System.out.println("Page " + page);
             setSelectedIndex(0);
             updateItems(inventory);
         }
@@ -263,7 +277,7 @@ public class InventoryController implements Initializable {
      * Changes inventory page to the previous page.
      */
     public void previousPage() {
-        if(page != 1 && page > 0) {
+        if(page != 0 && page > 0) {
             page--;
             setSelectedIndex(0);
             updateItems(inventory);
@@ -271,6 +285,7 @@ public class InventoryController implements Initializable {
     }
 
     public int getSelectedIndex() {
+        System.out.println("Index " + selectedIndex);
         return selectedIndex;
     }
 }

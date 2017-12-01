@@ -68,7 +68,8 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
                     business.useItem(playerInventoryController.getSelectedIndex());
                     mainController.updateGUI();
                 } else {
-                    
+                    business.takeItem(roomInventoryController.getSelectedIndex());
+                    mainController.updateGUI();
                 }
                 break;
             case Q:
