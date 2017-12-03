@@ -78,6 +78,7 @@ public class ItemFacade implements IItemFacade {
      * @param powerUpItem is the item being updated
      * @param inventoryID
      * @param lastUpdate
+     * @return
      */
     @Override
     public boolean update(IPowerUpItem powerUpItem, int inventoryID, long lastUpdate) {
@@ -105,18 +106,21 @@ public class ItemFacade implements IItemFacade {
 
     /**
      * load function for inventories
-     * @param inventories is the array list of inventories to be loaded into the game
+     *
+     * @param inventories is the array list of inventories to be loaded into the
+     * game
      */
     @Override
     public void load(IInventory[] inventories) {
         Collections.sort(inventoryList);
-        for (int i = 0; i < inventories.length; i++) {
-            inventoryList.add(new Inventory(inventories[i]));
+        for (IInventory inventory : inventories) {
+            inventoryList.add(new Inventory(inventory));
         }
     }
 
     /**
      * getter method for inventories
+     *
      * @return an array with all inventories
      */
     @Override
@@ -128,6 +132,7 @@ public class ItemFacade implements IItemFacade {
 
     /**
      * activates item
+     *
      * @param item is the item to be activated
      * @param inventoryID is the inventory to get the item from
      * @param startTime is the time that the buff was started

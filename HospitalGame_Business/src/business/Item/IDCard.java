@@ -12,9 +12,9 @@ import common.ItemName;
  * @author andreasmolgaard-andersen
  */
 public class IDCard extends Item {
-    
+
     public IDCard(int weight, ItemName name) {
         super(weight, name);
     }
-    
+
 }

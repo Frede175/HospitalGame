@@ -12,28 +12,42 @@ import common.IPlayer;
 import common.IPowerUpItem;
 import common.IRoom;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
  * @author andreasmolgaard-andersen
  */
 public class DataPlayer implements IPlayer {
+
     private BloodType bloodType;
-    private Room currentRoom;
+    private int currentRoom;
     private int bloodAmount;
     private double bloodRate;
     private int inventoryID;
-    private IInventory inventory;
     private String name;
-    private ArrayList<? extends IPowerUpItem> activeItems;
-    
-    public void DataPlayer(IPlayer player) {
-       this.activeItems = player.getActiveItems();
+    private DataPowerUpItem[] activeItems;
+    private boolean bloodTypeKnown;
+
+    public DataPlayer(IPlayer player) {
+        this.activeItems = new DataPowerUpItem[player.getActiveItems().size()];
+        for (int i = 0; i < player.getActiveItems().size(); i++) {
+            activeItems[i] = new DataPowerUpItem(player.getActiveItems().get(i));
+        }
+        bloodType = player.getBloodType();
+        currentRoom = player.getCurrentRoomID();
+        bloodAmount = player.getBloodAmount();
+        bloodRate = player.getBloodRate();
+        inventoryID = player.getInventoryID();
+        name = player.getName();
+        bloodTypeKnown = player.isBloodTypeKnown();
+        
     }
 
     @Override
     public IRoom getCurrentRoom() {
-        return currentRoom;
+        throw new UnsupportedOperationException("Invalid operation for data object.");
     }
 
     @Override
@@ -45,7 +59,6 @@ public class DataPlayer implements IPlayer {
     public int getBloodAmount() {
         return bloodAmount;
     }
-
 
     @Override
     public double getBloodRate() {
@@ -59,7 +72,7 @@ public class DataPlayer implements IPlayer {
 
     @Override
     public IInventory getInventory() {
-        return inventory;
+        throw new UnsupportedOperationException("Invalid operation for data object.");
     }
 
     @Override
@@ -68,8 +81,18 @@ public class DataPlayer implements IPlayer {
     }
 
     @Override
-    public ArrayList<? extends IPowerUpItem> getActiveItems() {
-       return activeItems;
+    public List<? extends IPowerUpItem> getActiveItems() {
+        return Arrays.asList(activeItems);
+    }
+
+    @Override
+    public int getCurrentRoomID() {
+        return currentRoom;
+    }
+
+    @Override
+    public boolean isBloodTypeKnown() {
+        return bloodTypeKnown;
     }
 
 }

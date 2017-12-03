@@ -6,19 +6,32 @@
 package common;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author fsr19
  */
 public interface IPlayer {
+
     IRoom getCurrentRoom();
+
     BloodType getBloodType();
+
     int getBloodAmount();
+
     double getBloodRate();
-    ArrayList<? extends IPowerUpItem> getActiveItems();
+
+    List<? extends IPowerUpItem> getActiveItems();
+
     int getInventoryID();
+
     IInventory getInventory();
+
     String getName();
+
+    public int getCurrentRoomID();
     
+    boolean isBloodTypeKnown();
+
 }
