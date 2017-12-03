@@ -15,11 +15,19 @@ import common.NPCID;
  */
 public class DataNPC implements INPC {
 
-    private IRoom currentRoom;
+    private int currentRoom;
     private String name;
     private NPCID npcID;
     private boolean canMove;
-           
+
+    DataNPC(INPC npc) {
+        currentRoom = npc.getCurrentRoomID();
+        name = npc.getName();
+        npcID = npc.getNPCID();
+        canMove = npc.canMove();
+        
+    }
+
     @Override
     public String getName() {
         return name;
@@ -27,7 +35,7 @@ public class DataNPC implements INPC {
 
     @Override
     public IRoom getCurrentRoom() {
-        return currentRoom;
+        throw new UnsupportedOperationException("Invalid operation for data object.");
     }
 
     @Override
@@ -37,7 +45,12 @@ public class DataNPC implements INPC {
 
     @Override
     public boolean canMove() {
-         return canMove;
+        return canMove;
+    }
+
+    @Override
+    public int getCurrentRoomID() {
+        return currentRoom;
     }
 
 }

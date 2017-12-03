@@ -12,6 +12,11 @@ import common.Directions;
  * @author rober
  */
 public interface IMoveable {
+
+    /**
+     *
+     * @param direction
+     * @return
+     */
     boolean move(Directions direction);
-    
 }

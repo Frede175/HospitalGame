@@ -17,7 +17,7 @@ public class BusinessHighScore implements IHighScore {
     private HashMap<String, Integer> scores;
 
     public void BusinessHighScore(IHighScore BusinessHighScore) {
-        this.scores = scores;
+        this.scores = BusinessHighScore.getHighScore();
     }
 
     @Override

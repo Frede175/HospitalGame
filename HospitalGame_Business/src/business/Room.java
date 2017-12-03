@@ -22,12 +22,15 @@ import java.util.Set;
 public class Room implements IRoom {
 
     private IItemFacade itemFacade;
+    private Map map;
     private String name;
-    private HashMap<Directions, IRoom> exits;
+    private HashMap<Directions, Integer> exits;
     private boolean inspected = false;
     private int inventoryID;
     private boolean locked;
     private Coordinate c;
+    private int roomID;
+    public static int nextID = 0;
 
     /**
      * constructor for room. inspected Is set to false as standard.
@@ -37,6 +40,22 @@ public class Room implements IRoom {
     public Room(String name) {
         this.name = name;
         exits = new HashMap<>();
+        this.roomID = nextID;
+        nextID++;
+    }
+    public Room(IRoom room){
+        roomID = room.getRoomID();
+        if (roomID >= nextID) nextID = roomID + 1;
+        
+        inventoryID = room.getInventoryID();
+        c = new Coordinate(room.getCoordinate().getX(), room.getCoordinate().getY());
+        name = room.getName();
+        exits = new HashMap<>();
+        for (Directions dir : room.getExitDirections()) {
+            exits.put(dir, room.getExitID(dir));
+        }
+        locked = room.isLocked();
+        
     }
 
     /**
@@ -48,6 +67,10 @@ public class Room implements IRoom {
         this.itemFacade = itemFacade;
         this.inventoryID = itemFacade.createInventory(GameConstants.INVENTORY_MAX_WEIGHT);
     }
+    
+    public void injectMap(Map map) {
+        this.map = map;
+    }
 
     /**
      * sets exit for a room
@@ -56,7 +79,7 @@ public class Room implements IRoom {
      * @param roomNeighbour is the room that i leads to
      */
     public void setExit(Directions direction, IRoom roomNeighbour) {
-        exits.put(direction, roomNeighbour);
+        exits.put(direction, roomNeighbour.getRoomID());
     }
 
     /**
@@ -73,6 +96,7 @@ public class Room implements IRoom {
      *
      * @return the room's inventoryID
      */
+    @Override
     public int getInventoryID() {
         return inventoryID;
     }
@@ -105,7 +129,8 @@ public class Room implements IRoom {
      */
     @Override
     public IRoom getExit(Directions direction) {
-        return exits.get(direction);
+        if (exits.get(direction) == null) return null;
+        return map.getRoomByID(exits.get(direction));
     }
 
     /**
@@ -147,17 +172,21 @@ public class Room implements IRoom {
     public boolean isInspected() {
         return inspected;
     }
+
     /**
      * c is the coordinate
-     * @return 
+     *
+     * @return
      * @returns the coordinate
      */
     @Override
     public ICoordinate getCoordinate() {
         return c;
     }
+
     /**
      * setCoordinate sets coordinate
+     *
      * @param c is a coordinate
      */
     public void setCoordinate(Coordinate c) {
@@ -168,9 +197,19 @@ public class Room implements IRoom {
     public IInventory getInventory() {
         return itemFacade.getInventory(inventoryID);
     }
-    
+
     public void setInspected() {
         this.inspected = true;
+    }
+
+    @Override
+    public int getRoomID() {
+        return roomID;
+    }
+
+    @Override
+    public int getExitID(Directions dir) {
+        return exits.get(dir);
     }
 
 }
