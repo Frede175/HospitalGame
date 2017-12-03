@@ -206,7 +206,6 @@ public class Player implements IPlayer {
      * @return if the item is used or an error happened
      */
     public boolean useItem(int index) {
-        update();
         IItem item = itemFacade.getInventory(inventoryID).getItem(index);
 
         if (item != null) { //Checking if the given index has an item
@@ -234,7 +233,6 @@ public class Player implements IPlayer {
      * @return true if the player has moved
      */
     public boolean move(Directions direction) {
-        update();
         Room nextRoom = (Room) map.getRoomByID(roomID).getExit(direction);
 
         if (nextRoom == null) {
@@ -261,9 +259,8 @@ public class Player implements IPlayer {
      * @return true if the item has been dropped
      */
     public boolean dropItem(IItem item) {
-        update();
-        if (itemFacade.removeItem(inventoryID, item)) {
-            itemFacade.addItem(map.getRoomByID(roomID).getInventoryID(), item);
+        if (itemFacade.addItem(map.getRoomByID(roomID).getInventoryID(), item)) {
+            itemFacade.removeItem(inventoryID, item);
             return true;
         }
         return false;
@@ -294,7 +291,7 @@ public class Player implements IPlayer {
     /**
      * updates the game blood and active items
      */
-    private void update() {
+    public void update() {
         if (isPaused) return;
         long current = System.currentTimeMillis();
         long diff = current - lastUpdate;

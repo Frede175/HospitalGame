@@ -10,11 +10,12 @@ import business.Map;
 import business.common.IMoveable;
 import business.common.INPCFacade;
 import common.Directions;
-import common.IBusiness;
 import common.INPC;
 import common.IPlayer;
+import common.IRoom;
 import common.NPCID;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -25,23 +26,20 @@ public class NPCFacade implements INPCFacade {
     private Map map;
     private BusinessFacade business;
     
+    private MoveAI moveAI;
+    
     private ArrayList<NPC> NPCs = new ArrayList<>();
 
+    public NPCFacade() {
+        moveAI = new MoveAI();
+    }
+    
+    
     @Override
     public String interact(IPlayer player, INPC npc) {
         return NPCs.get(NPCs.indexOf(npc)).interact(player);
     }
 
-    @Override
-    public boolean move(INPC npc, Directions dir) {
-        if (npc.canMove()) {
-            IMoveable imoveable = (IMoveable) NPCs.get(NPCs.indexOf(npc));
-            imoveable.move(dir);
-            return true;
-
-        }
-        return false;
-    }
 
     @Override
     public void load(INPC[] npcs) {
@@ -81,6 +79,7 @@ public class NPCFacade implements INPCFacade {
             case PORTER:
                 Porter porter = new Porter(name, canMove, currentRoomID, id);
                 porter.injectMap(map);
+                porter.injectBusiness(business);
                 NPCs.add(porter);
                 break;
             default:
@@ -133,5 +132,33 @@ public class NPCFacade implements INPCFacade {
             ((Porter) npc).setEndRoom(endRoomID);
         }
     }
+
+    @Override
+    public void porterCheckPlayer(IPlayer player) {
+        for (NPC npc : NPCs) {
+            if ( npc instanceof Porter) {
+                ((Porter)npc).checkPlayer(player);
+            }
+        }
+    }
+
+    @Override
+    public INPC[] getNPCsFromRoom(IRoom room) {
+        List<INPC> npcsInRoom = new ArrayList<>();
+        for (NPC npc : NPCs) {
+            if (npc.getCurrentRoom() == room) {
+                npcsInRoom.add(npc);
+            }
+        }
+        INPC[] npcs = new INPC[npcsInRoom.size()];
+        return npcsInRoom.toArray(npcs);
+    }
+
+    @Override
+    public void update() {
+        moveAI.updateMoveableNPCs(NPCs);
+    }
+    
+    
 
 }

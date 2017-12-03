@@ -5,8 +5,8 @@
  */
 package business.NPC;
 
+import business.BusinessFacade;
 import business.Map;
-import common.Directions;
 import common.INPC;
 import common.IPlayer;
 import common.IRoom;
@@ -48,6 +48,11 @@ public abstract class NPC implements INPC {
      * Protected since porter need to call map.pathFinder.
      */
     protected Map map;
+    
+    /**
+     * 
+     */
+    protected BusinessFacade business;
 
     /**
      * Constructor for NPC
@@ -66,6 +71,10 @@ public abstract class NPC implements INPC {
     
     public void injectMap(Map map) {
         this.map = map;
+    }
+    
+    public void injectBusiness(BusinessFacade business) {
+        this.business = business;
     }
 
     /**

@@ -13,7 +13,7 @@ public interface IBusiness {
 
     void injectPersistenceFacade(IPersistence persistence);
 
-    INPC[] getNPCs();
+    INPC[] getNPCsFromRoom(IRoom room);
 
     IPlayer getPlayer();
 
@@ -39,5 +39,7 @@ public interface IBusiness {
 
     boolean takeItem(int index);
     
-    boolean isGameOver();
+    GameState getGameState();
+    
+    String interact(IPlayer player, INPC npc);
 }

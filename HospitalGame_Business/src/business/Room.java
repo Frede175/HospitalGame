@@ -7,7 +7,6 @@ package business;
 
 import business.common.IItemFacade;
 import common.Directions;
-import common.GameConstants;
 import common.ICoordinate;
 import common.IInventory;
 import common.IItem;
@@ -43,6 +42,12 @@ public class Room implements IRoom {
         this.roomID = nextID;
         nextID++;
     }
+    
+    /**
+     * constructor for room. This is for when a room is loaded from persistence
+     * 
+     * @param room The room that need to be converted to a "real" room.
+     */
     public Room(IRoom room){
         roomID = room.getRoomID();
         if (roomID >= nextID) nextID = roomID + 1;
@@ -59,17 +64,25 @@ public class Room implements IRoom {
     }
 
     /**
-     * injector for the item facede
+     * injector for the item facade
      *
      * @param itemFacade is the item facade to be injected
      */
     public void injectItemFacade(IItemFacade itemFacade) {
         this.itemFacade = itemFacade;
-        this.inventoryID = itemFacade.createInventory(GameConstants.INVENTORY_MAX_WEIGHT);
+        this.inventoryID = itemFacade.createInventory(Integer.MAX_VALUE);
     }
     
     public void injectMap(Map map) {
         this.map = map;
+    }
+    
+    /**
+     * Set if the room is locked 
+     * @param locked weather the room is locked or not.
+     */
+    public void setLocked(boolean locked) {
+        this.locked = locked;
     }
 
     /**

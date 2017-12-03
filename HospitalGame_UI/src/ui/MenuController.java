@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Screen;
@@ -26,6 +27,9 @@ public class MenuController implements Initializable {
      * gets access to the business facade
      */
     private IBusiness business;
+    
+    @FXML
+    private Button saveBtn;
 
     /**
      * Initializes the controller class.
@@ -84,6 +88,7 @@ public class MenuController implements Initializable {
     @FXML
     private void playButtonAction(ActionEvent event) throws IOException {
         business.play();
+        saveBtn.setDisable(false);
         Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Main.fxml"));
         GridPane pane = loader.load();

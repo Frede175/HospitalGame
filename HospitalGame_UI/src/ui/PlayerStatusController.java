@@ -9,6 +9,7 @@ import common.IBusiness;
 import common.IItem;
 import common.IPlayer;
 import common.IPowerUpItem;
+import common.ItemName;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -107,10 +108,21 @@ public class PlayerStatusController implements Initializable {
     public void updatePlayerDataToGUI() {
         bloodAmount.setText("Blood amount : " + player.getBloodAmount());
         bloodRate.setText("Blood rate : " + player.getBloodRate());
-        // TODO check if player bloodtype is known.
-        bloodType.setText("Bloodtype : " + player.getBloodType());
-        for(IPowerUpItem item : player.getActiveItems()) {
-            
+        if(player.isBloodTypeKnown()) {
+            bloodType.setText("Bloodtype : " + player.getBloodType());
+        } else {
+            bloodType.setText("Bloodtype : ?");
         }
+        int bandageCount = 0;
+        int morphineCount = 0;
+        for(IPowerUpItem item : player.getActiveItems()) {
+            if(((IItem) item).getName() == ItemName.BANDAGE) {
+                bandageCount++;
+            } else if(((IItem) item).getName() == ItemName.MORPHINE) {
+                morphineCount++;
+            }
+        }
+        this.bandageCount.setText("x" + bandageCount);
+        this.morphineCount.setText("x" + morphineCount);
     }    
 }
