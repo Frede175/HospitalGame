@@ -96,11 +96,13 @@ public class Porter extends NPC implements IMoveable {
      * @param player the current player
      */
     public void checkPlayer(IPlayer player) {
-        if (player.getCurrentRoom().isLocked()) {
-            for (Directions dir : player.getCurrentRoom().getExitDirections()) {
-                if (!player.getCurrentRoom().getExit(dir).isLocked()) {
-                    business.porterMovePlayer(dir);
-                    break;
+        if (getCurrentRoom() == player.getCurrentRoom()) {
+            if (player.getCurrentRoom().isLocked()) {
+                for (Directions dir : player.getCurrentRoom().getExitDirections()) {
+                    if (!player.getCurrentRoom().getExit(dir).isLocked()) {
+                        business.porterMovePlayer(dir);
+                        break;
+                    }
                 }
             }
         }
