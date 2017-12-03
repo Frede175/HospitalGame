@@ -291,15 +291,7 @@ public class BusinessFacade implements IBusiness {
      */
     @Override
     public boolean takeItem(int index) {
-<<<<<<< HEAD
-        if(itemFacade.addItem(player.getInventory().getInventoryID(), player.getCurrentRoom().getInventory().getItem(index))) {
-            itemFacade.removeItem(player.getCurrentRoom().getInventory().getInventoryID(), player.getCurrentRoom().getInventory().getItem(index));
-            return true;
-        }
-        return false;
-=======
         return player.takeItem(index);
->>>>>>> master
     }
 
     /**

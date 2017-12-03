@@ -74,9 +74,6 @@ public class DataRoom implements IRoom {
 
     @Override
     public IInventory getInventory() {
-<<<<<<< HEAD
-        return inventory;
-=======
         throw new UnsupportedOperationException("Invalid operation for data object.");
     }
 
@@ -93,7 +90,6 @@ public class DataRoom implements IRoom {
     @Override
     public int getExitID(Directions dir) {
         return exits.get(dir);
->>>>>>> master
     }
 
 }
