@@ -12,6 +12,7 @@ import common.ICoordinate;
 import common.IItem;
 import common.INPC;
 import common.IRoom;
+import common.ItemName;
 import common.NPCID;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -83,10 +84,16 @@ public class Map {
     public Room generateMap(int roomCount, List<IItem> items, List<INPC> npcs) {
         // Creates the ArrayList that contains all the free rooms.
         ArrayList<Room> freeRooms = createRooms(roomCount);
+        freeRooms.get(roomCount - 1).setLocked(true);
         rooms.addAll(freeRooms);
         // Add every item to a random room.
         for (IItem item : items) {
-            freeRooms.get((int) (Math.random() * roomCount)).addItem(item);
+            if (item.getName() == ItemName.BLOODBAG) {
+                freeRooms.get(roomCount - 1).addItem(item);
+            } else {
+                freeRooms.get((int) (Math.random() * roomCount - 1)).addItem(item);
+            }
+            
         }
         // Adds the NPCs to random rooms.
         INPC porter = null;
@@ -100,7 +107,7 @@ public class Map {
                 porter = npc;
             }
 
-            npcFacade.setRoom(npc, freeRooms.get((int) (Math.random() * roomCount)).getRoomID());
+            npcFacade.setRoom(npc, freeRooms.get((int) (Math.random() * roomCount - 1)).getRoomID());
         }
 
         // Sets the doctors room in the Porter object.
