@@ -5,25 +5,32 @@
  */
 package business.Data;
 
+import common.IItem;
 import common.IPowerUpItem;
 
 /**
  *
  * @author andreasmolgaard-andersen
  */
-public class DataPowerUpItem implements IPowerUpItem {
+public class DataPowerUpItem extends DataItem implements IPowerUpItem {
+
     double buff;
     long timeLeftOfBuff;
-    long lastUpdate;
+
+    DataPowerUpItem(IPowerUpItem item) {
+        super((IItem)item);
+        buff = item.getBuff();
+        timeLeftOfBuff = item.getTimeLeftOfBuff();
+    }
 
     @Override
     public double getBuff() {
-       return buff;
+        return buff;
     }
 
     @Override
     public long getTimeLeftOfBuff() {
-       return timeLeftOfBuff;
+        return timeLeftOfBuff;
     }
-    
+
 }

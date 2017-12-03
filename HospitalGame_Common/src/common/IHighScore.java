@@ -12,5 +12,10 @@ import java.util.HashMap;
  * @author fsr19
  */
 public interface IHighScore {
+
+    /**
+     *
+     * @return
+     */
     HashMap<String, Integer> getHighScore();
 }

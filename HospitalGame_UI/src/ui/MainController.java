@@ -74,6 +74,12 @@ public class MainController implements Initializable {
     @FXML
     private InventoryController inventoryRoomController;
     
+    /**
+     * Contains the map controller.
+     */
+    @FXML
+    private MapController mapController;
+    
     private ArrayList<HBox> buttons;
     
     /**
@@ -210,6 +216,7 @@ public class MainController implements Initializable {
         inventoryPlayerController.updateItems(player.getInventory());
         inventoryRoomController.updateItems(player.getCurrentRoom().getInventory());
         addButtons(player.getCurrentRoom());
+        mapController.drawMap();
     }
     
 }

@@ -16,17 +16,15 @@ public class DataHighScore implements IHighScore {
 
     private HashMap<String, Integer> highScore;
 
+    
+    public DataHighScore(IHighScore highScore) {
+        this.highScore = highScore.getHighScore();
+    }
+    
+    
     @Override
     public HashMap<String, Integer> getHighScore() {
         return highScore;
     }
 
-    boolean save(IHighScore highscore) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.  
-    }
-
-    boolean load() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
-

@@ -29,69 +29,79 @@ public class Player implements IPlayer {
      * access to itemFacade from player
      */
     private IItemFacade itemFacade;
-    
+
     /**
      * name of the player
      */
     private String name;
-    
+
     /**
      * how mcuh blood the player has
      */
     private double bloodAmount;
-    
+
     /**
      * how fast the player loses blood
      */
     private double bloodRate;
-    
+
     /**
      * the time of the last update
      */
     private long lastUpdate;
-    
+
     /**
      * an ArrayList of the items currently active
      */
     private ArrayList<PowerUpItem> activeItems = new ArrayList<>();
-    
+
     /**
      * access to business facade
      */
     private BusinessFacade businessFacade;
-    
+
     /**
      * the inventoryID of the player's inventory
      */
     private int inventoryID;
-    
+
     /**
      * the room that the player is currently in
      */
-    private Room currentRoom;
-    
+    private int roomID;
+
     /**
      * the blood type of the player
      */
     private BloodType bloodType;
-    
-    /**
-     * 
-     */
-    public boolean bloodTypeKnows;
 
     /**
-     * 
-     * @return the current room of the player 
+     * Weather or not the player know his blood type.
+     */
+    private boolean bloodTypeKnown;
+    
+    /**
+     * Reference to map
+     */
+    private Map map;
+    
+    /**
+     * If the game is paused
+     */
+    private boolean isPaused = false;
+
+    /**
+     *
+     * @return the current room of the player
      */
     @Override
     public IRoom getCurrentRoom() {
-        return currentRoom;
+        return map.getRoomByID(roomID);
     }
 
     /**
-     * 
-     * @return the blood type of the player 
+     *
+     * @return the blood type of the player
      */
     @Override
     public BloodType getBloodType() {
@@ -100,7 +110,7 @@ public class Player implements IPlayer {
     }
 
     /**
-     * 
+     *
      * @return how much blood the player has left
      */
     @Override
@@ -109,16 +119,18 @@ public class Player implements IPlayer {
     }
 
     /**
-     * 
+     *
      * @return the rate at which the player loses blood
      */
     @Override
     public double getBloodRate() {
-        return bloodRate;
+        update();
+        return calculateBloodRate();
     }
 
     /**
      * getter for activeItems arrayList
+     *
      * @return activeItems
      */
     @Override
@@ -128,6 +140,7 @@ public class Player implements IPlayer {
 
     /**
      * Constructor for player
+     *
      * @param bloodType is the bloodType for the player to hold
      * @param bloodRate is the rate that the player loses blood
      * @param bloodAmount is how much blood the player has
@@ -147,11 +160,11 @@ public class Player implements IPlayer {
 
         activeItems = new ArrayList<>();
     }
-    
+
     /**
-     * Constructor for player 
+     * Constructor for player
+     *
      * @param player is the dataPlayer to be restored
-     * @param itemFacade of the player
      */
     public Player(IPlayer player) {
         this.bloodType = player.getBloodType();
@@ -160,12 +173,13 @@ public class Player implements IPlayer {
         this.name = player.getName();
         this.activeItems = (ArrayList<PowerUpItem>) player.getActiveItems();
         this.inventoryID = player.getInventoryID();
-        this.itemFacade = itemFacade;
+        this.bloodTypeKnown = player.isBloodTypeKnown();
 
     }
 
     /**
      * injector for business facade
+     *
      * @param businessFacade is the facade to be injected
      */
     public void injectBusinessFacade(BusinessFacade businessFacade) {
@@ -174,17 +188,25 @@ public class Player implements IPlayer {
 
     /**
      * injector for item facade
+     *
      * @param itemFacade is the facade to be injected
      */
     public void injectItemFacade(IItemFacade itemFacade) {
         this.itemFacade = itemFacade;
     }
     
+    public void injectMap(Map map) {
+        this.map = map;
+    }
+
     /**
      * uses an item
+     *
      * @param index is the index of the item to be used
+     * @return if the item is used or an error happened
      */
-    public void useItem(int index) {
+    public boolean useItem(int index) {
+        update();
         IItem item = itemFacade.getInventory(inventoryID).getItem(index);
 
         if (item != null) { //Checking if the given index has an item
@@ -193,46 +215,40 @@ public class Player implements IPlayer {
                 power.startBuff(System.currentTimeMillis());
                 activeItems.add(power);
                 itemFacade.removeItem(inventoryID, item);
+
                 if (getNumberOfItemInActiveItems(ItemName.MORPHINE) >= 3) //    Morphine overdose
                 {
                     businessFacade.setGameOver();
                 }
-            }
-        }
-    }
-
-    /**
-     * moves the player
-     * @param direction is the direction 
-     * @return true if the player has moved
-     */
-    public boolean move(Directions direction) {
-        Room nextRoom = (Room) currentRoom.getExit(direction);
-
-        if (nextRoom == null) {
-            return false; }
-        if (nextRoom.isLocked()) {
-            if (itemFacade.getInventory(inventoryID).getItemsByName(ItemName.IDCARD).length > 0) {
-                currentRoom = nextRoom;
-                currentRoom.setInspected();
                 return true;
             }
-        } else {
-            currentRoom = nextRoom;
-            currentRoom.setInspected();
-            return true;
+
         }
         return false;
     }
 
     /**
-     * takes an item from the current room
-     * @param item is the item to take
-     * @return true if the item has been added to the player inventory
+     * moves the player
+     *
+     * @param direction is the direction
+     * @return true if the player has moved
      */
-    public boolean takeItem(IItem item) {
-        if (itemFacade.addItem(inventoryID, item)) {
-            itemFacade.removeItem(currentRoom.getInventoryID(), item);
+    public boolean move(Directions direction) {
+        update();
+        Room nextRoom = (Room) map.getRoomByID(roomID).getExit(direction);
+
+        if (nextRoom == null) {
+            return false;
+        }
+        if (nextRoom.isLocked()) {
+            if (itemFacade.getInventory(inventoryID).getItemsByName(ItemName.IDCARD).length > 0) {
+                roomID = nextRoom.getRoomID();
+                map.getRoomByID(roomID).setInspected();
+                return true;
+            }
+        } else {
+            roomID = nextRoom.getRoomID();
+            map.getRoomByID(roomID).setInspected();
             return true;
         }
         return false;
@@ -240,30 +256,46 @@ public class Player implements IPlayer {
 
     /**
      * drops an item
+     *
      * @param item is the item to be dropped
      * @return true if the item has been dropped
      */
     public boolean dropItem(IItem item) {
+        update();
         if (itemFacade.removeItem(inventoryID, item)) {
-            itemFacade.addItem(currentRoom.getInventoryID(), item);
+            itemFacade.addItem(map.getRoomByID(roomID).getInventoryID(), item);
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Takes the item with the given index from the current room the player is in.
+     * @param index the item index in the room
+     * @return if the item was taken or not.
+     */
+    public boolean takeItem(int index) {
+        if (itemFacade.addItem(inventoryID, getCurrentRoom().getInventory().getItem(index))) {
+            itemFacade.removeItem(getCurrentRoom().getInventory().getInventoryID(), getCurrentRoom().getInventory().getItem(index));
             return true;
         }
         return false;
     }
 
     /**
-     * sets the currentRoom 
-     * @param currentRoom is the new room to become the current Room
+     * sets the currentRoom
+     *
+     * @param roomID is the new room to become the current Room
      */
-    public void setCurrentRoom(IRoom currentRoom) {
-        this.currentRoom = (Room) currentRoom;
+    public void setCurrentRoom(int roomID) {
+        this.roomID = roomID;
     }
 
     /**
-     * updates the game
-     * blood and active items
+     * updates the game blood and active items
      */
     private void update() {
+        if (isPaused) return;
         long current = System.currentTimeMillis();
         long diff = current - lastUpdate;
         lastUpdate = current;
@@ -288,6 +320,7 @@ public class Player implements IPlayer {
                 iterator.remove();
             }
         }
+        loss = loss < 0 ? 0 : loss;
         bloodAmount -= loss;
 
         if (bloodAmount <= 0) {
@@ -298,7 +331,8 @@ public class Player implements IPlayer {
 
     /**
      * returns the amount of a certain item by name
-     * @param item is the item to find 
+     *
+     * @param item is the item to find
      * @return the number of active items with the given ItemName
      */
     private int getNumberOfItemInActiveItems(ItemName item) {
@@ -313,20 +347,22 @@ public class Player implements IPlayer {
 
     /**
      * calculates the new blood amount
+     *
      * @return the amount of blood to lose
      */
-    private double calculateLoss() {
+    private double calculateBloodRate() {
         double loss = bloodRate;
 
         for (IPowerUpItem item : activeItems) {
             loss -= item.getBuff();
         }
+        loss = loss < 0 ? 0 : loss;
         return loss;
 
     }
 
     /**
-     * 
+     *
      * @return an IInventory
      */
     @Override
@@ -335,7 +371,7 @@ public class Player implements IPlayer {
     }
 
     /**
-     * 
+     *
      * @return the name of the player
      */
     @Override
@@ -344,12 +380,60 @@ public class Player implements IPlayer {
     }
 
     /**
-     * 
+     *
      * @return the ID of the inventory that the player "owns"
      */
     @Override
     public int getInventoryID() {
         return inventoryID;
+    }
+
+    /**
+     * 
+     * @return the ID of the room the player is in.
+     */
+    @Override
+    public int getCurrentRoomID() {
+        return roomID;
+    }
+    
+    /**
+     * Set bloodTypeknown to be true
+     */
+    public void setBloodTypeKnown() {
+        bloodTypeKnown = true;
+    }
+    
+    /**
+     * Pause the player update
+     */
+    public void pause() {
+        setLastUpdate(-1);
+        isPaused = true;
+    }
+    
+    /**
+     * Resumes the player update
+     */
+    public void resume() {
+        setLastUpdate(System.currentTimeMillis());
+        update();
+    }
+   
+    /**
+     * Set the last update on player and on all active items.
+     * @param time 
+     */
+    private void setLastUpdate(long time) {
+        lastUpdate = time;
+        for (PowerUpItem item : activeItems) {
+            item.setLastUpdate(lastUpdate);
+        }   
+    }
+
+    @Override
+    public boolean isBloodTypeKnown() {
+        return bloodTypeKnown;
     }
 
 }

@@ -43,11 +43,7 @@
             <fx:include fx:id="help" source="Help.fxml" />
          </children>
       </VBox>
-      <VBox alignment="BOTTOM_CENTER" GridPane.columnIndex="3" GridPane.rowIndex="0">
-         <children>
-            <fx:include fx:id="map" source="Map.fxml" />
-         </children>
-      </VBox>
+      <fx:include fx:id="map" source="Map.fxml" GridPane.columnIndex="3" GridPane.rowIndex="0" />
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="3" GridPane.rowIndex="1" >
           <children>
             <fx:include fx:id="inventoryPlayer" source="Inventory.fxml" />  

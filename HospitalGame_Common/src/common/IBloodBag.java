@@ -10,5 +10,6 @@ package common;
  * @author fsr19
  */
 public interface IBloodBag {
+
     BloodType getBloodType();
 }
