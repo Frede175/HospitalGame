@@ -22,7 +22,7 @@ public interface INPCFacade {
 
     public String interact(IPlayer player, INPC NPC);
 
-    void updateMove();
+    void update();
 
     public void load(INPC[] npcs);
 

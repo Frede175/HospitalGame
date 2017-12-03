@@ -29,7 +29,7 @@ public class Porter extends NPC implements IMoveable {
     private long lastMove;
 
     /**
-     * constructor for the porter
+        * constructor for the porter
      *
      * @param name is the name of the porter
      * @param canMove if the npc can move
@@ -99,7 +99,7 @@ public class Porter extends NPC implements IMoveable {
         if (player.getCurrentRoom().isLocked()) {
             for (Directions dir : player.getCurrentRoom().getExitDirections()) {
                 if (!player.getCurrentRoom().getExit(dir).isLocked()) {
-                    business.move(dir);
+                    business.porterMovePlayer(dir);
                     break;
                 }
             }

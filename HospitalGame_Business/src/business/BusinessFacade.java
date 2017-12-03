@@ -272,7 +272,11 @@ public class BusinessFacade implements IBusiness {
     @Override
     public void move(Directions direction) {
         player.move(direction);
-        
+        npcFacade.porterCheckPlayer(player);
+    }
+    
+    public void porterMovePlayer(Directions direction) {
+        player.move(direction);
     }
 
     /**
@@ -314,7 +318,7 @@ public class BusinessFacade implements IBusiness {
      */
     @Override
     public GameState getGameState() {
-        npcFacade.updateMove();
+        npcFacade.update();
         return gameState;
     }
     

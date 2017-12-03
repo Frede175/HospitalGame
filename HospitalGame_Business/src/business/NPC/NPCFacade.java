@@ -153,7 +153,7 @@ public class NPCFacade implements INPCFacade {
     }
 
     @Override
-    public void updateMove() {
+    public void update() {
         moveAI.updateMoveableNPCs(NPCs);
     }
     
