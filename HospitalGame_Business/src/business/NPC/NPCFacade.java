@@ -60,29 +60,25 @@ public class NPCFacade implements INPCFacade {
 
     @Override
     public void create(NPCID id, boolean canMove, String name, int currentRoomID) {
-
+        NPC npc;
         switch (id) {
             case COMPUTER:
-                Computer computer = new Computer(name, canMove, currentRoomID, id);
-                computer.injectMap(map);
-                computer.injectBusiness(business);
-                NPCs.add(computer);
+                npc = new Computer(name, canMove, currentRoomID, id);
+                
                 break;
             case DOCTOR:
-                Doctor doctor = new Doctor(name, canMove, currentRoomID, id);
-                doctor.injectMap(map);
-                doctor.injectBusiness(business);
-                NPCs.add(doctor);
+                npc = new Doctor(name, canMove, currentRoomID, id);
+                
                 break;
             case PORTER:
-                Porter porter = new Porter(name, canMove, currentRoomID, id);
-                porter.injectMap(map);
-                NPCs.add(porter);
+                npc = new Porter(name, canMove, currentRoomID, id);
                 break;
             default:
                 throw new AssertionError();
         }
-
+        npc.injectMap(map);
+        npc.injectBusiness(business);
+        NPCs.add(npc);
     }
 
     @Override

@@ -61,7 +61,7 @@ public class Porter extends NPC implements IMoveable {
     @Override
     public boolean move(Directions direction) {
         setCurrentRoom(getCurrentRoom().getExit(direction).getRoomID());
-        checkPlayer(business.getPLayer());
+        checkPlayer(business.getPlayer());
         lastMove = System.currentTimeMillis();
         return true;
     }
