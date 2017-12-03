@@ -162,7 +162,7 @@ public class BusinessFacade implements IBusiness {
      */
     @Override
     public void quit() {
-        throw new UnsupportedOperationException("not yet implemented.");
+        
     }
 
     /**
@@ -229,12 +229,15 @@ public class BusinessFacade implements IBusiness {
     }
 
     /**
-     * sets the game over if called
+     * sets the game state to lost
      */
     public void setGameOver() {
         gameState = GameState.LOST;
     }
     
+    /**
+     * sets game state to won
+     */
     public void setGameWon() {
         gameState = GameState.WON;
     }
@@ -318,6 +321,5 @@ public class BusinessFacade implements IBusiness {
     public void playerBloodTypeKnown() {
         player.setBloodTypeKnown();
     }
-    
     
 }
