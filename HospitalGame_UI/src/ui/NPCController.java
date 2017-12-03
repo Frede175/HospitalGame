@@ -42,6 +42,20 @@ public class NPCController implements Initializable {
     private IPlayer player;
     
     /**
+     * Contains which npc that is selected
+     */
+    private int selectedIndex = 0;
+    
+    /**
+     * Contains if the npc fragment is selected
+     */
+    private boolean isFocussed = false;
+    
+    INPC[] npcs;
+    
+    private UIType type;    
+    
+    /**
      * 
      * @param url
      * @param rb 
@@ -59,15 +73,18 @@ public class NPCController implements Initializable {
      */
     public void updateNPCSToGUI(IRoom room) {
         hBox.getChildren().clear();
-        INPC[] npcs = business.getNPCs();
-        for(INPC npc : npcs) {
-            if(room.equals(npc.getCurrentRoom())) {            
+        npcs = business.getNPCs();
+        for(int i = 0; i < npcs.length; i++) {
+            if(room.equals(npcs[i].getCurrentRoom())) {            
                 VBox vBox = new VBox();
                 vBox.setAlignment(Pos.CENTER);
                 vBox.setPadding(new Insets(5));
-                Label label = new Label(npc.getNPCID().toString());
+                Label label = new Label(npcs[i].getNPCID().toString());
                 label.setPadding(new Insets(0, 0, 10, 0));
-                vBox.getChildren().addAll(getImageOfNPC(npc), label);
+                if(selectedIndex == i && isFocussed) {
+                    vBox.setStyle("-fx-border-color: blue;");
+                }
+                vBox.getChildren().addAll(getImageOfNPC(npcs[i]), label);
                 hBox.getChildren().add(vBox);
             }
         }
@@ -98,4 +115,28 @@ public class NPCController implements Initializable {
         }
         return img;
     }
+    
+    public void setFocus(boolean focus) {
+        this.isFocussed = focus;
+    }
+    
+    public int getSelectedIndex() {
+        return selectedIndex;
+    }
+    
+    public void setSelectedIndex(int index) {
+        System.out.println("npcs lenght: " + npcs.length);
+        if(index >= 0 && index < npcs.length) {
+            this.selectedIndex = index;
+        }
+    }
+    
+    public void setType(UIType type) {
+        this.type = type;
+    }
+    
+    public void interact() {
+        
+    }
+    
 }

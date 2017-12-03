@@ -22,6 +22,8 @@ import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -29,6 +31,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -101,8 +104,19 @@ public class MainController implements Initializable {
         imgRes = UI.getInstance().getImageResource();
         player = business.getPlayer();
         buttons = new ArrayList<>();
+        inventoryPlayerController.setType(UIType.PLAYER);
+        inventoryRoomController.setType(UIType.ROOM);
+        npcController.setType(UIType.NPC);
+        inventoryPlayerController.injectMainController(this);
+        inventoryRoomController.injectMainController(this);
         updateGUI();
-    }    
+    }   
+    
+    public void resetFocus() {
+        inventoryPlayerController.setFocus(false);
+        inventoryRoomController.setFocus(false);
+        npcController.setFocus(false);
+    }
     
     /**
      * Inject a scene into the controller.
@@ -129,16 +143,16 @@ public class MainController implements Initializable {
         for(Directions dir : room.getExitDirections()) {
             switch (dir) {
                 case NORTH:
-                    root.add(createButton(dir), 1, 0);
+                    root.add(createButton(dir, room.isLocked()), 1, 0);
                     break;
                 case SOUTH:
-                    root.add(createButton(dir), 1, 2);
+                    root.add(createButton(dir, room.isLocked()), 1, 2);
                     break;
                 case EAST:
-                    root.add(createButton(dir), 2, 1);
+                    root.add(createButton(dir, room.isLocked()), 2, 1);
                     break;
                 case WEST:
-                    root.add(createButton(dir), 0, 1);
+                    root.add(createButton(dir, room.isLocked()), 0, 1);
                     break;
                 default:
                     throw new AssertionError();
@@ -151,7 +165,7 @@ public class MainController implements Initializable {
      * @param direction The direction the arrow points and which direction to go.
      * @return A button with the direction given.
      */
-    public HBox createButton(Directions direction) {
+    public HBox createButton(Directions direction, boolean isLocked) {
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER);
         Button btn = new Button();
@@ -187,6 +201,10 @@ public class MainController implements Initializable {
             }
         });
         hBox.getChildren().add(btn);
+        if(isLocked) {
+            ImageView imageView = new ImageView(imgRes.getSprite(Sprites.LOCK));
+            hBox.getChildren().add(imageView);
+        }
         buttons.add(hBox);
         return hBox;
     }
@@ -206,17 +224,28 @@ public class MainController implements Initializable {
     public void setup() {
         System.out.println(player);
         addButtons(player.getCurrentRoom());
-        scene.setOnKeyReleased(new KeyListener(this, inventoryPlayerController, inventoryRoomController, player, business));
+        scene.setOnKeyReleased(new KeyListener(this, inventoryPlayerController, inventoryRoomController, player, business, npcController));
         inventoryRoomController.setFocus(true);
     }
     
     public void updateGUI() {
-        npcController.updateNPCSToGUI(player.getCurrentRoom());
-        playerStatusController.updatePlayerDataToGUI();
-        inventoryPlayerController.updateItems(player.getInventory());
-        inventoryRoomController.updateItems(player.getCurrentRoom().getInventory());
-        addButtons(player.getCurrentRoom());
-        mapController.drawMap();
+        System.out.println("Game OVer : " + business.isGameOver());
+        if(!business.isGameOver()) {
+            npcController.updateNPCSToGUI(player.getCurrentRoom());
+            playerStatusController.updatePlayerDataToGUI();
+            inventoryPlayerController.updateItems(player.getInventory());
+            inventoryRoomController.updateItems(player.getCurrentRoom().getInventory());
+            addButtons(player.getCurrentRoom());
+            mapController.drawMap();
+        } else {
+            System.out.println("derdpfeprpefpepfep");
+            AnchorPane pane = new AnchorPane();
+            pane.setBackground(new Background(new BackgroundImage(imgRes.getImage(Images.VICTORYSCREEN), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+            Scene scene = new Scene(pane);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+        }
     }
     
 }

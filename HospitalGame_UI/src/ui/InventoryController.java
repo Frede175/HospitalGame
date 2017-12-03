@@ -5,6 +5,7 @@
  */
 package ui;
 
+import common.IBloodBag;
 import common.IBusiness;
 import common.IInventory;
 import common.IItem;
@@ -15,12 +16,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -110,6 +113,10 @@ public class InventoryController implements Initializable {
      */
     private ArrayList<VBox> itemContainers;
     
+    private UIType type;
+    
+    private MainController mainController;
+    
     /**
      * Initializes the controller class.
      */
@@ -123,7 +130,11 @@ public class InventoryController implements Initializable {
         nextBtn.setBackground(new Background(new BackgroundImage(imgRes.getSprite(Sprites.ARROW_RIGHT), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
         previousBtn.setBackground(new Background(new BackgroundImage(imgRes.getSprite(Sprites.ARROW_LEFT), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
         setSelectedIndex(0);
-    }    
+    }  
+    
+    public void injectMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
     
     /**
      * Update the items of the selected page to the GUI.
@@ -149,9 +160,9 @@ public class InventoryController implements Initializable {
             int column = calc % 3;
             int row = calc / 3;
             if(i != selectedIndex) {
-                inventoryGrid.add(getGUIItem(items.get(i), false), column, row + 1);
+                inventoryGrid.add(getGUIItem(items.get(i), false, i), column, row + 1);
             } else {
-                inventoryGrid.add(getGUIItem(items.get(i), true), column, row + 1);
+                inventoryGrid.add(getGUIItem(items.get(i), true, i), column, row + 1);
             }
             calc++;
         }
@@ -211,7 +222,7 @@ public class InventoryController implements Initializable {
      * @param selected If the item is selected by the user.
      * @return Return an VBox containing an image of the item and a label with the name.
      */
-    public VBox getGUIItem(IItem item, boolean selected) {
+    public VBox getGUIItem(IItem item, boolean selected, int index) {
         VBox vBox = new VBox();
         if(selected && isFocussed) {
             vBox.setStyle("-fx-border-color: blue;");
@@ -223,7 +234,22 @@ public class InventoryController implements Initializable {
                 img.setImage(imgRes.getSprite(Sprites.BANDAGE));
                 break;
             case BLOODBAG:
-                img.setImage(imgRes.getSprite(Sprites.BLOODBAG_A));
+                switch (((IBloodBag) item).getBloodType()) {
+                    case A:
+                        img.setImage(imgRes.getSprite(Sprites.BLOODBAG_A));
+                        break;
+                    case AB:
+                        img.setImage(imgRes.getSprite(Sprites.BLOODBAG_AB));
+                        break;
+                    case B:
+                        img.setImage(imgRes.getSprite(Sprites.BLOODBAG_B));
+                        break;
+                    case O:
+                        img.setImage(imgRes.getSprite(Sprites.BLOODBAG_O));
+                        break;
+                    default:
+                        throw new AssertionError();
+                }
                 break;
             case IDCARD:
                 img.setImage(imgRes.getSprite(Sprites.IDCARD));
@@ -236,8 +262,29 @@ public class InventoryController implements Initializable {
         }
         vBox.setAlignment(Pos.TOP_CENTER);
         vBox.getChildren().addAll(img, name);
+        vBox.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
+            if(e.isPrimaryButtonDown()) {
+                selectedIndex = index;
+                if(type == UIType.PLAYER) {
+                    business.useItem(selectedIndex);
+                } else if(type == UIType.ROOM) {
+                    business.takeItem(selectedIndex);
+                }
+                mainController.updateGUI();
+            } else if(e.isSecondaryButtonDown()) {
+                selectedIndex = index;
+                if(type == UIType.PLAYER) {
+                    business.dropItem(selectedIndex);
+                    mainController.updateGUI();
+                }
+            }
+        });
         itemContainers.add(vBox);
         return vBox;
+    }
+    
+    public void setType(UIType type) {
+        this.type = type;
     }
     
     /**

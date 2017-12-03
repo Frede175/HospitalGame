@@ -22,14 +22,15 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
     
     private IBusiness business;
     
-    private boolean playersInventory;
+    private NPCController npcController;
     
-    public KeyListener(MainController mainController, InventoryController playerInventoryController, InventoryController roomInventoryController, IPlayer player, IBusiness business) {
+    public KeyListener(MainController mainController, InventoryController playerInventoryController, InventoryController roomInventoryController, IPlayer player, IBusiness business, NPCController npcController) {
         this.mainController = mainController;
         this.playerInventoryController = playerInventoryController;
         this.roomInventoryController = roomInventoryController;
         this.player = player;
         this.business = business;
+        this.npcController = npcController;
     }
     
     @Override
@@ -52,81 +53,104 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
                 mainController.updateGUI();
                 break;
             case TAB:
-                playersInventory = ((playersInventory == true) ? false : true);
-                if(playersInventory) {
-                    playerInventoryController.setFocus(true);
-                    roomInventoryController.setFocus(false);
-                } else {
-                    playerInventoryController.setFocus(false);
-                    roomInventoryController.setFocus(true);
+                switch (UI.getInstance().getFocus()) {
+                    case ROOM:
+                        UI.getInstance().setFocus(UIType.NPC);
+                        npcController.setFocus(true);
+                        playerInventoryController.setFocus(false);
+                        roomInventoryController.setFocus(false);
+                        break;
+                    case NPC:
+                        UI.getInstance().setFocus(UIType.PLAYER);
+                        npcController.setFocus(false);
+                        playerInventoryController.setFocus(true);
+                        roomInventoryController.setFocus(false);
+                        break;
+                    case PLAYER:
+                        UI.getInstance().setFocus(UIType.ROOM);
+                        npcController.setFocus(false);
+                        playerInventoryController.setFocus(false);
+                        roomInventoryController.setFocus(true);
+                        break;
+                    default:
+                        throw new AssertionError();
                 }
                 playerInventoryController.updateItems(playerInventoryController.getInventory());
                 roomInventoryController.updateItems(roomInventoryController.getInventory());
+                npcController.updateNPCSToGUI(player.getCurrentRoom());
                 break;
             case E:
-                if(playersInventory) {
+                if(UI.getInstance().getFocus() == UIType.PLAYER) {
                     business.useItem(playerInventoryController.getSelectedIndex());
                     playerInventoryController.setSelectedIndex(0);
                     mainController.updateGUI();
-                } else {
+                } else if(UI.getInstance().getFocus() == UIType.ROOM){
                     business.takeItem(roomInventoryController.getSelectedIndex());
                     roomInventoryController.setSelectedIndex(0);
                     mainController.updateGUI();
+                } else {
+                    // TODO Fix npccontroller to do shit
                 }
                 break;
             case Q:
-                if(playersInventory) {
+                if(UI.getInstance().getFocus() == UIType.PLAYER) {
                     business.dropItem(playerInventoryController.getSelectedIndex());
                     playerInventoryController.setSelectedIndex(0);
                     mainController.updateGUI();
-                } else {
-                    
                 }
-                
                 break;
             case SHIFT:
-                if(playersInventory) {
+                if(UI.getInstance().getFocus() == UIType.PLAYER) {
                     playerInventoryController.nextPage();
                 } else {
                     roomInventoryController.nextPage();
                 }
                 break;
             case CONTROL:
-                if(playersInventory) {
+                if(UI.getInstance().getFocus() == UIType.PLAYER) {
                     playerInventoryController.previousPage();
                 } else {
                     roomInventoryController.previousPage();
                 }
                 break;
             case DIGIT1:
-                if(playersInventory) {
+                if(UI.getInstance().getFocus() == UIType.PLAYER) {
                     playerInventoryController.setSelectedIndex(0);
                     playerInventoryController.updateItems(playerInventoryController.getInventory());
-                } else {
+                } else if(UI.getInstance().getFocus() == UIType.ROOM) {
                     roomInventoryController.setSelectedIndex(0);
                     roomInventoryController.updateItems(roomInventoryController.getInventory());
+                } else {
+                    npcController.setSelectedIndex(0);
+                    npcController.updateNPCSToGUI(player.getCurrentRoom());
                 }
                 break;
             case DIGIT2:
-                if(playersInventory) {
+                if(UI.getInstance().getFocus() == UIType.PLAYER) {
                     playerInventoryController.setSelectedIndex(1);
                     playerInventoryController.updateItems(playerInventoryController.getInventory());
-                } else {
+                } else if(UI.getInstance().getFocus() == UIType.ROOM) {
                     roomInventoryController.setSelectedIndex(1);
                     roomInventoryController.updateItems(roomInventoryController.getInventory());
+                } else {
+                    npcController.setSelectedIndex(1);
+                    npcController.updateNPCSToGUI(player.getCurrentRoom());
                 }
                 break;
             case DIGIT3:
-                if(playersInventory) {
+                if(UI.getInstance().getFocus() == UIType.PLAYER) {
                     playerInventoryController.setSelectedIndex(2);
                     playerInventoryController.updateItems(playerInventoryController.getInventory());
-                } else {
+                } else if(UI.getInstance().getFocus() == UIType.ROOM) {
                     roomInventoryController.setSelectedIndex(2);
                     roomInventoryController.updateItems(roomInventoryController.getInventory());
+                } else {
+                    npcController.setSelectedIndex(2);
+                    npcController.updateNPCSToGUI(player.getCurrentRoom());
                 }
                 break;
             case DIGIT4:
-                if(playersInventory) {
+                if(UI.getInstance().getFocus() == UIType.PLAYER) {
                     playerInventoryController.setSelectedIndex(3);
                     playerInventoryController.updateItems(playerInventoryController.getInventory());
                 } else {
@@ -135,7 +159,7 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
                 }
                 break;
             case DIGIT5:
-                if(playersInventory) {
+                if(UI.getInstance().getFocus() == UIType.PLAYER) {
                     playerInventoryController.setSelectedIndex(4);
                     playerInventoryController.updateItems(playerInventoryController.getInventory());
                 } else {
@@ -144,7 +168,7 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
                 }
                 break;
             case DIGIT6:
-                if(playersInventory) {
+                if(UI.getInstance().getFocus() == UIType.PLAYER) {
                     playerInventoryController.setSelectedIndex(5);
                     playerInventoryController.updateItems(playerInventoryController.getInventory());
                 } else {

@@ -33,6 +33,16 @@ public class UI extends Application implements IUI {
     public static UI getInstance() {
         return ui;
     }
+    
+    private UIType focus = UIType.ROOM;
+
+    public UIType getFocus() {
+        return focus;
+    }
+
+    public void setFocus(UIType focus) {
+        this.focus = focus;
+    }
 
     /**
      * Reference to the business layer
