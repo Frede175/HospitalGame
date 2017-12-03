@@ -12,12 +12,14 @@ import business.common.INPCFacade;
 import common.BloodType;
 import common.Directions;
 import common.GameConstants;
+import common.GameState;
 import common.IBusiness;
 import common.IHighScore;
 import common.IItem;
 import common.INPC;
 import common.IPersistence;
 import common.IPlayer;
+import common.IRoom;
 import common.ItemName;
 import common.NPCID;
 import java.util.ArrayList;
@@ -70,7 +72,7 @@ public class BusinessFacade implements IBusiness {
     /**
      * a
      */
-    private boolean isGameOver = false;
+    private GameState gameState = GameState.NOT_STARTED;
 
     public BusinessFacade() {
         map = new Map();
@@ -135,8 +137,8 @@ public class BusinessFacade implements IBusiness {
      * @return Array with INPCs
      */
     @Override
-    public INPC[] getNPCs() {
-        return npcFacade.getNPCs();
+    public INPC[] getNPCsFromRoom(IRoom room) {
+        return npcFacade.getNPCsFromRoom(room);
     }
 
     /**
@@ -153,6 +155,7 @@ public class BusinessFacade implements IBusiness {
     @Override
     public void play() {
         createRooms(12);
+        gameState = GameState.PLAYING;
     }
 
     /**
@@ -160,7 +163,7 @@ public class BusinessFacade implements IBusiness {
      */
     @Override
     public void quit() {
-        throw new UnsupportedOperationException("not yet implemented.");
+        
     }
 
     /**
@@ -177,6 +180,7 @@ public class BusinessFacade implements IBusiness {
      */
     @Override
     public void pause() {
+       gameState = GameState.PAUSED;
        player.pause();
     }
 
@@ -185,6 +189,7 @@ public class BusinessFacade implements IBusiness {
      */
     @Override
     public void resume() {
+        gameState = GameState.PLAYING;
         player.resume();
     }
 
@@ -225,12 +230,20 @@ public class BusinessFacade implements IBusiness {
     }
 
     /**
-     * sets the game over if called
+     * sets the game state to lost
      */
     public void setGameOver() {
-        isGameOver = true;
+        gameState = GameState.LOST;
+    }
+    
+    /**
+     * sets game state to won
+     */
+    public void setGameWon() {
+        gameState = GameState.WON;
     }
 
+    
     /**
      * injection of injectionFacade
      *
@@ -258,6 +271,11 @@ public class BusinessFacade implements IBusiness {
      */
     @Override
     public void move(Directions direction) {
+        player.move(direction);
+        npcFacade.porterCheckPlayer(player);
+    }
+    
+    public void porterMovePlayer(Directions direction) {
         player.move(direction);
     }
 
@@ -299,8 +317,10 @@ public class BusinessFacade implements IBusiness {
      * @return true if the game is over.
      */
     @Override
-    public boolean isGameOver() {
-        return isGameOver;
+    public GameState getGameState() {
+        npcFacade.update();
+        player.update();
+        return gameState;
     }
     
     /**
@@ -309,6 +329,10 @@ public class BusinessFacade implements IBusiness {
     public void playerBloodTypeKnown() {
         player.setBloodTypeKnown();
     }
-    
+
+    @Override
+    public String interact(IPlayer player, INPC npc) {
+        return npcFacade.interact(player, npc);
+    }
     
 }

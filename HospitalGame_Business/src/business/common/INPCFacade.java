@@ -11,6 +11,7 @@ import common.Directions;
 import common.IBusiness;
 import common.INPC;
 import common.IPlayer;
+import common.IRoom;
 import common.NPCID;
 
 /**
@@ -21,7 +22,7 @@ public interface INPCFacade {
 
     public String interact(IPlayer player, INPC NPC);
 
-    public boolean move(INPC npc, Directions dir);
+    void update();
 
     public void load(INPC[] npcs);
 
@@ -38,4 +39,8 @@ public interface INPCFacade {
     void setRoom(INPC npc, int roomID);
 
     public void setEndRoom(INPC porter, int currentRoomID);
+    
+    void porterCheckPlayer(IPlayer player);
+
+    public INPC[] getNPCsFromRoom(IRoom room);
 }

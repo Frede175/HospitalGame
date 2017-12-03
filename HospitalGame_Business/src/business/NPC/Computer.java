@@ -8,15 +8,12 @@ package business.NPC;
 import common.INPC;
 import common.IPlayer;
 import common.NPCID;
-import business.BusinessFacade;
 
 /**
  *
  * @author andreasmolgaard-andersen
  */
 public class Computer extends NPC {
-
-    private BusinessFacade business;
     
     /**
      * Constructor for Computer
@@ -37,10 +34,6 @@ public class Computer extends NPC {
      */
     public Computer(INPC npc) {
         super(npc.getName(), npc.canMove(), npc.getCurrentRoomID(), npc.getNPCID());
-    }
-    
-    public void injectBusiness(BusinessFacade business) {
-        this.business = business;
     }
 
     /**
