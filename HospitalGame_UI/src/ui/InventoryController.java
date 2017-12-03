@@ -302,7 +302,6 @@ public class InventoryController implements Initializable {
     public void nextPage() {
         if(page < getPageCount() && page != getPageCount()) {
             page++;
-            System.out.println("Page " + page);
             setSelectedIndex(0);
             updateItems(inventory);
         }
@@ -320,7 +319,6 @@ public class InventoryController implements Initializable {
     }
 
     public int getSelectedIndex() {
-        System.out.println("Index " + selectedIndex);
         return selectedIndex;
     }
 }

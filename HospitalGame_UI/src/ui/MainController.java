@@ -211,7 +211,6 @@ public class MainController implements Initializable {
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println(direction.toString());
                 business.move(direction);
                 updateGUI();
             }
@@ -266,7 +265,6 @@ public class MainController implements Initializable {
                 break;
             case WON:
                 // TODO SHOW WIN SCREEN
-                System.out.println("derdpfeprpefpepfep");
                 AnchorPane pane = new AnchorPane();
                 pane.setBackground(new Background(new BackgroundImage(imgRes.getImage(Images.VICTORYSCREEN), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
                 
