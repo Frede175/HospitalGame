@@ -12,6 +12,7 @@ import business.common.INPCFacade;
 import common.BloodType;
 import common.Directions;
 import common.GameConstants;
+import common.GameState;
 import common.IBusiness;
 import common.IHighScore;
 import common.IItem;
@@ -70,7 +71,7 @@ public class BusinessFacade implements IBusiness {
     /**
      * a
      */
-    private boolean isGameOver = false;
+    private GameState gameState = GameState.NOT_STARTED;
 
     public BusinessFacade() {
         map = new Map();
@@ -153,6 +154,7 @@ public class BusinessFacade implements IBusiness {
     @Override
     public void play() {
         createRooms(12);
+        gameState = GameState.PLAYING;
     }
 
     /**
@@ -177,6 +179,7 @@ public class BusinessFacade implements IBusiness {
      */
     @Override
     public void pause() {
+       gameState = GameState.PAUSED;
        player.pause();
     }
 
@@ -185,6 +188,7 @@ public class BusinessFacade implements IBusiness {
      */
     @Override
     public void resume() {
+        gameState = GameState.PLAYING;
         player.resume();
     }
 
@@ -228,9 +232,14 @@ public class BusinessFacade implements IBusiness {
      * sets the game over if called
      */
     public void setGameOver() {
-        isGameOver = true;
+        gameState = GameState.LOST;
+    }
+    
+    public void setGameWon() {
+        gameState = GameState.WON;
     }
 
+    
     /**
      * injection of injectionFacade
      *
@@ -299,8 +308,8 @@ public class BusinessFacade implements IBusiness {
      * @return true if the game is over.
      */
     @Override
-    public boolean isGameOver() {
-        return isGameOver;
+    public GameState getGameState() {
+        return gameState;
     }
     
     /**

@@ -8,12 +8,9 @@ package business.NPC;
 import business.BusinessFacade;
 import business.Item.BloodBag;
 import business.Item.Item;
-import business.Player;
 import common.BloodType;
-import common.IBusiness;
 import common.INPC;
 import common.IPlayer;
-import common.IRoom;
 import common.ItemName;
 import common.NPCID;
 
@@ -63,6 +60,7 @@ public class Doctor extends NPC {
                     points += bloodBag.getBonusPoints();
                 }
             }
+            business.setGameWon();
             return ("You've earned " + points + " points! ");
             
         } else {

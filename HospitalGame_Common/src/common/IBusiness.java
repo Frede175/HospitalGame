@@ -39,5 +39,5 @@ public interface IBusiness {
 
     boolean takeItem(int index);
     
-    boolean isGameOver();
+    GameState getGameState();
 }
