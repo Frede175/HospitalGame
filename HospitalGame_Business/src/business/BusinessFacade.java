@@ -319,6 +319,7 @@ public class BusinessFacade implements IBusiness {
     @Override
     public GameState getGameState() {
         npcFacade.update();
+        player.update();
         return gameState;
     }
     
