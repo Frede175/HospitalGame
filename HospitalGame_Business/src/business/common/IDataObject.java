@@ -15,9 +15,12 @@ import common.IRoom;
  * @author andreasmolgaard-andersen
  */
 public interface IDataObject {
-    public IPlayer getPlayer();
-    public IInventory[] getInventories();
-    public INPC[] getNPCs();
-    public IRoom[] getRooms(); 
-}
 
+    public IPlayer getPlayer();
+
+    public IInventory[] getInventories();
+
+    public INPC[] getNPCs();
+
+    public IRoom[] getRooms();
+}

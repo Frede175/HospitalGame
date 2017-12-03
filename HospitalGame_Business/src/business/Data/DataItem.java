@@ -16,7 +16,11 @@ public class DataItem implements IItem {
 
     private int weight;
     private ItemName name;
-    private String toString;
+    
+    public DataItem(IItem item) {
+        weight = item.getWeight();
+        name = item.getName();        
+    }
 
     @Override
     public int getWeight() {
@@ -28,8 +32,5 @@ public class DataItem implements IItem {
         return name;
     }
 
-    public String tostring() {
-        return toString;
-    }
 
 }

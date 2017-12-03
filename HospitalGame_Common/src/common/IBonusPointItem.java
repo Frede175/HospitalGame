@@ -10,5 +10,6 @@ package common;
  * @author fsr19
  */
 public interface IBonusPointItem {
+    
     int getBonusPoints();
 }

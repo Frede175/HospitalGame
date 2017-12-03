@@ -5,6 +5,7 @@
  */
 package business.Data;
 
+import business.Coordinate;
 import common.Directions;
 import common.ICoordinate;
 import common.IInventory;
@@ -19,15 +20,30 @@ import java.util.Set;
 public class DataRoom implements IRoom {
 
     private String name;
-    private HashMap<Directions, IRoom> exits;
+    private HashMap<Directions, Integer> exits;
     private boolean inspected;
-    private ICoordinate coordinate;
-    private IInventory inventory;
+    private DataCoordinate coordinate;
+    private int inventoryID;
     private boolean isLocked;
+    private int roomID;
+    
+    public DataRoom(IRoom room){
+        name = room.getName();
+        exits = new HashMap<>();
+        for (Directions dir : room.getExitDirections()) {
+            exits.put(dir, room.getExit(dir).getRoomID());           
+        }
+        inspected = room.isInspected();
+        inventoryID = room.getInventory().getInventoryID();
+        coordinate = new DataCoordinate(room.getCoordinate());
+        isLocked = room.isLocked();
+        roomID = room.getRoomID();
+    }
+    
 
     @Override
     public IRoom getExit(Directions dir) {
-        return exits.get(dir);
+        throw new UnsupportedOperationException("Invalid operation for data object.");
     }
 
     @Override
@@ -37,12 +53,12 @@ public class DataRoom implements IRoom {
 
     @Override
     public boolean isLocked() {
-       return isLocked;
+        return isLocked;
     }
 
     @Override
     public boolean isInspected() {
-         return inspected;
+        return inspected;
     }
 
     @Override
@@ -58,7 +74,26 @@ public class DataRoom implements IRoom {
 
     @Override
     public IInventory getInventory() {
+<<<<<<< HEAD
         return inventory;
+=======
+        throw new UnsupportedOperationException("Invalid operation for data object.");
+    }
+
+    @Override
+    public int getRoomID() {
+        return roomID;
+    }
+
+    @Override
+    public int getInventoryID() {
+        return inventoryID;
+    }
+
+    @Override
+    public int getExitID(Directions dir) {
+        return exits.get(dir);
+>>>>>>> master
     }
 
 }
