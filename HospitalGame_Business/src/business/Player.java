@@ -259,8 +259,8 @@ public class Player implements IPlayer {
      * @return true if the item has been dropped
      */
     public boolean dropItem(IItem item) {
-        if (itemFacade.removeItem(inventoryID, item)) {
-            itemFacade.addItem(map.getRoomByID(roomID).getInventoryID(), item);
+        if (itemFacade.addItem(map.getRoomByID(roomID).getInventoryID(), item)) {
+            itemFacade.removeItem(inventoryID, item);
             return true;
         }
         return false;

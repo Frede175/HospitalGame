@@ -47,10 +47,7 @@ public class ItemFacade implements IItemFacade {
     public boolean addItem(int inventoryID, IItem item) {
         for (Inventory inventory : inventoryList) {
             if (inventory.getInventoryID() == inventoryID) {
-                if (inventory.getMaxWeight() >= inventory.getTotalWeight() + item.getWeight()) {
-                    inventory.addItem(item);
-                    return true;
-                }
+                return inventory.addItem(item);
             }
         }
         return false;
