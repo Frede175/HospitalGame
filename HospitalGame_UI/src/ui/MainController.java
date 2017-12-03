@@ -109,6 +109,7 @@ public class MainController implements Initializable {
         npcController.setType(UIType.NPC);
         inventoryPlayerController.injectMainController(this);
         inventoryRoomController.injectMainController(this);
+        npcController.injectMainController(this);
         updateGUI();
     }   
     
@@ -229,23 +230,30 @@ public class MainController implements Initializable {
     }
     
     public void updateGUI() {
-        System.out.println("Game OVer : " + business.isGameOver());
-        if(!business.isGameOver()) {
-            npcController.updateNPCSToGUI(player.getCurrentRoom());
-            playerStatusController.updatePlayerDataToGUI();
-            inventoryPlayerController.updateItems(player.getInventory());
-            inventoryRoomController.updateItems(player.getCurrentRoom().getInventory());
-            addButtons(player.getCurrentRoom());
-            mapController.drawMap();
-        } else {
-            System.out.println("derdpfeprpefpepfep");
-            AnchorPane pane = new AnchorPane();
-            pane.setBackground(new Background(new BackgroundImage(imgRes.getImage(Images.VICTORYSCREEN), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
-            Scene scene = new Scene(pane);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.show();
+        switch (business.getGameState()) {
+            case PLAYING:
+                npcController.updateNPCSToGUI(player.getCurrentRoom());
+                playerStatusController.updatePlayerDataToGUI();
+                inventoryPlayerController.updateItems(player.getInventory());
+                inventoryRoomController.updateItems(player.getCurrentRoom().getInventory());
+                addButtons(player.getCurrentRoom());
+                mapController.drawMap();
+                break;
+            case LOST:
+                // TODO SHOW LOST SCREEN
+                break;
+            case WON:
+                // TODO SHOW WIN SCREEN
+                System.out.println("derdpfeprpefpepfep");
+                AnchorPane pane = new AnchorPane();
+                pane.setBackground(new Background(new BackgroundImage(imgRes.getImage(Images.VICTORYSCREEN), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+                Scene scene = new Scene(pane);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.show();
+                break; 
+            default:
+                throw new AssertionError();
         }
-    }
-    
+    }    
 }

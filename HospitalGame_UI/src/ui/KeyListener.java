@@ -89,7 +89,7 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
                     roomInventoryController.setSelectedIndex(0);
                     mainController.updateGUI();
                 } else {
-                    // TODO Fix npccontroller to do shit
+                    npcController.interact();
                 }
                 break;
             case Q:

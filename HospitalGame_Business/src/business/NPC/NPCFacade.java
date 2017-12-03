@@ -79,6 +79,7 @@ public class NPCFacade implements INPCFacade {
             case PORTER:
                 Porter porter = new Porter(name, canMove, currentRoomID, id);
                 porter.injectMap(map);
+                porter.injectBusiness(business);
                 NPCs.add(porter);
                 break;
             default:
@@ -149,7 +150,8 @@ public class NPCFacade implements INPCFacade {
                 npcsInRoom.add(npc);
             }
         }
-        return (INPC[]) npcsInRoom.toArray();
+        INPC[] npcs = new INPC[npcsInRoom.size()];
+        return npcsInRoom.toArray(npcs);
     }
 
     @Override

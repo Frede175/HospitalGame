@@ -53,7 +53,9 @@ public class NPCController implements Initializable {
     
     INPC[] npcs;
     
-    private UIType type;    
+    private UIType type;  
+    
+    private MainController mainController;
     
     /**
      * 
@@ -73,21 +75,23 @@ public class NPCController implements Initializable {
      */
     public void updateNPCSToGUI(IRoom room) {
         hBox.getChildren().clear();
-        npcs = business.getNPCs();
+        npcs = business.getNPCsFromRoom(room);
         for(int i = 0; i < npcs.length; i++) {
-            if(room.equals(npcs[i].getCurrentRoom())) {            
-                VBox vBox = new VBox();
-                vBox.setAlignment(Pos.CENTER);
-                vBox.setPadding(new Insets(5));
-                Label label = new Label(npcs[i].getNPCID().toString());
-                label.setPadding(new Insets(0, 0, 10, 0));
-                if(selectedIndex == i && isFocussed) {
-                    vBox.setStyle("-fx-border-color: blue;");
-                }
-                vBox.getChildren().addAll(getImageOfNPC(npcs[i]), label);
-                hBox.getChildren().add(vBox);
+            VBox vBox = new VBox();
+            vBox.setAlignment(Pos.CENTER);
+            vBox.setPadding(new Insets(5));
+            Label label = new Label(npcs[i].getNPCID().toString());
+            label.setPadding(new Insets(0, 0, 10, 0));
+            if(selectedIndex == i && isFocussed) {
+                vBox.setStyle("-fx-border-color: blue;");
             }
+            vBox.getChildren().addAll(getImageOfNPC(npcs[i]), label);
+            hBox.getChildren().add(vBox);
         }
+    }
+    
+    public void injectMainController(MainController mainController) {
+        this.mainController = mainController;
     }
     
     /**
@@ -136,7 +140,8 @@ public class NPCController implements Initializable {
     }
     
     public void interact() {
-        
+        System.out.println("Interact: " + business.interact(player, npcs[selectedIndex]));
+        mainController.updateGUI();
     }
     
 }
