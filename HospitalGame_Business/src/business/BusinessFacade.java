@@ -19,6 +19,7 @@ import common.IItem;
 import common.INPC;
 import common.IPersistence;
 import common.IPlayer;
+import common.IRoom;
 import common.ItemName;
 import common.NPCID;
 import java.util.ArrayList;
@@ -136,8 +137,8 @@ public class BusinessFacade implements IBusiness {
      * @return Array with INPCs
      */
     @Override
-    public INPC[] getNPCs() {
-        return npcFacade.getNPCs();
+    public INPC[] getNPCsFromRoom(IRoom room) {
+        return npcFacade.getNPCsFromRoom(room);
     }
 
     /**
@@ -271,6 +272,7 @@ public class BusinessFacade implements IBusiness {
     @Override
     public void move(Directions direction) {
         player.move(direction);
+        
     }
 
     /**
@@ -312,6 +314,7 @@ public class BusinessFacade implements IBusiness {
      */
     @Override
     public GameState getGameState() {
+        npcFacade.updateMove();
         return gameState;
     }
     
@@ -320,6 +323,11 @@ public class BusinessFacade implements IBusiness {
      */
     public void playerBloodTypeKnown() {
         player.setBloodTypeKnown();
+    }
+
+    @Override
+    public String interact(IPlayer player, INPC npc) {
+        return npcFacade.interact(player, npc);
     }
     
 }

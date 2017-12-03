@@ -5,7 +5,6 @@
  */
 package business.NPC;
 
-import business.BusinessFacade;
 import business.Item.BloodBag;
 import business.Item.Item;
 import common.BloodType;
@@ -19,8 +18,6 @@ import common.NPCID;
  * @author andreasmolgaard-andersen
  */
 public class Doctor extends NPC {
-
-    private BusinessFacade business;
 
     /**
      * Constructor for Doctor
@@ -36,10 +33,6 @@ public class Doctor extends NPC {
 
     public Doctor(INPC npc) {
         super(npc.getName(), npc.canMove(), npc.getCurrentRoomID(), npc.getNPCID());
-    }
-
-    public void injectBusiness(BusinessFacade business) {
-        this.business = business;
     }
     
 

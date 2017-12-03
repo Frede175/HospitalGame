@@ -5,12 +5,10 @@
  */
 package business.NPC;
 
-import business.Map;
 import business.common.IMoveable;
 import common.Directions;
 import common.INPC;
 import common.IPlayer;
-import common.IRoom;
 import common.NPCID;
 import java.util.List;
 
@@ -24,6 +22,11 @@ public class Porter extends NPC implements IMoveable {
      * to gain access to the end room
      */
     private int endRoomID;
+    
+    /**
+     * Last time the porter moved
+     */
+    private long lastMove;
 
     /**
      * constructor for the porter
@@ -35,6 +38,7 @@ public class Porter extends NPC implements IMoveable {
      */
     public Porter(String name, boolean canMove, int currentRoomID, NPCID npcId) {
         super(name, canMove, currentRoomID, npcId);
+        lastMove = System.currentTimeMillis();
     }
 
     /**
@@ -44,6 +48,7 @@ public class Porter extends NPC implements IMoveable {
      */
     public Porter(INPC npc) {
         super(npc.getName(), npc.canMove(), npc.getCurrentRoomID(), npc.getNPCID());
+        lastMove = System.currentTimeMillis();
     }
     
 
@@ -56,6 +61,8 @@ public class Porter extends NPC implements IMoveable {
     @Override
     public boolean move(Directions direction) {
         setCurrentRoom(getCurrentRoom().getExit(direction).getRoomID());
+        checkPlayer(business.getPLayer());
+        lastMove = System.currentTimeMillis();
         return true;
     }
 
@@ -83,10 +90,25 @@ public class Porter extends NPC implements IMoveable {
     public void setEndRoom(int roomID) {
         endRoomID = roomID;
     }
+    
+    /**
+     * Check if the player is a room that is locked and if so it moves the player to a room that is not locked.
+     * @param player the current player
+     */
+    public void checkPlayer(IPlayer player) {
+        if (player.getCurrentRoom().isLocked()) {
+            for (Directions dir : player.getCurrentRoom().getExitDirections()) {
+                if (!player.getCurrentRoom().getExit(dir).isLocked()) {
+                    business.move(dir);
+                    break;
+                }
+            }
+        }
+    }
 
     @Override
-    public int getCurrentRoomID() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public long getLastMove() {
+        return lastMove;
     }
 
 }
