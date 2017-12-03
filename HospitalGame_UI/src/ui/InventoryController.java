@@ -9,15 +9,14 @@ import common.IBusiness;
 import common.IInventory;
 import common.IItem;
 import common.IPlayer;
-import common.ItemName;
 import static common.ItemName.BLOODBAG;
 import static common.ItemName.IDCARD;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -27,7 +26,6 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
@@ -100,7 +98,7 @@ public class InventoryController implements Initializable {
     /**
      * Contains all the items in the inventory.
      */
-    private ArrayList<? extends IItem> items;
+    private List<? extends IItem> items;
     
     /**
      * Contains the inventory.
