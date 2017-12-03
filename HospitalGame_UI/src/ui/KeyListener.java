@@ -66,15 +66,18 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
             case E:
                 if(playersInventory) {
                     business.useItem(playerInventoryController.getSelectedIndex());
+                    playerInventoryController.setSelectedIndex(0);
                     mainController.updateGUI();
                 } else {
                     business.takeItem(roomInventoryController.getSelectedIndex());
+                    roomInventoryController.setSelectedIndex(0);
                     mainController.updateGUI();
                 }
                 break;
             case Q:
                 if(playersInventory) {
                     business.dropItem(playerInventoryController.getSelectedIndex());
+                    playerInventoryController.setSelectedIndex(0);
                     mainController.updateGUI();
                 } else {
                     
