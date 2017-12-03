@@ -144,16 +144,16 @@ public class MainController implements Initializable {
         for(Directions dir : room.getExitDirections()) {
             switch (dir) {
                 case NORTH:
-                    root.add(createButton(dir, room.isLocked()), 1, 0);
+                    root.add(createButton(dir, room.getExit(dir).isLocked()), 1, 0);
                     break;
                 case SOUTH:
-                    root.add(createButton(dir, room.isLocked()), 1, 2);
+                    root.add(createButton(dir, room.getExit(dir).isLocked()), 1, 2);
                     break;
                 case EAST:
-                    root.add(createButton(dir, room.isLocked()), 2, 1);
+                    root.add(createButton(dir, room.getExit(dir).isLocked()), 2, 1);
                     break;
                 case WEST:
-                    root.add(createButton(dir, room.isLocked()), 0, 1);
+                    root.add(createButton(dir, room.getExit(dir).isLocked()), 0, 1);
                     break;
                 default:
                     throw new AssertionError();
