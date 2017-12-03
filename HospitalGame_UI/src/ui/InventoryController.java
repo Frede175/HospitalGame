@@ -141,14 +141,9 @@ public class InventoryController implements Initializable {
         if(items.size() == 0) {
             pageLabel.setText("0/" + (getPageCount()));
         } else {
-            
-                pageLabel.setText((page + 1) + "/" + (getPageCount() + 1));
-            
+            pageLabel.setText((page + 1) + "/" + (getPageCount() + 1));
         }
-        
-        
-        
-        
+
         int calc = 0;
         for (int i = (page) * ITEMS_PER_PAGE; i < (page) * ITEMS_PER_PAGE + ITEMS_PER_PAGE && i < items.size(); i++) {
             int column = calc % 3;
@@ -170,7 +165,6 @@ public class InventoryController implements Initializable {
             nextBtn.setDisable(true);
             previousBtn.setDisable(true);
         }else if(getPageCount() > page){ //problem here
-            System.out.println("getPageCount() room inv: " + getPageCount());
             nextBtn.setDisable(false);
             previousBtn.setDisable(true);
         }else if(getPageCount() == page){
@@ -187,13 +181,9 @@ public class InventoryController implements Initializable {
      * @return Count of pages.
      */
     private int getPageCount() {
-        
-        //System.out.println("Page Count" +  (int) Math.ceil(items.size() / (double) ITEMS_PER_PAGE));
         return ((items.size() == 0 ? 0 : items.size() - 1) / ITEMS_PER_PAGE);
     }
     
-    
-
     /**
      * Get the inventory.
      * @return The inventory.
