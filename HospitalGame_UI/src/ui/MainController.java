@@ -21,6 +21,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -83,6 +84,15 @@ public class MainController implements Initializable {
     @FXML
     private MapController mapController;
     
+    /**
+     * Contains the reference to the interact label.
+     */
+    @FXML
+    private Label interactLabel;
+    
+    /**
+     * Contains all the current direction buttons showed on the screen.
+     */
     private ArrayList<HBox> buttons;
     
     /**
@@ -90,6 +100,9 @@ public class MainController implements Initializable {
      */
     private Scene scene;
     
+    /**
+     * Contains the IPlayer reference.
+     */
     private IPlayer player;
 
     
@@ -111,12 +124,6 @@ public class MainController implements Initializable {
         inventoryRoomController.injectMainController(this);
         npcController.injectMainController(this);
         updateGUI();
-    }   
-    
-    public void resetFocus() {
-        inventoryPlayerController.setFocus(false);
-        inventoryRoomController.setFocus(false);
-        npcController.setFocus(false);
     }
     
     /**
@@ -127,10 +134,18 @@ public class MainController implements Initializable {
         this.scene = scene;
     }
 
+    /**
+     * Gets the inventory controller for the player.
+     * @return The inventory controller for the player.
+     */
     public InventoryController getInventoryPlayerController() {
         return inventoryPlayerController;
     }
 
+    /**
+     * Gets the inventory controller for the room.
+     * @return The inventory controller for the room.
+     */
     public InventoryController getInventoryRoomController() {
         return inventoryRoomController;
     }
@@ -223,15 +238,22 @@ public class MainController implements Initializable {
      * The setup function that calls the keylisteners.
      */
     public void setup() {
-        System.out.println(player);
-        addButtons(player.getCurrentRoom());
         scene.setOnKeyReleased(new KeyListener(this, inventoryPlayerController, inventoryRoomController, player, business, npcController));
         inventoryRoomController.setFocus(true);
+        updateGUI();
     }
     
+    public void setInteractionText(String text) {
+        interactLabel.setText(text);
+    }
+    
+    /**
+     * Updates all the GUI, while checking if the game is lost or won.
+     */
     public void updateGUI() {
         switch (business.getGameState()) {
             case PLAYING:
+                setInteractionText("");
                 npcController.updateNPCSToGUI(player.getCurrentRoom());
                 playerStatusController.updatePlayerDataToGUI();
                 inventoryPlayerController.updateItems(player.getInventory());
@@ -247,10 +269,7 @@ public class MainController implements Initializable {
                 System.out.println("derdpfeprpefpepfep");
                 AnchorPane pane = new AnchorPane();
                 pane.setBackground(new Background(new BackgroundImage(imgRes.getImage(Images.VICTORYSCREEN), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
-                Scene scene = new Scene(pane);
-                Stage stage = new Stage();
-                stage.setScene(scene);
-                stage.show();
+                
                 break; 
             default:
                 throw new AssertionError();

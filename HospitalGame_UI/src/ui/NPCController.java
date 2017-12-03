@@ -17,6 +17,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -77,17 +78,27 @@ public class NPCController implements Initializable {
         hBox.getChildren().clear();
         npcs = business.getNPCsFromRoom(room);
         for(int i = 0; i < npcs.length; i++) {
-            VBox vBox = new VBox();
-            vBox.setAlignment(Pos.CENTER);
-            vBox.setPadding(new Insets(5));
-            Label label = new Label(npcs[i].getNPCID().toString());
-            label.setPadding(new Insets(0, 0, 10, 0));
-            if(selectedIndex == i && isFocussed) {
-                vBox.setStyle("-fx-border-color: blue;");
-            }
-            vBox.getChildren().addAll(getImageOfNPC(npcs[i]), label);
-            hBox.getChildren().add(vBox);
+            hBox.getChildren().add(createNPCUI(i));
         }
+    }
+    
+    public VBox createNPCUI(int index) {
+        VBox vBox = new VBox();
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setPadding(new Insets(5));
+        Label label = new Label(npcs[index].getNPCID().toString());
+        label.setPadding(new Insets(0, 0, 10, 0));
+        if(selectedIndex == index && isFocussed) {
+            vBox.setStyle("-fx-border-color: blue;");
+        }
+        vBox.getChildren().addAll(getImageOfNPC(npcs[index]), label);
+        vBox.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
+            if(e.isPrimaryButtonDown()) {
+                mainController.updateGUI();
+                mainController.setInteractionText(business.interact(player, npcs[index]));
+            }
+        });
+        return vBox;
     }
     
     public void injectMainController(MainController mainController) {
@@ -140,8 +151,8 @@ public class NPCController implements Initializable {
     }
     
     public void interact() {
-        System.out.println("Interact: " + business.interact(player, npcs[selectedIndex]));
         mainController.updateGUI();
+        mainController.setInteractionText(business.interact(player, npcs[selectedIndex]));
     }
     
 }
