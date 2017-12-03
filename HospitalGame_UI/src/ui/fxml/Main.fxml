@@ -54,7 +54,7 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
-            <Label fx:id="interactLabel" alignment="CENTER" maxWidth="1.7976931348623157E308">
+            <Label fx:id="interactLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" wrapText="true">
                <font>
                   <Font size="20.0" />
                </font>
