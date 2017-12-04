@@ -87,7 +87,6 @@ public class Map {
         
         rooms.addAll(freeRooms);
         
-
         Directions[] directions = Directions.values();
         // Sets the start room to the first free room.
         Room startRoom = freeRooms.get(0);
