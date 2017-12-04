@@ -7,10 +7,19 @@ package ui;
 
 import common.IBusiness;
 import common.INPC;
+import common.IPlayer;
+import common.IRoom;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 /**
  * FXML Controller class
@@ -19,25 +28,130 @@ import javafx.scene.image.ImageView;
  */
 public class NPCController implements Initializable {
 
+    /**
+     * Contains the reference to the business facade.
+     */
     private IBusiness business;
     
+    /**
+     * Containing all the npc images in the scene.
+     */
+    @FXML
+    private HBox hBox;
+    
+    @FXML
+    private IPlayer player;
+    
+    /**
+     * Contains which npc that is selected
+     */
+    private int selectedIndex = 0;
+    
+    /**
+     * Contains if the npc fragment is selected
+     */
+    private boolean isFocussed = false;
+    
+    INPC[] npcs;
+    
+    private UIType type;  
+    
+    private MainController mainController;
+    
+    /**
+     * 
+     * @param url
+     * @param rb 
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         business = UI.getInstance().getBusiness();
-        loadNPCImages();
+        player = business.getPlayer();
+        updateNPCSToGUI(player.getCurrentRoom());
     } 
     
-    public void loadNPCImages() {
-        INPC[] npcs = business.getNPCs();
-        for(INPC npc : npcs) {
-            
+    /**
+     * Updates the npc images of the npcs in the players current room.
+     * @param room Which room to check for npcs, typically the players current room.
+     */
+    public void updateNPCSToGUI(IRoom room) {
+        hBox.getChildren().clear();
+        npcs = business.getNPCsFromRoom(room);
+        for(int i = 0; i < npcs.length; i++) {
+            hBox.getChildren().add(createNPCUI(i));
         }
     }
     
-    public ImageView getImageOfNPC() {
+    public VBox createNPCUI(int index) {
+        VBox vBox = new VBox();
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setPadding(new Insets(5));
+        Label label = new Label(npcs[index].getNPCID().toString());
+        label.setPadding(new Insets(0, 0, 10, 0));
+        if(selectedIndex == index && isFocussed) {
+            vBox.setStyle("-fx-border-color: blue;");
+        }
+        vBox.getChildren().addAll(getImageOfNPC(npcs[index]), label);
+        vBox.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
+            if(e.isPrimaryButtonDown()) {
+                mainController.updateGUI();
+                mainController.setInteractionText(business.interact(player, npcs[index]));
+            }
+        });
+        return vBox;
+    }
+    
+    public void injectMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
+    
+    /**
+     * Returns the npc type image for the given npc.
+     * @param npc which npc type image to return
+     * @return the given npc type image.
+     */
+    public ImageView getImageOfNPC(INPC npc) {
         ImageView img = new ImageView();
-        img.setImage(UI.getInstance().getSprites().getImage(1));
+        img.setPreserveRatio(true);
+        img.setFitHeight(70);
+        img.setFitWidth(70);
+        switch (npc.getNPCID()) {
+            case COMPUTER:
+                img.setImage(UI.getInstance().getImageResource().getImage(Images.COMPUTER));
+                break;
+            case DOCTOR:
+                img.setImage(UI.getInstance().getImageResource().getImage(Images.DOCTOR));
+                break;
+            case PORTER:
+                img.setImage(UI.getInstance().getImageResource().getImage(Images.PORTER));
+                break;
+            default:
+                throw new AssertionError();
+        }
         return img;
+    }
+    
+    public void setFocus(boolean focus) {
+        this.isFocussed = focus;
+    }
+    
+    public int getSelectedIndex() {
+        return selectedIndex;
+    }
+    
+    public void setSelectedIndex(int index) {
+        if(index >= 0 && index < npcs.length) {
+            this.selectedIndex = index;
+        }
+    }
+    
+    public void setType(UIType type) {
+        this.type = type;
+    }
+    
+    public void interact() {
+        mainController.updateGUI();
+        mainController.setInteractionText(business.interact(player, npcs[selectedIndex]));
     }
     
 }

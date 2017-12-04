@@ -5,7 +5,6 @@
  */
 package ui;
 
-import common.IBusiness;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
