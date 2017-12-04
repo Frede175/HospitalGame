@@ -8,19 +8,26 @@ package business.common;
 import common.IInventory;
 import common.IItem;
 import common.IPowerUpItem;
-import java.util.Objects;
 
 /**
  *
  * @author andreasmolgaard-andersen
  */
 public interface IItemFacade {
-    public int createInventory(int maxWeight);
-    public boolean addItem(int inventoryID, IItem item);
-    public boolean removeItem(int inventoryID, IItem item);
-    public boolean activateItem(IItem item, int inventoryID, long startTime);
-    public boolean update(IPowerUpItem powerUpItem, int inventoryID, long lastUpdate);
-    public IInventory getInventory(int InventoryID);
-    public void load(Objects[] objects);    
-}
 
+    public int createInventory(int maxWeight);
+
+    public boolean addItem(int inventoryID, IItem item);
+
+    public boolean removeItem(int inventoryID, IItem item);
+
+    public boolean activateItem(IItem item, int inventoryID, long startTime);
+
+    public boolean update(IPowerUpItem powerUpItem, int inventoryID, long lastUpdate);
+
+    public IInventory getInventory(int InventoryID);
+
+    public void load(IInventory[] inventories);
+
+    public IInventory[] getInventories();
+}

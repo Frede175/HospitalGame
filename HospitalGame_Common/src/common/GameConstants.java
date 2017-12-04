@@ -13,6 +13,7 @@ import java.util.Arrays;
  * @author fsr19
  */
 public interface GameConstants {
+
     // Times is in milliseconds
     double BANDAGE_BUFF = 1.0;
     int BANDAGE_WEIGHT = 100;
@@ -24,4 +25,5 @@ public interface GameConstants {
     double PLAYER_BLOODRATE = 10.0;
     int PLAYER_BLOOD_AMOUNT = 5500;
     int INVENTORY_MAX_WEIGHT = 2000;
+    int IDCARD_WEIGHT = 50;
 }

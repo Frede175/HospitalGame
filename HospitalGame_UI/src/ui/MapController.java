@@ -34,18 +34,16 @@ public class MapController implements Initializable {
     private ResizableCanvas roomCanvas;
 
     private GraphicsContext graphicsContext;
-    
-    @FXML
-    private StackPane stack;
 
     private int size = 30;
-    
-    
     
     private int minX;
     private int maxX;
     private int minY;
     private int maxY;
+    
+    @FXML
+    private StackPane stackPane;
 
     /**
      * Initializes the controller class.
@@ -56,38 +54,37 @@ public class MapController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         business = UI.getInstance().getBusiness();
-        stack.autosize();
-        ChangeListener<Number> anchorSizeListener = new ChangeListener<Number>(){
+        
+        ChangeListener<Number> stackPaneSizeListener = new ChangeListener<Number>(){
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 calculateSizeAndDraw();
             }
         };
 
-        stack.widthProperty().addListener(anchorSizeListener);
-        stack.heightProperty().addListener(anchorSizeListener);
+        stackPane.widthProperty().addListener(stackPaneSizeListener);
+        stackPane.heightProperty().addListener(stackPaneSizeListener);
         
         createCanvas();
     }
 
-    public void updateMap() {
+    public void drawMap() {
         graphicsContext.clearRect(0, 0, roomCanvas.getWidth(), roomCanvas.getHeight());
         IRoom currentRoom = business.getPlayer().getCurrentRoom();
         Set<IRoom> rooms = getRoomsInRoom(new HashSet<>(), currentRoom);
-        
         int border = size / 10;
         border = border < 1 ? 1 : border;
-
+        
         for (IRoom room : rooms) {
-            if (!room.isInspected()) {
+            if (room.isInspected()) {
                 int x = room.getCoordinate().getX();
                 int y = room.getCoordinate().getY() * -1;
                 int xOffset = x + minX * -1;
                 int yOffset = y + minY * -1;
                 int sizeOffsetX = (int)((roomCanvas.getWidth() - (size * (maxX - minX + 1))) / 2);
-                int sizeOffsetY = (int)((roomCanvas.getHeight()- (size * (maxY - minY + 1))) / 2);
+                int sizeOffsetY = (int)((roomCanvas.getHeight() - (size * (maxY - minY + 1))) / 2);
                 int xStart = xOffset * size + sizeOffsetX;
-                int yStart = yOffset * size + sizeOffsetY; 
+                int yStart = yOffset * size + sizeOffsetY;
                 
                 if (room.getCoordinate().getX() == currentRoom.getCoordinate().getX() && room.getCoordinate().getY() == currentRoom.getCoordinate().getY()) {
                     graphicsContext.setFill(Color.RED);
@@ -96,7 +93,7 @@ public class MapController implements Initializable {
                 }
 
                 graphicsContext.fillRect(xStart, yStart, size, size);
-                graphicsContext.clearRect(xStart + border, yStart + border, size - (border * 2), size - (border * 2));
+                graphicsContext.clearRect(xStart + border, yStart + border, size - border * 2, size - border * 2);
                 for (Directions d : room.getExitDirections()) {
                     switch (d) {
                         case SOUTH:
@@ -119,7 +116,22 @@ public class MapController implements Initializable {
         }
     }
     
-    private void updateMinAndMax() {
+    private void calculateSizeAndDraw(){
+        int differenceX = maxX - minX + 1;
+        int differenceY = maxY - minY + 1;
+        
+        int sizeX = (int)stackPane.getWidth() / differenceX;
+        int sizeY = (int)stackPane.getHeight() / differenceY;
+        
+        if(sizeX < sizeY)
+            size = sizeX;
+        else
+            size = sizeY;
+        
+        drawMap();
+    }
+    
+    private void updateMinMax(){
         minX = Integer.MAX_VALUE;
         maxX = Integer.MIN_VALUE;
         minY = Integer.MAX_VALUE;
@@ -131,6 +143,7 @@ public class MapController implements Initializable {
         for(IRoom room : rooms){
             int x = room.getCoordinate().getX();
             int y = room.getCoordinate().getY() * -1;
+            
             if(x > maxX)
                 maxX = x;
             if(x < minX)
@@ -142,37 +155,19 @@ public class MapController implements Initializable {
         }
     }
     
-    private void calculateSizeAndDraw(){
-        int differenceX = maxX - minX + 1;
-        int differenceY = maxY - minY + 1;
-        
-        int sizeX = (int)stack.getWidth() / differenceX;
-        int sizeY = (int)stack.getHeight() / differenceY;
-        
-        if(sizeX < sizeY)
-            size = sizeX;
-        else
-            size = sizeY;
-        
-        System.out.println(size);
-        
-        updateMap();
-    }
-    
     private void createCanvas(){
         roomCanvas = new ResizableCanvas();
-        stack.getChildren().add(roomCanvas);
-        roomCanvas.widthProperty().bind(stack.widthProperty());
-        roomCanvas.heightProperty().bind(stack.heightProperty());
+        roomCanvas.widthProperty().bind(stackPane.widthProperty());
+        roomCanvas.heightProperty().bind(stackPane.heightProperty());
         graphicsContext = roomCanvas.getGraphicsContext2D();
-        updateMinAndMax();
+        stackPane.getChildren().add(roomCanvas);
+        updateMinMax();
         calculateSizeAndDraw();
     }
 
     private Set<IRoom> getRoomsInRoom(Set<IRoom> roomSet, IRoom nextRoom) {
         if (!roomSet.contains(nextRoom)) {
             roomSet.add(nextRoom);
-            
             for (Directions d : nextRoom.getExitDirections()) {
                 roomSet.addAll(getRoomsInRoom(roomSet, nextRoom.getExit(d)));
             }

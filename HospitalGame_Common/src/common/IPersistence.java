@@ -2,7 +2,7 @@ package common;
 
 /**
  * Persistence interface
- * 
+ *
  * @author Frederik Schultz Rosenberg
  * @author Andreas Bøgh Mølgaard-Andersen
  * @author Tobias Ahrenschneider Sztuk
@@ -28,4 +28,12 @@ public interface IPersistence {
      * @return the object with the given class or null if an error occurs.
      */
     <T> T load(Class<T> type);
+    
+    public IHighScore getHighScore();
+
+    public boolean saveGame(IPlayer player, IInventory[] inventory, IRoom[] rooms, INPC[] npcs);
+
+    public boolean saveHighScore(IHighScore highScore);
+
+    public IDataObject load();
 }

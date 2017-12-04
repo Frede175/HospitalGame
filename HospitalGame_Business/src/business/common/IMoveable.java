@@ -5,10 +5,23 @@
  */
 package business.common;
 
+import common.Directions;
+import common.IRoom;
+
 /**
  *
  * @author rober
  */
 public interface IMoveable {
+
+    /**
+     *
+     * @param direction
+     * @return
+     */
+    boolean move(Directions direction);
     
+    long getLastMove();
+    
+    IRoom getCurrentRoom();
 }

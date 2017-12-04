@@ -11,7 +11,6 @@ import common.IItem;
 import common.IPowerUpItem;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Objects;
 
 /**
  *
@@ -48,8 +47,7 @@ public class ItemFacade implements IItemFacade {
     public boolean addItem(int inventoryID, IItem item) {
         for (Inventory inventory : inventoryList) {
             if (inventory.getInventoryID() == inventoryID) {
-                inventory.addItem(item);
-                return true;
+                return inventory.addItem(item);
             }
         }
         return false;
@@ -79,6 +77,7 @@ public class ItemFacade implements IItemFacade {
      * @param powerUpItem is the item being updated
      * @param inventoryID
      * @param lastUpdate
+     * @return
      */
     @Override
     public boolean update(IPowerUpItem powerUpItem, int inventoryID, long lastUpdate) {
@@ -104,24 +103,27 @@ public class ItemFacade implements IItemFacade {
         return null;
     }
 
+    /**
+     * load function for inventories
+     *
+     * @param inventories is the array list of inventories to be loaded into the
+     * game
+     */
     @Override
-    public void load(Objects[] objects) {
-        Collections.sort(inventoryList, (o1, o2) -> {
-            if (o1.getInventoryID() > o2.getInventoryID()) {
-                return 1;
-            }
-            if (o1.getInventoryID() < o2.getInventoryID()) {
-                return -1;
-            }
-            return 0; //To change body of generated lambdas, choose Tools | Templates.
-        });
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void load(IInventory[] inventories) {
+        inventoryList.clear();
+        for (IInventory inventory : inventories) {
+            inventoryList.add(new Inventory(inventory));
+        }
+        Collections.sort(inventoryList);
     }
 
     /**
      * getter method for inventories
+     *
      * @return an array with all inventories
      */
+    @Override
     public IInventory[] getInventories() {
         IInventory[] inventories = new IInventory[inventoryList.size()];
         inventoryList.toArray(inventories);
@@ -130,6 +132,7 @@ public class ItemFacade implements IItemFacade {
 
     /**
      * activates item
+     *
      * @param item is the item to be activated
      * @param inventoryID is the inventory to get the item from
      * @param startTime is the time that the buff was started

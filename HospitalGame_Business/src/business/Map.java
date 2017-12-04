@@ -12,6 +12,7 @@ import common.ICoordinate;
 import common.IItem;
 import common.INPC;
 import common.IRoom;
+import common.ItemName;
 import common.NPCID;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,19 +43,18 @@ public class Map {
     /**
      * an ArrayList of rooms
      */
-    private ArrayList<IRoom> rooms;
+    private ArrayList<Room> rooms;
 
-    /**
-     * Hash map that holds the processed rooms, along with coordinates
-     */
-    private HashMap<Coordinate, IRoom> gameMap;
-
+    
     /**
      * no args constructor for map
      */
-    public void Map() {
-
+    public Map() {
+        rooms = new ArrayList<>();
     }
+
+    
+    
 
     /**
      * injector for item Facade
@@ -80,38 +80,17 @@ public class Map {
      * @param roomCount how many rooms are to be in the game
      * @param items which items are to be put in the game
      * @param npcs which npcs are to be put in the game
-     * @param
      */
     public Room generateMap(int roomCount, List<IItem> items, List<INPC> npcs) {
         // Creates the ArrayList that contains all the free rooms.
         ArrayList<Room> freeRooms = createRooms(roomCount);
-        // Add every item to a random room.
-        for (IItem item : items) {
-            freeRooms.get((int) (Math.random() * roomCount)).addItem(item);
-        }
-        // Adds the NPCs to random rooms.
-        INPC porter = null;
-        INPC doctor = null;
-
-        for (INPC npc : npcs) {
-            if (npc.getNPCID() == NPCID.DOCTOR) {
-                doctor = npc;
-            }
-            if (npc.getNPCID() == NPCID.PORTER) {
-                porter = npc;
-            }
-
-            npcFacade.setRoom(npc, freeRooms.get((int) (Math.random() * roomCount)));
-        }
-
-        // Sets the doctors room in the Porter object.
-        if (porter != null && doctor != null) {
-            npcFacade.setEndRoom(porter, doctor.getCurrentRoom());
-        }
-
+        
+        rooms.addAll(freeRooms);
+        
         Directions[] directions = Directions.values();
         // Sets the start room to the first free room.
         Room startRoom = freeRooms.get(0);
+        startRoom.setInspected();
         startRoom.setCoordinate(new Coordinate(0, 0));
         // Creates the queue where all the rooms that needs to be processed is stored.
         Queue<Room> roomsToProcess = new LinkedList<>();
@@ -153,7 +132,56 @@ public class Map {
                 i++;
             }
         }
+        
+        
+        
+        Room locked = rooms.get(0);
+        //Find a room that only has one exit:
+        for (Room room : rooms) {
+            if (room.getExitDirections().size() == 1 && room != startRoom) {
+                locked = room;
+                break;
+            }
+        }
+        
+        // Add every item to a random room.
+        locked.setLocked(true);
+        
+        for (IItem item : items) {
+            if (item.getName() == ItemName.BLOODBAG) {
+                locked.addItem(item);
+            } else {
+                Room room;
+                while ((room = rooms.get((int) (Math.random() * roomCount))) == locked) { }
+                room.addItem(item);
+            }
+            
+        }
+        
+        
+        // Adds the NPCs to random rooms.
+        INPC porter = null;
+        INPC doctor = null;
 
+        for (INPC npc : npcs) {
+            if (npc.getNPCID() == NPCID.DOCTOR) {
+                doctor = npc;
+            }
+            if (npc.getNPCID() == NPCID.PORTER) {
+                porter = npc;
+            }
+            
+            Room room;
+            while ((room = rooms.get((int) (Math.random() * roomCount))) == locked) { }
+            npcFacade.setRoom(npc, room.getRoomID());
+        }
+
+        // Sets the doctors room in the Porter object.
+        if (porter != null && doctor != null) {
+            npcFacade.setEndRoom(porter, doctor.getCurrentRoomID());
+        }
+        
+        
         // returns the start room.
         return startRoom;
     }
@@ -170,6 +198,7 @@ public class Map {
         for (int i = 0; i < roomCount; i++) {
             Room room = new Room(String.valueOf((char) (a + i)));
             room.injectItemFacade(itemFacade);
+            room.injectMap(this);
             rooms.add(room);
         }
         return rooms;
@@ -178,11 +207,13 @@ public class Map {
     /**
      * used to find the shortest path towards the doctor NPC
      *
-     * @param startRoom is the room where you start.
-     * @param endRoom is the room where you end.
+     * @param startRoomID is the room where you start.
+     * @param endRoomID is the room where you end.
      * @return rooms.
      */
-    public static List<Directions> pathfinder(IRoom startRoom, IRoom endRoom) {
+    public List<Directions> pathfinder(int startRoomID, int endRoomID) {
+        Room startRoom = rooms.get(startRoomID);
+        Room endRoom = rooms.get(endRoomID);
         // Queue holds a list of the rooms that are going to be checked
         Queue<Room> queue = new LinkedList<>();
         //Hashmap holds the checked rooms and what direction we came from, that points to startRoom.
@@ -239,7 +270,6 @@ public class Map {
      * @param d holds the coordinates to the directions in which room you're at.
      * @returns the SOUTH,EAST,WEST,NORTH coordinates.
      */
-
     private Coordinate getCoordinateDirection(Directions d) {
         switch (d) {
             case SOUTH:
@@ -254,5 +284,25 @@ public class Map {
                 throw new AssertionError(d.name());
 
         }
+
+    }
+
+    public Room getRoomByID(int ID) {
+        if (rooms.get(ID) == null) return null;
+        if (rooms.get(ID).getRoomID() == ID) {
+            return (Room) rooms.get(ID);
+        }
+        return null;
+    }
+
+    public void load(IRoom[] arrayRooms) {
+        rooms.clear();
+        for (IRoom room : arrayRooms) {
+            Room r = new Room(room);
+            r.injectItemFacade(itemFacade);
+            r.injectMap(this);
+            this.rooms.add(r);
+        }
+
     }
 }

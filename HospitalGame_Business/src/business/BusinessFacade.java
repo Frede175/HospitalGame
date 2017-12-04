@@ -1,31 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package business;
 
 import business.Item.BloodBag;
+import business.Item.IDCard;
 import business.Item.ItemFacade;
 import business.Item.PowerUpItem;
-import business.NPC.Computer;
-import business.NPC.Doctor;
 import business.NPC.NPCFacade;
-import business.NPC.Porter;
-import business.common.IData;
 import business.common.IItemFacade;
 import business.common.INPCFacade;
 import common.BloodType;
 import common.Directions;
 import common.GameConstants;
+import common.GameState;
 import common.IBusiness;
 import common.IHighScore;
 import common.IItem;
 import common.INPC;
 import common.IPersistence;
 import common.IPlayer;
+import common.IRoom;
 import common.ItemName;
 import common.NPCID;
+import common.IDataObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -36,6 +31,8 @@ import java.util.Random;
  */
 public class BusinessFacade implements IBusiness {
 
+    private ArrayList<Room> rooms = new ArrayList<>();
+
     /**
      * to gain access to item facade
      */
@@ -45,11 +42,6 @@ public class BusinessFacade implements IBusiness {
      * to gain access to npc facade
      */
     private INPCFacade npcFacade;
-
-    /**
-     * gives access to data facade
-     */
-    private IData dataFacade;
 
     /**
      * is the player for business facade to manage
@@ -74,7 +66,7 @@ public class BusinessFacade implements IBusiness {
     /**
      * a
      */
-    private boolean isGameOver = false;
+    private GameState gameState = GameState.NOT_STARTED;
 
     public BusinessFacade() {
         map = new Map();
@@ -82,6 +74,8 @@ public class BusinessFacade implements IBusiness {
         npcFacade = new NPCFacade();
         map.injectItemFacade(itemFacade);
         map.InjectNPCFacade(npcFacade);
+        npcFacade.injectBusiness(this);
+        npcFacade.injectMap(map);
         
     }
 
@@ -95,18 +89,21 @@ public class BusinessFacade implements IBusiness {
         // Initialize a new player object.
         player = new Player(playerBloodType, GameConstants.PLAYER_BLOODRATE, GameConstants.PLAYER_BLOOD_AMOUNT, "Jakob", itemFacade);
         player.injectBusinessFacade(this);
+        player.injectItemFacade(itemFacade);
+        player.injectMap(map);
         // Creates a new ArrayList to contain all items.
         ArrayList<IItem> items = new ArrayList<>();
         // Adds a new item with the same bloodtype as the player, so the game is always winable.
         items.add(new BloodBag(450, ItemName.BLOODBAG, 450, player.getBloodType()));
+        items.add(new IDCard(GameConstants.IDCARD_WEIGHT, ItemName.IDCARD));
         // Loops as many times as roomCount * 1.5
         for (int i = 0; i < numberOfRooms * 1.5; i++) {
             // Generate a random int to define what type of item that will be generated.
-            int itemType = random.nextInt(2);
+            int itemType = random.nextInt(3);
             switch (itemType) {
                 // If 0 adds a new bloodbag
                 case 0:
-                    items.add(new BloodBag(GameConstants.BLOODBAG_SIZE, ItemName.BLOODBAG, GameConstants.BLOODBAG_SIZE,bloodType[random.nextInt(bloodType.length)]));
+                    items.add(new BloodBag(GameConstants.BLOODBAG_SIZE, ItemName.BLOODBAG, GameConstants.BLOODBAG_SIZE, bloodType[random.nextInt(bloodType.length)]));
                     break;
                 // If 1 adds a new bandage
                 case 1:
@@ -121,12 +118,12 @@ public class BusinessFacade implements IBusiness {
             }
         }
         // Gets current room and generates the rooms with items and npc.
-        npcFacade.create(NPCID.DOCTOR, false, "doctor", null);
-        npcFacade.create(NPCID.PORTER, false, "porter", null);
-        npcFacade.create(NPCID.COMPUTER, false, "computer", null);
+        npcFacade.create(NPCID.DOCTOR, false, "doctor");
+        npcFacade.create(NPCID.PORTER, false, "porter");
+        npcFacade.create(NPCID.COMPUTER, false, "computer");
 
         // Sets the current room for the player, and generates the rooms.
-        player.setCurrentRoom(map.generateMap(numberOfRooms, items, Arrays.asList(npcFacade.getNPCs())));
+        player.setCurrentRoom(map.generateMap(numberOfRooms, items, Arrays.asList(npcFacade.getNPCs())).getRoomID());
     }
 
     /**
@@ -134,56 +131,111 @@ public class BusinessFacade implements IBusiness {
      * @return Array with INPCs
      */
     @Override
-    public INPC[] getNPCs() {
-        return npcFacade.getNPCs();
+    public INPC[] getNPCsFromRoom(IRoom room) {
+        return npcFacade.getNPCsFromRoom(room);
     }
 
-    public IPlayer getPLayer() {
-        return player;
-    }
 
+    /**
+     * 
+     */
     @Override
     public void play() {
         createRooms(12);
-    }
-
-    @Override
-    public void quit() {
-        throw new UnsupportedOperationException("not yet implemented.");
-    }
-
-    @Override
-    public IHighScore getHighScore() {
-        throw new UnsupportedOperationException("not yet implemented.");
-    }
-
-    @Override
-    public void pause() {
-        throw new UnsupportedOperationException("not yet implemented.");
-    }
-
-    @Override
-    public void resume() {
-        throw new UnsupportedOperationException("not yet implemented.");
-    }
-
-    @Override
-    public boolean save() {
-        throw new UnsupportedOperationException("not yet implemented.");
-    }
-
-    @Override
-    public boolean load() {
-        throw new UnsupportedOperationException("not yet implemented.");
+        gameState = GameState.PLAYING;
     }
 
     /**
-     * sets the game over if called
+     * 
      */
-    void setGameOver() {
-        isGameOver = true;
+    @Override
+    public void quit() {
+        
     }
 
+    /**
+     * 
+     * @return 
+     */
+    @Override
+    public IHighScore getHighScore() {
+        return highScore;
+    }
+
+    /**
+     * 
+     */
+    @Override
+    public void pause() {
+       gameState = GameState.PAUSED;
+       player.pause();
+    }
+
+    /**
+     * 
+     */
+    @Override
+    public void resume() {
+        gameState = GameState.PLAYING;
+        player.resume();
+    }
+
+    /**
+     * saves the game
+     *
+     * @return true if the game has been saved
+     */
+    @Override
+    public boolean save() {
+        player.pause();
+        return persistence.saveGame(player, itemFacade.getInventories(), map.getRooms(), npcFacade.getNPCs());
+    }
+
+    /**
+     * Load a saved game from the persistence layer.
+     * @return true if the game got loaded.
+     */
+    @Override
+    public boolean load() {
+        IDataObject data = persistence.load();
+        if (data == null) return false; 
+        //loads in the player
+        this.player = new Player(data.getPlayer());
+        player.injectBusinessFacade(this);
+        player.injectItemFacade(itemFacade);
+        player.injectMap(map);
+
+        //Loads the rooms
+        map.load(data.getRooms());
+
+        //loads in the inventories
+        itemFacade.load(data.getInventories());
+
+        //loads in the npcs
+        npcFacade.load(data.getNPCs());
+        
+        player.resume();
+        
+        gameState = GameState.PLAYING;
+        
+        return true; // change this
+    }
+
+    /**
+     * sets the game state to lost
+     */
+    public void setGameOver() {
+        gameState = GameState.LOST;
+    }
+    
+    /**
+     * sets game state to won
+     */
+    public void setGameWon() {
+        gameState = GameState.WON;
+    }
+
+    
     /**
      * injection of injectionFacade
      *
@@ -194,13 +246,85 @@ public class BusinessFacade implements IBusiness {
         this.persistence = persistence;
     }
 
+    /**
+     * returns the player
+     *
+     * @return player
+     */
     @Override
     public IPlayer getPlayer() {
         return player;
     }
 
+    /**
+     * moves the player
+     *
+     * @param direction is the direction to move
+     */
     @Override
     public void move(Directions direction) {
         player.move(direction);
+        npcFacade.porterCheckPlayer(player);
     }
+    
+    public void porterMovePlayer(Directions direction) {
+        player.move(direction);
+    }
+
+    /**
+     * uses an item
+     *
+     * @param index is the index of the item to be used
+     * @return true if the item has been used
+     */
+    @Override
+    public boolean useItem(int index) {
+        return player.useItem(index);
+    }
+
+    /**
+     * drops an item from player to the room
+     *
+     * @param index is the index of the item to be dropped
+     * @return true if the item has been dropped
+     */
+    @Override
+    public boolean dropItem(int index) {
+        return player.dropItem(itemFacade.getInventory(player.getInventoryID()).getItem(index));
+    }
+
+    /**
+     * takes an item from the current room
+     *
+     * @param index of the item to be added to the
+     * @return true if the item has been added to the player inventory
+     */
+    @Override
+    public boolean takeItem(int index) {
+        return player.takeItem(index);
+    }
+
+    /**
+     * 
+     * @return true if the game is over.
+     */
+    @Override
+    public GameState getGameState() {
+        npcFacade.update();
+        player.update();
+        return gameState;
+    }
+    
+    /**
+     * Make the player know its blood type.
+     */
+    public void playerBloodTypeKnown() {
+        player.setBloodTypeKnown();
+    }
+
+    @Override
+    public String interact(IPlayer player, INPC npc) {
+        return npcFacade.interact(player, npc);
+    }
+    
 }

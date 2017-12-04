@@ -79,4 +79,12 @@ public class JsonParser {
     private <T> String getFileName(Class<T> type) {
         return String.format("%s%s.txt", fileCommon, type.getSimpleName());
     }
+
+    String toJson(Object obj) {
+        return gson.toJson(obj);
+    }
+    
+    public <T> T fromJson(String jsom, Class<T> type) {
+        return gson.fromJson(jsom, type);
+    }
 }

@@ -33,6 +33,16 @@ public class UI extends Application implements IUI {
     public static UI getInstance() {
         return ui;
     }
+    
+    private UIType focus = UIType.ROOM;
+
+    public UIType getFocus() {
+        return focus;
+    }
+
+    public void setFocus(UIType focus) {
+        this.focus = focus;
+    }
 
     /**
      * Reference to the business layer
@@ -64,7 +74,6 @@ public class UI extends Application implements IUI {
      */
     @Override
     public void start(Stage primaryStage) throws IOException {
-        System.out.println("Start of the program");
         UI.getInstance().stage = primaryStage;
         UI.getInstance().imageResource = new ImageResource();
         Parent root = FXMLLoader.load(getClass().getResource("fxml/Menu.fxml"));

@@ -5,6 +5,8 @@
  */
 package business.NPC;
 
+import business.BusinessFacade;
+import business.Map;
 import common.INPC;
 import common.IPlayer;
 import common.IRoom;
@@ -19,7 +21,7 @@ public abstract class NPC implements INPC {
     /**
      * the current room of the NPC
      */
-    private IRoom currentRoom;
+    private int currentRoomID;
 
     /**
      * is the name of the NPC
@@ -40,20 +42,39 @@ public abstract class NPC implements INPC {
      * is the ID of the NPC
      */
     private NPCID npcId;
+    
+    /**
+     * a reference to map
+     * Protected since porter need to call map.pathFinder.
+     */
+    protected Map map;
+    
+    /**
+     * 
+     */
+    protected BusinessFacade business;
 
     /**
      * Constructor for NPC
      *
      * @param name name of the NPC
      * @param canMove boolean true if the NPC can move
-     * @param currentRoom the room the NPC being created to be in
+     * @param currentRoomID the room ID the NPC being created to be in
      * @param npcId the NPCID of the NPC
      */
-    public NPC(String name, boolean canMove, IRoom currentRoom, NPCID npcId) {
+    public NPC(String name, boolean canMove, int currentRoomID, NPCID npcId) {
         this.name = name;
         this.canMove = canMove;
-        this.currentRoom = currentRoom;
+        this.currentRoomID = currentRoomID;
         this.npcId = npcId;
+    }
+    
+    public void injectMap(Map map) {
+        this.map = map;
+    }
+    
+    public void injectBusiness(BusinessFacade business) {
+        this.business = business;
     }
 
     /**
@@ -64,17 +85,17 @@ public abstract class NPC implements INPC {
     public NPC(INPC npc) {
         name = npc.getName();
         canMove = npc.canMove();
-        currentRoom = npc.getCurrentRoom();
+        currentRoomID = npc.getCurrentRoomID();
         npcId = npc.getNPCID();
     }
 
     /**
      * sets the room of an NPC
      *
-     * @param currentRoom the new room
+     * @param currentRoomID the new room ID
      */
-    public void setCurrentRoom(IRoom currentRoom) {
-        this.currentRoom = currentRoom;
+    public void setCurrentRoom(int currentRoomID) {
+        this.currentRoomID = currentRoomID;
     }
 
     /**
@@ -87,11 +108,11 @@ public abstract class NPC implements INPC {
 
     /**
      * interact method for the npcs
+     *
      * @param player is the payer to interact with the npc
      * @return a String when interacting
      */
     public abstract String interact(IPlayer player);
-        
 
     /**
      *
@@ -99,7 +120,12 @@ public abstract class NPC implements INPC {
      */
     @Override
     public IRoom getCurrentRoom() {
-        return currentRoom;
+        return map.getRoomByID(currentRoomID);
+    }
+    
+    @Override
+    public int getCurrentRoomID() {
+        return currentRoomID;
     }
 
     /**

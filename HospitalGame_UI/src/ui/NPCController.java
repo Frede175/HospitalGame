@@ -7,6 +7,8 @@ package ui;
 
 import common.IBusiness;
 import common.INPC;
+import common.IPlayer;
+import common.IRoom;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -15,6 +17,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -36,6 +39,25 @@ public class NPCController implements Initializable {
     @FXML
     private HBox hBox;
     
+    @FXML
+    private IPlayer player;
+    
+    /**
+     * Contains which npc that is selected
+     */
+    private int selectedIndex = 0;
+    
+    /**
+     * Contains if the npc fragment is selected
+     */
+    private boolean isFocussed = false;
+    
+    INPC[] npcs;
+    
+    private UIType type;  
+    
+    private MainController mainController;
+    
     /**
      * 
      * @param url
@@ -44,24 +66,43 @@ public class NPCController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         business = UI.getInstance().getBusiness();
-        loadNPCImages();
+        player = business.getPlayer();
+        updateNPCSToGUI(player.getCurrentRoom());
     } 
     
     /**
-     * Load npc images and adding them to the scene.
+     * Updates the npc images of the npcs in the players current room.
+     * @param room Which room to check for npcs, typically the players current room.
      */
-    public void loadNPCImages() {
+    public void updateNPCSToGUI(IRoom room) {
         hBox.getChildren().clear();
-        INPC[] npcs = business.getNPCs();
-        for(INPC npc : npcs) {
-            VBox vBox = new VBox();
-            vBox.setAlignment(Pos.CENTER);
-            vBox.setPadding(new Insets(5));
-            Label label = new Label(npc.getNPCID().toString());
-            label.setPadding(new Insets(0, 0, 10, 0));
-            vBox.getChildren().addAll(getImageOfNPC(npc), label);
-            hBox.getChildren().add(vBox);
+        npcs = business.getNPCsFromRoom(room);
+        for(int i = 0; i < npcs.length; i++) {
+            hBox.getChildren().add(createNPCUI(i));
         }
+    }
+    
+    public VBox createNPCUI(int index) {
+        VBox vBox = new VBox();
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setPadding(new Insets(5));
+        Label label = new Label(npcs[index].getNPCID().toString());
+        label.setPadding(new Insets(0, 0, 10, 0));
+        if(selectedIndex == index && isFocussed) {
+            vBox.setStyle("-fx-border-color: blue;");
+        }
+        vBox.getChildren().addAll(getImageOfNPC(npcs[index]), label);
+        vBox.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
+            if(e.isPrimaryButtonDown()) {
+                mainController.updateGUI();
+                mainController.setInteractionText(business.interact(player, npcs[index]));
+            }
+        });
+        return vBox;
+    }
+    
+    public void injectMainController(MainController mainController) {
+        this.mainController = mainController;
     }
     
     /**
@@ -88,6 +129,29 @@ public class NPCController implements Initializable {
                 throw new AssertionError();
         }
         return img;
+    }
+    
+    public void setFocus(boolean focus) {
+        this.isFocussed = focus;
+    }
+    
+    public int getSelectedIndex() {
+        return selectedIndex;
+    }
+    
+    public void setSelectedIndex(int index) {
+        if(index >= 0 && index < npcs.length) {
+            this.selectedIndex = index;
+        }
+    }
+    
+    public void setType(UIType type) {
+        this.type = type;
+    }
+    
+    public void interact() {
+        mainController.updateGUI();
+        mainController.setInteractionText(business.interact(player, npcs[selectedIndex]));
     }
     
 }

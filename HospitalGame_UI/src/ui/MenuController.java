@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Screen;
@@ -26,6 +27,9 @@ public class MenuController implements Initializable {
      * gets access to the business facade
      */
     private IBusiness business;
+    
+    @FXML
+    private Button saveBtn;
 
     /**
      * Initializes the controller class.
@@ -63,8 +67,17 @@ public class MenuController implements Initializable {
      * @param event checks if the button is pressed 
      */
     @FXML
-    private void loadButtonAction(ActionEvent event) {
+    private void loadButtonAction(ActionEvent event) throws IOException {
         business.load();
+        Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Main.fxml"));
+        GridPane pane = loader.load();
+        MainController mainController = loader.getController();
+        Scene scene = new Scene(pane, screenSize.getWidth(), screenSize.getHeight());
+        mainController.injectScene(scene);
+        mainController.setup();
+        UI.getInstance().getStage().setMaximized(true);
+        UI.getInstance().getStage().setScene(scene);
     }
 
     /**
@@ -84,6 +97,7 @@ public class MenuController implements Initializable {
     @FXML
     private void playButtonAction(ActionEvent event) throws IOException {
         business.play();
+        saveBtn.setDisable(false);
         Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Main.fxml"));
         GridPane pane = loader.load();

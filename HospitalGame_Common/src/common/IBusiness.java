@@ -10,16 +10,36 @@ package common;
  * @author fsr19
  */
 public interface IBusiness {
+
     void injectPersistenceFacade(IPersistence persistence);
-    INPC[] getNPCs();
+
+    INPC[] getNPCsFromRoom(IRoom room);
+
     IPlayer getPlayer();
+
     void play();
+
     void quit();
+
     IHighScore getHighScore();
+
     void pause();
+
     void resume();
+
     boolean save();
+
     boolean load();
+
     void move(Directions direction);
+
+    boolean useItem(int index);
+
+    boolean dropItem(int index);
+
+    boolean takeItem(int index);
     
+    GameState getGameState();
+    
+    String interact(IPlayer player, INPC npc);
 }

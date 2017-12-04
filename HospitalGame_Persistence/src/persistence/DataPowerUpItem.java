@@ -3,27 +3,35 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package business.Data;
+package persistence;
 
+import common.IItem;
 import common.IPowerUpItem;
+import java.io.Serializable;
 
 /**
  *
  * @author andreasmolgaard-andersen
  */
-public class DataPowerUpItem implements IPowerUpItem {
+public class DataPowerUpItem extends DataItem implements IPowerUpItem, Serializable {
+
     double buff;
     long timeLeftOfBuff;
-    long lastUpdate;
+
+    DataPowerUpItem(IPowerUpItem item) {
+        super((IItem)item);
+        buff = item.getBuff();
+        timeLeftOfBuff = item.getTimeLeftOfBuff();
+    }
 
     @Override
     public double getBuff() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return buff;
     }
 
     @Override
     public long getTimeLeftOfBuff() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return timeLeftOfBuff;
     }
-    
+
 }

@@ -10,6 +10,8 @@ package common;
  * @author fsr19
  */
 public interface IPowerUpItem {
+
     double getBuff();
+
     long getTimeLeftOfBuff();
 }

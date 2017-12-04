@@ -13,27 +13,9 @@ import javafx.scene.canvas.Canvas;
  */
 public class ResizableCanvas extends Canvas{
     
-    public ResizableCanvas() {
-        
-    }
-
     @Override
-    public boolean isResizable() {
+    public boolean isResizable(){
         return true;
     }
-
-    @Override
-    public double prefHeight(double width) {
-        return super.getHeight();
-    }
-
-    @Override
-    public double prefWidth(double height) {
-        return super.getWidth();
-    }
     
-    
-    
-    
-        
 }

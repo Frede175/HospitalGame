@@ -9,10 +9,10 @@ package common;
  *
  * @author rober
  */
-public  interface ICoordinate {
+public interface ICoordinate {
+
     int getX();
+
     int getY();
-    
-    
-    
+
 }

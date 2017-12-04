@@ -7,9 +7,11 @@ package ui;
 
 import common.Directions;
 import common.IBusiness;
+import common.IPlayer;
 import common.IRoom;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,8 +21,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -28,6 +32,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -52,6 +57,9 @@ public class MainController implements Initializable {
     @FXML
     private NPCController npcController;
     
+    @FXML 
+    private PlayerStatusController playerStatusController;
+    
     /**
      * The root container element
      */
@@ -59,12 +67,44 @@ public class MainController implements Initializable {
     private GridPane root;
     
     /**
+     * Contains the inventory controller for player.
+     */
+    @FXML
+    private InventoryController inventoryPlayerController;
+    
+    /**
+     * Contains the inventory controller for current room.
+     */
+    @FXML
+    private InventoryController inventoryRoomController;
+    
+    /**
+     * Contains the map controller.
+     */
+    @FXML
+    private MapController mapController;
+    
+    /**
+     * Contains the reference to the interact label.
+     */
+    @FXML
+    private Label interactLabel;
+    
+    /**
+     * Contains all the current direction buttons showed on the screen.
+     */
+    private ArrayList<HBox> buttons;
+    
+    /**
      * Contains the injected scene.
      */
     private Scene scene;
     
-    @FXML
-    private MapController mapController;
+    /**
+     * Contains the IPlayer reference.
+     */
+    private IPlayer player;
+
     
     /**
      * 
@@ -75,8 +115,16 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         business = UI.getInstance().getBusiness();
         imgRes = UI.getInstance().getImageResource();
-        // TODO Add buttons via addButton(IRoom room);
-    }    
+        player = business.getPlayer();
+        buttons = new ArrayList<>();
+        inventoryPlayerController.setType(UIType.PLAYER);
+        inventoryRoomController.setType(UIType.ROOM);
+        npcController.setType(UIType.NPC);
+        inventoryPlayerController.injectMainController(this);
+        inventoryRoomController.injectMainController(this);
+        npcController.injectMainController(this);
+        updateGUI();
+    }
     
     /**
      * Inject a scene into the controller.
@@ -85,25 +133,42 @@ public class MainController implements Initializable {
     public void injectScene(Scene scene) {
         this.scene = scene;
     }
+
+    /**
+     * Gets the inventory controller for the player.
+     * @return The inventory controller for the player.
+     */
+    public InventoryController getInventoryPlayerController() {
+        return inventoryPlayerController;
+    }
+
+    /**
+     * Gets the inventory controller for the room.
+     * @return The inventory controller for the room.
+     */
+    public InventoryController getInventoryRoomController() {
+        return inventoryRoomController;
+    }
     
     /**
      * Adds buttons to the main layout depending on the rooms direction.
      * @param room The room to get the directions from.
      */
     public void addButtons(IRoom room) {
+        root.getChildren().removeAll(buttons);
         for(Directions dir : room.getExitDirections()) {
             switch (dir) {
                 case NORTH:
-                    root.add(createButton(dir), 1, 0);
+                    root.add(createButton(dir, room.getExit(dir).isLocked()), 1, 0);
                     break;
                 case SOUTH:
-                    root.add(createButton(dir), 1, 2);
+                    root.add(createButton(dir, room.getExit(dir).isLocked()), 1, 2);
                     break;
                 case EAST:
-                    root.add(createButton(dir), 2, 1);
+                    root.add(createButton(dir, room.getExit(dir).isLocked()), 2, 1);
                     break;
                 case WEST:
-                    root.add(createButton(dir), 0, 1);
+                    root.add(createButton(dir, room.getExit(dir).isLocked()), 0, 1);
                     break;
                 default:
                     throw new AssertionError();
@@ -116,7 +181,7 @@ public class MainController implements Initializable {
      * @param direction The direction the arrow points and which direction to go.
      * @return A button with the direction given.
      */
-    public HBox createButton(Directions direction) {
+    public HBox createButton(Directions direction, boolean isLocked) {
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER);
         Button btn = new Button();
@@ -146,11 +211,16 @@ public class MainController implements Initializable {
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                // TODO Create move function business Facade.
-                System.err.println("Need move");
+                business.move(direction);
+                updateGUI();
             }
         });
         hBox.getChildren().add(btn);
+        if(isLocked) {
+            ImageView imageView = new ImageView(imgRes.getSprite(Sprites.LOCK));
+            hBox.getChildren().add(imageView);
+        }
+        buttons.add(hBox);
         return hBox;
     }
     
@@ -167,29 +237,40 @@ public class MainController implements Initializable {
      * The setup function that calls the keylisteners.
      */
     public void setup() {
-        Directions[] directions = {
-            Directions.EAST, Directions.NORTH, Directions.SOUTH, Directions.WEST
-        };
-        for(Directions dir : directions) {
-            switch (dir) {
-                case NORTH:
-                    root.add(createButton(dir), 1, 0);
-                    break;
-                case SOUTH:
-                    root.add(createButton(dir), 1, 2);
-                    break;
-                case EAST:
-                    root.add(createButton(dir), 2, 1);
-                    break;
-                case WEST:
-                    root.add(createButton(dir), 0, 1);
-                    break;
-                default:
-                    throw new AssertionError();
-            }
-        }
-        // Adding key listeners
-        scene.setOnKeyReleased(new KeyListener());
+        scene.setOnKeyReleased(new KeyListener(this, inventoryPlayerController, inventoryRoomController, player, business, npcController));
+        inventoryRoomController.setFocus(true);
+        updateGUI();
     }
     
+    public void setInteractionText(String text) {
+        interactLabel.setText(text);
+    }
+    
+    /**
+     * Updates all the GUI, while checking if the game is lost or won.
+     */
+    public void updateGUI() {
+        switch (business.getGameState()) {
+            case PLAYING:
+                setInteractionText("");
+                npcController.updateNPCSToGUI(player.getCurrentRoom());
+                playerStatusController.updatePlayerDataToGUI();
+                inventoryPlayerController.updateItems(player.getInventory());
+                inventoryRoomController.updateItems(player.getCurrentRoom().getInventory());
+                addButtons(player.getCurrentRoom());
+                mapController.drawMap();
+                break;
+            case LOST:
+                // TODO SHOW LOST SCREEN
+                break;
+            case WON:
+                // TODO SHOW WIN SCREEN
+                AnchorPane pane = new AnchorPane();
+                pane.setBackground(new Background(new BackgroundImage(imgRes.getImage(Images.VICTORYSCREEN), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+                
+                break; 
+            default:
+                throw new AssertionError();
+        }
+    }    
 }
