@@ -47,7 +47,6 @@ public class MapController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         business = UI.getInstance().getBusiness();
-        System.out.println("DERP");
         
         ChangeListener<Number> stackPaneSizeListener = new ChangeListener<Number>(){
             @Override

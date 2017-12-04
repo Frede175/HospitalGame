@@ -141,13 +141,6 @@ public class BusinessFacade implements IBusiness {
         return npcFacade.getNPCsFromRoom(room);
     }
 
-    /**
-     * 
-     * @return 
-     */
-    public IPlayer getPLayer() {
-        return player;
-    }
 
     /**
      * 

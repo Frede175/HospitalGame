@@ -140,7 +140,6 @@ public class NPCController implements Initializable {
     }
     
     public void setSelectedIndex(int index) {
-        System.out.println("npcs lenght: " + npcs.length);
         if(index >= 0 && index < npcs.length) {
             this.selectedIndex = index;
         }
