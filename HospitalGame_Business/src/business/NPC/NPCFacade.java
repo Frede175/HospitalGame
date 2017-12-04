@@ -25,21 +25,19 @@ public class NPCFacade implements INPCFacade {
 
     private Map map;
     private BusinessFacade business;
-    
+
     private MoveAI moveAI;
-    
+
     private ArrayList<NPC> NPCs = new ArrayList<>();
 
     public NPCFacade() {
         moveAI = new MoveAI();
     }
-    
-    
+
     @Override
     public String interact(IPlayer player, INPC npc) {
         return NPCs.get(NPCs.indexOf(npc)).interact(player);
     }
-
 
     @Override
     public void load(INPC[] npcs) {
@@ -49,12 +47,12 @@ public class NPCFacade implements INPCFacade {
         }
 
     }
-    
+
     @Override
     public void injectMap(Map map) {
         this.map = map;
     }
-    
+
     @Override
     public void injectBusiness(BusinessFacade business) {
         this.business = business;
@@ -62,37 +60,31 @@ public class NPCFacade implements INPCFacade {
 
     @Override
     public void create(NPCID id, boolean canMove, String name, int currentRoomID) {
-
+        NPC npc;
         switch (id) {
             case COMPUTER:
-                Computer computer = new Computer(name, canMove, currentRoomID, id);
-                computer.injectMap(map);
-                computer.injectBusiness(business);
-                NPCs.add(computer);
+                npc = new Computer(name, canMove, currentRoomID, id);
+                
                 break;
             case DOCTOR:
-                Doctor doctor = new Doctor(name, canMove, currentRoomID, id);
-                doctor.injectMap(map);
-                doctor.injectBusiness(business);
-                NPCs.add(doctor);
+                npc = new Doctor(name, canMove, currentRoomID, id);
+                
                 break;
             case PORTER:
-                Porter porter = new Porter(name, canMove, currentRoomID, id);
-                porter.injectMap(map);
-                NPCs.add(porter);
+                npc = new Porter(name, canMove, currentRoomID, id);
                 break;
             default:
                 throw new AssertionError();
         }
-
+        npc.injectMap(map);
+        npc.injectBusiness(business);
+        NPCs.add(npc);
     }
-    
-    
+
     @Override
     public void create(NPCID id, boolean canMove, String name) {
         create(id, canMove, name, -1);
     }
-    
 
     /**
      * getter method for all NPCs
@@ -135,8 +127,8 @@ public class NPCFacade implements INPCFacade {
     @Override
     public void porterCheckPlayer(IPlayer player) {
         for (NPC npc : NPCs) {
-            if ( npc instanceof Porter) {
-                ((Porter)npc).checkPlayer(player);
+            if (npc instanceof Porter) {
+                ((Porter) npc).checkPlayer(player);
             }
         }
     }
@@ -149,14 +141,13 @@ public class NPCFacade implements INPCFacade {
                 npcsInRoom.add(npc);
             }
         }
-        return (INPC[]) npcsInRoom.toArray();
+        INPC[] array = new INPC[npcsInRoom.size()];
+        return npcsInRoom.toArray(array);
     }
 
     @Override
     public void update() {
         moveAI.updateMoveableNPCs(NPCs);
     }
-    
-    
 
 }
