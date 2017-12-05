@@ -3,16 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package business.Data;
+package persistence;
 
 import common.IItem;
 import common.ItemName;
+import java.io.Serializable;
 
 /**
  *
  * @author andreasmolgaard-andersen
  */
-public class DataItem implements IItem {
+public class DataItem implements IItem, Serializable {
 
     private int weight;
     private ItemName name;

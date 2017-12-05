@@ -28,8 +28,6 @@ public interface IPlayer {
 
     IInventory getInventory();
 
-    String getName();
-
     public int getCurrentRoomID();
     
     boolean isBloodTypeKnown();

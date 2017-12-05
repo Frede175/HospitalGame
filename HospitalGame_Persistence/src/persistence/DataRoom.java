@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package business.Data;
+package persistence;
 
-import business.Coordinate;
 import common.Directions;
 import common.ICoordinate;
 import common.IInventory;
 import common.IRoom;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -17,7 +17,7 @@ import java.util.Set;
  *
  * @author andreasmolgaard-andersen
  */
-public class DataRoom implements IRoom {
+public class DataRoom implements IRoom, Serializable {
 
     private String name;
     private HashMap<Directions, Integer> exits;
@@ -26,12 +26,12 @@ public class DataRoom implements IRoom {
     private int inventoryID;
     private boolean isLocked;
     private int roomID;
-    
-    public DataRoom(IRoom room){
+
+    public DataRoom(IRoom room) {
         name = room.getName();
         exits = new HashMap<>();
         for (Directions dir : room.getExitDirections()) {
-            exits.put(dir, room.getExit(dir).getRoomID());           
+            exits.put(dir, room.getExit(dir).getRoomID());
         }
         inspected = room.isInspected();
         inventoryID = room.getInventory().getInventoryID();
@@ -39,7 +39,6 @@ public class DataRoom implements IRoom {
         isLocked = room.isLocked();
         roomID = room.getRoomID();
     }
-    
 
     @Override
     public IRoom getExit(Directions dir) {

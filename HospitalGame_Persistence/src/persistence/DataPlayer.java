@@ -3,15 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package business.Data;
+package persistence;
 
-import business.Room;
 import common.BloodType;
 import common.IInventory;
 import common.IPlayer;
 import common.IPowerUpItem;
 import common.IRoom;
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,14 +18,13 @@ import java.util.List;
  *
  * @author andreasmolgaard-andersen
  */
-public class DataPlayer implements IPlayer {
+public class DataPlayer implements IPlayer, Serializable {
 
     private BloodType bloodType;
     private int currentRoom;
     private int bloodAmount;
     private double bloodRate;
     private int inventoryID;
-    private String name;
     private DataPowerUpItem[] activeItems;
     private boolean bloodTypeKnown;
 
@@ -40,9 +38,7 @@ public class DataPlayer implements IPlayer {
         bloodAmount = player.getBloodAmount();
         bloodRate = player.getBloodRate();
         inventoryID = player.getInventoryID();
-        name = player.getName();
         bloodTypeKnown = player.isBloodTypeKnown();
-        
     }
 
     @Override
@@ -73,11 +69,6 @@ public class DataPlayer implements IPlayer {
     @Override
     public IInventory getInventory() {
         throw new UnsupportedOperationException("Invalid operation for data object.");
-    }
-
-    @Override
-    public String getName() {
-        return name;
     }
 
     @Override

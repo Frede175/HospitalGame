@@ -3,12 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package business.common;
-
-import common.IInventory;
-import common.INPC;
-import common.IPlayer;
-import common.IRoom;
+package common;
 
 /**
  *

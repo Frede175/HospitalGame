@@ -3,19 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package business.Data;
+package persistence;
 
-import business.common.IDataObject;
+import common.IDataObject;
 import common.IInventory;
 import common.INPC;
 import common.IPlayer;
 import common.IRoom;
+import java.io.Serializable;
 
 /**
  *
  * @author andreasmolgaard-andersen
  */
-public class DataObject implements IDataObject {
+public class DataObject implements IDataObject, Serializable {
 
     private DataRoom[] rooms;
     private DataPlayer player;

@@ -3,16 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package business.Data;
+package persistence;
 
 import common.IItem;
 import common.IPowerUpItem;
+import java.io.Serializable;
 
 /**
  *
  * @author andreasmolgaard-andersen
  */
-public class DataPowerUpItem extends DataItem implements IPowerUpItem {
+public class DataPowerUpItem extends DataItem implements IPowerUpItem, Serializable {
 
     double buff;
     long timeLeftOfBuff;

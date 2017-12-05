@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package business.Data;
+package persistence;
 
-import business.Item.Item;
 import common.IBloodBag;
 import common.IInventory;
 import common.IItem;
 import common.IPowerUpItem;
 import common.ItemName;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author andreasmolgaard-andersen
  */
-public class DataInventory implements IInventory {
+public class DataInventory implements IInventory, Serializable {
 
     private DataItem[] items;
     private Integer maxWeight;

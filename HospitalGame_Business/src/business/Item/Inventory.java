@@ -5,8 +5,11 @@
  */
 package business.Item;
 
+import common.IBloodBag;
+import common.IBonusPointItem;
 import common.IInventory;
 import common.IItem;
+import common.IPowerUpItem;
 import common.ItemName;
 import java.util.ArrayList;
 
@@ -55,7 +58,26 @@ public class Inventory implements IInventory, Comparable<Inventory> {
     public Inventory(IInventory inventory) {
         this.maxWeight = inventory.getMaxWeight();
         this.id = inventory.getInventoryID();
-        this.items = (ArrayList<Item>) inventory.getItems();
+        for (IItem item : inventory.getItems()) {
+            Item newItem;
+            switch (item.getName()) {
+                case BLOODBAG:
+                    newItem = new BloodBag((IBloodBag)item);
+                    break;
+                case MORPHINE:
+                case BANDAGE:
+                    newItem = new PowerUpItem((IPowerUpItem)item);
+                    break;
+                case IDCARD:
+                    newItem = new IDCard(item.getWeight(), ItemName.IDCARD);
+                    break;
+                default:
+                    throw new AssertionError(item.getName().name());
+                
+            }
+            items.add(newItem);
+        }
+        
         if (nextID <= id) {
             nextID = id + 1;
         }
@@ -216,6 +238,10 @@ public class Inventory implements IInventory, Comparable<Inventory> {
     @Override
     public int getMaxWeight() {
         return maxWeight;
+    }
+    
+    public static void resetID() {
+        nextID = 0;
     }
 
 }

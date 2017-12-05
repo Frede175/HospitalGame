@@ -10,22 +10,12 @@ package common;
  * @author Robert Francisti
  */
 public interface IPersistence {
+    
+    public IHighScore getHighScore();
 
-    /**
-     * Save the given object to the persistence store
-     *
-     * @param object the given object to be stored
-     * @return true if the object has been saved and false if object failed to
-     * save.
-     */
-    boolean save(Object object);
+    public boolean saveGame(IPlayer player, IInventory[] inventory, IRoom[] rooms, INPC[] npcs);
 
-    /**
-     * Get the given object form the persistence store.
-     *
-     * @param <T>
-     * @param type The class that needs to be loaded
-     * @return the object with the given class or null if an error occurs.
-     */
-    <T> T load(Class<T> type);
+    public boolean saveHighScore(IHighScore highScore);
+
+    public IDataObject load();
 }
