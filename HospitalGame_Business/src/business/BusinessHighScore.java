@@ -34,7 +34,9 @@ public class BusinessHighScore implements IHighScore {
     }
 
     public void load(IHighScore highScore) {
-        scores = highScore.getHighScore();
+        scores = new HashMap<>();
+        if (highScore == null) return;
+        scores.putAll(highScore.getHighScore());
     }
 
     public boolean isDirty() {
