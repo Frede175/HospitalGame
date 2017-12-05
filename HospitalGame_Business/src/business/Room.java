@@ -72,8 +72,9 @@ public class Room implements IRoom {
      */
     public void injectItemFacade(IItemFacade itemFacade) {
         this.itemFacade = itemFacade;
-        if (inventoryID == -1)
-            this.inventoryID = itemFacade.createInventory(Integer.MAX_VALUE);
+        if (inventoryID == -1) {
+            inventoryID = itemFacade.createInventory(Integer.MAX_VALUE);
+        }
     }
     
     public void injectMap(Map map) {
