@@ -13,19 +13,21 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -33,6 +35,8 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 
 /**
  * FXML Controller class
@@ -264,15 +268,26 @@ public class MainController implements Initializable {
                 // TODO SHOW LOST SCREEN
                 break;
             case WON:
-                // TODO SHOW WIN SCREEN
-                AnchorPane pane = new AnchorPane();
-                pane.setBackground(new Background(new BackgroundImage(imgRes.getImage(Images.VICTORYSCREEN), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
-                Scene scene = new Scene(new Group(new Label("1")), 200, 150);
-                UI.getInstance().getStage().setScene(scene);
-                
+                openWin();
                 break; 
             default:
                 throw new AssertionError();
         }
-    }    
+    }  
+    
+    private void openWin() {
+        try {
+            Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Win.fxml"));
+            VBox vBox = loader.load();
+            WinController winController = loader.getController();
+            winController.injectBusiness(business);
+            Scene winScene = new Scene(vBox, screenSize.getWidth(), screenSize.getHeight());
+            
+            UI.getInstance().getStage().setScene(winScene);
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }
