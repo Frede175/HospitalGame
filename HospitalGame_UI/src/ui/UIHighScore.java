@@ -19,17 +19,17 @@ public class UIHighScore {
     /**
      * List of the scores
      */
-    private final List<Score> scoreList;
+    private final List<Score> SCORELIST;
     
     /**
      * Constructor for this class
      * @param highScore takes in a hashmap
      */
     public UIHighScore(IHighScore highScore){
-        scoreList = new ArrayList<>();
+        SCORELIST = new ArrayList<>();
         if(highScore != null){
             for(Entry<String, Integer> entry : highScore.getHighScore().entrySet()){
-                scoreList.add(new Score(entry.getKey(), entry.getValue()));
+                SCORELIST.add(new Score(entry.getKey(), entry.getValue()));
             }
         }
     }
@@ -39,7 +39,7 @@ public class UIHighScore {
      * @return the arraylist that has been given in the constructor 
      */
     public List<Score> getScoreList() {
-        return scoreList;
+        return SCORELIST;
     }
     
     
