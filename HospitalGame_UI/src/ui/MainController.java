@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -145,6 +146,14 @@ public class MainController implements Initializable {
     public InventoryController getInventoryPlayerController() {
         return inventoryPlayerController;
     }
+    
+    public boolean kickedOut(Directions direction) { 
+        IRoom nextRoom = player.getCurrentRoom().getExit(direction);
+        if (business.move(direction)) {
+            if (nextRoom != player.getCurrentRoom()) return true;
+        }
+        return false;
+    }
 
     /**
      * Gets the inventory controller for the room.
@@ -215,8 +224,12 @@ public class MainController implements Initializable {
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                business.move(direction);
-                updateGUI();
+                if(business.move(direction)) {
+                    updateGUI();
+                    if(kickedOut(direction)) {
+                        interactLabel.setText("You were kicked out by the porter");
+                    }
+                }
             }
         });
         hBox.getChildren().add(btn);
@@ -233,8 +246,16 @@ public class MainController implements Initializable {
      * @throws IOException 
      */
     public void openMenu() throws IOException {
-        UI.getInstance().getStage().setMaximized(true);
-        UI.getInstance().getStage().setScene(UI.getInstance().getMenuScene());
+        business.pause();
+        try {
+            Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Menu.fxml"));
+            GridPane gridPane = loader.load();
+            Scene winScene = new Scene(gridPane, screenSize.getWidth(), screenSize.getHeight());
+            UI.getInstance().getStage().setScene(winScene);
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     /**
@@ -282,8 +303,8 @@ public class MainController implements Initializable {
             VBox vBox = loader.load();
             WinController winController = loader.getController();
             winController.injectBusiness(business);
+            winController.setup();
             Scene winScene = new Scene(vBox, screenSize.getWidth(), screenSize.getHeight());
-            
             UI.getInstance().getStage().setScene(winScene);
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);

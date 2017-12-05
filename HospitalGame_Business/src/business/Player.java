@@ -400,6 +400,7 @@ public class Player implements IPlayer {
      * Resumes the player update
      */
     public void resume() {
+        isPaused = false; 
         setLastUpdate(System.currentTimeMillis());
         update();
     }

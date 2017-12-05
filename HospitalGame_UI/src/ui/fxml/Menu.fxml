@@ -44,7 +44,7 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
-            <Button mnemonicParsing="false" onAction="#playButtonAction" prefHeight="54.0" prefWidth="146.0" text="Play">
+            <Button mnemonicParsing="false" fx:id="startBtn" onAction="#playButtonAction" prefHeight="54.0" prefWidth="146.0" text="Play">
                <font>
                   <Font size="25.0" />
                </font>

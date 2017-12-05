@@ -31,7 +31,7 @@ public interface IBusiness {
 
     boolean load();
 
-    void move(Directions direction);
+    boolean move(Directions direction);
 
     boolean useItem(int index);
 

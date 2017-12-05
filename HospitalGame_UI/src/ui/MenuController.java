@@ -1,9 +1,12 @@
 package ui;
 
+import common.GameState;
 import common.IBusiness;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,6 +33,9 @@ public class MenuController implements Initializable {
     
     @FXML
     private Button saveBtn;
+    
+    @FXML
+    private Button startBtn;
 
     /**
      * Initializes the controller class.
@@ -39,6 +45,11 @@ public class MenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         business = UI.getInstance().getBusiness();
+        if(business.getGameState() == GameState.PAUSED ) {
+            startBtn.setText("Resume");
+        } else {
+            startBtn.setText("Play");
+        }
     }    
 
     /**
@@ -68,16 +79,10 @@ public class MenuController implements Initializable {
      */
     @FXML
     private void loadButtonAction(ActionEvent event) throws IOException {
-        business.load();
-        Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Main.fxml"));
-        GridPane pane = loader.load();
-        MainController mainController = loader.getController();
-        Scene scene = new Scene(pane, screenSize.getWidth(), screenSize.getHeight());
-        mainController.injectScene(scene);
-        mainController.setup();
-        UI.getInstance().getStage().setMaximized(true);
-        UI.getInstance().getStage().setScene(scene);
+        if(business.load()) {
+            business.resume();
+            loadMainGame();
+        }
     }
 
     /**
@@ -96,17 +101,31 @@ public class MenuController implements Initializable {
      */
     @FXML
     private void playButtonAction(ActionEvent event) throws IOException {
-        business.play();
+        if(business.getGameState() == GameState.PAUSED) {
+            business.resume();
+            loadMainGame();
+        } else {
+            business.play();
+            loadMainGame();
+        }
+    }
+    
+    private void loadMainGame() {
         saveBtn.setDisable(false);
         Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Main.fxml"));
-        GridPane pane = loader.load();
-        MainController mainController = loader.getController();
-        Scene scene = new Scene(pane, screenSize.getWidth(), screenSize.getHeight());
-        mainController.injectScene(scene);
-        mainController.setup();
-        UI.getInstance().getStage().setMaximized(true);
-        UI.getInstance().getStage().setScene(scene);
+        GridPane pane;
+        try {
+            pane = loader.load();
+            MainController mainController = loader.getController();
+            Scene scene = new Scene(pane, screenSize.getWidth(), screenSize.getHeight());
+            mainController.injectScene(scene);
+            mainController.setup();
+            UI.getInstance().getStage().setMaximized(true);
+            UI.getInstance().getStage().setScene(scene);
+        } catch (IOException ex) {
+            Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

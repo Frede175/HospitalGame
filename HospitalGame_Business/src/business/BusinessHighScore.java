@@ -44,6 +44,7 @@ public class BusinessHighScore implements IHighScore {
     }
 
     public boolean eligibleForHighscore(int score) {
+        if(scores.isEmpty() || scores.size() < store) return true;
         return Collections.min(scores.values()) < score;
     }
     
@@ -67,9 +68,8 @@ public class BusinessHighScore implements IHighScore {
         for (Entry<String, Integer> entry : scores.entrySet()) {
             if (min == null) {
                 min = entry;
-                break;
-            }
-            if (entry.getValue() < min.getValue()) min = entry;
+                
+            } else if (entry.getValue() < min.getValue()) min = entry;
         } 
         return min.getKey();
     }

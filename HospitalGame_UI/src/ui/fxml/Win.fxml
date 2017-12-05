@@ -7,17 +7,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox fx:controller="ui.WinController" fx:id="root" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="root" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.WinController">
    <children>
       <Label fx:id="scoreLabel">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <VBox fx:id="highScore" alignment="CENTER" opacity="0.0">
+      <VBox fx:id="highScore" alignment="CENTER" disable="true" visible="false">
          <children>
-            <Label text="You are eligible for a place on the highscore!">
+            <Label fx:id="highScoreLabel" text="You are eligible for a place on the highscore!">
                <font>
                   <Font size="15.0" />
                </font>
@@ -40,5 +39,6 @@
             <Insets top="10.0" />
          </VBox.margin>
       </VBox>
+      <Button mnemonicParsing="false" onAction="#openMenu" text="Menu" />
    </children>
 </VBox>
