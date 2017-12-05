@@ -22,7 +22,7 @@ public interface GameConstants {
     long MORPHINE_TIME = 15000;
     int MORPHINE_WEIGHT = 50;
     int BLOODBAG_SIZE = 450;
-    double PLAYER_BLOODRATE = 10.0;
+    double PLAYER_BLOODRATE = 1000.0;
     int PLAYER_BLOOD_AMOUNT = 5500;
     int INVENTORY_MAX_WEIGHT = 2000;
     int IDCARD_WEIGHT = 50;

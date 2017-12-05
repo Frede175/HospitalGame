@@ -26,7 +26,7 @@ public class HighscoreController implements Initializable {
 
     private IBusiness business;
     @FXML
-    private TableView ScoreTabel;
+    private TableView scoreTable;
 
     /**
      * Initializes the controller class.
@@ -45,9 +45,13 @@ public class HighscoreController implements Initializable {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         scoreColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
 
-        ScoreTabel.getColumns().addAll(nameColumn, scoreColumn);
+        scoreTable.getColumns().addAll(nameColumn, scoreColumn);
 
         loadScores();
+        
+        scoreColumn.setSortType(TableColumn.SortType.DESCENDING);
+        scoreTable.getSortOrder().add(scoreColumn);
+        scoreTable.sort();
     }
 
     /**
@@ -65,7 +69,7 @@ public class HighscoreController implements Initializable {
             allData.addAll(scores);
         }
 
-        ScoreTabel.setItems(allData);
+        scoreTable.setItems(allData);
     }
 
     /**

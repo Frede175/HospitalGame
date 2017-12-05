@@ -157,7 +157,7 @@ public class BusinessFacade implements IBusiness {
      */
     @Override
     public void play() {
-        createRooms(2);
+        createRooms(12);
         gameState = GameState.PLAYING;
     }
 

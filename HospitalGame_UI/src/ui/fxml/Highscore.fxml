@@ -13,7 +13,7 @@
         <URL value="@/ui/css/highscore.css" />
     </stylesheets>
    <children>
-      <TableView fx:id="ScoreTabel" prefHeight="538.0" prefWidth="1000.0" AnchorPane.bottomAnchor="62.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <TableView fx:id="scoreTable" prefHeight="538.0" prefWidth="1000.0" AnchorPane.bottomAnchor="62.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <Button layoutX="916.0" layoutY="547.0" mnemonicParsing="false" onAction="#MenuButtonAction" text="Menu">
          <font>
             <Font size="18.0" />

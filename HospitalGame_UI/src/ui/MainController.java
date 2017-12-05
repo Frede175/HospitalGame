@@ -288,7 +288,7 @@ public class MainController implements Initializable {
                 mapController.drawMap();
                 break;
             case LOST:
-                // TODO SHOW LOST SCREEN
+                openDeath();
                 break;
             case WON:
                 openWin();
@@ -306,6 +306,21 @@ public class MainController implements Initializable {
             WinController winController = loader.getController();
             winController.injectBusiness(business);
             winController.setup();
+            Scene winScene = new Scene(vBox, screenSize.getWidth(), screenSize.getHeight());
+            UI.getInstance().getStage().setScene(winScene);
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void openDeath() {
+        try {
+            Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Death.fxml"));
+            VBox vBox = loader.load();
+            DeathController deathController = loader.getController();
+            deathController.injectBusiness(business);
+            deathController.setup();
             Scene winScene = new Scene(vBox, screenSize.getWidth(), screenSize.getHeight());
             UI.getInstance().getStage().setScene(winScene);
         } catch (IOException ex) {
