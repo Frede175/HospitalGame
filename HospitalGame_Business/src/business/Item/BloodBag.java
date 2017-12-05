@@ -7,6 +7,7 @@ package business.Item;
 
 import common.BloodType;
 import common.IBloodBag;
+import common.IBonusPointItem;
 import common.ItemName;
 
 /**
@@ -31,6 +32,11 @@ public class BloodBag extends BonusPointItem implements IBloodBag {
     public BloodBag(int bonusPoints, ItemName name, int weight, BloodType bloodType) {
         super(bonusPoints, name, weight);
         this.bloodType = bloodType;
+    }
+    
+    public BloodBag(IBloodBag bloodBag) {
+        super((IBonusPointItem)bloodBag);
+        bloodType = bloodBag.getBloodType();
     }
 
     /**

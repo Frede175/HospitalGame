@@ -39,6 +39,7 @@ public class Room implements IRoom {
     public Room(String name) {
         this.name = name;
         exits = new HashMap<>();
+        inventoryID = -1;
         this.roomID = nextID;
         nextID++;
     }
@@ -60,6 +61,7 @@ public class Room implements IRoom {
             exits.put(dir, room.getExitID(dir));
         }
         locked = room.isLocked();
+        inspected = room.isInspected();
         
     }
 
@@ -70,7 +72,8 @@ public class Room implements IRoom {
      */
     public void injectItemFacade(IItemFacade itemFacade) {
         this.itemFacade = itemFacade;
-        this.inventoryID = itemFacade.createInventory(Integer.MAX_VALUE);
+        if (inventoryID == -1)
+            this.inventoryID = itemFacade.createInventory(Integer.MAX_VALUE);
     }
     
     public void injectMap(Map map) {

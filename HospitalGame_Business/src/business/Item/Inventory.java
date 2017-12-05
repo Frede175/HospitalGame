@@ -5,7 +5,6 @@
  */
 package business.Item;
 
-import common.BloodType;
 import common.IBloodBag;
 import common.IBonusPointItem;
 import common.IInventory;
@@ -59,12 +58,11 @@ public class Inventory implements IInventory, Comparable<Inventory> {
     public Inventory(IInventory inventory) {
         this.maxWeight = inventory.getMaxWeight();
         this.id = inventory.getInventoryID();
-        this.items = new ArrayList<>();
         for (IItem item : inventory.getItems()) {
             Item newItem;
             switch (item.getName()) {
                 case BLOODBAG:
-                    newItem = new BloodBag(((IBonusPointItem)item).getBonusPoints(), ItemName.BANDAGE, item.getWeight(), ((IBloodBag)item).getBloodType());
+                    newItem = new BloodBag((IBloodBag)item);
                     break;
                 case MORPHINE:
                 case BANDAGE:

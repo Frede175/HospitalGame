@@ -1,6 +1,7 @@
 package business.Item;
 
 import common.IBonusPointItem;
+import common.IItem;
 import common.ItemName;
 
 /**
@@ -24,6 +25,11 @@ public class BonusPointItem extends Item implements IBonusPointItem {
     public BonusPointItem(int bonusPoints, ItemName name, int weight) {
         super(weight, name);
         this.bonusPoints = bonusPoints;
+    }
+    
+    public BonusPointItem(IBonusPointItem item) {
+        super((IItem)item);
+        bonusPoints = item.getBonusPoints();
     }
 
     /**

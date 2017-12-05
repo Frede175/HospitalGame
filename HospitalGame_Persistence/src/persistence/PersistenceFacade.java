@@ -27,17 +27,8 @@ import java.util.logging.Logger;
  */
 public class PersistenceFacade implements IPersistence {
 
-    /**
-     * The JSON parser implantation
-     */
-    static JsonParser parser;
-
-    /**
-     *
-     */
-    public PersistenceFacade() {
-        parser = new JsonParser();
-    }
+    private final String commonName = "dat_";
+    private final String extension = ".ser";
 
     @Override
     public IHighScore getHighScore() {
@@ -46,10 +37,30 @@ public class PersistenceFacade implements IPersistence {
 
     @Override
     public boolean saveGame(IPlayer player, IInventory[] inventory, IRoom[] rooms, INPC[] npcs) {
+        return save(new DataObject(rooms, player, npcs, inventory));
+    }
 
+    @Override
+    public boolean saveHighScore(IHighScore highScore) {
+        return save(highScore);
+    }
+
+    @Override
+    public IDataObject load() {
+        return load(DataObject.class);
+    }
+
+    /**
+     * Save the given object to the persistence store.
+     *
+     * @param object the given object to be stored
+     * @return true if the object has been saved and false if object failed to
+     * save.
+     */
+    private boolean save(Object object) {
         try {
-            DataObject object = new DataObject(rooms, player, npcs, inventory);
-            FileOutputStream fileOut = new FileOutputStream("dataObject.ser");
+            //DataObject object = new DataObject(rooms, player, npcs, inventory);
+            FileOutputStream fileOut = new FileOutputStream(commonName + object.getClass().getSimpleName() + extension);
             ObjectOutputStream stream = new ObjectOutputStream(fileOut);
 
             stream.writeObject(object);
@@ -61,44 +72,6 @@ public class PersistenceFacade implements IPersistence {
         }
     }
 
-    @Override
-    public boolean saveHighScore(IHighScore highScore) {
-        return save(highScore);
-    }
-
-    @Override
-    public IDataObject load() {
-        DataObject object;
-        try {
-            FileInputStream fileIn = new FileInputStream("dataObject.ser");
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            object = (DataObject) in.readObject();
-            in.close();
-            fileIn.close();
-        } catch (IOException i) {
-            i.printStackTrace();
-            return null;
-        } catch (ClassNotFoundException c) {
-            System.out.println("DataObject class not found");
-            c.printStackTrace();
-            return null;
-        }
-        return object;
-        //return load(DataObject.class);
-    }
-
-    /**
-     * Save the given object to the persistence store.
-     *
-     * @param object the given object to be stored
-     * @return true if the object has been saved and false if object failed to
-     * save.
-     */
-    @Override
-    public boolean save(Object object) {
-        return parser.save(object);
-    }
-
     /**
      * Get the given object form the persistence store.
      *
@@ -106,9 +79,18 @@ public class PersistenceFacade implements IPersistence {
      * @param type The class that needs to be loaded
      * @return an object with the given class or null if an error occurs.
      */
-    @Override
-    public <T> T load(Class<T> type) {
-        return parser.load(type);
+    private <T> T load(Class<T> type) {
+        T object;
+        try {
+            FileInputStream fileIn = new FileInputStream(commonName + type.getSimpleName() + extension);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            object = (T) in.readObject();
+            in.close();
+            fileIn.close();
+        } catch (IOException | ClassNotFoundException i) {
+            return null;
+        }
+        return object;
     }
 
 }
