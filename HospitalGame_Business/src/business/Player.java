@@ -31,11 +31,6 @@ public class Player implements IPlayer {
     private IItemFacade itemFacade;
 
     /**
-     * name of the player
-     */
-    private String name;
-
-    /**
      * how mcuh blood the player has
      */
     private double bloodAmount;
@@ -147,11 +142,10 @@ public class Player implements IPlayer {
      * @param name is the name of the player
      * @param itemFacade is the facade for the player
      */
-    public Player(BloodType bloodType, double bloodRate, double bloodAmount, String name, IItemFacade itemFacade) {
+    public Player(BloodType bloodType, double bloodRate, double bloodAmount, IItemFacade itemFacade) {
         this.bloodType = bloodType;
         this.bloodRate = bloodRate;
         this.bloodAmount = bloodAmount;
-        this.name = name;
         this.itemFacade = itemFacade;
 
         inventoryID = itemFacade.createInventory(GameConstants.INVENTORY_MAX_WEIGHT);
@@ -170,7 +164,6 @@ public class Player implements IPlayer {
         this.bloodType = player.getBloodType();
         this.bloodRate = player.getBloodRate();
         this.bloodAmount = player.getBloodAmount();
-        this.name = player.getName();
         this.activeItems = new ArrayList<>();
         for (IPowerUpItem item : player.getActiveItems()) {
             activeItems.add((PowerUpItem)item);
@@ -368,15 +361,6 @@ public class Player implements IPlayer {
     @Override
     public IInventory getInventory() {
         return itemFacade.getInventory(inventoryID);
-    }
-
-    /**
-     *
-     * @return the name of the player
-     */
-    @Override
-    public String getName() {
-        return name;
     }
 
     /**

@@ -111,7 +111,6 @@ public class ItemFacade implements IItemFacade {
      */
     @Override
     public void load(IInventory[] inventories) {
-        inventoryList.clear();
         for (IInventory inventory : inventories) {
             inventoryList.add(new Inventory(inventory));
         }
@@ -147,5 +146,11 @@ public class ItemFacade implements IItemFacade {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void reset() {
+        inventoryList.clear();
+        Inventory.resetID();
     }
 }

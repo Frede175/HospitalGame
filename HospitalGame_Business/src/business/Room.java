@@ -228,5 +228,9 @@ public class Room implements IRoom {
     public int getExitID(Directions dir) {
         return exits.get(dir);
     }
+    
+    public static void reset() {
+        nextID = 0;
+    }
 
 }

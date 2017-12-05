@@ -8,14 +8,11 @@ import common.IPersistence;
 import common.IPlayer;
 import common.IRoom;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Facade for the persistence layer
@@ -28,7 +25,7 @@ import java.util.logging.Logger;
  */
 public class PersistenceFacade implements IPersistence {
 
-    private final String commonName = "dat_";
+    private final String commonName = "data_";
     private final String extension = ".ser";
 
     @Override
@@ -59,16 +56,12 @@ public class PersistenceFacade implements IPersistence {
      * save.
      */
     private boolean save(Serializable object) {
-        try {
-            //DataObject object = new DataObject(rooms, player, npcs, inventory);
-            FileOutputStream fileOut = new FileOutputStream(commonName + object.getClass().getSimpleName() + extension);
+        try (FileOutputStream fileOut = new FileOutputStream(commonName + object.getClass().getSimpleName() + extension)) {
             ObjectOutputStream stream = new ObjectOutputStream(fileOut);
-
             stream.writeObject(object);
+            stream.close();
             return true;
-
         } catch (IOException ex) {
-            Logger.getLogger(PersistenceFacade.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
@@ -76,18 +69,15 @@ public class PersistenceFacade implements IPersistence {
     /**
      * Get the given object form the persistence store.
      *
-     * @param <T>
      * @param type The class that needs to be loaded
      * @return an object with the given class or null if an error occurs.
      */
     private <T extends Serializable> T load(Class<T> type) {
         T object;
-        try {
-            FileInputStream fileIn = new FileInputStream(commonName + type.getSimpleName() + extension);
+        try (FileInputStream fileIn = new FileInputStream(commonName + type.getSimpleName() + extension)) {
             ObjectInputStream in = new ObjectInputStream(fileIn);
             object = (T) in.readObject();
             in.close();
-            fileIn.close();
         } catch (IOException | ClassNotFoundException i) {
             return null;
         }

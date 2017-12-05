@@ -30,4 +30,6 @@ public interface IItemFacade {
     public void load(IInventory[] inventories);
 
     public IInventory[] getInventories();
+
+    public void reset();
 }

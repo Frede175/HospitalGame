@@ -64,9 +64,14 @@ public class BusinessFacade implements IBusiness {
     private IPersistence persistence;
 
     /**
-     * a
+     * The state of the game
      */
     private GameState gameState = GameState.NOT_STARTED;
+    
+    /**
+     * Score of the game
+     */
+    private int score = 0;
 
     public BusinessFacade() {
         map = new Map();
@@ -76,10 +81,13 @@ public class BusinessFacade implements IBusiness {
         map.InjectNPCFacade(npcFacade);
         npcFacade.injectBusiness(this);
         npcFacade.injectMap(map);
-        
+        highScore = new BusinessHighScore();
     }
 
     private void createRooms(int numberOfRooms) {
+        // Delete all stored objects
+        reset();
+        
         // Gets all the bloodtypes into a BloodType array.
         BloodType[] bloodType = BloodType.values();
         // Creates a new Random object.
@@ -87,7 +95,7 @@ public class BusinessFacade implements IBusiness {
         // Random picks the players bloodtype.
         BloodType playerBloodType = bloodType[random.nextInt(bloodType.length)];
         // Initialize a new player object.
-        player = new Player(playerBloodType, GameConstants.PLAYER_BLOODRATE, GameConstants.PLAYER_BLOOD_AMOUNT, "Jakob", itemFacade);
+        player = new Player(playerBloodType, GameConstants.PLAYER_BLOODRATE, GameConstants.PLAYER_BLOOD_AMOUNT, itemFacade);
         player.injectBusinessFacade(this);
         player.injectItemFacade(itemFacade);
         player.injectMap(map);
@@ -121,9 +129,17 @@ public class BusinessFacade implements IBusiness {
         npcFacade.create(NPCID.DOCTOR, false, "doctor");
         npcFacade.create(NPCID.PORTER, false, "porter");
         npcFacade.create(NPCID.COMPUTER, false, "computer");
-
+        
         // Sets the current room for the player, and generates the rooms.
         player.setCurrentRoom(map.generateMap(numberOfRooms, items, Arrays.asList(npcFacade.getNPCs())).getRoomID());
+    }
+    
+    private void reset() {
+        itemFacade.reset();
+        npcFacade.reset();
+        map.reset();
+        Room.reset();
+        score = 0;
     }
 
     /**
@@ -197,6 +213,8 @@ public class BusinessFacade implements IBusiness {
      */
     @Override
     public boolean load() {
+        reset();
+        
         IDataObject data = persistence.load();
         if (data == null) return false; 
         //loads in the player
@@ -222,19 +240,22 @@ public class BusinessFacade implements IBusiness {
     }
 
     /**
-     * sets the game state to lost
+     * Sets the game state to lost
      */
     public void setGameOver() {
         gameState = GameState.LOST;
     }
     
     /**
-     * sets game state to won
+     * Sets game state to won
+     * @param score the score the player got in the game
      */
-    public void setGameWon() {
-        gameState = GameState.WON;
+    public void setGameWon(int score) {
+        if (gameState != GameState.LOST && gameState != GameState.WON) {
+            this.score = score;
+            gameState = GameState.WON;
+        }
     }
-
     
     /**
      * injection of injectionFacade
@@ -244,6 +265,7 @@ public class BusinessFacade implements IBusiness {
     @Override
     public void injectPersistenceFacade(IPersistence persistence) {
         this.persistence = persistence;
+        highScore.load(persistence.getHighScore());
     }
 
     /**
@@ -325,6 +347,37 @@ public class BusinessFacade implements IBusiness {
     @Override
     public String interact(IPlayer player, INPC npc) {
         return npcFacade.interact(player, npc);
+    }
+
+    /**
+     * 
+     * @return the score if the game if won else it returns 0.
+     */
+    @Override
+    public int getScore() {
+        return score;
+    }
+
+    @Override
+    public boolean eligibleForHighScore() {
+        return highScore.eligibleForHighscore(score);
+    }
+
+    @Override
+    public boolean addHighScore(String name) {
+        return highScore.addHighScore(name, score);
+    }
+
+    @Override
+    public void closing() {
+        if (highScore.isDirty()) {
+            persistence.saveHighScore(highScore);
+        }   
+    }
+
+    @Override
+    public boolean isHighScoreNameTaken(String name) {
+        return highScore.isNameTaken(name);
     }
     
 }

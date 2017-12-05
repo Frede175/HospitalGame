@@ -239,5 +239,9 @@ public class Inventory implements IInventory, Comparable<Inventory> {
     public int getMaxWeight() {
         return maxWeight;
     }
+    
+    public static void resetID() {
+        nextID = 0;
+    }
 
 }

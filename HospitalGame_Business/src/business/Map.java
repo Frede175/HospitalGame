@@ -82,6 +82,9 @@ public class Map {
      * @param npcs which npcs are to be put in the game
      */
     public Room generateMap(int roomCount, List<IItem> items, List<INPC> npcs) {
+        
+        
+        
         // Creates the ArrayList that contains all the free rooms.
         ArrayList<Room> freeRooms = createRooms(roomCount);
         
@@ -296,7 +299,6 @@ public class Map {
     }
 
     public void load(IRoom[] arrayRooms) {
-        rooms.clear();
         for (IRoom room : arrayRooms) {
             Room r = new Room(room);
             r.injectItemFacade(itemFacade);
@@ -304,5 +306,9 @@ public class Map {
             this.rooms.add(r);
         }
 
+    }
+    
+    public void reset() {
+        rooms.clear();
     }
 }

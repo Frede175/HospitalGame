@@ -25,7 +25,6 @@ public class DataPlayer implements IPlayer, Serializable {
     private int bloodAmount;
     private double bloodRate;
     private int inventoryID;
-    private String name;
     private DataPowerUpItem[] activeItems;
     private boolean bloodTypeKnown;
 
@@ -39,9 +38,7 @@ public class DataPlayer implements IPlayer, Serializable {
         bloodAmount = player.getBloodAmount();
         bloodRate = player.getBloodRate();
         inventoryID = player.getInventoryID();
-        name = player.getName();
         bloodTypeKnown = player.isBloodTypeKnown();
-        
     }
 
     @Override
@@ -72,11 +69,6 @@ public class DataPlayer implements IPlayer, Serializable {
     @Override
     public IInventory getInventory() {
         throw new UnsupportedOperationException("Invalid operation for data object.");
-    }
-
-    @Override
-    public String getName() {
-        return name;
     }
 
     @Override

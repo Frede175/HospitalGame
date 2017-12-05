@@ -41,7 +41,6 @@ public class NPCFacade implements INPCFacade {
 
     @Override
     public void load(INPC[] npcs) {
-        NPCs.clear();
         for (int i = 0; i < npcs.length; i++) {
             create(npcs[i].getNPCID(), npcs[i].canMove(), npcs[i].getName(), npcs[i].getCurrentRoomID());
         }
@@ -148,6 +147,11 @@ public class NPCFacade implements INPCFacade {
     @Override
     public void update() {
         moveAI.updateMoveableNPCs(NPCs);
+    }
+    
+    @Override
+    public void reset() {
+        NPCs.clear();
     }
 
 }

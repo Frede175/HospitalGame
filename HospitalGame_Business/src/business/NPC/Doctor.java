@@ -8,6 +8,7 @@ package business.NPC;
 import business.Item.BloodBag;
 import business.Item.Item;
 import common.BloodType;
+import common.GameState;
 import common.INPC;
 import common.IPlayer;
 import common.ItemName;
@@ -38,7 +39,7 @@ public class Doctor extends NPC {
 
     @Override
     public String interact(IPlayer player) {
-
+        if (business.getGameState() == GameState.LOST) return "You lost the game due to blood loss!";
         BloodType bloodType = player.getBloodType();
         Item[] bloodBags = (Item[]) player.getInventory().getItemsByName(ItemName.BLOODBAG);
         int points = (int) player.getBloodAmount();
@@ -47,17 +48,17 @@ public class Doctor extends NPC {
                 BloodBag bloodBag = (BloodBag) Item;
                 if (!bloodType.canTransfuse(bloodBag.getBloodType())) {
                     business.setGameOver();
-                    return ("You lost the game.");
+                    return ("You lost the game because of the wrong blood bag!");
                     
                 } else {
                     points += bloodBag.getBonusPoints();
                 }
             }
-            business.setGameWon();
-            return ("You've earned " + points + " points! ");
+            business.setGameWon(points);
+            return ("You've earned " + points + " points!");
             
         } else {
-            return ("You need to get a bloodbag");
+            return ("You need to get a bloodbag!");
         }
     }
 }
