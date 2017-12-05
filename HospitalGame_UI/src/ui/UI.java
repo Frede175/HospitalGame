@@ -74,7 +74,6 @@ public class UI extends Application implements IUI {
      */
     @Override
     public void start(Stage primaryStage) throws IOException {
-        System.out.println("Start of the program");
         UI.getInstance().stage = primaryStage;
         UI.getInstance().imageResource = new ImageResource();
         Parent root = FXMLLoader.load(getClass().getResource("fxml/Menu.fxml"));
