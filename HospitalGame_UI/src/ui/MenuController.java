@@ -47,6 +47,7 @@ public class MenuController implements Initializable {
         business = UI.getInstance().getBusiness();
         if(business.getGameState() == GameState.PAUSED ) {
             startBtn.setText("Resume");
+            saveBtn.setDisable(false);
         } else {
             startBtn.setText("Play");
         }
