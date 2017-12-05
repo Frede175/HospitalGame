@@ -95,13 +95,8 @@ public class NPCController implements Initializable {
         vBox.getChildren().addAll(getImageOfNPC(npcs[index]), label);
         vBox.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
             if(e.isPrimaryButtonDown()) {
-                if(business.getGameState() == GameState.PLAYING) {
-                    mainController.updateGUI();
-                }
                 mainController.setInteractionText(business.interact(player, npcs[index]));
-                if(business.getGameState() != GameState.PLAYING) {
-                    mainController.updateGUI();
-                }
+                mainController.updateGUI();
             }
         });
         return vBox;
@@ -156,12 +151,8 @@ public class NPCController implements Initializable {
     }
     
     public void interact() {
-        if(business.getGameState() == GameState.PLAYING) {
-            mainController.updateGUI();
-            System.out.println("still playing");
-        }
-        System.out.println("GAME STATE AT INTEREACT " + business.getGameState());
         mainController.setInteractionText(business.interact(player, npcs[selectedIndex]));
+        mainController.updateGUI();
     }
     
 }
