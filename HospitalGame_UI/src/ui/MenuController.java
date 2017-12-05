@@ -15,8 +15,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
 /**
@@ -69,8 +69,9 @@ public class MenuController implements Initializable {
      */
     @FXML
     private void highscoreButtonAction(ActionEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("fxml/Highscore.fxml"));
-        Scene scene = new Scene(pane);
+        Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
+        VBox pane = FXMLLoader.load(getClass().getResource("fxml/HighScore.fxml"));
+        Scene scene = new Scene(pane, screenSize.getWidth(), screenSize.getHeight());
         UI.getInstance().getStage().setScene(scene);
     }
 

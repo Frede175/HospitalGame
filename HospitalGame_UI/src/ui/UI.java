@@ -87,7 +87,6 @@ public class UI extends Application implements IUI {
     
     @Override
     public void stop(){
-        System.out.println("Stage is closing");
         UI.getInstance().getBusiness().closing();
     }
     

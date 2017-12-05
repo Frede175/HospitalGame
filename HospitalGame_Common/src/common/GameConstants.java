@@ -15,14 +15,14 @@ import java.util.Arrays;
 public interface GameConstants {
 
     // Times is in milliseconds
-    double BANDAGE_BUFF = 1.0;
+    double BANDAGE_BUFF = 25.0;
     int BANDAGE_WEIGHT = 100;
     long BANDAGE_TIME = 15000;
-    double MORPHINE_BUFF = 3.0;
+    double MORPHINE_BUFF = 50.0;
     long MORPHINE_TIME = 15000;
     int MORPHINE_WEIGHT = 50;
     int BLOODBAG_SIZE = 450;
-    double PLAYER_BLOODRATE = 1000.0;
+    double PLAYER_BLOODRATE = 200.0;
     int PLAYER_BLOOD_AMOUNT = 5500;
     int INVENTORY_MAX_WEIGHT = 2000;
     int IDCARD_WEIGHT = 50;

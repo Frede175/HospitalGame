@@ -9,5 +9,5 @@
 <?import javafx.scene.layout.*?>
 
 
-<StackPane fx:id="stackPane" minHeight="0" minWidth="0" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.MapController"/>
+<StackPane fx:id="stackPane" minHeight="0" minWidth="0" stylesheets="@../css/Main.css" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.MapController"/>
 

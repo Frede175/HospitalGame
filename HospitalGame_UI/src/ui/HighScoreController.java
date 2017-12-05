@@ -10,19 +10,23 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Screen;
 
 /**
  * FXML Controller class
  *
  * @author Tobias
  */
-public class HighscoreController implements Initializable {
+public class HighScoreController implements Initializable {
 
     private IBusiness business;
     @FXML
@@ -79,8 +83,14 @@ public class HighscoreController implements Initializable {
      */
     @FXML
     private void MenuButtonAction(ActionEvent event) throws IOException {
-        GridPane pane = FXMLLoader.load(getClass().getResource("fxml/Menu.fxml"));
-        Scene scene = new Scene(pane);
-        UI.getInstance().getStage().setScene(scene);
+        try {
+            Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Menu.fxml"));
+            GridPane gridPane = loader.load();
+            Scene winScene = new Scene(gridPane, screenSize.getWidth(), screenSize.getHeight());
+            UI.getInstance().getStage().setScene(winScene);
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
