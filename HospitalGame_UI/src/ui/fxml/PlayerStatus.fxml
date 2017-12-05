@@ -9,11 +9,6 @@
 
 <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.PlayerStatusController">
    <children>
-      <Label fx:id="name" text="NAME">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
       <VBox fillWidth="false" maxWidth="200.0">
          <children>
             <Label fx:id="bloodAmount" text="Blood amount : 5500">

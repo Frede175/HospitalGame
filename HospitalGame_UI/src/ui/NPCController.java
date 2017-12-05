@@ -97,9 +97,7 @@ public class NPCController implements Initializable {
             if(e.isPrimaryButtonDown()) {
                 if(business.getGameState() == GameState.PLAYING) {
                     mainController.updateGUI();
-                    System.out.println("still playing");
                 }
-                System.out.println("GAME STATE AT INTEREACT " + business.getGameState());
                 mainController.setInteractionText(business.interact(player, npcs[index]));
                 if(business.getGameState() != GameState.PLAYING) {
                     mainController.updateGUI();
