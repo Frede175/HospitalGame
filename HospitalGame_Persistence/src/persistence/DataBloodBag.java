@@ -3,17 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package business.Data;
+package persistence;
 
 import common.BloodType;
 import common.IBloodBag;
 import common.IBonusPointItem;
+import java.io.Serializable;
 
 /**
  *
  * @author andreasmolgaard-andersen
  */
-public class DataBloodBag extends DataBonusPointItem implements IBloodBag {
+public class DataBloodBag extends DataBonusPointItem implements IBloodBag, Serializable {
 
     private BloodType bloodType;
 

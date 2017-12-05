@@ -29,6 +29,11 @@ public class Item implements IItem {
         this.name = name;
         this.weight = weight;
     }
+    
+    public Item(IItem item) {
+        name = item.getName();
+        weight = item.getWeight();
+    }
 
     /**
      * getter for Item

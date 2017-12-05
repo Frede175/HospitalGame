@@ -42,4 +42,16 @@ public interface IBusiness {
     GameState getGameState();
     
     String interact(IPlayer player, INPC npc);
+    
+    int getScore();
+    
+    boolean eligibleForHighScore();
+    
+    boolean isHighScoreNameTaken(String name);
+    
+    boolean addHighScore(String name);
+    
+    void closing();
+    
+    
 }

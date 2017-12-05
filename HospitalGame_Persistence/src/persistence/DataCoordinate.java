@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package business.Data;
+package persistence;
 
 import common.ICoordinate;
+import java.io.Serializable;
 
 /**
  *
  * @author rober
  */
-public class DataCoordinate implements ICoordinate{
+public class DataCoordinate implements ICoordinate, Serializable{
     
     private int x, y;
     

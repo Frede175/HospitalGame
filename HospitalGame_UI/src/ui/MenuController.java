@@ -67,8 +67,17 @@ public class MenuController implements Initializable {
      * @param event checks if the button is pressed 
      */
     @FXML
-    private void loadButtonAction(ActionEvent event) {
+    private void loadButtonAction(ActionEvent event) throws IOException {
         business.load();
+        Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Main.fxml"));
+        GridPane pane = loader.load();
+        MainController mainController = loader.getController();
+        Scene scene = new Scene(pane, screenSize.getWidth(), screenSize.getHeight());
+        mainController.injectScene(scene);
+        mainController.setup();
+        UI.getInstance().getStage().setMaximized(true);
+        UI.getInstance().getStage().setScene(scene);
     }
 
     /**

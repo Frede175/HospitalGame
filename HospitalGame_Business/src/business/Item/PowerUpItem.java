@@ -45,7 +45,7 @@ public class PowerUpItem extends Item implements IPowerUpItem {
     }
 
     public PowerUpItem(IPowerUpItem item) {
-        super(((IItem) item).getWeight(), ((IItem) item).getName());
+        super((IItem)item);
         buff = item.getBuff();
         lastUpdate = System.currentTimeMillis();
         timeLeftOfBuff = item.getTimeLeftOfBuff();

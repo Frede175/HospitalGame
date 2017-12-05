@@ -43,4 +43,6 @@ public interface INPCFacade {
     void porterCheckPlayer(IPlayer player);
 
     public INPC[] getNPCsFromRoom(IRoom room);
+
+    public void reset();
 }

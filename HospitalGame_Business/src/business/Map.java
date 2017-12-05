@@ -82,12 +82,14 @@ public class Map {
      * @param npcs which npcs are to be put in the game
      */
     public Room generateMap(int roomCount, List<IItem> items, List<INPC> npcs) {
+        
+        
+        
         // Creates the ArrayList that contains all the free rooms.
         ArrayList<Room> freeRooms = createRooms(roomCount);
         
         rooms.addAll(freeRooms);
         
-
         Directions[] directions = Directions.values();
         // Sets the start room to the first free room.
         Room startRoom = freeRooms.get(0);
@@ -297,12 +299,16 @@ public class Map {
     }
 
     public void load(IRoom[] arrayRooms) {
-        for (IRoom room : rooms) {
+        for (IRoom room : arrayRooms) {
             Room r = new Room(room);
             r.injectItemFacade(itemFacade);
             r.injectMap(this);
             this.rooms.add(r);
         }
 
+    }
+    
+    public void reset() {
+        rooms.clear();
     }
 }

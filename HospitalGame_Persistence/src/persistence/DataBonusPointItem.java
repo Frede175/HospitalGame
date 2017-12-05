@@ -3,16 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package business.Data;
+package persistence;
 
 import common.IBonusPointItem;
 import common.IItem;
+import java.io.Serializable;
 
 /**
  *
  * @author andreasmolgaard-andersen
  */
-public class DataBonusPointItem extends DataItem implements IBonusPointItem {
+public class DataBonusPointItem extends DataItem implements IBonusPointItem, Serializable {
 
     public int bonusPoints;
 

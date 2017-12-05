@@ -3,17 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package business.Data;
+package persistence;
 
 import common.INPC;
 import common.IRoom;
 import common.NPCID;
+import java.io.Serializable;
 
 /**
  *
  * @author andreasmolgaard-andersen
  */
-public class DataNPC implements INPC {
+public class DataNPC implements INPC, Serializable {
 
     private int currentRoom;
     private String name;

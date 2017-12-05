@@ -3,16 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package business.Data;
+package persistence;
 
 import common.IHighScore;
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
  *
  * @author andreasmolgaard-andersen
  */
-public class DataHighScore implements IHighScore {
+public class DataHighScore implements IHighScore, Serializable {
 
     private HashMap<String, Integer> highScore;
 
