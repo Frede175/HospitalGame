@@ -147,7 +147,8 @@ public class MainController implements Initializable {
         return inventoryPlayerController;
     }
     
-    public boolean kickedOut(Directions direction) { 
+    public boolean kickedOut(Directions direction) {
+        setInteractionText("");
         IRoom nextRoom = player.getCurrentRoom().getExit(direction);
         if (business.move(direction)) {
             if (nextRoom != player.getCurrentRoom()) return true;
@@ -224,12 +225,7 @@ public class MainController implements Initializable {
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if(business.move(direction)) {
-                    updateGUI();
-                    if(kickedOut(direction)) {
-                        interactLabel.setText("You were kicked out by the porter");
-                    }
-                }
+                move(direction);
             }
         });
         hBox.getChildren().add(btn);
@@ -239,6 +235,13 @@ public class MainController implements Initializable {
         }
         buttons.add(hBox);
         return hBox;
+    }
+    
+    public void move(Directions direction) {
+        if(kickedOut(direction)) {
+            setInteractionText("You were kicked out by the porter");
+        }
+        updateGUI();
     }
     
     /**
@@ -277,7 +280,6 @@ public class MainController implements Initializable {
     public void updateGUI() {
         switch (business.getGameState()) {
             case PLAYING:
-                setInteractionText("");
                 npcController.updateNPCSToGUI(player.getCurrentRoom());
                 playerStatusController.updatePlayerDataToGUI();
                 inventoryPlayerController.updateItems(player.getInventory());

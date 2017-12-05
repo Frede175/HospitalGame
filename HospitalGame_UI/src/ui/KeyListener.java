@@ -37,20 +37,16 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
     public void handle(KeyEvent event) {
         switch (event.getCode()) {
             case W:
-                business.move(Directions.NORTH);
-                mainController.updateGUI();
+                mainController.move(Directions.NORTH);
                 break;
             case S:
-                business.move(Directions.SOUTH);
-                mainController.updateGUI();
+                mainController.move(Directions.SOUTH);
                 break;
             case D:
-                business.move(Directions.EAST);
-                mainController.updateGUI();
+                mainController.move(Directions.EAST);
                 break;
             case A:
-                business.move(Directions.WEST);
-                mainController.updateGUI();
+                mainController.move(Directions.WEST);
                 break;
             case TAB:
                 switch (UI.getInstance().getFocus()) {
