@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -42,7 +43,7 @@ public class PersistenceFacade implements IPersistence {
 
     @Override
     public boolean saveHighScore(IHighScore highScore) {
-        return save(highScore);
+        return save(new DataHighScore(highScore));
     }
 
     @Override
@@ -57,7 +58,7 @@ public class PersistenceFacade implements IPersistence {
      * @return true if the object has been saved and false if object failed to
      * save.
      */
-    private boolean save(Object object) {
+    private boolean save(Serializable object) {
         try {
             //DataObject object = new DataObject(rooms, player, npcs, inventory);
             FileOutputStream fileOut = new FileOutputStream(commonName + object.getClass().getSimpleName() + extension);
@@ -79,7 +80,7 @@ public class PersistenceFacade implements IPersistence {
      * @param type The class that needs to be loaded
      * @return an object with the given class or null if an error occurs.
      */
-    private <T> T load(Class<T> type) {
+    private <T extends Serializable> T load(Class<T> type) {
         T object;
         try {
             FileInputStream fileIn = new FileInputStream(commonName + type.getSimpleName() + extension);
