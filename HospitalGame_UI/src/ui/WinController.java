@@ -68,6 +68,7 @@ public class WinController implements Initializable {
         UI.getInstance().getStage().setMaximized(true);
         imgRes = UI.getInstance().getImageResource();
         root.setBackground(new Background(new BackgroundImage(imgRes.getImage(Images.VICTORYSCREEN), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, new BackgroundSize(40, 40,true, true, true, false))));
+        scoreLabel.setText("Your score was " + business.getScore() + "!");
         if(business.eligibleForHighScore()) {
             highScore.setVisible(true);
             highScore.setDisable(false);
