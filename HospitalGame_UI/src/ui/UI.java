@@ -85,6 +85,11 @@ public class UI extends Application implements IUI {
         primaryStage.show();
     }
     
+    @Override
+    public void stop(){
+        UI.getInstance().getBusiness().closing();
+    }
+    
     /**
      * Gets the menu scene.
      * @return The menu scene.

@@ -150,6 +150,8 @@ public class Map {
         // Add every item to a random room.
         locked.setLocked(true);
         
+        Collections.shuffle(items);
+        
         for (IItem item : items) {
             if (item.getName() == ItemName.BLOODBAG) {
                 locked.addItem(item);

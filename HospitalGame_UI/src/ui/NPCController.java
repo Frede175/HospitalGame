@@ -5,6 +5,7 @@
  */
 package ui;
 
+import common.GameState;
 import common.IBusiness;
 import common.INPC;
 import common.IPlayer;
@@ -94,8 +95,8 @@ public class NPCController implements Initializable {
         vBox.getChildren().addAll(getImageOfNPC(npcs[index]), label);
         vBox.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
             if(e.isPrimaryButtonDown()) {
-                mainController.updateGUI();
                 mainController.setInteractionText(business.interact(player, npcs[index]));
+                mainController.updateGUI();
             }
         });
         return vBox;
@@ -150,8 +151,8 @@ public class NPCController implements Initializable {
     }
     
     public void interact() {
-        mainController.updateGUI();
         mainController.setInteractionText(business.interact(player, npcs[selectedIndex]));
+        mainController.updateGUI();
     }
     
 }

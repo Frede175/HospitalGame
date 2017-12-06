@@ -40,12 +40,6 @@ public class PlayerStatusController implements Initializable {
     private ImageResource imgRes;
     
     /**
-     * The name label in gui.
-     */
-    @FXML
-    private Label name;
-    
-    /**
      * The blood amount label in gui.
      */
     @FXML
@@ -101,7 +95,6 @@ public class PlayerStatusController implements Initializable {
     public void setup() {
         bandage.setImage(imgRes.getSprite(Sprites.BANDAGE));
         morphine.setImage(imgRes.getSprite(Sprites.MORPHINE));
-        name.setText(player.getName());
         updatePlayerDataToGUI();
     }
     

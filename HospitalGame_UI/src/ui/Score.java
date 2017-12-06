@@ -14,12 +14,12 @@ public class Score {
     /**
      * name of the person
      */
-    private final String name;
+    private final String NAME;
     
     /**
-     * score of the person
+     * SCORE of the person
      */
-    private final int score;
+    private final int SCORE;
     
     /**
      * Constructor of the person
@@ -28,8 +28,8 @@ public class Score {
      */
     public Score(String name, int score)
     {
-        this.name = name;
-        this.score = score;
+        this.NAME = name;
+        this.SCORE = score;
     }
 
     /**
@@ -37,14 +37,14 @@ public class Score {
      * @return the name
      */
     public String getName() {
-        return name;
+        return NAME;
     }
 
     /**
-     * Getter for the score of the person
-     * @return the score
+     * Getter for the SCORE of the person
+     * @return the SCORE
      */
     public int getScore() {
-        return score;
+        return SCORE;
     }    
 }

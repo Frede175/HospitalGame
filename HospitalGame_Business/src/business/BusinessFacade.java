@@ -213,10 +213,9 @@ public class BusinessFacade implements IBusiness {
      */
     @Override
     public boolean load() {
-        reset();
-        
         IDataObject data = persistence.load();
-        if (data == null) return false; 
+        if (data == null) return false;
+        reset();
         //loads in the player
         this.player = new Player(data.getPlayer());
         player.injectBusinessFacade(this);
@@ -232,11 +231,7 @@ public class BusinessFacade implements IBusiness {
         //loads in the npcs
         npcFacade.load(data.getNPCs());
         
-        player.resume();
-        
-        gameState = GameState.PLAYING;
-        
-        return true; // change this
+        return true;
     }
 
     /**
@@ -284,9 +279,10 @@ public class BusinessFacade implements IBusiness {
      * @param direction is the direction to move
      */
     @Override
-    public void move(Directions direction) {
-        player.move(direction);
+    public boolean move(Directions direction) {
+        boolean hasMoved = player.move(direction);
         npcFacade.porterCheckPlayer(player);
+        return hasMoved;
     }
     
     public void porterMovePlayer(Directions direction) {
@@ -333,7 +329,7 @@ public class BusinessFacade implements IBusiness {
     @Override
     public GameState getGameState() {
         npcFacade.update();
-        player.update();
+        if(player != null) player.update();
         return gameState;
     }
     
@@ -346,6 +342,7 @@ public class BusinessFacade implements IBusiness {
 
     @Override
     public String interact(IPlayer player, INPC npc) {
+        this.player.update();
         return npcFacade.interact(player, npc);
     }
 

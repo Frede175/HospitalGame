@@ -13,18 +13,22 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -32,7 +36,8 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
+import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 
 /**
  * FXML Controller class
@@ -141,6 +146,15 @@ public class MainController implements Initializable {
     public InventoryController getInventoryPlayerController() {
         return inventoryPlayerController;
     }
+    
+    public boolean kickedOut(Directions direction) {
+        setInteractionText("");
+        IRoom nextRoom = player.getCurrentRoom().getExit(direction);
+        if (business.move(direction)) {
+            if (nextRoom != player.getCurrentRoom()) return true;
+        }
+        return false;
+    }
 
     /**
      * Gets the inventory controller for the room.
@@ -211,8 +225,7 @@ public class MainController implements Initializable {
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                business.move(direction);
-                updateGUI();
+                move(direction);
             }
         });
         hBox.getChildren().add(btn);
@@ -224,13 +237,28 @@ public class MainController implements Initializable {
         return hBox;
     }
     
+    public void move(Directions direction) {
+        if(kickedOut(direction)) {
+            setInteractionText("You were kicked out by the porter");
+        }
+        updateGUI();
+    }
+    
     /**
      * Open the menu scene.
      * @throws IOException 
      */
     public void openMenu() throws IOException {
-        UI.getInstance().getStage().setMaximized(true);
-        UI.getInstance().getStage().setScene(UI.getInstance().getMenuScene());
+        business.pause();
+        try {
+            Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Menu.fxml"));
+            GridPane gridPane = loader.load();
+            Scene winScene = new Scene(gridPane, screenSize.getWidth(), screenSize.getHeight());
+            UI.getInstance().getStage().setScene(winScene);
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     /**
@@ -252,7 +280,6 @@ public class MainController implements Initializable {
     public void updateGUI() {
         switch (business.getGameState()) {
             case PLAYING:
-                setInteractionText("");
                 npcController.updateNPCSToGUI(player.getCurrentRoom());
                 playerStatusController.updatePlayerDataToGUI();
                 inventoryPlayerController.updateItems(player.getInventory());
@@ -261,16 +288,44 @@ public class MainController implements Initializable {
                 mapController.drawMap();
                 break;
             case LOST:
-                // TODO SHOW LOST SCREEN
+                openDeath();
                 break;
             case WON:
-                // TODO SHOW WIN SCREEN
-                AnchorPane pane = new AnchorPane();
-                pane.setBackground(new Background(new BackgroundImage(imgRes.getImage(Images.VICTORYSCREEN), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
-                
+                openWin();
                 break; 
             default:
                 throw new AssertionError();
         }
-    }    
+    }  
+    
+    private void openWin() {
+        try {
+            Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Win.fxml"));
+            VBox vBox = loader.load();
+            WinController winController = loader.getController();
+            winController.injectBusiness(business);
+            winController.setup();
+            Scene winScene = new Scene(vBox, screenSize.getWidth(), screenSize.getHeight());
+            UI.getInstance().getStage().setScene(winScene);
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void openDeath() {
+        try {
+            Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Death.fxml"));
+            VBox vBox = loader.load();
+            DeathController deathController = loader.getController();
+            deathController.injectBusiness(business);
+            deathController.setup();
+            Scene winScene = new Scene(vBox, screenSize.getWidth(), screenSize.getHeight());
+            UI.getInstance().getStage().setScene(winScene);
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }
