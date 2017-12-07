@@ -32,9 +32,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 /**
- * FXML Controller class
- *
- * @author larsjorgensen
+ * Controller for inventory.
+ * 
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Tobias Ahrenschneider Sztuk
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public class InventoryController implements Initializable {
 
@@ -112,8 +116,14 @@ public class InventoryController implements Initializable {
      */
     private ArrayList<VBox> itemContainers;
     
+    /**
+     * Which UIType the inventory is.
+     */
     private UIType type;
     
+    /**
+     * Contains the maincontroller instance.
+     */
     private MainController mainController;
     
     /**
@@ -131,12 +141,17 @@ public class InventoryController implements Initializable {
         setSelectedIndex(0);
     }  
     
+    /**
+     * Injects a maincontroller.
+     * @param mainController Which maincontroller to inject.
+     */
     public void injectMainController(MainController mainController) {
         this.mainController = mainController;
     }
     
     /**
-     * Update the items of the selected page to the GUI.
+     * Updates the inventory depending on which page and which inventory to take data from.
+     * @param inventory Which inventory to take data from.
      */
     public void updateItems(IInventory inventory) {
         clearGrid();
@@ -202,6 +217,10 @@ public class InventoryController implements Initializable {
         return inventory;
     }
     
+    /**
+     * Sets the inventory to be focussed.
+     * @param focus True if the inventory should be focussed.
+     */
     public void setFocus(boolean focus) {
         this.isFocussed = focus;
     }
@@ -282,13 +301,17 @@ public class InventoryController implements Initializable {
         return vBox;
     }
     
+    /**
+     * Sets the inventorys type.
+     * @param type The type to be given to the inventory.
+     */
     public void setType(UIType type) {
         this.type = type;
     }
     
     /**
      * Setting the selected index by a number 0-5.
-     * @param index 
+     * @param index A number between 0-5 depending of which item wanted.
      */
     public void setSelectedIndex(int index) {
         if(index + (page) * ITEMS_PER_PAGE < items.size()) {
@@ -318,6 +341,10 @@ public class InventoryController implements Initializable {
         }
     }
 
+    /**
+     * Gets the selected index of the item.
+     * @return The index of the selected item.
+     */
     public int getSelectedIndex() {
         return selectedIndex;
     }

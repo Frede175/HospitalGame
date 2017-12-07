@@ -17,7 +17,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -62,11 +61,14 @@ public class MainController implements Initializable {
     @FXML
     private NPCController npcController;
     
+    /**
+     * Contains the PlayerStatusController
+     */
     @FXML 
     private PlayerStatusController playerStatusController;
     
     /**
-     * The root container element
+     * The root container element.
      */
     @FXML
     private GridPane root;
@@ -147,6 +149,11 @@ public class MainController implements Initializable {
         return inventoryPlayerController;
     }
     
+    /**
+     * Checks if the player is kicked out by the Porter.
+     * @param direction Which direction the player wants to move.
+     * @return true if the player is kicked out.
+     */
     public boolean kickedOut(Directions direction) {
         setInteractionText("");
         IRoom nextRoom = player.getCurrentRoom().getExit(direction);
@@ -237,6 +244,10 @@ public class MainController implements Initializable {
         return hBox;
     }
     
+    /**
+     * Moves the player, and setting the interact label to display if the player was kicked out by the Porter.
+     * @param direction Which direction the player wants to move.
+     */
     public void move(Directions direction) {
         if(kickedOut(direction)) {
             setInteractionText("You were kicked out by the porter");
@@ -270,6 +281,10 @@ public class MainController implements Initializable {
         updateGUI();
     }
     
+    /**
+     * Sets the text in the interact label.
+     * @param text The text to be shown.
+     */
     public void setInteractionText(String text) {
         interactLabel.setText(text);
     }
@@ -298,6 +313,9 @@ public class MainController implements Initializable {
         }
     }  
     
+    /**
+     * Opens the victoryscreen.
+     */
     private void openWin() {
         try {
             Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
@@ -307,12 +325,17 @@ public class MainController implements Initializable {
             winController.injectBusiness(business);
             winController.setup();
             Scene winScene = new Scene(vBox, screenSize.getWidth(), screenSize.getHeight());
+            UI.getInstance().getStage().setMaximized(true);
             UI.getInstance().getStage().setScene(winScene);
+            UI.getInstance().getStage().setMaximized(true);
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
+    /**
+     * Opens the deathscreen.
+     */
     private void openDeath() {
         try {
             Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
@@ -322,7 +345,9 @@ public class MainController implements Initializable {
             deathController.injectBusiness(business);
             deathController.setup();
             Scene winScene = new Scene(vBox, screenSize.getWidth(), screenSize.getHeight());
+            UI.getInstance().getStage().setMaximized(true);
             UI.getInstance().getStage().setScene(winScene);
+            UI.getInstance().getStage().setMaximized(true);
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }

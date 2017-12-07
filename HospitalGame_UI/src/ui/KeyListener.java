@@ -10,20 +10,55 @@ import common.IBusiness;
 import common.IPlayer;
 import javafx.scene.input.KeyEvent;
 
+/**
+ * Eventhandler.
+ * 
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Tobias Ahrenschneider Sztuk
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
+ */
 public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
-    
+    /**
+     * Contains the main controller instance
+     */
     private MainController mainController;
     
+    /**
+     * Contains the player inventory controller instance
+     */
     private InventoryController playerInventoryController;
     
+    /**
+     * Contains the room inventory controller instance
+     */
     private InventoryController roomInventoryController;
     
+    /**
+     * Contains the player instance
+     */
     private IPlayer player;
     
+    /**
+     * Contains the business instance
+     */
     private IBusiness business;
     
+    /**
+     * Contains the npc controller instance
+     */
     private NPCController npcController;
     
+    /**
+     * Constructor
+     * @param mainController MainController to be used.
+     * @param playerInventoryController PlayerInventoryController to be used.
+     * @param roomInventoryController RoomInventoryController to be used.
+     * @param player Player to be used.
+     * @param business Business to be used.
+     * @param npcController NPCController to be used.
+     */
     public KeyListener(MainController mainController, InventoryController playerInventoryController, InventoryController roomInventoryController, IPlayer player, IBusiness business, NPCController npcController) {
         this.mainController = mainController;
         this.playerInventoryController = playerInventoryController;

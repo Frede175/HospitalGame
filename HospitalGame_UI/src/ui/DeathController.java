@@ -26,16 +26,29 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
 /**
- * FXML Controller class
- *
- * @author larsb
+ * Controller for the death screen.
+ * 
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Tobias Ahrenschneider Sztuk
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public class DeathController implements Initializable {
 
+    /**
+     * Contains the business facade instance.
+     */
     private IBusiness business;
     
+    /**
+     * Contains the Image Resource instance.
+     */
     private ImageResource imgRes;
     
+    /**
+     * Contains the root element.
+     */
     @FXML
     private VBox root;
     
@@ -43,28 +56,37 @@ public class DeathController implements Initializable {
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }   
+    public void initialize(URL url, ResourceBundle rb) {}   
     
-     public void openMenu() {
+    /**
+     * Opens the menu.
+     */
+    public void openMenu() {
         try {
             Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Menu.fxml"));
             GridPane gridPane = loader.load();
             Scene winScene = new Scene(gridPane, screenSize.getWidth(), screenSize.getHeight());
             UI.getInstance().getStage().setScene(winScene);
+            UI.getInstance().getStage().setMaximized(true);
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
      
+    /**
+     * Setups the controller and background for the view.
+     */
     public void setup() {
         UI.getInstance().getStage().setMaximized(true);
         imgRes = UI.getInstance().getImageResource();
         root.setBackground(new Background(new BackgroundImage(imgRes.getImage(Images.DEATHSCREEN), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(40, 40, true, true, true, false))));
     }
 
+    /**
+     * Injects the business facade.
+     * @param business The business facade to be injected.
+     */
     public void injectBusiness(IBusiness business) {
         this.business = business;
     }
