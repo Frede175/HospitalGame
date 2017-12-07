@@ -7,6 +7,7 @@ import common.INPC;
 import common.IPersistence;
 import common.IPlayer;
 import common.IRoom;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -47,6 +48,17 @@ public class PersistenceFacade implements IPersistence {
     public IDataObject load() {
         return load(DataObject.class);
     }
+    
+    @Override
+    public boolean saveGameAvailable() {
+        return fileExits(DataObject.class);
+    }
+    
+    
+    private <T> boolean fileExits(Class<T> type) {
+        return new File(commonName + type.getClass().getSimpleName() + extension).exists();
+    }
+    
 
     /**
      * Save the given object to the persistence store.
@@ -73,6 +85,7 @@ public class PersistenceFacade implements IPersistence {
      * @return an object with the given class or null if an error occurs.
      */
     private <T extends Serializable> T load(Class<T> type) {
+        if (!fileExits(type)) return null;
         T object;
         try (FileInputStream fileIn = new FileInputStream(commonName + type.getSimpleName() + extension)) {
             ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -83,5 +96,7 @@ public class PersistenceFacade implements IPersistence {
         }
         return object;
     }
+
+    
 
 }
