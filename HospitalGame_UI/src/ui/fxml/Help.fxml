@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" styleClass="mainFxmlClass" stylesheets="@../css/Help.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" styleClass="mainFxmlClass" stylesheets="@../css/Help.css" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Text layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HELP: &#10;W = North, A = West S = South, D = East&#10;&#10;Tap = Switch focus between fragments&#10;&#10;Number 1-6 = Select in the focussed fragment&#10;&#10;E = Use item / Pick up item / Interact&#10;&#10;Q = Drop item in room&#10;&#10;Ctrl = Previous page in focussed inventory&#10;&#10;Shift = Next page in focussed inventory&#10;&#10;Esc = Pause and opens the menu&#10;" wrappingWidth="255.076171875" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
    </children>

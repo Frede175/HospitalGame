@@ -8,6 +8,7 @@ package ui;
 import common.Directions;
 import common.IBusiness;
 import common.IPlayer;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.input.KeyEvent;
 
 /**
@@ -205,6 +206,10 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
                 } else {
                     roomInventoryController.setSelectedIndex(5);
                     roomInventoryController.updateItems(roomInventoryController.getInventory());
+                }
+            case ESCAPE:
+                if(UI.getInstance().getStage().getScene().equals(mainController.getScene())) {
+                    mainController.openMenu();
                 }
             default:
                 System.err.println("Dont have anyhting to do on that button");
