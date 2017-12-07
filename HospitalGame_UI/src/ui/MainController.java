@@ -137,6 +137,14 @@ public class MainController implements Initializable {
         npcController.injectMainController(this);
         updateGUI();
     }
+
+    /**
+     * Gets the scene.
+     * @return The scene.
+     */
+    public Scene getScene() {
+        return scene;
+    }
     
     /**
      * Inject a scene into the controller.
@@ -264,7 +272,7 @@ public class MainController implements Initializable {
      * Open the menu scene.
      * @throws IOException 
      */
-    public void openMenu() throws IOException {
+    public void openMenu() {
         business.pause();
         try {
             Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();

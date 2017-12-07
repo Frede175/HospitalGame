@@ -46,6 +46,12 @@ public class MenuController implements Initializable {
      */
     @FXML
     private Button startBtn;
+    
+    /**
+     * Contains the load button.
+     */
+    @FXML
+    private Button loadBtn;
 
     /**
      * Initializes the controller class.
@@ -55,6 +61,12 @@ public class MenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         business = UI.getInstance().getBusiness();
+         System.out.println(business.saveGameAvailable());
+        if(business.saveGameAvailable()) {
+            loadBtn.setDisable(false);
+        } else {
+            loadBtn.setDisable(true);
+        }
         if(business.getGameState() == GameState.PAUSED ) {
             startBtn.setText("Resume");
             saveBtn.setDisable(false);
