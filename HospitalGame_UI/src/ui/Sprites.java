@@ -1,8 +1,13 @@
 package ui;
 
 /**
- *
- * @author fsr19
+ * Sprites enum.
+ * 
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Tobias Ahrenschneider Sztuk
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public enum Sprites {
     ARROW_RIGHT(0),

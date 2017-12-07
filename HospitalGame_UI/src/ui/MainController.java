@@ -38,10 +38,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
+
 /**
- * FXML Controller class
- *
- * @author larsjorgensen
+ * Main controller.
+ * 
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Tobias Ahrenschneider Sztuk
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public class MainController implements Initializable {
 
@@ -124,9 +129,9 @@ public class MainController implements Initializable {
         imgRes = UI.getInstance().getImageResource();
         player = business.getPlayer();
         buttons = new ArrayList<>();
-        inventoryPlayerController.setType(UIType.PLAYER);
-        inventoryRoomController.setType(UIType.ROOM);
-        npcController.setType(UIType.NPC);
+        inventoryPlayerController.setType(UIFocus.PLAYER);
+        inventoryRoomController.setType(UIFocus.ROOM);
+        npcController.setType(UIFocus.NPC);
         inventoryPlayerController.injectMainController(this);
         inventoryRoomController.injectMainController(this);
         npcController.injectMainController(this);
