@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" minHeight="160.0" prefHeight="103.0" prefWidth="275.0" styleClass="mainFxmlClass" stylesheets="@../css/Help.css" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" styleClass="mainFxmlClass" stylesheets="@../css/Help.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1">
    <children>
-      <Text layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HELP: &#10;W = North, A = West S = South, D = East&#10;&#10;Tap = switch between inventories&#10;&#10;Number 1-9 = chose an item from the inventory&#10;&#10;E = Use item, Q = Drop item in room&#10;" wrappingWidth="255.076171875" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+      <Text layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HELP: &#10;W = North, A = West S = South, D = East&#10;&#10;Tap = Switch focus between fragments&#10;&#10;Number 1-6 = Select in the focussed fragment&#10;&#10;E = Use item / Pick up item / Interact&#10;&#10;Q = Drop item in room&#10;&#10;Ctrl = Previous page in focussed inventory&#10;&#10;Shift = Next page in focussed inventory&#10;&#10;Esc = Pause and opens the menu&#10;" wrappingWidth="255.076171875" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
    </children>
 </AnchorPane>
