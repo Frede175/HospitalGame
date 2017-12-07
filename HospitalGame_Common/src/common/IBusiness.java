@@ -30,6 +30,8 @@ public interface IBusiness {
     boolean save();
 
     boolean load();
+    
+    boolean saveGameAvailable();
 
     boolean move(Directions direction);
 

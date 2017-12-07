@@ -376,5 +376,10 @@ public class BusinessFacade implements IBusiness {
     public boolean isHighScoreNameTaken(String name) {
         return highScore.isNameTaken(name);
     }
+
+    @Override
+    public boolean saveGameAvailable() {
+        return persistence.saveGameAvailable();
+    }
     
 }
