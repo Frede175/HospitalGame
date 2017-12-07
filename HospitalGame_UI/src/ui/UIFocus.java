@@ -6,17 +6,22 @@
 package ui;
 
 /**
- *
- * @author larsb
+ * UIFocus is which fragment that can have focus.
+ * 
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Tobias Ahrenschneider Sztuk
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
-public enum UIType {
+public enum UIFocus {
     PLAYER("Player"),
     ROOM("Room"),
     NPC("NPC");
     
     private String focus;
 
-    private UIType(String focus) {
+    private UIFocus(String focus) {
         this.focus = focus;
     }
 

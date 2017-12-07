@@ -1,6 +1,6 @@
 package ui;
 
-import common.GameState;
+ import common.GameState;
 import common.IBusiness;
 import java.io.IOException;
 import java.net.URL;
@@ -20,20 +20,30 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
 /**
- * FXML Controller class
- *
- * @author Tobias
+ * Menu Controller.
+ * 
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Tobias Ahrenschneider Sztuk
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public class MenuController implements Initializable {
     
     /**
-     * gets access to the business facade
+     * Gets access to the business facade
      */
     private IBusiness business;
     
+    /**
+     * Contains the save button.
+     */
     @FXML
     private Button saveBtn;
     
+    /**
+     * Contains the start button.
+     */
     @FXML
     private Button startBtn;
 
@@ -112,6 +122,9 @@ public class MenuController implements Initializable {
         }
     }
     
+    /**
+     * Loads the main fxml and creates a scene and showing it in the primary stage.
+     */
     private void loadMainGame() {
         saveBtn.setDisable(false);
         Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();

@@ -86,19 +86,19 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
             case TAB:
                 switch (UI.getInstance().getFocus()) {
                     case ROOM:
-                        UI.getInstance().setFocus(UIType.NPC);
+                        UI.getInstance().setFocus(UIFocus.NPC);
                         npcController.setFocus(true);
                         playerInventoryController.setFocus(false);
                         roomInventoryController.setFocus(false);
                         break;
                     case NPC:
-                        UI.getInstance().setFocus(UIType.PLAYER);
+                        UI.getInstance().setFocus(UIFocus.PLAYER);
                         npcController.setFocus(false);
                         playerInventoryController.setFocus(true);
                         roomInventoryController.setFocus(false);
                         break;
                     case PLAYER:
-                        UI.getInstance().setFocus(UIType.ROOM);
+                        UI.getInstance().setFocus(UIFocus.ROOM);
                         npcController.setFocus(false);
                         playerInventoryController.setFocus(false);
                         roomInventoryController.setFocus(true);
@@ -111,11 +111,11 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
                 npcController.updateNPCSToGUI(player.getCurrentRoom());
                 break;
             case E:
-                if(UI.getInstance().getFocus() == UIType.PLAYER) {
+                if(UI.getInstance().getFocus() == UIFocus.PLAYER) {
                     business.useItem(playerInventoryController.getSelectedIndex());
                     playerInventoryController.setSelectedIndex(0);
                     mainController.updateGUI();
-                } else if(UI.getInstance().getFocus() == UIType.ROOM){
+                } else if(UI.getInstance().getFocus() == UIFocus.ROOM){
                     business.takeItem(roomInventoryController.getSelectedIndex());
                     roomInventoryController.setSelectedIndex(0);
                     mainController.updateGUI();
@@ -124,31 +124,31 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
                 }
                 break;
             case Q:
-                if(UI.getInstance().getFocus() == UIType.PLAYER) {
+                if(UI.getInstance().getFocus() == UIFocus.PLAYER) {
                     business.dropItem(playerInventoryController.getSelectedIndex());
                     playerInventoryController.setSelectedIndex(0);
                     mainController.updateGUI();
                 }
                 break;
             case SHIFT:
-                if(UI.getInstance().getFocus() == UIType.PLAYER) {
+                if(UI.getInstance().getFocus() == UIFocus.PLAYER) {
                     playerInventoryController.nextPage();
                 } else {
                     roomInventoryController.nextPage();
                 }
                 break;
             case CONTROL:
-                if(UI.getInstance().getFocus() == UIType.PLAYER) {
+                if(UI.getInstance().getFocus() == UIFocus.PLAYER) {
                     playerInventoryController.previousPage();
                 } else {
                     roomInventoryController.previousPage();
                 }
                 break;
             case DIGIT1:
-                if(UI.getInstance().getFocus() == UIType.PLAYER) {
+                if(UI.getInstance().getFocus() == UIFocus.PLAYER) {
                     playerInventoryController.setSelectedIndex(0);
                     playerInventoryController.updateItems(playerInventoryController.getInventory());
-                } else if(UI.getInstance().getFocus() == UIType.ROOM) {
+                } else if(UI.getInstance().getFocus() == UIFocus.ROOM) {
                     roomInventoryController.setSelectedIndex(0);
                     roomInventoryController.updateItems(roomInventoryController.getInventory());
                 } else {
@@ -157,10 +157,10 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
                 }
                 break;
             case DIGIT2:
-                if(UI.getInstance().getFocus() == UIType.PLAYER) {
+                if(UI.getInstance().getFocus() == UIFocus.PLAYER) {
                     playerInventoryController.setSelectedIndex(1);
                     playerInventoryController.updateItems(playerInventoryController.getInventory());
-                } else if(UI.getInstance().getFocus() == UIType.ROOM) {
+                } else if(UI.getInstance().getFocus() == UIFocus.ROOM) {
                     roomInventoryController.setSelectedIndex(1);
                     roomInventoryController.updateItems(roomInventoryController.getInventory());
                 } else {
@@ -169,10 +169,10 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
                 }
                 break;
             case DIGIT3:
-                if(UI.getInstance().getFocus() == UIType.PLAYER) {
+                if(UI.getInstance().getFocus() == UIFocus.PLAYER) {
                     playerInventoryController.setSelectedIndex(2);
                     playerInventoryController.updateItems(playerInventoryController.getInventory());
-                } else if(UI.getInstance().getFocus() == UIType.ROOM) {
+                } else if(UI.getInstance().getFocus() == UIFocus.ROOM) {
                     roomInventoryController.setSelectedIndex(2);
                     roomInventoryController.updateItems(roomInventoryController.getInventory());
                 } else {
@@ -181,7 +181,7 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
                 }
                 break;
             case DIGIT4:
-                if(UI.getInstance().getFocus() == UIType.PLAYER) {
+                if(UI.getInstance().getFocus() == UIFocus.PLAYER) {
                     playerInventoryController.setSelectedIndex(3);
                     playerInventoryController.updateItems(playerInventoryController.getInventory());
                 } else {
@@ -190,7 +190,7 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
                 }
                 break;
             case DIGIT5:
-                if(UI.getInstance().getFocus() == UIType.PLAYER) {
+                if(UI.getInstance().getFocus() == UIFocus.PLAYER) {
                     playerInventoryController.setSelectedIndex(4);
                     playerInventoryController.updateItems(playerInventoryController.getInventory());
                 } else {
@@ -199,7 +199,7 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
                 }
                 break;
             case DIGIT6:
-                if(UI.getInstance().getFocus() == UIType.PLAYER) {
+                if(UI.getInstance().getFocus() == UIFocus.PLAYER) {
                     playerInventoryController.setSelectedIndex(5);
                     playerInventoryController.updateItems(playerInventoryController.getInventory());
                 } else {

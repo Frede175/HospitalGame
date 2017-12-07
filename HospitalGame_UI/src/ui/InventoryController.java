@@ -86,7 +86,7 @@ public class InventoryController implements Initializable {
     private boolean isFocussed = false;
     
     /**
-     * Contains the player reference.
+     * Contains the IPlayer reference.
      */
     private IPlayer player;
     
@@ -117,9 +117,9 @@ public class InventoryController implements Initializable {
     private ArrayList<VBox> itemContainers;
     
     /**
-     * Which UIType the inventory is.
+     * Which UIFocus the inventory is.
      */
-    private UIType type;
+    private UIFocus type;
     
     /**
      * Contains the maincontroller instance.
@@ -283,15 +283,15 @@ public class InventoryController implements Initializable {
         vBox.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
             if(e.isPrimaryButtonDown()) {
                 selectedIndex = index;
-                if(type == UIType.PLAYER) {
+                if(type == UIFocus.PLAYER) {
                     business.useItem(selectedIndex);
-                } else if(type == UIType.ROOM) {
+                } else if(type == UIFocus.ROOM) {
                     business.takeItem(selectedIndex);
                 }
                 mainController.updateGUI();
             } else if(e.isSecondaryButtonDown()) {
                 selectedIndex = index;
-                if(type == UIType.PLAYER) {
+                if(type == UIFocus.PLAYER) {
                     business.dropItem(selectedIndex);
                     mainController.updateGUI();
                 }
@@ -305,7 +305,7 @@ public class InventoryController implements Initializable {
      * Sets the inventorys type.
      * @param type The type to be given to the inventory.
      */
-    public void setType(UIType type) {
+    public void setType(UIFocus type) {
         this.type = type;
     }
     
