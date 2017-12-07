@@ -94,6 +94,7 @@ public class UI extends Application implements IUI {
         primaryStage.setMinHeight(600);
         primaryStage.setMinWidth(1000);
         primaryStage.setMaximized(true);
+        primaryStage.getIcons().add(UI.getInstance().getImageResource().getImage(Images.LOGO));
         primaryStage.show();
     }
     

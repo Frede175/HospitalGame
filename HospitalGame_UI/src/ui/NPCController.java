@@ -144,13 +144,13 @@ public class NPCController implements Initializable {
         img.setFitWidth(70);
         switch (npc.getNPCID()) {
             case COMPUTER:
-                img.setImage(UI.getInstance().getImageResource().getImage(Images.COMPUTER));
+                img.setImage(UI.getInstance().getImageResource().getSprite(Sprites.COMPUTER));
                 break;
             case DOCTOR:
-                img.setImage(UI.getInstance().getImageResource().getImage(Images.DOCTOR));
+                img.setImage(UI.getInstance().getImageResource().getSprite(Sprites.DOCTOR));
                 break;
             case PORTER:
-                img.setImage(UI.getInstance().getImageResource().getImage(Images.PORTER));
+                img.setImage(UI.getInstance().getImageResource().getSprite(Sprites.PORTER));
                 break;
             default:
                 throw new AssertionError();

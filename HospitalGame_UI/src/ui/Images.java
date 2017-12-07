@@ -14,10 +14,6 @@ public enum Images {
      * The death image.
      */
     DEATHSCREEN("deathScreen.png"), 
-    DOCTOR("doctor.png"), 
-    PLAYER("player.png"), 
-    PORTER("porter.png"), 
-    COMPUTER("computer.png"), 
     /**
      * The spritesheet.
      */
@@ -25,7 +21,11 @@ public enum Images {
     /**
      * The victory image.
      */
-    VICTORYSCREEN("victoryScreen.png");
+    VICTORYSCREEN("victoryScreen.png"),
+    /**
+     * The logo
+     */
+    LOGO("logo.png");
     
     private String name;
     

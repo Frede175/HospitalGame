@@ -34,7 +34,7 @@ public class ImageResource {
             URL url = getClass().getClassLoader().getResource("ui/images/" + img.toString());
             images.put(img, new Image(url.toString()));
         }
-        spriteSheet = new SpriteSheet(getImage(Images.SPRITE), 64, 22);
+        spriteSheet = new SpriteSheet(getImage(Images.SPRITE), 64, 15);
     }
     
     /**
