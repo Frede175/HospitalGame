@@ -61,7 +61,6 @@ public class MenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         business = UI.getInstance().getBusiness();
-         System.out.println(business.saveGameAvailable());
         if(business.saveGameAvailable()) {
             loadBtn.setDisable(false);
         } else {
@@ -115,7 +114,9 @@ public class MenuController implements Initializable {
      */
     @FXML
     private void saveButtonAction(ActionEvent event) {
-        business.save();
+        if(business.save()) {
+            loadBtn.setDisable(false);
+        }
     }
 
     /**
