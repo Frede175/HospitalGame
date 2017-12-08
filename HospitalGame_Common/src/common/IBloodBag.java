@@ -9,7 +9,7 @@ package common;
  *
  * @author fsr19
  */
-public interface IBloodBag {
+public interface IBloodBag extends IBonusPointItem {
 
     BloodType getBloodType();
 }

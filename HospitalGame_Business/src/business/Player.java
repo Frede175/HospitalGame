@@ -7,6 +7,7 @@ package business;
 
 import business.Item.PowerUpItem;
 import business.common.IItemFacade;
+import business.common.IMoveable;
 import common.BloodType;
 import common.Directions;
 import common.GameConstants;
@@ -23,7 +24,7 @@ import java.util.Iterator;
  *
  * @author andreasmolgaard-andersen
  */
-public class Player implements IPlayer {
+public class Player implements IPlayer, IMoveable {
 
     /**
      * access to itemFacade from player
@@ -44,6 +45,11 @@ public class Player implements IPlayer {
      * the time of the last update
      */
     private long lastUpdate;
+    
+    /**
+     * The time when the player last moved
+     */
+    private long lastMove;
 
     /**
      * an ArrayList of the items currently active
@@ -238,11 +244,13 @@ public class Player implements IPlayer {
             if (itemFacade.getInventory(inventoryID).getItemsByName(ItemName.IDCARD).length > 0) {
                 roomID = nextRoom.getRoomID();
                 map.getRoomByID(roomID).setInspected();
+                lastMove = System.currentTimeMillis();
                 return true;
             }
         } else {
             roomID = nextRoom.getRoomID();
             map.getRoomByID(roomID).setInspected();
+            lastMove = System.currentTimeMillis();
             return true;
         }
         return false;
@@ -416,9 +424,21 @@ public class Player implements IPlayer {
         }   
     }
 
+    /**
+     * 
+     * @return true if the player knows the blood type
+     */
     @Override
     public boolean isBloodTypeKnown() {
         return bloodTypeKnown;
     }
 
+    /**
+     * 
+     * @return the time for when the player last moved
+     */
+    @Override
+    public long getLastMove() {
+        return lastMove;
+    }
 }

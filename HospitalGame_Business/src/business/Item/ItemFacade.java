@@ -82,7 +82,7 @@ public class ItemFacade implements IItemFacade {
     @Override
     public boolean update(IPowerUpItem powerUpItem, int inventoryID, long lastUpdate) {
         Inventory inventory = inventoryList.get(inventoryID);
-        Item item = inventory.getItem((IItem) powerUpItem);
+        Item item = inventory.getItem(powerUpItem);
         if (item != null) {
             ((PowerUpItem) item).update(lastUpdate);
             return true;

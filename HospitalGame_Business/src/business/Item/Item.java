@@ -7,7 +7,7 @@ import common.ItemName;
  *
  * @author andreasmolgaard-andersen
  */
-public class Item implements IItem {
+public abstract class Item implements IItem {
 
     /**
      * is the weight of the item

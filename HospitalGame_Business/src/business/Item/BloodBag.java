@@ -35,7 +35,7 @@ public class BloodBag extends BonusPointItem implements IBloodBag {
     }
     
     public BloodBag(IBloodBag bloodBag) {
-        super((IBonusPointItem)bloodBag);
+        super(bloodBag);
         bloodType = bloodBag.getBloodType();
     }
 

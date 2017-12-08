@@ -28,7 +28,7 @@ public class BonusPointItem extends Item implements IBonusPointItem {
     }
     
     public BonusPointItem(IBonusPointItem item) {
-        super((IItem)item);
+        super(item);
         bonusPoints = item.getBonusPoints();
     }
 
