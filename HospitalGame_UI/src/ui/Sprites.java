@@ -1,8 +1,13 @@
 package ui;
 
 /**
- *
- * @author fsr19
+ * Sprites enum.
+ * 
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Tobias Ahrenschneider Sztuk
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public enum Sprites {
     ARROW_RIGHT(0),
@@ -14,19 +19,12 @@ public enum Sprites {
     BLOODBAG_AB(6),
     BLOODBAG_B(7),
     BLOODBAG_O(8),
-    BUTTON_PRESSED(9),
-    BUTTON_RELEASED(10),
+    COMPUTER(9),
+    LOCK(10),
     DOCTOR(11),
-    PLAYER(12),
+    MORPHINE(12),
     PORTER(13),
-    EXIT_RIGHT(14),
-    EXIT_UP(15),
-    EXIT_DOWN(16),
-    EXIT_LEFT(17),
-    LOCK(18),
-    MORPHINE(19),
-    COMPUTER(20),
-    IDCARD(21);
+    IDCARD(14);
         
     private int index;
     

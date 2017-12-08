@@ -22,18 +22,30 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Screen;
 
 /**
- * FXML Controller class
- *
- * @author Tobias
+ * Controller for the highscore screen.
+ * 
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Tobias Ahrenschneider Sztuk
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public class HighScoreController implements Initializable {
 
+    /**
+     * Contains the business facade instance
+     */
     private IBusiness business;
+    
+    /**
+     * Contains the scoretable in the view
+     */
     @FXML
     private TableView scoreTable;
 
     /**
      * Initializes the controller class.
+     * Where it is creating the columns for the tableview, and sorting it by points descending.
      *
      * @param url
      * @param rb

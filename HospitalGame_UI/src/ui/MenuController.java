@@ -1,6 +1,6 @@
 package ui;
 
-import common.GameState;
+ import common.GameState;
 import common.IBusiness;
 import java.io.IOException;
 import java.net.URL;
@@ -20,22 +20,38 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
 /**
- * FXML Controller class
- *
- * @author Tobias
+ * Menu Controller.
+ * 
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Tobias Ahrenschneider Sztuk
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public class MenuController implements Initializable {
     
     /**
-     * gets access to the business facade
+     * Gets access to the business facade
      */
     private IBusiness business;
     
+    /**
+     * Contains the save button.
+     */
     @FXML
     private Button saveBtn;
     
+    /**
+     * Contains the start button.
+     */
     @FXML
     private Button startBtn;
+    
+    /**
+     * Contains the load button.
+     */
+    @FXML
+    private Button loadBtn;
 
     /**
      * Initializes the controller class.
@@ -45,6 +61,11 @@ public class MenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         business = UI.getInstance().getBusiness();
+        if(business.saveGameAvailable()) {
+            loadBtn.setDisable(false);
+        } else {
+            loadBtn.setDisable(true);
+        }
         if(business.getGameState() == GameState.PAUSED ) {
             startBtn.setText("Resume");
             saveBtn.setDisable(false);
@@ -93,7 +114,9 @@ public class MenuController implements Initializable {
      */
     @FXML
     private void saveButtonAction(ActionEvent event) {
-        business.save();
+        if(business.save()) {
+            loadBtn.setDisable(false);
+        }
     }
 
     /**
@@ -112,6 +135,9 @@ public class MenuController implements Initializable {
         }
     }
     
+    /**
+     * Loads the main fxml and creates a scene and showing it in the primary stage.
+     */
     private void loadMainGame() {
         saveBtn.setDisable(false);
         Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();

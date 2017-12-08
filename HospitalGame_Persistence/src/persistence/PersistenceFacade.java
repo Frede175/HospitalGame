@@ -56,7 +56,7 @@ public class PersistenceFacade implements IPersistence {
     
     
     private <T> boolean fileExits(Class<T> type) {
-        return new File(commonName + type.getClass().getSimpleName() + extension).exists();
+        return new File(commonName + type.getSimpleName() + extension).exists();
     }
     
 

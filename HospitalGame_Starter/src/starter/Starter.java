@@ -13,8 +13,13 @@ import persistence.PersistenceFacade;
 import ui.UI;
 
 /**
- *
- * @author fsr19
+ * Controller for the highscore screen.
+ * 
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Tobias Ahrenschneider Sztuk
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public class Starter {
 
