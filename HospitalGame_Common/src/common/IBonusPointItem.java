@@ -9,7 +9,7 @@ package common;
  *
  * @author fsr19
  */
-public interface IBonusPointItem {
+public interface IBonusPointItem extends IItem {
     
     int getBonusPoints();
 }

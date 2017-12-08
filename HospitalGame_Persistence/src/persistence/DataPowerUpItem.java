@@ -5,7 +5,6 @@
  */
 package persistence;
 
-import common.IItem;
 import common.IPowerUpItem;
 import java.io.Serializable;
 
@@ -19,7 +18,7 @@ public class DataPowerUpItem extends DataItem implements IPowerUpItem, Serializa
     long timeLeftOfBuff;
 
     DataPowerUpItem(IPowerUpItem item) {
-        super((IItem)item);
+        super(item);
         buff = item.getBuff();
         timeLeftOfBuff = item.getTimeLeftOfBuff();
     }
