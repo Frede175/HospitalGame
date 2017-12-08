@@ -7,7 +7,7 @@ package business.common;
 
 import business.BusinessFacade;
 import business.Map;
-import common.Directions;
+import common.Direction;
 import common.IBusiness;
 import common.INPC;
 import common.IPlayer;

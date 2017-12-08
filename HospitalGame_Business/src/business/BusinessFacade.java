@@ -8,7 +8,7 @@ import business.NPC.NPCFacade;
 import business.common.IItemFacade;
 import business.common.INPCFacade;
 import common.BloodType;
-import common.Directions;
+import common.Direction;
 import common.GameConstants;
 import common.GameState;
 import common.IBusiness;
@@ -279,13 +279,13 @@ public class BusinessFacade implements IBusiness {
      * @param direction is the direction to move
      */
     @Override
-    public boolean move(Directions direction) {
+    public boolean move(Direction direction) {
         boolean hasMoved = player.move(direction);
         npcFacade.porterCheckPlayer(player);
         return hasMoved;
     }
     
-    public void porterMovePlayer(Directions direction) {
+    public void porterMovePlayer(Direction direction) {
         player.move(direction);
     }
 

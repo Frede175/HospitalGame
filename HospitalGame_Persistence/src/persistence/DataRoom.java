@@ -5,7 +5,7 @@
  */
 package persistence;
 
-import common.Directions;
+import common.Direction;
 import common.ICoordinate;
 import common.IInventory;
 import common.IRoom;
@@ -20,7 +20,7 @@ import java.util.Set;
 public class DataRoom implements IRoom, Serializable {
 
     private String name;
-    private HashMap<Directions, Integer> exits;
+    private HashMap<Direction, Integer> exits;
     private boolean inspected;
     private DataCoordinate coordinate;
     private int inventoryID;
@@ -30,7 +30,7 @@ public class DataRoom implements IRoom, Serializable {
     public DataRoom(IRoom room) {
         name = room.getName();
         exits = new HashMap<>();
-        for (Directions dir : room.getExitDirections()) {
+        for (Direction dir : room.getExitDirections()) {
             exits.put(dir, room.getExit(dir).getRoomID());
         }
         inspected = room.isInspected();
@@ -41,7 +41,7 @@ public class DataRoom implements IRoom, Serializable {
     }
 
     @Override
-    public IRoom getExit(Directions dir) {
+    public IRoom getExit(Direction dir) {
         throw new UnsupportedOperationException("Invalid operation for data object.");
     }
 
@@ -61,7 +61,7 @@ public class DataRoom implements IRoom, Serializable {
     }
 
     @Override
-    public Set<Directions> getExitDirections() {
+    public Set<Direction> getExitDirections() {
         return exits.keySet();
     }
 
@@ -87,7 +87,7 @@ public class DataRoom implements IRoom, Serializable {
     }
 
     @Override
-    public int getExitID(Directions dir) {
+    public int getExitID(Direction dir) {
         return exits.get(dir);
     }
 

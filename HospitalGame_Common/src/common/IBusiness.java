@@ -33,7 +33,7 @@ public interface IBusiness {
     
     boolean saveGameAvailable();
 
-    boolean move(Directions direction);
+    boolean move(Direction direction);
 
     boolean useItem(int index);
 

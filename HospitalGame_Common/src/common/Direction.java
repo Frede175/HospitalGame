@@ -9,7 +9,7 @@ package common;
  *
  * @author fsr19
  */
-public enum Directions {
+public enum Direction {
     SOUTH,
     EAST,
     NORTH,

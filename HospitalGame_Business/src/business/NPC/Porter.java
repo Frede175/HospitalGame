@@ -6,7 +6,7 @@
 package business.NPC;
 
 import business.common.IMoveable;
-import common.Directions;
+import common.Direction;
 import common.INPC;
 import common.IPlayer;
 import common.NPCID;
@@ -59,7 +59,7 @@ public class Porter extends NPC implements IMoveable {
      * @return true if the porter has been moved
      */
     @Override
-    public boolean move(Directions direction) {
+    public boolean move(Direction direction) {
         setCurrentRoom(getCurrentRoom().getExit(direction).getRoomID());
         checkPlayer(business.getPlayer());
         lastMove = System.currentTimeMillis();
@@ -75,7 +75,7 @@ public class Porter extends NPC implements IMoveable {
     @Override
     public String interact(IPlayer player) {
         String output = "These directions will lead you two rooms ahead ";
-        List<Directions> path = map.pathfinder(player.getCurrentRoomID(), endRoomID);
+        List<Direction> path = map.pathfinder(player.getCurrentRoomID(), endRoomID);
         for (int i = 0; i < 2 && i < path.size(); i++) {
             output += path.get(i) + " ";
         }
@@ -98,7 +98,7 @@ public class Porter extends NPC implements IMoveable {
     public void checkPlayer(IPlayer player) {
         if (getCurrentRoom() == player.getCurrentRoom()) {
             if (player.getCurrentRoom().isLocked()) {
-                for (Directions dir : player.getCurrentRoom().getExitDirections()) {
+                for (Direction dir : player.getCurrentRoom().getExitDirections()) {
                     if (!player.getCurrentRoom().getExit(dir).isLocked()) {
                         business.porterMovePlayer(dir);
                         break;

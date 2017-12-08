@@ -1,6 +1,6 @@
 package ui;
 
-import common.Directions;
+import common.Direction;
 import common.IBusiness;
 import common.IRoom;
 import java.net.URL;
@@ -87,7 +87,7 @@ public class MapController implements Initializable {
 
                 graphicsContext.fillRect(xStart, yStart, size, size);
                 graphicsContext.clearRect(xStart + border, yStart + border, size - border * 2, size - border * 2);
-                for (Directions d : room.getExitDirections()) {
+                for (Direction d : room.getExitDirections()) {
                     switch (d) {
                         case SOUTH:
                             graphicsContext.clearRect(xStart + size / 2 - size / 8, yStart + size - border, size / 4, border);
@@ -161,7 +161,7 @@ public class MapController implements Initializable {
     private Set<IRoom> getRoomsInRoom(Set<IRoom> roomSet, IRoom nextRoom) {
         if (!roomSet.contains(nextRoom)) {
             roomSet.add(nextRoom);
-            for (Directions d : nextRoom.getExitDirections()) {
+            for (Direction d : nextRoom.getExitDirections()) {
                 roomSet.addAll(getRoomsInRoom(roomSet, nextRoom.getExit(d)));
             }
         }
