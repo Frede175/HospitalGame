@@ -9,7 +9,7 @@ import business.BusinessFacade;
 import business.Map;
 import business.common.IMoveable;
 import business.common.INPCFacade;
-import common.Directions;
+import common.Direction;
 import common.INPC;
 import common.IPlayer;
 import common.IRoom;

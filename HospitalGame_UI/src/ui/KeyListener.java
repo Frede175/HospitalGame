@@ -5,7 +5,7 @@
  */
 package ui;
 
-import common.Directions;
+import common.Direction;
 import common.IBusiness;
 import common.IPlayer;
 import javafx.fxml.FXMLLoader;
@@ -73,16 +73,16 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
     public void handle(KeyEvent event) {
         switch (event.getCode()) {
             case W:
-                mainController.move(Directions.NORTH);
+                mainController.move(Direction.NORTH);
                 break;
             case S:
-                mainController.move(Directions.SOUTH);
+                mainController.move(Direction.SOUTH);
                 break;
             case D:
-                mainController.move(Directions.EAST);
+                mainController.move(Direction.EAST);
                 break;
             case A:
-                mainController.move(Directions.WEST);
+                mainController.move(Direction.WEST);
                 break;
             case TAB:
                 switch (UI.getInstance().getFocus()) {

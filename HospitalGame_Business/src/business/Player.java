@@ -9,7 +9,7 @@ import business.Item.PowerUpItem;
 import business.common.IItemFacade;
 import business.common.IMoveable;
 import common.BloodType;
-import common.Directions;
+import common.Direction;
 import common.GameConstants;
 import common.IInventory;
 import common.IItem;
@@ -234,7 +234,7 @@ public class Player implements IPlayer, IMoveable {
      * @param direction is the direction
      * @return true if the player has moved
      */
-    public boolean move(Directions direction) {
+    public boolean move(Direction direction) {
         Room nextRoom = (Room) map.getRoomByID(roomID).getExit(direction);
 
         if (nextRoom == null) {

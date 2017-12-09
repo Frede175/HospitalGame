@@ -5,7 +5,7 @@
  */
 package business.common;
 
-import common.Directions;
+import common.Direction;
 import common.IRoom;
 
 /**
@@ -19,7 +19,7 @@ public interface IMoveable {
      * @param direction
      * @return
      */
-    boolean move(Directions direction);
+    boolean move(Direction direction);
     
     long getLastMove();
     
