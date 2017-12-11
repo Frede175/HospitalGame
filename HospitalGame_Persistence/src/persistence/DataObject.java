@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package persistence;
 
 import common.IDataObject;
@@ -13,17 +8,47 @@ import common.IRoom;
 import java.io.Serializable;
 
 /**
- *
- * @author andreasmolgaard-andersen
+ * Class to hold:
+ *  Inventories
+ *  Player
+ *  NPCs
+ *  Rooms
+ * 
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public class DataObject implements IDataObject, Serializable {
-
-    private DataRoom[] rooms;
-    private DataPlayer player;
-    private DataNPC[] npcs;
-    private DataInventory[] inventories;
     
+    /**
+     * Array of rooms that needs to be stored
+     */
+    private DataRoom[] rooms;
+    
+    /**
+     * The player that needs to be stored
+     */
+    private DataPlayer player;
+    
+    /**
+     * The NPCs to be stored
+     */
+    private DataNPC[] npcs;
+    
+    /**
+     * The inventories to be stored
+     */
+    private DataInventory[] inventories;
 
+    /**
+     * Constructor for data object, converts to data objects (DataItem, DataNPC, DataInventory and DataPlayer)
+     * 
+     * @param rooms the rooms to be stored
+     * @param player the player to be stored
+     * @param npcs the NPCs to be stored
+     * @param inventories the inventories the be stored
+     */
     public DataObject(IRoom[] rooms, IPlayer player, INPC[] npcs, IInventory[] inventories) {
         this.rooms = new DataRoom[rooms.length];
         for (int i = 0; i < rooms.length; i++) {
@@ -40,21 +65,37 @@ public class DataObject implements IDataObject, Serializable {
         }
     }
 
+    /**
+     * 
+     * @return the player
+     */
     @Override
     public IPlayer getPlayer() {
         return player;
     }
 
+    /**
+     * 
+     * @return the inventories
+     */
     @Override
     public IInventory[] getInventories() {
         return inventories;
     }
 
+    /**
+     * 
+     * @return the NPCs
+     */
     @Override
     public INPC[] getNPCs() {
         return npcs;
     }
 
+    /**
+     * 
+     * @return the rooms
+     */
     @Override
     public IRoom[] getRooms() {
         return rooms;
