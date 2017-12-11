@@ -13,13 +13,13 @@ import java.util.Set;
  */
 public interface IRoom {
 
-    IRoom getExit(Directions dir);
+    IRoom getExit(Direction dir);
     
-    int getExitID(Directions dir);
+    int getExitID(Direction dir);
 
     String getName();
 
-    Set<Directions> getExitDirections();
+    Set<Direction> getExitDirections();
 
     boolean isLocked();
 

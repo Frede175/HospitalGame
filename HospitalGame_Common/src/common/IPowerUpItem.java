@@ -9,7 +9,7 @@ package common;
  *
  * @author fsr19
  */
-public interface IPowerUpItem {
+public interface IPowerUpItem extends IItem {
 
     double getBuff();
 

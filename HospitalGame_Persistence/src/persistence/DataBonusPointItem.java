@@ -6,7 +6,6 @@
 package persistence;
 
 import common.IBonusPointItem;
-import common.IItem;
 import java.io.Serializable;
 
 /**
@@ -18,7 +17,7 @@ public class DataBonusPointItem extends DataItem implements IBonusPointItem, Ser
     public int bonusPoints;
 
     public DataBonusPointItem(IBonusPointItem item) {
-        super((IItem)item);
+        super(item);
         bonusPoints = item.getBonusPoints();
     }
 

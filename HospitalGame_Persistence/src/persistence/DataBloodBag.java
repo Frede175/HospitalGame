@@ -7,7 +7,6 @@ package persistence;
 
 import common.BloodType;
 import common.IBloodBag;
-import common.IBonusPointItem;
 import java.io.Serializable;
 
 /**
@@ -19,7 +18,7 @@ public class DataBloodBag extends DataBonusPointItem implements IBloodBag, Seria
     private BloodType bloodType;
 
     public DataBloodBag(IBloodBag item) {
-        super((IBonusPointItem)item);
+        super(item);
         bloodType = item.getBloodType();
     }
 

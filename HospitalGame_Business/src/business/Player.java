@@ -7,8 +7,9 @@ package business;
 
 import business.Item.PowerUpItem;
 import business.common.IItemFacade;
+import business.common.IMoveable;
 import common.BloodType;
-import common.Directions;
+import common.Direction;
 import common.GameConstants;
 import common.IInventory;
 import common.IItem;
@@ -23,7 +24,7 @@ import java.util.Iterator;
  *
  * @author andreasmolgaard-andersen
  */
-public class Player implements IPlayer {
+public class Player implements IPlayer, IMoveable {
 
     /**
      * access to itemFacade from player
@@ -44,6 +45,11 @@ public class Player implements IPlayer {
      * the time of the last update
      */
     private long lastUpdate;
+    
+    /**
+     * The time when the player last moved
+     */
+    private long lastMove;
 
     /**
      * an ArrayList of the items currently active
@@ -161,16 +167,16 @@ public class Player implements IPlayer {
      * @param player is the dataPlayer to be restored
      */
     public Player(IPlayer player) {
-        this.bloodType = player.getBloodType();
-        this.bloodRate = player.getBloodRate();
-        this.bloodAmount = player.getBloodAmount();
-        this.activeItems = new ArrayList<>();
+        bloodType = player.getBloodType();
+        bloodRate = player.getBloodRate();
+        bloodAmount = player.getBloodAmount();
+        activeItems = new ArrayList<>();
         for (IPowerUpItem item : player.getActiveItems()) {
             activeItems.add((PowerUpItem)item);
         }
-        this.inventoryID = player.getInventoryID();
-        this.bloodTypeKnown = player.isBloodTypeKnown();
-
+        inventoryID = player.getInventoryID();
+        bloodTypeKnown = player.isBloodTypeKnown();
+        roomID = player.getCurrentRoomID();
     }
 
     /**
@@ -228,7 +234,7 @@ public class Player implements IPlayer {
      * @param direction is the direction
      * @return true if the player has moved
      */
-    public boolean move(Directions direction) {
+    public boolean move(Direction direction) {
         Room nextRoom = (Room) map.getRoomByID(roomID).getExit(direction);
 
         if (nextRoom == null) {
@@ -238,11 +244,13 @@ public class Player implements IPlayer {
             if (itemFacade.getInventory(inventoryID).getItemsByName(ItemName.IDCARD).length > 0) {
                 roomID = nextRoom.getRoomID();
                 map.getRoomByID(roomID).setInspected();
+                lastMove = System.currentTimeMillis();
                 return true;
             }
         } else {
             roomID = nextRoom.getRoomID();
             map.getRoomByID(roomID).setInspected();
+            lastMove = System.currentTimeMillis();
             return true;
         }
         return false;
@@ -416,9 +424,21 @@ public class Player implements IPlayer {
         }   
     }
 
+    /**
+     * 
+     * @return true if the player knows the blood type
+     */
     @Override
     public boolean isBloodTypeKnown() {
         return bloodTypeKnown;
     }
 
+    /**
+     * 
+     * @return the time for when the player last moved
+     */
+    @Override
+    public long getLastMove() {
+        return lastMove;
+    }
 }

@@ -5,7 +5,7 @@
  */
 package ui;
 
-import common.Directions;
+import common.Direction;
 import common.IBusiness;
 import common.IPlayer;
 import common.IRoom;
@@ -167,7 +167,7 @@ public class MainController implements Initializable {
      * @param direction Which direction the player wants to move.
      * @return true if the player is kicked out.
      */
-    public boolean kickedOut(Directions direction) {
+    public boolean kickedOut(Direction direction) {
         setInteractionText("");
         IRoom nextRoom = player.getCurrentRoom().getExit(direction);
         if (business.move(direction)) {
@@ -190,7 +190,7 @@ public class MainController implements Initializable {
      */
     public void addButtons(IRoom room) {
         root.getChildren().removeAll(buttons);
-        for(Directions dir : room.getExitDirections()) {
+        for(Direction dir : room.getExitDirections()) {
             switch (dir) {
                 case NORTH:
                     root.add(createButton(dir, room.getExit(dir).isLocked()), 1, 0);
@@ -215,7 +215,7 @@ public class MainController implements Initializable {
      * @param direction The direction the arrow points and which direction to go.
      * @return A button with the direction given.
      */
-    public HBox createButton(Directions direction, boolean isLocked) {
+    public HBox createButton(Direction direction, boolean isLocked) {
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER);
         Button btn = new Button();
@@ -261,7 +261,7 @@ public class MainController implements Initializable {
      * Moves the player, and setting the interact label to display if the player was kicked out by the Porter.
      * @param direction Which direction the player wants to move.
      */
-    public void move(Directions direction) {
+    public void move(Direction direction) {
         if(kickedOut(direction)) {
             setInteractionText("You were kicked out by the porter");
         }
