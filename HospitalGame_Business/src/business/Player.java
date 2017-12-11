@@ -167,16 +167,16 @@ public class Player implements IPlayer, IMoveable {
      * @param player is the dataPlayer to be restored
      */
     public Player(IPlayer player) {
-        this.bloodType = player.getBloodType();
-        this.bloodRate = player.getBloodRate();
-        this.bloodAmount = player.getBloodAmount();
-        this.activeItems = new ArrayList<>();
+        bloodType = player.getBloodType();
+        bloodRate = player.getBloodRate();
+        bloodAmount = player.getBloodAmount();
+        activeItems = new ArrayList<>();
         for (IPowerUpItem item : player.getActiveItems()) {
             activeItems.add((PowerUpItem)item);
         }
-        this.inventoryID = player.getInventoryID();
-        this.bloodTypeKnown = player.isBloodTypeKnown();
-
+        inventoryID = player.getInventoryID();
+        bloodTypeKnown = player.isBloodTypeKnown();
+        roomID = player.getCurrentRoomID();
     }
 
     /**
