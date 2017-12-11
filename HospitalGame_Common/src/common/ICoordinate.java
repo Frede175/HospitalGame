@@ -1,18 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package common;
 
 /**
+ * Coordinate interface.
  *
- * @author rober
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public interface ICoordinate {
 
+    /**
+     * Gets the x coordinate.
+     * @return The x coordinate.
+     */
     int getX();
 
+    /**
+     * Gets the y coordinate.
+     * @return The y coordinate.
+     */
     int getY();
 
 }

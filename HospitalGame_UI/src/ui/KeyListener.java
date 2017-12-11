@@ -211,8 +211,6 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
                 if(UI.getInstance().getStage().getScene().equals(mainController.getScene())) {
                     mainController.openMenu();
                 }
-            default:
-                System.err.println("Dont have anyhting to do on that button");
         }
     }
 
