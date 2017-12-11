@@ -18,7 +18,7 @@ public interface IUI {
 
     /**
      * Starts the appliction.
-     * @param args 
+     * @param args Commandline args.
      */
     void startApplication(String[] args);
 }
