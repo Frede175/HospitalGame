@@ -5,7 +5,6 @@ package common;
  *
  * @author Frederik Schultz Rosenberg
  * @author Andreas Bøgh Mølgaard-Andersen
- * @author Tobias Ahrenschneider Sztuk
  * @author Lars Bjerregaard Jørgensen
  * @author Robert Francisti
  */

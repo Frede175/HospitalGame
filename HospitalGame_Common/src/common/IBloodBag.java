@@ -1,15 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package common;
 
 /**
+ * Interface for bloodbag
  *
- * @author fsr19
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public interface IBloodBag extends IBonusPointItem {
 
+    /**
+     * Returns the bloodtype of the bloodbag.
+     * @return The bloodtype of the bloodbag.
+     */
     BloodType getBloodType();
 }
