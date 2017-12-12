@@ -116,6 +116,7 @@ public class Map {
                 if (currentRoom.getExit(direction) == null && !usedCoordinates.contains(c)) {
                     // Sets an exit with the direction and the neighbor.
                     currentRoom.setExit(direction, freeRooms.get(neighbor));
+                    // sets coordinates to every freeroom.
                     freeRooms.get(neighbor).setCoordinate((Coordinate) c);
                     usedCoordinates.add(c);
                     // Sets the neighbor rooms exit to be the current room.
@@ -255,6 +256,10 @@ public class Map {
         }
         return path;
     }
+    /**
+     * 
+     * @return an array containing all the rooms
+     */
 
     public IRoom[] getRooms() {
         IRoom[] array = new IRoom[rooms.size()];
@@ -283,7 +288,11 @@ public class Map {
         }
 
     }
-
+/**
+ * checks if roomID is a valid ID
+ * @param ID is the ID of a room
+ * @return rooms by their Identification
+ */
     public Room getRoomByID(int ID) {
         if (rooms.get(ID) == null) {
             return null;
@@ -293,7 +302,10 @@ public class Map {
         }
         return null;
     }
-
+/**
+ * loads the rooms
+ * @param arrayRooms array with rooms
+ */
     public void load(IRoom[] arrayRooms) {
         for (IRoom room : arrayRooms) {
             Room r = new Room(room);

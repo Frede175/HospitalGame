@@ -7,9 +7,7 @@ package business.NPC;
 
 import business.BusinessFacade;
 import business.Map;
-import business.common.IMoveable;
 import business.common.INPCFacade;
-import common.Directions;
 import common.INPC;
 import common.IPlayer;
 import common.IRoom;
@@ -25,19 +23,28 @@ public class NPCFacade implements INPCFacade {
 
     private Map map;
     private BusinessFacade business;
-
     private MoveAI moveAI;
-
     private ArrayList<NPC> NPCs = new ArrayList<>();
-
+/**
+ * Constructor for NPCFacade
+ */
     public NPCFacade() {
         moveAI = new MoveAI();
     }
-
+/**
+ * player interracts with npc
+ * @param player 
+ * @param npc
+ * @returns interract player with npc
+ */
     @Override
     public String interact(IPlayer player, INPC npc) {
         return NPCs.get(NPCs.indexOf(npc)).interact(player);
     }
+    /**
+     * loads the npc rooms, names, if moveable.
+     * @param npcs 
+     */
 
     @Override
     public void load(INPC[] npcs) {
@@ -56,18 +63,24 @@ public class NPCFacade implements INPCFacade {
     public void injectBusiness(BusinessFacade business) {
         this.business = business;
     }
-
+/**
+ * 
+ * @param id is the id of the npc
+ * @param canMove checks if the npc is able to move
+ * @param name name of the npc
+ * @param currentRoomID of the npc
+ */
     @Override
     public void create(NPCID id, boolean canMove, String name, int currentRoomID) {
         NPC npc;
         switch (id) {
             case COMPUTER:
                 npc = new Computer(name, canMove, currentRoomID, id);
-                
+
                 break;
             case DOCTOR:
                 npc = new Doctor(name, canMove, currentRoomID, id);
-                
+
                 break;
             case PORTER:
                 npc = new Porter(name, canMove, currentRoomID, id);
@@ -79,7 +92,12 @@ public class NPCFacade implements INPCFacade {
         npc.injectBusiness(business);
         NPCs.add(npc);
     }
-
+/**
+ * Creates the npc
+ * @param id of the npc
+ * @param canMove checks if the npc can move
+ * @param name  of the npc
+ */
     @Override
     public void create(NPCID id, boolean canMove, String name) {
         create(id, canMove, name, -1);
@@ -122,6 +140,10 @@ public class NPCFacade implements INPCFacade {
             ((Porter) npc).setEndRoom(endRoomID);
         }
     }
+    /**
+     * loops through the npc's to check if the npc is a porter. Porter then notices and checks player
+     * @param player is the player in the game
+     */
 
     @Override
     public void porterCheckPlayer(IPlayer player) {
@@ -131,7 +153,11 @@ public class NPCFacade implements INPCFacade {
             }
         }
     }
-
+/**
+ * Loops to get the npc's from a room. 
+ * @param room
+ * @returns array of npc's in the room. 
+ */
     @Override
     public INPC[] getNPCsFromRoom(IRoom room) {
         List<INPC> npcsInRoom = new ArrayList<>();
@@ -143,12 +169,11 @@ public class NPCFacade implements INPCFacade {
         INPC[] array = new INPC[npcsInRoom.size()];
         return npcsInRoom.toArray(array);
     }
-
     @Override
     public void update() {
         moveAI.updateMoveableNPCs(NPCs);
     }
-    
+
     @Override
     public void reset() {
         NPCs.clear();

@@ -14,7 +14,11 @@ public enum BloodType {
     B,
     AB,
     O;
-
+/**
+ * Checks if bloodtype can transfuse
+ * @param giving if it can give blood
+ * @return true if can transfuse.
+ */
     public boolean canTransfuse(BloodType giving) {
         switch (giving) {
             case A:

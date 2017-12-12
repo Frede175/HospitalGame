@@ -9,6 +9,10 @@ package common;
  *
  * @author fsr19
  */
+/**
+ * the directions whom are the exits of the game.
+ * @author rober
+ */
 public enum Directions {
     SOUTH,
     EAST,

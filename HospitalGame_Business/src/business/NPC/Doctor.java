@@ -35,7 +35,11 @@ public class Doctor extends NPC {
     public Doctor(INPC npc) {
         super(npc.getName(), npc.canMove(), npc.getCurrentRoomID(), npc.getNPCID());
     }
-    
+    /**
+     * checks if player has bloodbags, if bloodbags are true to players bloodtype.
+     * @param player 
+     * @return three different things, either, points, need to get bloodbag or lost game
+     */
 
     @Override
     public String interact(IPlayer player) {

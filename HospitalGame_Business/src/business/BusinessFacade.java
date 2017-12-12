@@ -334,7 +334,7 @@ public class BusinessFacade implements IBusiness {
     }
     
     /**
-     * Make the player know its blood type.
+     * Make the player aware of its blood type.
      */
     public void playerBloodTypeKnown() {
         player.setBloodTypeKnown();
@@ -354,16 +354,28 @@ public class BusinessFacade implements IBusiness {
     public int getScore() {
         return score;
     }
+    /**
+     * Checks if eligible for a highscore
+     * @return true is its the score is eligible for a highscore
+     */
 
     @Override
     public boolean eligibleForHighScore() {
         return highScore.eligibleForHighscore(score);
     }
+    /**
+     * Adds a highscore 
+     * @param name of the player
+     * @return true if the highscore is to be added
+     */
 
     @Override
     public boolean addHighScore(String name) {
         return highScore.addHighScore(name, score);
     }
+    /**
+     * if the highscore has changed, then save this highscore
+     */
 
     @Override
     public void closing() {
@@ -371,6 +383,11 @@ public class BusinessFacade implements IBusiness {
             persistence.saveHighScore(highScore);
         }   
     }
+    /**
+     * checks if the highscore name is taken
+     * @param name of the player
+     * @return returns true if its taken
+     */
 
     @Override
     public boolean isHighScoreNameTaken(String name) {

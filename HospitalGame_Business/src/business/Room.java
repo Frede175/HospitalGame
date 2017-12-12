@@ -209,26 +209,41 @@ public class Room implements IRoom {
     public void setCoordinate(Coordinate c) {
         this.c = c;
     }
+    /**
+     * 
+     * @returns the inventory
+     */
 
     @Override
     public IInventory getInventory() {
         return itemFacade.getInventory(inventoryID);
     }
-
+/**
+ * sets inspected to true
+ */
     public void setInspected() {
         this.inspected = true;
     }
-
+/**
+ * 
+ * @return the rooms ID 
+ */
     @Override
     public int getRoomID() {
         return roomID;
     }
-
+/**
+ * 
+ * @param dir is the direction
+ * @return the exits at following directions
+ */
     @Override
     public int getExitID(Directions dir) {
         return exits.get(dir);
     }
-    
+    /**
+     * resets ID
+     */
     public static void reset() {
         nextID = 0;
     }

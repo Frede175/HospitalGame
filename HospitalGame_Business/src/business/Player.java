@@ -415,6 +415,10 @@ public class Player implements IPlayer {
             item.setLastUpdate(lastUpdate);
         }   
     }
+    /**
+     * 
+     * @return the known bloodtype
+     */
 
     @Override
     public boolean isBloodTypeKnown() {
