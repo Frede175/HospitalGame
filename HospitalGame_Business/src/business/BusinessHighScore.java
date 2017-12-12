@@ -32,6 +32,11 @@ public class BusinessHighScore implements IHighScore {
     public HashMap<String, Integer> getHighScore() {
         return scores;
     }
+    /**
+     * adds HashMap to scores
+     * loads all highscores
+     * @param highScore the highscore
+     */
 
     public void load(IHighScore highScore) {
         scores = new HashMap<>();
@@ -42,15 +47,29 @@ public class BusinessHighScore implements IHighScore {
     public boolean isDirty() {
         return isDirty;
     }
-
+    /**
+     * checks if the score is eligible for a highscore
+     * @param score the score that represents a HighScore
+     * @return a place on the highscore
+     */
     public boolean eligibleForHighscore(int score) {
         if(scores.isEmpty() || scores.size() < store) return true;
         return Collections.min(scores.values()) < score;
     }
-    
+    /**
+     * checks if the name can be used
+     * @param name of the player
+     * @return name in highscore
+     */
     public boolean isNameTaken(String name) {
         return scores.containsKey(name);
     }
+    /**
+     * adds highscore if score and name is eligible and not taken
+     * @param name of the player
+     * @param score of the player
+     * @return adds a highscore
+     */
     
     
     public boolean addHighScore(String name, int score) {
@@ -62,6 +81,10 @@ public class BusinessHighScore implements IHighScore {
         }
         return false;
     }
+    /**
+     * 
+     * @return 
+     */
     
     private String getMinKey() {
         Entry<String, Integer> min = null;

@@ -45,16 +45,12 @@ public class Map {
      */
     private ArrayList<Room> rooms;
 
-    
     /**
      * no args constructor for map
      */
     public Map() {
         rooms = new ArrayList<>();
     }
-
-    
-    
 
     /**
      * injector for item Facade
@@ -82,14 +78,12 @@ public class Map {
      * @param npcs which npcs are to be put in the game
      */
     public Room generateMap(int roomCount, List<IItem> items, List<INPC> npcs) {
-        
-        
-        
+
         // Creates the ArrayList that contains all the free rooms.
         ArrayList<Room> freeRooms = createRooms(roomCount);
-        
+
         rooms.addAll(freeRooms);
-        
+
         Directions[] directions = Directions.values();
         // Sets the start room to the first free room.
         Room startRoom = freeRooms.get(0);
@@ -135,9 +129,7 @@ public class Map {
                 i++;
             }
         }
-        
-        
-        
+
         Room locked = rooms.get(0);
         //Find a room that only has one exit:
         for (Room room : rooms) {
@@ -146,24 +138,24 @@ public class Map {
                 break;
             }
         }
-        
+
         // Add every item to a random room.
         locked.setLocked(true);
-        
+
         Collections.shuffle(items);
-        
+
         for (IItem item : items) {
             if (item.getName() == ItemName.BLOODBAG) {
                 locked.addItem(item);
             } else {
                 Room room;
-                while ((room = rooms.get((int) (Math.random() * roomCount))) == locked) { }
+                while ((room = rooms.get((int) (Math.random() * roomCount))) == locked) {
+                }
                 room.addItem(item);
             }
-            
+
         }
-        
-        
+
         // Adds the NPCs to random rooms.
         INPC porter = null;
         INPC doctor = null;
@@ -175,9 +167,10 @@ public class Map {
             if (npc.getNPCID() == NPCID.PORTER) {
                 porter = npc;
             }
-            
+
             Room room;
-            while ((room = rooms.get((int) (Math.random() * roomCount))) == locked) { }
+            while ((room = rooms.get((int) (Math.random() * roomCount))) == locked) {
+            }
             npcFacade.setRoom(npc, room.getRoomID());
         }
 
@@ -185,8 +178,7 @@ public class Map {
         if (porter != null && doctor != null) {
             npcFacade.setEndRoom(porter, doctor.getCurrentRoomID());
         }
-        
-        
+
         // returns the start room.
         return startRoom;
     }
@@ -293,7 +285,9 @@ public class Map {
     }
 
     public Room getRoomByID(int ID) {
-        if (rooms.get(ID) == null) return null;
+        if (rooms.get(ID) == null) {
+            return null;
+        }
         if (rooms.get(ID).getRoomID() == ID) {
             return (Room) rooms.get(ID);
         }
@@ -309,7 +303,7 @@ public class Map {
         }
 
     }
-    
+
     public void reset() {
         rooms.clear();
     }
