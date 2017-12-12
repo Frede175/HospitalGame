@@ -82,8 +82,8 @@ public class BusinessHighScore implements IHighScore {
         return false;
     }
     /**
-     * 
-     * @return 
+     * loops the entryset through the scores
+     * @return mangler at kommenteres
      */
     
     private String getMinKey() {
