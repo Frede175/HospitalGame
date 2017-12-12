@@ -80,6 +80,7 @@ public class Map {
      * @param roomCount how many rooms are to be in the game
      * @param items which items are to be put in the game
      * @param npcs which npcs are to be put in the game
+     * @return the startRoom
      */
     public Room generateMap(int roomCount, List<IItem> items, List<INPC> npcs) {
         
@@ -99,6 +100,7 @@ public class Map {
         Queue<Room> roomsToProcess = new LinkedList<>();
         // Adds the first free room to the queue.
         roomsToProcess.add(freeRooms.remove(0));
+        // used to hold the used coordinates, for rooms not to have duplicate coordinates.
         Set<ICoordinate> usedCoordinates = new HashSet<>();
         usedCoordinates.add(new Coordinate(0, 0));
         // As long as the queue is not empty.

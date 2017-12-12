@@ -31,6 +31,9 @@ import java.util.Random;
  */
 public class BusinessFacade implements IBusiness {
 
+    /**
+     * holds the rooms of the map
+     */
     private ArrayList<Room> rooms = new ArrayList<>();
 
     /**
@@ -73,6 +76,9 @@ public class BusinessFacade implements IBusiness {
      */
     private int score = 0;
 
+    /**
+     * Constructor for the business facade
+     */
     public BusinessFacade() {
         map = new Map();
         itemFacade = new ItemFacade();
@@ -84,6 +90,10 @@ public class BusinessFacade implements IBusiness {
         highScore = new BusinessHighScore();
     }
 
+    /**
+     * constructs rooms  
+     * @param numberOfRooms is the number of rooms to be constructd
+     */
     private void createRooms(int numberOfRooms) {
         // Delete all stored objects
         reset();
@@ -134,6 +144,9 @@ public class BusinessFacade implements IBusiness {
         player.setCurrentRoom(map.generateMap(numberOfRooms, items, Arrays.asList(npcFacade.getNPCs())).getRoomID());
     }
     
+    /**
+     * resets the game
+     */
     private void reset() {
         itemFacade.reset();
         npcFacade.reset();
@@ -162,7 +175,7 @@ public class BusinessFacade implements IBusiness {
     }
 
     /**
-     * 
+     * quits the game
      */
     @Override
     public void quit() {
@@ -170,8 +183,8 @@ public class BusinessFacade implements IBusiness {
     }
 
     /**
-     * 
-     * @return 
+     * getter for highScore
+     * @return highScore
      */
     @Override
     public IHighScore getHighScore() {
@@ -179,7 +192,7 @@ public class BusinessFacade implements IBusiness {
     }
 
     /**
-     * 
+     * pauses the game
      */
     @Override
     public void pause() {
@@ -188,7 +201,7 @@ public class BusinessFacade implements IBusiness {
     }
 
     /**
-     * 
+     * resumes the game
      */
     @Override
     public void resume() {
@@ -198,7 +211,6 @@ public class BusinessFacade implements IBusiness {
 
     /**
      * saves the game
-     *
      * @return true if the game has been saved
      */
     @Override
@@ -340,6 +352,12 @@ public class BusinessFacade implements IBusiness {
         player.setBloodTypeKnown();
     }
 
+    /**
+     * interact method 
+     * @param player is the player to interact
+     * @param npc is the npc to interact with
+     * @return returns a String, different from npc to npc
+     */
     @Override
     public String interact(IPlayer player, INPC npc) {
         this.player.update();
@@ -355,16 +373,28 @@ public class BusinessFacade implements IBusiness {
         return score;
     }
 
+    /**
+     * method to check if eligible
+     * @return true if the highScore is higher than the top 10
+     */
     @Override
     public boolean eligibleForHighScore() {
         return highScore.eligibleForHighscore(score);
     }
 
+    /**
+     * adds a new highScore
+     * @param name is the name of the player who got the highScore
+     * @return true if the highScore has been added
+     */
     @Override
     public boolean addHighScore(String name) {
         return highScore.addHighScore(name, score);
     }
 
+    /**
+     * gets called when closing the game, saves the highscore
+     */
     @Override
     public void closing() {
         if (highScore.isDirty()) {
@@ -372,6 +402,11 @@ public class BusinessFacade implements IBusiness {
         }   
     }
 
+    /**
+     * checks if the high score name is taken
+     * @param name is the name to be checked
+     * @return true if the name is already taken
+     */
     @Override
     public boolean isHighScoreNameTaken(String name) {
         return highScore.isNameTaken(name);
