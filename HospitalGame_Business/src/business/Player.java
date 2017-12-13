@@ -172,7 +172,7 @@ public class Player implements IPlayer, IMoveable {
         bloodAmount = player.getBloodAmount();
         activeItems = new ArrayList<>();
         for (IPowerUpItem item : player.getActiveItems()) {
-            activeItems.add((PowerUpItem)item);
+            activeItems.add(new PowerUpItem(item));
         }
         inventoryID = player.getInventoryID();
         bloodTypeKnown = player.isBloodTypeKnown();
