@@ -93,7 +93,7 @@ public class HighScoreController implements Initializable {
      * @throws IOException if file not found
      */
     @FXML
-    private void MenuButtonAction(ActionEvent event) throws IOException {
+    private void menuButtonAction(ActionEvent event) throws IOException {
         try {
             Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Menu.fxml"));

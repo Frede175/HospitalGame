@@ -18,12 +18,23 @@ public enum UIFocus {
     ROOM("Room"),
     NPC("NPC");
     
+    /**
+     * Contains the focus String.
+     */
     private String focus;
 
+    /**
+     * Constructs a focus String.
+     * @param focus 
+     */
     private UIFocus(String focus) {
         this.focus = focus;
     }
 
+    /**
+     * Gets the focus String
+     * @return The focus String
+     */
     @Override
     public String toString() {
         return focus;
