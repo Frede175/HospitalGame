@@ -175,7 +175,7 @@ public class Player implements IPlayer, IMoveable {
         bloodAmount = player.getBloodAmount();
         activeItems = new ArrayList<>();
         for (IPowerUpItem item : player.getActiveItems()) {
-            activeItems.add((PowerUpItem) item);
+            activeItems.add(new PowerUpItem(item));
         }
         inventoryID = player.getInventoryID();
         bloodTypeKnown = player.isBloodTypeKnown();
@@ -268,11 +268,12 @@ public class Player implements IPlayer, IMoveable {
     /**
      * drops an item
      *
-     * @param item is the item to be dropped
+     * @param index the index in the inventory of the item that need to be dropped
      * @return true if the item has been dropped
      */
-    public boolean dropItem(IItem item) {
-        if (itemFacade.addItem(map.getRoomByID(roomID).getInventoryID(), item)) {
+    public boolean dropItem(int index) {
+        IItem item = getInventory().getItem(index);
+        if (item != null && itemFacade.addItem(map.getRoomByID(roomID).getInventoryID(), item)) {
             itemFacade.removeItem(inventoryID, item);
             return true;
         }
@@ -287,7 +288,8 @@ public class Player implements IPlayer, IMoveable {
      * @return if the item was taken or not.
      */
     public boolean takeItem(int index) {
-        if (itemFacade.addItem(inventoryID, getCurrentRoom().getInventory().getItem(index))) {
+        IItem item = getCurrentRoom().getInventory().getItem(index);
+        if (item != null && itemFacade.addItem(inventoryID, item)) {
             itemFacade.removeItem(getCurrentRoom().getInventory().getInventoryID(), getCurrentRoom().getInventory().getItem(index));
             return true;
         }
