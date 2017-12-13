@@ -18,6 +18,10 @@ public enum NPCID {
      */
     private String name;
 
+    /**
+     * Construct an NPCID.
+     * @param name Which ID to use.
+     */
     private NPCID(String name) {
         this.name = name;
     }

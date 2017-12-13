@@ -19,6 +19,10 @@ public enum ItemName {
      */
     private String name;
 
+    /**
+     * Constructs an ItemName.
+     * @param name Which name to use.
+     */
     private ItemName(String name) {
         this.name = name;
     }
