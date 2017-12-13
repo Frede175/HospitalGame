@@ -69,7 +69,7 @@ public class BusinessHighScore implements IHighScore {
      * returns true if the score  high score is enough to get on the high score list
      *
      * @param score the score that represents a HighScore
-     * @return a place on the highscore
+     * @return true if the score is high score is enough to get on the high score list
      */
     public boolean eligibleForHighscore(int score) {
         if (scores.isEmpty() || scores.size() < store) {
@@ -108,9 +108,9 @@ public class BusinessHighScore implements IHighScore {
     }
 
     /**
-     * loops the entryset through the scores
+     * Get the key for the score that has the lowest score
      *
-     * @return mangler at kommenteres
+     * @return the name/key with the lowest score
      */
     private String getMinKey() {
         Entry<String, Integer> min = null;

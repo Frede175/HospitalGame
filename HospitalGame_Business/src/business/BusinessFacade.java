@@ -84,9 +84,13 @@ public class BusinessFacade implements IBusiness {
         map = new Map();
         itemFacade = new ItemFacade();
         npcFacade = new NPCFacade();
+        //injects ItemFacade into map
         map.injectItemFacade(itemFacade);
+        //Injects NPCFacade into map
         map.InjectNPCFacade(npcFacade);
+        //InjectsBusiness into npcFacade
         npcFacade.injectBusiness(this);
+        //injects map into npcFacade
         npcFacade.injectMap(map);
         highScore = new BusinessHighScore();
     }
