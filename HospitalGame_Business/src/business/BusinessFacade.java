@@ -308,7 +308,7 @@ public class BusinessFacade implements IBusiness {
      */
     @Override
     public boolean dropItem(int index) {
-        return player.dropItem(itemFacade.getInventory(player.getInventoryID()).getItem(index));
+        return player.dropItem(index);
     }
 
     /**

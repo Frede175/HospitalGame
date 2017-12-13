@@ -115,6 +115,7 @@ public class Inventory implements IInventory, Comparable<Inventory> {
      */
     @Override
     public Item getItem(int index) {
+        if (index < 0 || index >= items.size()) return null;
         return items.get(index);
     }
 
