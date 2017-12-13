@@ -81,8 +81,11 @@ public class BusinessFacade implements IBusiness {
      * Contrusctor for BusinessFacade
      */
     public BusinessFacade() {
+        //creates a new map
         map = new Map();
+        //creates a new ItemFacade
         itemFacade = new ItemFacade();
+        //creates a new NPCFacade
         npcFacade = new NPCFacade();
         //injects ItemFacade into map
         map.injectItemFacade(itemFacade);
@@ -92,6 +95,7 @@ public class BusinessFacade implements IBusiness {
         npcFacade.injectBusiness(this);
         //injects map into npcFacade
         npcFacade.injectMap(map);
+        // Creates a new highScore of the BusinessHighScore
         highScore = new BusinessHighScore();
     }
     /**
