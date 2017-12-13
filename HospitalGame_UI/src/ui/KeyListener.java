@@ -68,6 +68,10 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
         this.npcController = npcController;
     }
     
+    /**
+     * Checks which buttons is pressed and handles what to do.
+     * @param event Which event happened.
+     */
     @Override
     public void handle(KeyEvent event) {
         switch (event.getCode()) {

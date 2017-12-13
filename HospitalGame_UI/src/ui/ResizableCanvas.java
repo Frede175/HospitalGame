@@ -17,6 +17,10 @@ import javafx.scene.canvas.Canvas;
  */
 public class ResizableCanvas extends Canvas{
     
+    /**
+     * 
+     * @return Returns true if the canvas is resizeable.
+     */
     @Override
     public boolean isResizable(){
         return true;

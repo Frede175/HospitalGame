@@ -26,12 +26,23 @@ public enum Images {
      */
     LOGO("logo.png");
     
+    /**
+     * Contains the image name.
+     */
     private String name;
     
+    /**
+     * Constructs and image name.
+     * @param name Which name to use.
+     */
     private Images(String name) {
         this.name = name;
     }
 
+    /**
+     * Gets the name.
+     * @return The name.
+     */
     @Override
     public String toString() {
         return name;

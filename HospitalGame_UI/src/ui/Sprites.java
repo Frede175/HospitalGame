@@ -25,12 +25,23 @@ public enum Sprites {
     PORTER(13),
     IDCARD(14);
         
+    /**
+     * Contains the index of the sprite.
+     */
     private int index;
     
+    /**
+     * Constructs a sprite with an index.
+     * @param index Which sprite index.
+     */
     private Sprites(int index) {
         this.index = index;
     }
 
+    /**
+     * Gets the selected sprite index.
+     * @return  The selected index of the sprite.
+     */
     int getIndex() {
         return index;
     }
