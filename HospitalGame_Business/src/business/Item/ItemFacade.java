@@ -12,10 +12,14 @@ import common.IPowerUpItem;
 import java.util.ArrayList;
 import java.util.Collections;
 
-/**
- *
- * @author andreasmolgaard-andersen
- */
+    /**
+    * Class to execute the itemfacade
+    *
+    * @author Frederik Schultz Rosenberg
+    * @author Andreas Bøgh Mølgaard-Andersen
+    * @author Lars Bjerregaard Jørgensen
+    * @author Robert Francisti
+    */
 public class ItemFacade implements IItemFacade {
 
     /**
@@ -147,7 +151,9 @@ public class ItemFacade implements IItemFacade {
         }
         return false;
     }
-
+    /**
+     * clears and resets inventory
+     */
     @Override
     public void reset() {
         inventoryList.clear();

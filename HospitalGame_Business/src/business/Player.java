@@ -20,10 +20,14 @@ import common.ItemName;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-/**
- *
- * @author andreasmolgaard-andersen
- */
+    /**
+    * Class to execute all player functions
+    *
+    * @author Frederik Schultz Rosenberg
+    * @author Andreas Bøgh Mølgaard-Andersen
+    * @author Lars Bjerregaard Jørgensen
+    * @author Robert Francisti
+    */
 public class Player implements IPlayer, IMoveable {
 
     /**
@@ -45,7 +49,7 @@ public class Player implements IPlayer, IMoveable {
      * the time of the last update
      */
     private long lastUpdate;
-    
+
     /**
      * The time when the player last moved
      */
@@ -80,12 +84,12 @@ public class Player implements IPlayer, IMoveable {
      * Weather or not the player know his blood type.
      */
     private boolean bloodTypeKnown;
-    
+
     /**
      * Reference to map
      */
     private Map map;
-    
+
     /**
      * If the game is paused
      */
@@ -145,7 +149,6 @@ public class Player implements IPlayer, IMoveable {
      * @param bloodType is the bloodType for the player to hold
      * @param bloodRate is the rate that the player loses blood
      * @param bloodAmount is how much blood the player has
-     * @param name is the name of the player
      * @param itemFacade is the facade for the player
      */
     public Player(BloodType bloodType, double bloodRate, double bloodAmount, IItemFacade itemFacade) {
@@ -196,7 +199,12 @@ public class Player implements IPlayer, IMoveable {
     public void injectItemFacade(IItemFacade itemFacade) {
         this.itemFacade = itemFacade;
     }
-    
+
+    /**
+     * injector for map
+     *
+     * @param map map is the class to be injected
+     */
     public void injectMap(Map map) {
         this.map = map;
     }
@@ -234,6 +242,7 @@ public class Player implements IPlayer, IMoveable {
      * @param direction is the direction
      * @return true if the player has moved
      */
+    @Override
     public boolean move(Direction direction) {
         Room nextRoom = (Room) map.getRoomByID(roomID).getExit(direction);
 
@@ -270,9 +279,11 @@ public class Player implements IPlayer, IMoveable {
         }
         return false;
     }
-    
+
     /**
-     * Takes the item with the given index from the current room the player is in.
+     * Takes the item with the given index from the current room the player is
+     * in.
+     *
      * @param index the item index in the room
      * @return if the item was taken or not.
      */
@@ -295,10 +306,12 @@ public class Player implements IPlayer, IMoveable {
     }
 
     /**
-     * updates the game blood and active items
+     * updates the game, blood and active items
      */
     public void update() {
-        if (isPaused) return;
+        if (isPaused) {
+            return;
+        }
         long current = System.currentTimeMillis();
         long diff = current - lastUpdate;
         lastUpdate = current;
@@ -383,21 +396,21 @@ public class Player implements IPlayer, IMoveable {
     }
 
     /**
-     * 
+     *
      * @return the ID of the room the player is in.
      */
     @Override
     public int getCurrentRoomID() {
         return roomID;
     }
-    
+
     /**
      * Set bloodTypeknown to be true
      */
     public void setBloodTypeKnown() {
         bloodTypeKnown = true;
     }
-    
+
     /**
      * Pause the player update
      */
@@ -405,29 +418,30 @@ public class Player implements IPlayer, IMoveable {
         setLastUpdate(-1);
         isPaused = true;
     }
-    
+
     /**
      * Resumes the player update
      */
     public void resume() {
-        isPaused = false; 
+        isPaused = false;
         setLastUpdate(System.currentTimeMillis());
         update();
     }
-   
+
     /**
      * Set the last update on player and on all active items.
-     * @param time 
+     *
+     * @param time
      */
     private void setLastUpdate(long time) {
         lastUpdate = time;
         for (PowerUpItem item : activeItems) {
             item.setLastUpdate(lastUpdate);
-        }   
+        }
     }
 
     /**
-     * 
+     *
      * @return true if the player knows the blood type
      */
     @Override
@@ -436,7 +450,7 @@ public class Player implements IPlayer, IMoveable {
     }
 
     /**
-     * 
+     *
      * @return the time for when the player last moved
      */
     @Override

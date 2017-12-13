@@ -24,10 +24,14 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
-/**
- *
- * @author andreasmolgaard-andersen
- */
+    /**
+    * Class to handle the map functions in the game
+    *
+    * @author Frederik Schultz Rosenberg
+    * @author Andreas Bøgh Mølgaard-Andersen
+    * @author Lars Bjerregaard Jørgensen
+    * @author Robert Francisti
+    */
 public class Map {
 
     /**
@@ -45,16 +49,12 @@ public class Map {
      */
     private ArrayList<Room> rooms;
 
-    
     /**
      * no args constructor for map
      */
     public Map() {
         rooms = new ArrayList<>();
     }
-
-    
-    
 
     /**
      * injector for item Facade
@@ -82,15 +82,14 @@ public class Map {
      * @param npcs which npcs are to be put in the game
      */
     public Room generateMap(int roomCount, List<IItem> items, List<INPC> npcs) {
-        
-        
-        
+
         // Creates the ArrayList that contains all the free rooms.
         ArrayList<Room> freeRooms = createRooms(roomCount);
-        
+
         rooms.addAll(freeRooms);
-        
+
         Direction[] directions = Direction.values();
+
         // Sets the start room to the first free room.
         Room startRoom = freeRooms.get(0);
         startRoom.setInspected();
@@ -122,6 +121,7 @@ public class Map {
                 if (currentRoom.getExit(direction) == null && !usedCoordinates.contains(c)) {
                     // Sets an exit with the direction and the neighbor.
                     currentRoom.setExit(direction, freeRooms.get(neighbor));
+                    // sets coordinates to every freeroom.
                     freeRooms.get(neighbor).setCoordinate((Coordinate) c);
                     usedCoordinates.add(c);
                     // Sets the neighbor rooms exit to be the current room.
@@ -135,9 +135,7 @@ public class Map {
                 i++;
             }
         }
-        
-        
-        
+
         Room locked = rooms.get(0);
         //Find a room that only has one exit:
         for (Room room : rooms) {
@@ -146,24 +144,24 @@ public class Map {
                 break;
             }
         }
-        
+
         // Add every item to a random room.
         locked.setLocked(true);
-        
+        // Shuffles items
         Collections.shuffle(items);
-        
+
         for (IItem item : items) {
             if (item.getName() == ItemName.BLOODBAG) {
                 locked.addItem(item);
             } else {
                 Room room;
-                while ((room = rooms.get((int) (Math.random() * roomCount))) == locked) { }
+                while ((room = rooms.get((int) (Math.random() * roomCount))) == locked) {
+                }
                 room.addItem(item);
             }
-            
+
         }
-        
-        
+
         // Adds the NPCs to random rooms.
         INPC porter = null;
         INPC doctor = null;
@@ -175,9 +173,10 @@ public class Map {
             if (npc.getNPCID() == NPCID.PORTER) {
                 porter = npc;
             }
-            
+
             Room room;
-            while ((room = rooms.get((int) (Math.random() * roomCount))) == locked) { }
+            while ((room = rooms.get((int) (Math.random() * roomCount))) == locked) {
+            }
             npcFacade.setRoom(npc, room.getRoomID());
         }
 
@@ -185,8 +184,7 @@ public class Map {
         if (porter != null && doctor != null) {
             npcFacade.setEndRoom(porter, doctor.getCurrentRoomID());
         }
-        
-        
+
         // returns the start room.
         return startRoom;
     }
@@ -228,7 +226,7 @@ public class Map {
             Room r = (Room) startRoom.getExit(key);
             queue.add(r);
         }
-
+        //adds the start room to the list
         pathMap.put((Room) startRoom, null);
         while (!queue.isEmpty()) {
             Room room = queue.poll();
@@ -264,6 +262,10 @@ public class Map {
         return path;
     }
 
+    /**
+     *
+     * @return an array containing all the rooms
+     */
     public IRoom[] getRooms() {
         IRoom[] array = new IRoom[rooms.size()];
         rooms.toArray(array);
@@ -292,14 +294,27 @@ public class Map {
 
     }
 
+    /**
+     * checks if roomID is a valid ID
+     *
+     * @param ID is the ID of a room
+     * @return rooms by their Identification
+     */
     public Room getRoomByID(int ID) {
-        if (rooms.get(ID) == null) return null;
+        if (rooms.get(ID) == null) {
+            return null;
+        }
         if (rooms.get(ID).getRoomID() == ID) {
             return (Room) rooms.get(ID);
         }
         return null;
     }
 
+    /**
+     * loads the rooms
+     *
+     * @param arrayRooms array with rooms
+     */
     public void load(IRoom[] arrayRooms) {
         for (IRoom room : arrayRooms) {
             Room r = new Room(room);
@@ -309,7 +324,9 @@ public class Map {
         }
 
     }
-    
+    /**
+     * resets the rooms
+     */
     public void reset() {
         rooms.clear();
     }

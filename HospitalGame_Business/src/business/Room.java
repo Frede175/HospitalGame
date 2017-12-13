@@ -14,19 +14,26 @@ import common.IRoom;
 import java.util.HashMap;
 import java.util.Set;
 
-/**
- *
- * @author andreasmolgaard-andersen
- */
+    /**
+    *Class to handle the room functions
+    *
+    * @author Frederik Schultz Rosenberg
+    * @author Andreas Bøgh Mølgaard-Andersen
+    * @author Lars Bjerregaard Jørgensen
+    * @author Robert Francisti
+    */
 public class Room implements IRoom {
-
+    // variable that references to IItemFacade
     private IItemFacade itemFacade;
+    //map variable that references to Map class
     private Map map;
     private String name;
+    //exits variable that holds a HashMap of Direction and Integer
     private HashMap<Direction, Integer> exits;
     private boolean inspected = false;
     private int inventoryID;
     private boolean locked;
+    //variable that references to the coordinate class
     private Coordinate c;
     private int roomID;
     public static int nextID = 0;
@@ -209,26 +216,40 @@ public class Room implements IRoom {
     public void setCoordinate(Coordinate c) {
         this.c = c;
     }
-
+    /**
+     * 
+     * @returns the inventory
+     */
     @Override
     public IInventory getInventory() {
         return itemFacade.getInventory(inventoryID);
     }
-
+    /**
+    * sets inspected to true
+    */
     public void setInspected() {
         this.inspected = true;
     }
-
+    /**
+     * 
+    * @return the rooms ID 
+    */
     @Override
     public int getRoomID() {
         return roomID;
     }
-
+    /**
+    * 
+    * @param dir is the direction
+    * @return the exits at following directions
+    */
     @Override
     public int getExitID(Direction dir) {
         return exits.get(dir);
     }
-    
+    /**
+     * resets ID
+     */
     public static void reset() {
         nextID = 0;
     }

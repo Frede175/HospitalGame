@@ -14,10 +14,14 @@ import common.IPlayer;
 import common.ItemName;
 import common.NPCID;
 
-/**
- *
- * @author andreasmolgaard-andersen
- */
+    /**
+    * Class to handle the doctors functions 
+    *
+    * @author Frederik Schultz Rosenberg
+    * @author Andreas Bøgh Mølgaard-Andersen
+    * @author Lars Bjerregaard Jørgensen
+    * @author Robert Francisti
+    */
 public class Doctor extends NPC {
 
     /**
@@ -35,8 +39,11 @@ public class Doctor extends NPC {
     public Doctor(INPC npc) {
         super(npc.getName(), npc.canMove(), npc.getCurrentRoomID(), npc.getNPCID());
     }
-    
-
+    /**
+     * checks if player has bloodbags, if bloodbags are true to players bloodtype.
+     * @param player 
+     * @return three different things, either, points, need to get bloodbag or lost game
+     */
     @Override
     public String interact(IPlayer player) {
         if (business.getGameState() == GameState.LOST) return "You lost the game due to blood loss!";

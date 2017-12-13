@@ -9,10 +9,14 @@ import common.INPC;
 import common.IPlayer;
 import common.NPCID;
 
-/**
- *
- * @author andreasmolgaard-andersen
- */
+    /**
+    * Class to handle computer functions
+    *
+    * @author Frederik Schultz Rosenberg
+    * @author Andreas Bøgh Mølgaard-Andersen
+    * @author Lars Bjerregaard Jørgensen
+    * @author Robert Francisti
+    */
 public class Computer extends NPC {
     
     /**
