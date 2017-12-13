@@ -5,7 +5,7 @@
  */
 package ui;
 
-import common.Directions;
+import common.Direction;
 import common.IBusiness;
 import common.IPlayer;
 import common.IRoom;
@@ -17,7 +17,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -39,10 +38,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
+
 /**
- * FXML Controller class
- *
- * @author larsjorgensen
+ * Main controller.
+ * 
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Tobias Ahrenschneider Sztuk
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public class MainController implements Initializable {
 
@@ -62,11 +66,14 @@ public class MainController implements Initializable {
     @FXML
     private NPCController npcController;
     
+    /**
+     * Contains the PlayerStatusController
+     */
     @FXML 
     private PlayerStatusController playerStatusController;
     
     /**
-     * The root container element
+     * The root container element.
      */
     @FXML
     private GridPane root;
@@ -122,13 +129,21 @@ public class MainController implements Initializable {
         imgRes = UI.getInstance().getImageResource();
         player = business.getPlayer();
         buttons = new ArrayList<>();
-        inventoryPlayerController.setType(UIType.PLAYER);
-        inventoryRoomController.setType(UIType.ROOM);
-        npcController.setType(UIType.NPC);
+        inventoryPlayerController.setType(UIFocus.PLAYER);
+        inventoryRoomController.setType(UIFocus.ROOM);
+        npcController.setType(UIFocus.NPC);
         inventoryPlayerController.injectMainController(this);
         inventoryRoomController.injectMainController(this);
         npcController.injectMainController(this);
         updateGUI();
+    }
+
+    /**
+     * Gets the scene.
+     * @return The scene.
+     */
+    public Scene getScene() {
+        return scene;
     }
     
     /**
@@ -147,7 +162,12 @@ public class MainController implements Initializable {
         return inventoryPlayerController;
     }
     
-    public boolean kickedOut(Directions direction) {
+    /**
+     * Checks if the player is kicked out by the Porter.
+     * @param direction Which direction the player wants to move.
+     * @return true if the player is kicked out.
+     */
+    public boolean kickedOut(Direction direction) {
         setInteractionText("");
         IRoom nextRoom = player.getCurrentRoom().getExit(direction);
         if (business.move(direction)) {
@@ -170,7 +190,7 @@ public class MainController implements Initializable {
      */
     public void addButtons(IRoom room) {
         root.getChildren().removeAll(buttons);
-        for(Directions dir : room.getExitDirections()) {
+        for(Direction dir : room.getExitDirections()) {
             switch (dir) {
                 case NORTH:
                     root.add(createButton(dir, room.getExit(dir).isLocked()), 1, 0);
@@ -195,7 +215,7 @@ public class MainController implements Initializable {
      * @param direction The direction the arrow points and which direction to go.
      * @return A button with the direction given.
      */
-    public HBox createButton(Directions direction, boolean isLocked) {
+    public HBox createButton(Direction direction, boolean isLocked) {
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER);
         Button btn = new Button();
@@ -237,7 +257,11 @@ public class MainController implements Initializable {
         return hBox;
     }
     
-    public void move(Directions direction) {
+    /**
+     * Moves the player, and setting the interact label to display if the player was kicked out by the Porter.
+     * @param direction Which direction the player wants to move.
+     */
+    public void move(Direction direction) {
         if(kickedOut(direction)) {
             setInteractionText("You were kicked out by the porter");
         }
@@ -248,7 +272,7 @@ public class MainController implements Initializable {
      * Open the menu scene.
      * @throws IOException 
      */
-    public void openMenu() throws IOException {
+    public void openMenu() {
         business.pause();
         try {
             Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
@@ -270,6 +294,10 @@ public class MainController implements Initializable {
         updateGUI();
     }
     
+    /**
+     * Sets the text in the interact label.
+     * @param text The text to be shown.
+     */
     public void setInteractionText(String text) {
         interactLabel.setText(text);
     }
@@ -298,6 +326,9 @@ public class MainController implements Initializable {
         }
     }  
     
+    /**
+     * Opens the victoryscreen.
+     */
     private void openWin() {
         try {
             Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
@@ -307,12 +338,17 @@ public class MainController implements Initializable {
             winController.injectBusiness(business);
             winController.setup();
             Scene winScene = new Scene(vBox, screenSize.getWidth(), screenSize.getHeight());
+            UI.getInstance().getStage().setMaximized(true);
             UI.getInstance().getStage().setScene(winScene);
+            UI.getInstance().getStage().setMaximized(true);
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
+    /**
+     * Opens the deathscreen.
+     */
     private void openDeath() {
         try {
             Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
@@ -322,7 +358,9 @@ public class MainController implements Initializable {
             deathController.injectBusiness(business);
             deathController.setup();
             Scene winScene = new Scene(vBox, screenSize.getWidth(), screenSize.getHeight());
+            UI.getInstance().getStage().setMaximized(true);
             UI.getInstance().getStage().setScene(winScene);
+            UI.getInstance().getStage().setMaximized(true);
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }

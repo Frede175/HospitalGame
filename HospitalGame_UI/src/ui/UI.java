@@ -34,13 +34,25 @@ public class UI extends Application implements IUI {
         return ui;
     }
     
-    private UIType focus = UIType.ROOM;
+    /**
+     * Contains the current focus, and starts the focus at the room.
+     */
+    private UIFocus focus = UIFocus.ROOM;
 
-    public UIType getFocus() {
+    
+    /**
+     * Gets the current focus.
+     * @return The current focus.
+     */
+    public UIFocus getFocus() {
         return focus;
     }
 
-    public void setFocus(UIType focus) {
+    /**
+     * Sets the current focus.
+     * @param focus Which fragment to be focussed.
+     */
+    public void setFocus(UIFocus focus) {
         this.focus = focus;
     }
 
@@ -82,9 +94,13 @@ public class UI extends Application implements IUI {
         primaryStage.setMinHeight(600);
         primaryStage.setMinWidth(1000);
         primaryStage.setMaximized(true);
+        primaryStage.getIcons().add(UI.getInstance().getImageResource().getImage(Images.LOGO));
         primaryStage.show();
     }
     
+    /**
+     * Closes the business layer.
+     */
     @Override
     public void stop(){
         UI.getInstance().getBusiness().closing();

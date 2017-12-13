@@ -7,7 +7,7 @@ package business;
 
 import business.common.IItemFacade;
 import business.common.INPCFacade;
-import common.Directions;
+import common.Direction;
 import common.ICoordinate;
 import common.IItem;
 import common.INPC;
@@ -84,7 +84,8 @@ public class Map {
 
         rooms.addAll(freeRooms);
 
-        Directions[] directions = Directions.values();
+        Direction[] directions = Direction.values();
+        
         // Sets the start room to the first free room.
         Room startRoom = freeRooms.get(0);
         startRoom.setInspected();
@@ -106,9 +107,9 @@ public class Map {
             while (i <= exitCount && !freeRooms.isEmpty()) {
                 // Generates the random direction.
                 int index = (int) (Math.random() * 4);
-                Directions direction = directions[index];
+                Direction direction = directions[index];
                 // Calculates the opponent direction.
-                Directions oppoDirection = directions[(index + 2) % 4];
+                Direction oppoDirection = directions[(index + 2) % 4];
                 // Random selecting the neighbor room.
                 int neighbor = (int) (Math.random() * freeRooms.size());
                 // If the room dosent have an exit at that direction
@@ -209,15 +210,15 @@ public class Map {
      * @param endRoomID is the room where you end.
      * @return rooms.
      */
-    public List<Directions> pathfinder(int startRoomID, int endRoomID) {
+    public List<Direction> pathfinder(int startRoomID, int endRoomID) {
         Room startRoom = rooms.get(startRoomID);
         Room endRoom = rooms.get(endRoomID);
         // Queue holds a list of the rooms that are going to be checked
         Queue<Room> queue = new LinkedList<>();
         //Hashmap holds the checked rooms and what direction we came from, that points to startRoom.
-        java.util.Map<Room, Directions> pathMap = new HashMap<>();
+        java.util.Map<Room, Direction> pathMap = new HashMap<>();
         //Priming while loop by taking all the exits in the startRoom by adding it to queue. 
-        for (Directions key : startRoom.getExitDirections()) {
+        for (Direction key : startRoom.getExitDirections()) {
             Room r = (Room) startRoom.getExit(key);
             queue.add(r);
         }
@@ -225,7 +226,7 @@ public class Map {
         pathMap.put((Room) startRoom, null);
         while (!queue.isEmpty()) {
             Room room = queue.poll();
-            for (Directions key : room.getExitDirections()) {
+            for (Direction key : room.getExitDirections()) {
                 Room r = (Room) room.getExit(key);
                 //If the room already has been checked, it then doesnt add it to the room.
                 if (pathMap.containsKey(r)) {
@@ -236,16 +237,16 @@ public class Map {
                 }
             }
         }
-        List<Directions> path = new ArrayList<>();
+        List<Direction> path = new ArrayList<>();
         Room currentRoom = (Room) endRoom;
         //going from endRoom to startRoom and storing directions. 
         while (currentRoom != startRoom) {
-            Directions s = pathMap.get(currentRoom);
+            Direction s = pathMap.get(currentRoom);
             path.add(s);
             currentRoom = (Room) currentRoom.getExit(s);
 
         }
-        List<Directions> values = Arrays.asList(Directions.values());
+        List<Direction> values = Arrays.asList(Direction.values());
         //reversing order of list.
         Collections.reverse(path);
         //reverses path i.e south to north
@@ -272,7 +273,7 @@ public class Map {
      * @param d holds the coordinates to the directions in which room you're at.
      * @returns the SOUTH,EAST,WEST,NORTH coordinates.
      */
-    private Coordinate getCoordinateDirection(Directions d) {
+    private Coordinate getCoordinateDirection(Direction d) {
         switch (d) {
             case SOUTH:
                 return new Coordinate(0, -1);

@@ -1,12 +1,31 @@
 package ui;
 
 /**
- *
- * @author larsjorgensen
+ * Enum for different images.
+ * 
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Tobias Ahrenschneider Sztuk
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public enum Images {
-    DEATHSCREEN("DeathScreen"), DOCTOR("Doctor"), PLAYER("Player"), 
-    PORTER("Porter"), COMPUTER("Computer"), SPRITE("Sprite"), VICTORYSCREEN("VictoryScreen");
+    /**
+     * The death image.
+     */
+    DEATHSCREEN("deathScreen.png"), 
+    /**
+     * The spritesheet.
+     */
+    SPRITE("sprite.png"), 
+    /**
+     * The victory image.
+     */
+    VICTORYSCREEN("victoryScreen.png"),
+    /**
+     * The logo
+     */
+    LOGO("logo.png");
     
     private String name;
     

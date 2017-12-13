@@ -1,34 +1,51 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package persistence;
 
-import common.IItem;
 import common.IPowerUpItem;
 import java.io.Serializable;
 
 /**
- *
- * @author andreasmolgaard-andersen
+ * Class to store power up item
+ * 
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public class DataPowerUpItem extends DataItem implements IPowerUpItem, Serializable {
 
-    double buff;
-    long timeLeftOfBuff;
+    /**
+     * How much less the player losses every second
+     */
+    private double buff;
+    
+    /**
+     * How much time is left of the buff
+     */
+    private long timeLeftOfBuff;
 
-    DataPowerUpItem(IPowerUpItem item) {
-        super((IItem)item);
+    /**
+     * Constructor for data power up item from the interface IPowerUpItem
+     * @param item the given item
+     */
+    public DataPowerUpItem(IPowerUpItem item) {
+        super(item);
         buff = item.getBuff();
         timeLeftOfBuff = item.getTimeLeftOfBuff();
     }
 
+    /**
+     * 
+     * @return the buff of the item
+     */
     @Override
     public double getBuff() {
         return buff;
     }
 
+    /**
+     * 
+     * @return how much time is left of the buff
+     */
     @Override
     public long getTimeLeftOfBuff() {
         return timeLeftOfBuff;

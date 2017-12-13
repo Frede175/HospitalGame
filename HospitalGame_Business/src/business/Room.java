@@ -6,7 +6,7 @@
 package business;
 
 import business.common.IItemFacade;
-import common.Directions;
+import common.Direction;
 import common.ICoordinate;
 import common.IInventory;
 import common.IItem;
@@ -23,7 +23,7 @@ public class Room implements IRoom {
     private IItemFacade itemFacade;
     private Map map;
     private String name;
-    private HashMap<Directions, Integer> exits;
+    private HashMap<Direction, Integer> exits;
     private boolean inspected = false;
     private int inventoryID;
     private boolean locked;
@@ -57,7 +57,7 @@ public class Room implements IRoom {
         c = new Coordinate(room.getCoordinate().getX(), room.getCoordinate().getY());
         name = room.getName();
         exits = new HashMap<>();
-        for (Directions dir : room.getExitDirections()) {
+        for (Direction dir : room.getExitDirections()) {
             exits.put(dir, room.getExitID(dir));
         }
         locked = room.isLocked();
@@ -95,7 +95,7 @@ public class Room implements IRoom {
      * @param direction the direction of the exit
      * @param roomNeighbour is the room that i leads to
      */
-    public void setExit(Directions direction, IRoom roomNeighbour) {
+    public void setExit(Direction direction, IRoom roomNeighbour) {
         exits.put(direction, roomNeighbour.getRoomID());
     }
 
@@ -145,7 +145,7 @@ public class Room implements IRoom {
      * @return an IRoom
      */
     @Override
-    public IRoom getExit(Directions direction) {
+    public IRoom getExit(Direction direction) {
         if (exits.get(direction) == null) return null;
         return map.getRoomByID(exits.get(direction));
     }
@@ -166,7 +166,7 @@ public class Room implements IRoom {
      * @return Set of Directions
      */
     @Override
-    public Set<Directions> getExitDirections() {
+    public Set<Direction> getExitDirections() {
         return exits.keySet();
     }
 
@@ -238,7 +238,7 @@ public class Room implements IRoom {
  * @return the exits at following directions
  */
     @Override
-    public int getExitID(Directions dir) {
+    public int getExitID(Direction dir) {
         return exits.get(dir);
     }
     /**

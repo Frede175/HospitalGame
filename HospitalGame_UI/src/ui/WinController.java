@@ -28,9 +28,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
 /**
- * FXML Controller class
- *
- * @author larsb
+ * Victory Controller.
+ * 
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Tobias Ahrenschneider Sztuk
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public class WinController implements Initializable {
     

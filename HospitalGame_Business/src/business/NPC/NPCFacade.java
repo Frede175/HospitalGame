@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package business.NPC;
-
 import business.BusinessFacade;
 import business.Map;
 import business.common.INPCFacade;
@@ -156,6 +155,7 @@ public class NPCFacade implements INPCFacade {
 /**
  * Loops to get the npc's from a room. 
  * @param room
+     * @return 
  * @returns array of npc's in the room. 
  */
     @Override

@@ -1,17 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package common;
 
 /**
+ * PowerUpItem interface
  *
- * @author fsr19
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
-public interface IPowerUpItem {
+public interface IPowerUpItem extends IItem {
 
+    /**
+     * Gets the buff.
+     * @return The buff.
+     */
     double getBuff();
 
+    /**
+     * Gets the time left of the buff.
+     * @return The time left of the buff.
+     */
     long getTimeLeftOfBuff();
 }

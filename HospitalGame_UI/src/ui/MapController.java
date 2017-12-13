@@ -1,6 +1,6 @@
 package ui;
 
-import common.Directions;
+import common.Direction;
 import common.IBusiness;
 import common.IRoom;
 import java.net.URL;
@@ -16,24 +16,44 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 /**
- * FXML Controller class
- *
- * @author Tobias
+ * FXML map controller
+ * 
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public class MapController implements Initializable {
 
+    /**
+     * Reference to business
+     */
     private IBusiness business;
 
+    /**
+     * The canvas to be drawn on
+     */
     private ResizableCanvas roomCanvas;
 
+    /**
+     * The graphics context for the canvas
+     */
     private GraphicsContext graphicsContext;
 
+    /**
+     * A default size for the rooms (drawn). The is changed later.
+     */
     private int size = 30;
     
-    private int minX;
-    private int maxX;
-    private int minY;
-    private int maxY;
+    /**
+     * Storing the max and min of both x and y coordinates from the rooms in the map
+     */
+    private int minX, maxX, minY, maxY;
+    
+    /**
+     * Reference all the room in the game
+     */
+    private Set<IRoom> rooms;
     
     @FXML
     private StackPane stackPane;
@@ -60,34 +80,54 @@ public class MapController implements Initializable {
         
         createCanvas();
     }
+    
+    /**
+     * When the map is changed this should be called.
+     */
+    public void mapUpdate() {
+        updateMinMax();
+        calculateSizeAndDraw();
+    }
 
+    /**
+     * Draw the map for the game
+     */
     public void drawMap() {
         graphicsContext.clearRect(0, 0, roomCanvas.getWidth(), roomCanvas.getHeight());
         IRoom currentRoom = business.getPlayer().getCurrentRoom();
-        Set<IRoom> rooms = getRoomsInRoom(new HashSet<>(), currentRoom);
         int border = size / 10;
         border = border < 1 ? 1 : border;
         
         for (IRoom room : rooms) {
+            //Only draw the room if the player has been to it
             if (room.isInspected()) {
                 int x = room.getCoordinate().getX();
+                //The y coordinate from the room is inverted since 0,0 is different when generation and drawing
                 int y = room.getCoordinate().getY() * -1;
+                //Offset is used since the 0,0 should in the top left cornor but the start room has 0,0.
+                //Therefore the coordinates need to be shifted
                 int xOffset = x + minX * -1;
                 int yOffset = y + minY * -1;
+                //Since there is finite amount of space, there can be gaps. This is for centering the map on screen
                 int sizeOffsetX = (int)((roomCanvas.getWidth() - (size * (maxX - minX + 1))) / 2);
                 int sizeOffsetY = (int)((roomCanvas.getHeight() - (size * (maxY - minY + 1))) / 2);
+                //The coordiantes used to draw with
                 int xStart = xOffset * size + sizeOffsetX;
                 int yStart = yOffset * size + sizeOffsetY;
                 
-                if (room.getCoordinate().getX() == currentRoom.getCoordinate().getX() && room.getCoordinate().getY() == currentRoom.getCoordinate().getY()) {
+                //If the player is in this room draw it as red
+                if (room.getRoomID() == currentRoom.getRoomID()) {
                     graphicsContext.setFill(Color.RED);
                 } else {
                     graphicsContext.setFill(Color.BLACK);
                 }
-
+                
+                //Draw the rect on screen and clear out the middel
                 graphicsContext.fillRect(xStart, yStart, size, size);
                 graphicsContext.clearRect(xStart + border, yStart + border, size - border * 2, size - border * 2);
-                for (Directions d : room.getExitDirections()) {
+                
+                //This is for clearing the doors of the rooms
+                for (Direction d : room.getExitDirections()) {
                     switch (d) {
                         case SOUTH:
                             graphicsContext.clearRect(xStart + size / 2 - size / 8, yStart + size - border, size / 4, border);
@@ -109,6 +149,9 @@ public class MapController implements Initializable {
         }
     }
     
+    /**
+     * Updates the size variable and class drawMap()
+     */
     private void calculateSizeAndDraw(){
         int differenceX = maxX - minX + 1;
         int differenceY = maxY - minY + 1;
@@ -124,6 +167,9 @@ public class MapController implements Initializable {
         drawMap();
     }
     
+    /**
+     * Updates the min and max for both x and y, from the rooms coordinates
+     */
     private void updateMinMax(){
         minX = Integer.MAX_VALUE;
         maxX = Integer.MIN_VALUE;
@@ -131,7 +177,7 @@ public class MapController implements Initializable {
         maxY = Integer.MIN_VALUE;
         
         IRoom currentRoom = business.getPlayer().getCurrentRoom();
-        Set<IRoom> rooms = getRoomsInRoom(new HashSet<>(), currentRoom);
+        rooms = getRoomsInRoom(new HashSet<>(), currentRoom);
         
         for(IRoom room : rooms){
             int x = room.getCoordinate().getX();
@@ -146,8 +192,13 @@ public class MapController implements Initializable {
             if(y < minY)
                 minY = y;
         }
+        
+        
     }
     
+    /**
+     * Creates a canvas
+     */
     private void createCanvas(){
         roomCanvas = new ResizableCanvas();
         roomCanvas.widthProperty().bind(stackPane.widthProperty());
@@ -158,14 +209,20 @@ public class MapController implements Initializable {
         calculateSizeAndDraw();
     }
 
+    /**
+     * A recursive function that finds all the rooms in the map, from one room.
+     * @param roomSet the set to store all the rooms in
+     * @param nextRoom the next room / start room
+     * @return all the rooms found so far
+     */
     private Set<IRoom> getRoomsInRoom(Set<IRoom> roomSet, IRoom nextRoom) {
         if (!roomSet.contains(nextRoom)) {
             roomSet.add(nextRoom);
-            for (Directions d : nextRoom.getExitDirections()) {
+            for (Direction d : nextRoom.getExitDirections()) {
+                //Since it is a set, dublicates is not added
                 roomSet.addAll(getRoomsInRoom(roomSet, nextRoom.getExit(d)));
             }
         }
-
         return roomSet;
     }
 }

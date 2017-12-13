@@ -6,7 +6,6 @@
 package ui;
 
 import common.IBusiness;
-import common.IItem;
 import common.IPlayer;
 import common.IPowerUpItem;
 import common.ItemName;
@@ -18,9 +17,13 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
 /**
- * FXML Controller class
- *
- * @author larsb
+ * Player Status Controller.
+ * 
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Tobias Ahrenschneider Sztuk
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public class PlayerStatusController implements Initializable {
 
@@ -92,12 +95,18 @@ public class PlayerStatusController implements Initializable {
         setup();
     } 
     
+    /**
+     * Sets up the images, and runs the initial update.
+     */
     public void setup() {
         bandage.setImage(imgRes.getSprite(Sprites.BANDAGE));
         morphine.setImage(imgRes.getSprite(Sprites.MORPHINE));
         updatePlayerDataToGUI();
     }
     
+    /**
+     * Updates all the player data to the gui.
+     */
     public void updatePlayerDataToGUI() {
         bloodAmount.setText("Blood amount : " + player.getBloodAmount());
         bloodRate.setText("Blood rate : " + player.getBloodRate());
@@ -109,9 +118,9 @@ public class PlayerStatusController implements Initializable {
         int bandageCount = 0;
         int morphineCount = 0;
         for(IPowerUpItem item : player.getActiveItems()) {
-            if(((IItem) item).getName() == ItemName.BANDAGE) {
+            if(item.getName() == ItemName.BANDAGE) {
                 bandageCount++;
-            } else if(((IItem) item).getName() == ItemName.MORPHINE) {
+            } else if(item.getName() == ItemName.MORPHINE) {
                 morphineCount++;
             }
         }
