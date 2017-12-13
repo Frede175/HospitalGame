@@ -11,10 +11,14 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-/**
- *
- * @author fsr19
- */
+    /**
+    * Class to handle the moveAI
+    *
+    * @author Frederik Schultz Rosenberg
+    * @author Andreas Bøgh Mølgaard-Andersen
+    * @author Lars Bjerregaard Jørgensen
+    * @author Robert Francisti
+    */
 public class MoveAI {
     
     private final int min = 5 * 1000;

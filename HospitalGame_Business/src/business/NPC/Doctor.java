@@ -14,10 +14,14 @@ import common.IPlayer;
 import common.ItemName;
 import common.NPCID;
 
-/**
- *
- * @author andreasmolgaard-andersen
- */
+    /**
+    * Class to handle the doctors functions 
+    *
+    * @author Frederik Schultz Rosenberg
+    * @author Andreas Bøgh Mølgaard-Andersen
+    * @author Lars Bjerregaard Jørgensen
+    * @author Robert Francisti
+    */
 public class Doctor extends NPC {
 
     /**

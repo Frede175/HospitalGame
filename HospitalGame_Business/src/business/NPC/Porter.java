@@ -12,24 +12,28 @@ import common.IPlayer;
 import common.NPCID;
 import java.util.List;
 
-/**
- *
- * @author andreasmolgaard-andersen
- */
+    /**
+    * Class to handle the porter
+    *
+    * @author Frederik Schultz Rosenberg
+    * @author Andreas Bøgh Mølgaard-Andersen
+    * @author Lars Bjerregaard Jørgensen
+    * @author Robert Francisti
+    */
 public class Porter extends NPC implements IMoveable {
-    
+
     /**
      * to gain access to the end room
      */
     private int endRoomID;
-    
+
     /**
      * Last time the porter moved
      */
     private long lastMove;
 
     /**
-        * constructor for the porter
+     * constructor for the porter
      *
      * @param name is the name of the porter
      * @param canMove if the npc can move
@@ -50,7 +54,6 @@ public class Porter extends NPC implements IMoveable {
         super(npc.getName(), npc.canMove(), npc.getCurrentRoomID(), npc.getNPCID());
         lastMove = System.currentTimeMillis();
     }
-    
 
     /**
      * moves the porter
@@ -90,9 +93,11 @@ public class Porter extends NPC implements IMoveable {
     public void setEndRoom(int roomID) {
         endRoomID = roomID;
     }
-    
+
     /**
-     * Check if the player is a room that is locked and if so it moves the player to a room that is not locked.
+     * Check if the player is a room that is locked and if so it moves the
+     * player to a room that is not locked.
+     *
      * @param player the current player
      */
     public void checkPlayer(IPlayer player) {
@@ -107,7 +112,11 @@ public class Porter extends NPC implements IMoveable {
             }
         }
     }
-
+    /**
+     * getter for getLastMove function
+     * 
+     * @return lastMove
+     */
     @Override
     public long getLastMove() {
         return lastMove;
