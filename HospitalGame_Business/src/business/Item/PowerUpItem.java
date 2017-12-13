@@ -5,14 +5,17 @@
  */
 package business.Item;
 
-import common.IItem;
 import common.IPowerUpItem;
 import common.ItemName;
 
-/**
- *
- * @author andreasmolgaard-andersen
- */
+    /**
+    * Class to handle all powerupitems in the game
+    *
+    * @author Frederik Schultz Rosenberg
+    * @author Andreas Bøgh Mølgaard-Andersen
+    * @author Lars Bjerregaard Jørgensen
+    * @author Robert Francisti
+    */
 public class PowerUpItem extends Item implements IPowerUpItem {
 
     /**

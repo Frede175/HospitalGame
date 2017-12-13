@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package business.NPC;
+
 import business.BusinessFacade;
 import business.Map;
 import business.common.INPCFacade;

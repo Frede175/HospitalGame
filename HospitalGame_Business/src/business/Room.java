@@ -15,8 +15,12 @@ import java.util.HashMap;
 import java.util.Set;
 
 /**
+ * Class to handle the room functions
  *
- * @author andreasmolgaard-andersen
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public class Room implements IRoom {
 
@@ -218,25 +222,25 @@ public class Room implements IRoom {
     public IInventory getInventory() {
         return itemFacade.getInventory(inventoryID);
     }
-/**
- * sets inspected to true
- */
+    /**
+    * sets inspected to true
+    */
     public void setInspected() {
         this.inspected = true;
     }
-/**
- * 
- * @return the rooms ID 
- */
+    /**
+     * 
+    * @return the rooms ID 
+    */
     @Override
     public int getRoomID() {
         return roomID;
     }
-/**
- * 
- * @param dir is the direction
- * @return the exits at following directions
- */
+    /**
+    * 
+    * @param dir is the direction
+    * @return the exits at following directions
+    */
     @Override
     public int getExitID(Direction dir) {
         return exits.get(dir);

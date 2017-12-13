@@ -1,13 +1,16 @@
 package business.Item;
 
 import common.IBonusPointItem;
-import common.IItem;
 import common.ItemName;
 
-/**
- *
- * @author andreasmolgaard-andersen
- */
+    /**
+    * Class to handle all items that buff player
+    *
+    * @author Frederik Schultz Rosenberg
+    * @author Andreas Bøgh Mølgaard-Andersen
+    * @author Lars Bjerregaard Jørgensen
+    * @author Robert Francisti
+    */
 public class BonusPointItem extends Item implements IBonusPointItem {
 
     /**

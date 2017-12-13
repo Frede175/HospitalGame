@@ -3,10 +3,14 @@ package business.Item;
 import common.IItem;
 import common.ItemName;
 
-/**
- *
- * @author andreasmolgaard-andersen
- */
+    /**
+    * Class to handle items
+    *
+    * @author Frederik Schultz Rosenberg
+    * @author Andreas Bøgh Mølgaard-Andersen
+    * @author Lars Bjerregaard Jørgensen
+    * @author Robert Francisti
+    */
 public abstract class Item implements IItem {
 
     /**
@@ -29,7 +33,10 @@ public abstract class Item implements IItem {
         this.name = name;
         this.weight = weight;
     }
-    
+    /**
+     * gets name and weight
+     * @param item, an item in the game
+     */
     public Item(IItem item) {
         name = item.getName();
         weight = item.getWeight();

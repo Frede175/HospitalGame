@@ -13,8 +13,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
+ * Class to execute the itemfacade
  *
- * @author andreasmolgaard-andersen
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public class ItemFacade implements IItemFacade {
 
@@ -147,7 +151,9 @@ public class ItemFacade implements IItemFacade {
         }
         return false;
     }
-
+    /**
+     * clears and resets inventory
+     */
     @Override
     public void reset() {
         inventoryList.clear();

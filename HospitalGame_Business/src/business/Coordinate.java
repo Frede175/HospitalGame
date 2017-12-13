@@ -7,10 +7,14 @@ package business;
 
 import common.ICoordinate;
 
-/**
- *
- * @author andreasmolgaard-andersen
- */
+    /**
+    * Class to handle coordinates in rooms
+    *
+    *  @author Frederik Schultz Rosenberg
+    * @author Andreas Bøgh Mølgaard-Andersen
+    * @author Lars Bjerregaard Jørgensen
+    * @author Robert Francisti
+    */
 public class Coordinate implements ICoordinate {
 
     /**

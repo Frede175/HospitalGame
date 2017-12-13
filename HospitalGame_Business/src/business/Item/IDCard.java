@@ -7,14 +7,19 @@ package business.Item;
 
 import common.ItemName;
 
-/**
- *
- * @author andreasmolgaard-andersen
- */
-/**
- * Constructor for IDcard, sets the weight and name
- * @author rober
- */
+    /**
+    * Class to execute all basic functions
+    *
+    * @author Frederik Schultz Rosenberg
+    * @author Andreas Bøgh Mølgaard-Andersen
+    * @author Lars Bjerregaard Jørgensen
+    * @author Robert Francisti
+    */
+
+    /**
+    * Constructor for IDcard, sets the weight and name
+    * @author rober
+    */
 public class IDCard extends Item {
 
     public IDCard(int weight, ItemName name) {
