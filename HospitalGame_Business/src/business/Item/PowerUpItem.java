@@ -47,7 +47,7 @@ public class PowerUpItem extends Item implements IPowerUpItem {
         this.timeLeftOfBuff = timeLeftOfBuff;
     }
     
-    /**
+    /** 
      * gets item buff, updates and gets time left of buff
      * 
      * @param item of the concerned item
