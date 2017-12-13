@@ -73,11 +73,12 @@ public class Coordinate implements ICoordinate {
     public static Coordinate subtract(Coordinate a, Coordinate b) {
         return new Coordinate(a.getX() - b.getX(), a.getY() - b.getY());
     }
-/**
- * checks if object is a coordinate. 
- * @param obj is an object
- * @returns coordinates to object
- */
+    /**
+    * checks if object is a coordinate. 
+    * 
+    * @param obj is an object
+    * @returns coordinates to object
+    */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Coordinate) {
@@ -90,7 +91,6 @@ public class Coordinate implements ICoordinate {
      * generates a random hashcode
      * @return a random hashcode
      */
-
     @Override
     public int hashCode() {
         int hash = 7;

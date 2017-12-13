@@ -21,7 +21,12 @@ import common.ItemName;
     * @author rober
     */
 public class IDCard extends Item {
-
+    
+    /**
+     * ID card holds a weight and a name
+     * @param weight of the card
+     * @param name of the card
+     */
     public IDCard(int weight, ItemName name) {
         super(weight, name);
     }

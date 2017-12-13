@@ -44,7 +44,6 @@ public class Doctor extends NPC {
      * @param player 
      * @return three different things, either, points, need to get bloodbag or lost game
      */
-
     @Override
     public String interact(IPlayer player) {
         if (business.getGameState() == GameState.LOST) return "You lost the game due to blood loss!";

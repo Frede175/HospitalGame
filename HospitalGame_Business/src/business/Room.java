@@ -14,23 +14,26 @@ import common.IRoom;
 import java.util.HashMap;
 import java.util.Set;
 
-/**
- * Class to handle the room functions
- *
- * @author Frederik Schultz Rosenberg
- * @author Andreas Bøgh Mølgaard-Andersen
- * @author Lars Bjerregaard Jørgensen
- * @author Robert Francisti
- */
+    /**
+    *Class to handle the room functions
+    *
+    * @author Frederik Schultz Rosenberg
+    * @author Andreas Bøgh Mølgaard-Andersen
+    * @author Lars Bjerregaard Jørgensen
+    * @author Robert Francisti
+    */
 public class Room implements IRoom {
-
+    // variable that references to IItemFacade
     private IItemFacade itemFacade;
+    //map variable that references to Map class
     private Map map;
     private String name;
+    //exits variable that holds a HashMap of Direction and Integer
     private HashMap<Direction, Integer> exits;
     private boolean inspected = false;
     private int inventoryID;
     private boolean locked;
+    //variable that references to the coordinate class
     private Coordinate c;
     private int roomID;
     public static int nextID = 0;
@@ -217,7 +220,6 @@ public class Room implements IRoom {
      * 
      * @returns the inventory
      */
-
     @Override
     public IInventory getInventory() {
         return itemFacade.getInventory(inventoryID);

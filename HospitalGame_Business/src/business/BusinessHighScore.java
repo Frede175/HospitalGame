@@ -29,7 +29,8 @@ public class BusinessHighScore implements IHighScore {
      * If the high scores has been updated
      */
     private boolean isDirty = false;
-
+    
+    //HashMap with scores
     private HashMap<String, Integer> scores;
 
     /**
@@ -47,7 +48,6 @@ public class BusinessHighScore implements IHighScore {
      *
      * @param highScore the highscore
      */
-
     public void load(IHighScore highScore) {
         scores = new HashMap<>();
         if (highScore == null) {
@@ -66,7 +66,7 @@ public class BusinessHighScore implements IHighScore {
     }
 
     /**
-     * checks if the score is eligible for a highscore
+     * returns true if the score  high score is enough to get on the high score list
      *
      * @param score the score that represents a HighScore
      * @return a place on the highscore
@@ -82,7 +82,7 @@ public class BusinessHighScore implements IHighScore {
      * checks if the name can be used
      *
      * @param name of the player
-     * @return name in highscore
+     * @return  true if the given name is taken
      */
     public boolean isNameTaken(String name) {
         return scores.containsKey(name);
@@ -93,9 +93,8 @@ public class BusinessHighScore implements IHighScore {
      *
      * @param name of the player
      * @param score of the player
-     * @return adds a highscore
+     * @return true if the player got added
      */
-
     public boolean addHighScore(String name, int score) {
         if (eligibleForHighscore(score) && !isNameTaken(name)) {
             isDirty = true;
@@ -113,7 +112,6 @@ public class BusinessHighScore implements IHighScore {
      *
      * @return mangler at kommenteres
      */
-
     private String getMinKey() {
         Entry<String, Integer> min = null;
         for (Entry<String, Integer> entry : scores.entrySet()) {

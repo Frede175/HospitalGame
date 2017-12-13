@@ -24,14 +24,14 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
-/**
- * Class to handle the map functions in the game
- *
- * @author Frederik Schultz Rosenberg
- * @author Andreas Bøgh Mølgaard-Andersen
- * @author Lars Bjerregaard Jørgensen
- * @author Robert Francisti
- */
+    /**
+    * Class to handle the map functions in the game
+    *
+    * @author Frederik Schultz Rosenberg
+    * @author Andreas Bøgh Mølgaard-Andersen
+    * @author Lars Bjerregaard Jørgensen
+    * @author Robert Francisti
+    */
 public class Map {
 
     /**
@@ -147,7 +147,7 @@ public class Map {
 
         // Add every item to a random room.
         locked.setLocked(true);
-        // Shuffles items in collections
+        // Shuffles items
         Collections.shuffle(items);
 
         for (IItem item : items) {
@@ -226,7 +226,7 @@ public class Map {
             Room r = (Room) startRoom.getExit(key);
             queue.add(r);
         }
-        //sets room to startRoom
+        //adds the start room to the list
         pathMap.put((Room) startRoom, null);
         while (!queue.isEmpty()) {
             Room room = queue.poll();

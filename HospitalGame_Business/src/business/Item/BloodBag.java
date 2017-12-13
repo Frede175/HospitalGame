@@ -36,7 +36,11 @@ public class BloodBag extends BonusPointItem implements IBloodBag {
         super(bonusPoints, name, weight);
         this.bloodType = bloodType;
     }
-
+    /**
+     * gets bloodtype from bloodbag
+     * 
+     * @param bloodBag bloodbag which can be used to identify bloodtype
+     */
     public BloodBag(IBloodBag bloodBag) {
         super(bloodBag);
         bloodType = bloodBag.getBloodType();

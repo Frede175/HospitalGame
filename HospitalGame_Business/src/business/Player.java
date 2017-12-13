@@ -20,14 +20,14 @@ import common.ItemName;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-/**
- * Class to execute all player functions
- *
- * @author Frederik Schultz Rosenberg
- * @author Andreas Bøgh Mølgaard-Andersen
- * @author Lars Bjerregaard Jørgensen
- * @author Robert Francisti
- */
+    /**
+    * Class to execute all player functions
+    *
+    * @author Frederik Schultz Rosenberg
+    * @author Andreas Bøgh Mølgaard-Andersen
+    * @author Lars Bjerregaard Jørgensen
+    * @author Robert Francisti
+    */
 public class Player implements IPlayer, IMoveable {
 
     /**

@@ -12,14 +12,14 @@ import common.IPowerUpItem;
 import java.util.ArrayList;
 import java.util.Collections;
 
-/**
- * Class to execute the itemfacade
- *
- * @author Frederik Schultz Rosenberg
- * @author Andreas Bøgh Mølgaard-Andersen
- * @author Lars Bjerregaard Jørgensen
- * @author Robert Francisti
- */
+    /**
+    * Class to execute the itemfacade
+    *
+    * @author Frederik Schultz Rosenberg
+    * @author Andreas Bøgh Mølgaard-Andersen
+    * @author Lars Bjerregaard Jørgensen
+    * @author Robert Francisti
+    */
 public class ItemFacade implements IItemFacade {
 
     /**

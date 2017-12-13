@@ -24,10 +24,13 @@ import java.util.List;
  * @author Robert Francisti
  */
 public class NPCFacade implements INPCFacade {
-
+    //map variable that references to map class
     private Map map;
+    //business variable that references to BusinessFacade class
     private BusinessFacade business;
+    //moveAI variable that references to moveAI class
     private MoveAI moveAI;
+    //NPCs variable that holds an arraylist of NPC
     private ArrayList<NPC> NPCs = new ArrayList<>();
 
     /**

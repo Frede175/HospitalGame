@@ -29,7 +29,10 @@ public class BonusPointItem extends Item implements IBonusPointItem {
         super(weight, name);
         this.bonusPoints = bonusPoints;
     }
-    
+    /**
+     * gets bonusPoints from item
+     * @param item is the item which is being used
+     */
     public BonusPointItem(IBonusPointItem item) {
         super(item);
         bonusPoints = item.getBonusPoints();

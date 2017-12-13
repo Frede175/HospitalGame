@@ -12,14 +12,14 @@ import common.IPowerUpItem;
 import common.ItemName;
 import java.util.ArrayList;
 
-/**
- * Class to handle inventory
- *
- * @author Frederik Schultz Rosenberg
- * @author Andreas Bøgh Mølgaard-Andersen
- * @author Lars Bjerregaard Jørgensen
- * @author Robert Francisti
- */
+    /**
+    * Class to handle inventory
+    *
+    * @author Frederik Schultz Rosenberg
+    * @author Andreas Bøgh Mølgaard-Andersen
+    * @author Lars Bjerregaard Jørgensen
+    * @author Robert Francisti
+    */
 public class Inventory implements IInventory, Comparable<Inventory> {
 
     /**

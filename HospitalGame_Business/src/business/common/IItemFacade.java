@@ -67,9 +67,9 @@ public interface IItemFacade {
      * updates the timeLeftOfBuff of a powerUpItem
      *
      * @param powerUpItem is the item being updated
-     * @param inventoryID
-     * @param lastUpdate
-     * @return
+     * @param inventoryID is the ID of the inventory
+     * @param lastUpdate  is the last update of a powerupitem  
+     * @return true if these criteria are met
      */
     public boolean update(IPowerUpItem powerUpItem, int inventoryID, long lastUpdate);
     

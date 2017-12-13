@@ -90,7 +90,10 @@ public class BusinessFacade implements IBusiness {
         npcFacade.injectMap(map);
         highScore = new BusinessHighScore();
     }
-
+    /**
+     * creates rooms in the game
+     * @param numberOfRooms in the game
+     */    
     private void createRooms(int numberOfRooms) {
         // Delete all stored objects
         reset();
@@ -140,7 +143,9 @@ public class BusinessFacade implements IBusiness {
         // Sets the current room for the player, and generates the rooms.
         player.setCurrentRoom(map.generateMap(numberOfRooms, items, Arrays.asList(npcFacade.getNPCs())).getRoomID());
     }
-
+    /**
+     * resets the itemFacade,npcFacade, map, room and score
+     */
     private void reset() {
         itemFacade.reset();
         npcFacade.reset();
@@ -389,7 +394,7 @@ public class BusinessFacade implements IBusiness {
     }
 
     /**
-     * if the highscore has changed, then save this highscore
+     * This function should be called before the game is closed
      */
     @Override
     public void closing() {
@@ -410,11 +415,10 @@ public class BusinessFacade implements IBusiness {
     }
 
     /**
-     * checks if game is saveable
+     * checks if there is a saved game on the filesystem
      *
      * @returns true if it can be saved
      */
-
     @Override
     public boolean saveGameAvailable() {
         return persistence.saveGameAvailable();

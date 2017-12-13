@@ -21,9 +21,11 @@ import java.util.Set;
     */
 public class MoveAI {
     
+    //minimum value for moveAI
     private final int min = 5 * 1000;
+    //maximum value for moveAI
     private final int max = 20 * 1000;
-    
+    //
     private final Random random = new Random();
     
     /**

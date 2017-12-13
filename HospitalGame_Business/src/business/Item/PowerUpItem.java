@@ -46,7 +46,12 @@ public class PowerUpItem extends Item implements IPowerUpItem {
         this.buff = buff;
         this.timeLeftOfBuff = timeLeftOfBuff;
     }
-
+    
+    /**
+     * gets item buff, updates and gets time left of buff
+     * 
+     * @param item of the concerned item
+     */
     public PowerUpItem(IPowerUpItem item) {
         super(item);
         buff = item.getBuff();
@@ -92,7 +97,10 @@ public class PowerUpItem extends Item implements IPowerUpItem {
     public void startBuff(long startTime) {
         lastUpdate = startTime;
     }
-    
+    /**
+     * setter for setLastUpdate function
+     * @param lastUpdate is the latest update from a powerup item
+     */
     public void setLastUpdate(long lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
