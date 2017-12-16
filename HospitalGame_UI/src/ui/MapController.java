@@ -4,9 +4,7 @@ import common.Direction;
 import common.IBusiness;
 import common.IRoom;
 import java.net.URL;
-import java.util.HashSet;
 import java.util.ResourceBundle;
-import java.util.Set;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -49,11 +47,6 @@ public class MapController implements Initializable {
      * Storing the max and min of both x and y coordinates from the rooms in the map
      */
     private int minX, maxX, minY, maxY;
-    
-    /**
-     * Reference all the room in the game
-     */
-    private Set<IRoom> rooms;
     
     @FXML
     private StackPane stackPane;
@@ -98,7 +91,7 @@ public class MapController implements Initializable {
         int border = size / 10;
         border = border < 1 ? 1 : border;
         
-        for (IRoom room : rooms) {
+        for (IRoom room : business.getRooms()) {
             //Only draw the room if the player has been to it
             if (room.isInspected()) {
                 int x = room.getCoordinate().getX();
@@ -177,9 +170,9 @@ public class MapController implements Initializable {
         maxY = Integer.MIN_VALUE;
         
         IRoom currentRoom = business.getPlayer().getCurrentRoom();
-        rooms = getRoomsInRoom(new HashSet<>(), currentRoom);
         
-        for(IRoom room : rooms){
+        
+        for(IRoom room : business.getRooms()){
             int x = room.getCoordinate().getX();
             int y = room.getCoordinate().getY() * -1;
             
@@ -209,20 +202,4 @@ public class MapController implements Initializable {
         calculateSizeAndDraw();
     }
 
-    /**
-     * A recursive function that finds all the rooms in the map, from one room.
-     * @param roomSet the set to store all the rooms in
-     * @param nextRoom the next room / start room
-     * @return all the rooms found so far
-     */
-    private Set<IRoom> getRoomsInRoom(Set<IRoom> roomSet, IRoom nextRoom) {
-        if (!roomSet.contains(nextRoom)) {
-            roomSet.add(nextRoom);
-            for (Direction d : nextRoom.getExitDirections()) {
-                //Since it is a set, dublicates is not added
-                roomSet.addAll(getRoomsInRoom(roomSet, nextRoom.getExit(d)));
-            }
-        }
-        return roomSet;
-    }
 }

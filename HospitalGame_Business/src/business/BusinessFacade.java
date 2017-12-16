@@ -432,4 +432,13 @@ public class BusinessFacade implements IBusiness {
         return persistence.saveGameAvailable();
     }
 
+    /**
+     * 
+     * @return array with all rooms of the map.
+     */
+    @Override
+    public IRoom[] getRooms() {
+        return map.getRooms();
+    }
+
 }
