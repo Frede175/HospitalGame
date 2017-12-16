@@ -28,9 +28,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
 /**
- * FXML Controller class
- *
- * @author larsb
+ * Victory Controller.
+ * 
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public class WinController implements Initializable {
     
@@ -39,21 +42,39 @@ public class WinController implements Initializable {
      */
     private IBusiness business;
     
+    /**
+     * The root element.
+     */
     @FXML
     private VBox root;
     
+    /**
+     * Contains the textfield and submit button.
+     */
     @FXML
     private VBox highScore;
     
+    /**
+     * The textfield where the player enters its name.
+     */
     @FXML
     private TextField nameTF;
     
+    /**
+     * The label where the score is shown.
+     */
     @FXML
     private Label scoreLabel;
     
+    /**
+     * The label representing the player that the score is eligible for an highscore.
+     */
     @FXML
     private Label highScoreLabel;
     
+    /**
+     * Contains the images.
+     */
     private ImageResource imgRes;
     
     /**
@@ -64,6 +85,9 @@ public class WinController implements Initializable {
         
     }
     
+    /**
+     * Sets the background and checking if the players score is good enough for an highscore.
+     */
     public void setup() {
         UI.getInstance().getStage().setMaximized(true);
         imgRes = UI.getInstance().getImageResource();
@@ -75,10 +99,17 @@ public class WinController implements Initializable {
         }
     }
 
+    /**
+     * Injects business facade.
+     * @param business Which business facade to inject.
+     */
     public void injectBusiness(IBusiness business) {
         this.business = business;
     }
     
+    /**
+     * Submits the highscore with a name, tells teh player if the name is already taken.
+     */
     public void submitHighScore() {
         if(!business.isHighScoreNameTaken(nameTF.getText())) {
             business.addHighScore(nameTF.getText());
@@ -88,6 +119,9 @@ public class WinController implements Initializable {
         }
     }  
     
+    /**
+     * Opens the main menu.
+     */
     public void openMenu() {
         try {
             Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();

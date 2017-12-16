@@ -1,17 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package common;
 
 /**
+ * Item interface
  *
- * @author fsr19
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public interface IItem {
 
+    /**
+     * Gets the weight of the item.
+     * @return The weight of the item.
+     */
     int getWeight();
 
+    /**
+     * Gets the name of the item.
+     * @return The name of the item.
+     */
     ItemName getName();
 }

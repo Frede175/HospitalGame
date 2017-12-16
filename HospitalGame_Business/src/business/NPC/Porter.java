@@ -6,30 +6,34 @@
 package business.NPC;
 
 import business.common.IMoveable;
-import common.Directions;
+import common.Direction;
 import common.INPC;
 import common.IPlayer;
 import common.NPCID;
 import java.util.List;
 
-/**
- *
- * @author andreasmolgaard-andersen
- */
+    /**
+    * Class to handle the porter
+    *
+    * @author Frederik Schultz Rosenberg
+    * @author Andreas Bøgh Mølgaard-Andersen
+    * @author Lars Bjerregaard Jørgensen
+    * @author Robert Francisti
+    */
 public class Porter extends NPC implements IMoveable {
-    
+
     /**
      * to gain access to the end room
      */
     private int endRoomID;
-    
+
     /**
      * Last time the porter moved
      */
     private long lastMove;
 
     /**
-        * constructor for the porter
+     * constructor for the porter
      *
      * @param name is the name of the porter
      * @param canMove if the npc can move
@@ -50,7 +54,6 @@ public class Porter extends NPC implements IMoveable {
         super(npc.getName(), npc.canMove(), npc.getCurrentRoomID(), npc.getNPCID());
         lastMove = System.currentTimeMillis();
     }
-    
 
     /**
      * moves the porter
@@ -59,7 +62,7 @@ public class Porter extends NPC implements IMoveable {
      * @return true if the porter has been moved
      */
     @Override
-    public boolean move(Directions direction) {
+    public boolean move(Direction direction) {
         setCurrentRoom(getCurrentRoom().getExit(direction).getRoomID());
         checkPlayer(business.getPlayer());
         lastMove = System.currentTimeMillis();
@@ -75,7 +78,7 @@ public class Porter extends NPC implements IMoveable {
     @Override
     public String interact(IPlayer player) {
         String output = "These directions will lead you two rooms ahead ";
-        List<Directions> path = map.pathfinder(player.getCurrentRoomID(), endRoomID);
+        List<Direction> path = map.pathfinder(player.getCurrentRoomID(), endRoomID);
         for (int i = 0; i < 2 && i < path.size(); i++) {
             output += path.get(i) + " ";
         }
@@ -90,15 +93,17 @@ public class Porter extends NPC implements IMoveable {
     public void setEndRoom(int roomID) {
         endRoomID = roomID;
     }
-    
+
     /**
-     * Check if the player is a room that is locked and if so it moves the player to a room that is not locked.
+     * Check if the player is a room that is locked and if so it moves the
+     * player to a room that is not locked.
+     *
      * @param player the current player
      */
     public void checkPlayer(IPlayer player) {
         if (getCurrentRoom() == player.getCurrentRoom()) {
             if (player.getCurrentRoom().isLocked()) {
-                for (Directions dir : player.getCurrentRoom().getExitDirections()) {
+                for (Direction dir : player.getCurrentRoom().getExitDirections()) {
                     if (!player.getCurrentRoom().getExit(dir).isLocked()) {
                         business.porterMovePlayer(dir);
                         break;
@@ -107,7 +112,11 @@ public class Porter extends NPC implements IMoveable {
             }
         }
     }
-
+    /**
+     * getter for getLastMove function
+     * 
+     * @return lastMove
+     */
     @Override
     public long getLastMove() {
         return lastMove;

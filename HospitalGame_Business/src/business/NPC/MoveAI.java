@@ -6,20 +6,26 @@
 package business.NPC;
 
 import business.common.IMoveable;
-import common.Directions;
+import common.Direction;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-/**
- *
- * @author fsr19
- */
+    /**
+    * Class to handle the moveAI
+    *
+    * @author Frederik Schultz Rosenberg
+    * @author Andreas Bøgh Mølgaard-Andersen
+    * @author Lars Bjerregaard Jørgensen
+    * @author Robert Francisti
+    */
 public class MoveAI {
     
+    //minimum value for moveAI
     private final int min = 5 * 1000;
+    //maximum value for moveAI
     private final int max = 20 * 1000;
-    
+    //
     private final Random random = new Random();
     
     /**
@@ -46,12 +52,12 @@ public class MoveAI {
         long diff = currentTime - moveable.getLastMove();
         
         if (diff > nextMove) {
-            Set<Directions> dirs = moveable.getCurrentRoom().getExitDirections();
+            Set<Direction> dirs = moveable.getCurrentRoom().getExitDirections();
             
             int index = random.nextInt(dirs.size());
             
             int i = 0;
-            for (Directions dir : dirs) {
+            for (Direction dir : dirs) {
                 if (index == i) {
                     moveable.move(dir);
                     break;

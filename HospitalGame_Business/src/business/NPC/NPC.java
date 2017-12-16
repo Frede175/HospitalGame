@@ -12,10 +12,14 @@ import common.IPlayer;
 import common.IRoom;
 import common.NPCID;
 
-/**
- *
- * @author andreasmolgaard-andersen
- */
+    /**
+    * Class to handle all NPCs
+    *
+    * @author Frederik Schultz Rosenberg
+    * @author Andreas Bøgh Mølgaard-Andersen
+    * @author Lars Bjerregaard Jørgensen
+    * @author Robert Francisti
+    */
 public abstract class NPC implements INPC {
 
     /**
@@ -42,14 +46,14 @@ public abstract class NPC implements INPC {
      * is the ID of the NPC
      */
     private NPCID npcId;
-    
+
     /**
-     * a reference to map
-     * Protected since porter need to call map.pathFinder.
+     * a reference to map Protected since porter need to call map.pathFinder.
      */
     protected Map map;
-    
+
     /**
+     * a reference to BusinessFacade protected since NPC's need to call functions from BusinessFacade
      * 
      */
     protected BusinessFacade business;
@@ -68,11 +72,21 @@ public abstract class NPC implements INPC {
         this.currentRoomID = currentRoomID;
         this.npcId = npcId;
     }
-    
+
+    /**
+     * Injector for map
+     *
+     * @param map is the map for the game
+     */
     public void injectMap(Map map) {
         this.map = map;
     }
-    
+
+    /**
+     * injector for businessfacade
+     *
+     * @param business is the businessfacade
+     */
     public void injectBusiness(BusinessFacade business) {
         this.business = business;
     }
@@ -122,7 +136,11 @@ public abstract class NPC implements INPC {
     public IRoom getCurrentRoom() {
         return map.getRoomByID(currentRoomID);
     }
-    
+    /**
+     * getter for getCurrentRoomID
+     * 
+     * @returns the ID of current room
+     */
     @Override
     public int getCurrentRoomID() {
         return currentRoomID;

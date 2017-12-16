@@ -1,8 +1,12 @@
 package ui;
 
 /**
- *
- * @author fsr19
+ * Sprites enum.
+ * 
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public enum Sprites {
     ARROW_RIGHT(0),
@@ -14,26 +18,30 @@ public enum Sprites {
     BLOODBAG_AB(6),
     BLOODBAG_B(7),
     BLOODBAG_O(8),
-    BUTTON_PRESSED(9),
-    BUTTON_RELEASED(10),
+    COMPUTER(9),
+    LOCK(10),
     DOCTOR(11),
-    PLAYER(12),
+    MORPHINE(12),
     PORTER(13),
-    EXIT_RIGHT(14),
-    EXIT_UP(15),
-    EXIT_DOWN(16),
-    EXIT_LEFT(17),
-    LOCK(18),
-    MORPHINE(19),
-    COMPUTER(20),
-    IDCARD(21);
+    IDCARD(14);
         
+    /**
+     * Contains the index of the sprite.
+     */
     private int index;
     
+    /**
+     * Constructs a sprite with an index.
+     * @param index Which sprite index.
+     */
     private Sprites(int index) {
         this.index = index;
     }
 
+    /**
+     * Gets the selected sprite index.
+     * @return  The selected index of the sprite.
+     */
     int getIndex() {
         return index;
     }

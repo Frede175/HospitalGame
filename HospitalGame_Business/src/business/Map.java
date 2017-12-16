@@ -7,7 +7,7 @@ package business;
 
 import business.common.IItemFacade;
 import business.common.INPCFacade;
-import common.Directions;
+import common.Direction;
 import common.ICoordinate;
 import common.IItem;
 import common.INPC;
@@ -24,10 +24,14 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
-/**
- *
- * @author andreasmolgaard-andersen
- */
+    /**
+    * Class to handle the map functions in the game
+    *
+    * @author Frederik Schultz Rosenberg
+    * @author Andreas Bøgh Mølgaard-Andersen
+    * @author Lars Bjerregaard Jørgensen
+    * @author Robert Francisti
+    */
 public class Map {
 
     /**
@@ -45,16 +49,12 @@ public class Map {
      */
     private ArrayList<Room> rooms;
 
-    
     /**
      * no args constructor for map
      */
     public Map() {
         rooms = new ArrayList<>();
     }
-
-    
-    
 
     /**
      * injector for item Facade
@@ -83,15 +83,14 @@ public class Map {
      * @return the startRoom
      */
     public Room generateMap(int roomCount, List<IItem> items, List<INPC> npcs) {
-        
-        
-        
+
         // Creates the ArrayList that contains all the free rooms.
         ArrayList<Room> freeRooms = createRooms(roomCount);
-        
+
         rooms.addAll(freeRooms);
-        
-        Directions[] directions = Directions.values();
+
+        Direction[] directions = Direction.values();
+
         // Sets the start room to the first free room.
         Room startRoom = freeRooms.get(0);
         startRoom.setInspected();
@@ -114,9 +113,9 @@ public class Map {
             while (i <= exitCount && !freeRooms.isEmpty()) {
                 // Generates the random direction.
                 int index = (int) (Math.random() * 4);
-                Directions direction = directions[index];
+                Direction direction = directions[index];
                 // Calculates the opponent direction.
-                Directions oppoDirection = directions[(index + 2) % 4];
+                Direction oppoDirection = directions[(index + 2) % 4];
                 // Random selecting the neighbor room.
                 int neighbor = (int) (Math.random() * freeRooms.size());
                 // If the room dosent have an exit at that direction
@@ -124,6 +123,7 @@ public class Map {
                 if (currentRoom.getExit(direction) == null && !usedCoordinates.contains(c)) {
                     // Sets an exit with the direction and the neighbor.
                     currentRoom.setExit(direction, freeRooms.get(neighbor));
+                    // sets coordinates to every freeroom.
                     freeRooms.get(neighbor).setCoordinate((Coordinate) c);
                     usedCoordinates.add(c);
                     // Sets the neighbor rooms exit to be the current room.
@@ -137,9 +137,7 @@ public class Map {
                 i++;
             }
         }
-        
-        
-        
+
         Room locked = rooms.get(0);
         //Find a room that only has one exit:
         for (Room room : rooms) {
@@ -148,24 +146,24 @@ public class Map {
                 break;
             }
         }
-        
+
         // Add every item to a random room.
         locked.setLocked(true);
-        
+        // Shuffles items
         Collections.shuffle(items);
-        
+
         for (IItem item : items) {
             if (item.getName() == ItemName.BLOODBAG) {
                 locked.addItem(item);
             } else {
                 Room room;
-                while ((room = rooms.get((int) (Math.random() * roomCount))) == locked) { }
+                while ((room = rooms.get((int) (Math.random() * roomCount))) == locked) {
+                }
                 room.addItem(item);
             }
-            
+
         }
-        
-        
+
         // Adds the NPCs to random rooms.
         INPC porter = null;
         INPC doctor = null;
@@ -177,9 +175,10 @@ public class Map {
             if (npc.getNPCID() == NPCID.PORTER) {
                 porter = npc;
             }
-            
+
             Room room;
-            while ((room = rooms.get((int) (Math.random() * roomCount))) == locked) { }
+            while ((room = rooms.get((int) (Math.random() * roomCount))) == locked) {
+            }
             npcFacade.setRoom(npc, room.getRoomID());
         }
 
@@ -187,8 +186,7 @@ public class Map {
         if (porter != null && doctor != null) {
             npcFacade.setEndRoom(porter, doctor.getCurrentRoomID());
         }
-        
-        
+
         // returns the start room.
         return startRoom;
     }
@@ -218,23 +216,23 @@ public class Map {
      * @param endRoomID is the room where you end.
      * @return rooms.
      */
-    public List<Directions> pathfinder(int startRoomID, int endRoomID) {
+    public List<Direction> pathfinder(int startRoomID, int endRoomID) {
         Room startRoom = rooms.get(startRoomID);
         Room endRoom = rooms.get(endRoomID);
         // Queue holds a list of the rooms that are going to be checked
         Queue<Room> queue = new LinkedList<>();
         //Hashmap holds the checked rooms and what direction we came from, that points to startRoom.
-        java.util.Map<Room, Directions> pathMap = new HashMap<>();
+        java.util.Map<Room, Direction> pathMap = new HashMap<>();
         //Priming while loop by taking all the exits in the startRoom by adding it to queue. 
-        for (Directions key : startRoom.getExitDirections()) {
+        for (Direction key : startRoom.getExitDirections()) {
             Room r = (Room) startRoom.getExit(key);
             queue.add(r);
         }
-
+        //adds the start room to the list
         pathMap.put((Room) startRoom, null);
         while (!queue.isEmpty()) {
             Room room = queue.poll();
-            for (Directions key : room.getExitDirections()) {
+            for (Direction key : room.getExitDirections()) {
                 Room r = (Room) room.getExit(key);
                 //If the room already has been checked, it then doesnt add it to the room.
                 if (pathMap.containsKey(r)) {
@@ -245,16 +243,16 @@ public class Map {
                 }
             }
         }
-        List<Directions> path = new ArrayList<>();
+        List<Direction> path = new ArrayList<>();
         Room currentRoom = (Room) endRoom;
         //going from endRoom to startRoom and storing directions. 
         while (currentRoom != startRoom) {
-            Directions s = pathMap.get(currentRoom);
+            Direction s = pathMap.get(currentRoom);
             path.add(s);
             currentRoom = (Room) currentRoom.getExit(s);
 
         }
-        List<Directions> values = Arrays.asList(Directions.values());
+        List<Direction> values = Arrays.asList(Direction.values());
         //reversing order of list.
         Collections.reverse(path);
         //reverses path i.e south to north
@@ -266,6 +264,10 @@ public class Map {
         return path;
     }
 
+    /**
+     *
+     * @return an array containing all the rooms
+     */
     public IRoom[] getRooms() {
         IRoom[] array = new IRoom[rooms.size()];
         rooms.toArray(array);
@@ -277,7 +279,7 @@ public class Map {
      * @param d holds the coordinates to the directions in which room you're at.
      * @returns the SOUTH,EAST,WEST,NORTH coordinates.
      */
-    private Coordinate getCoordinateDirection(Directions d) {
+    private Coordinate getCoordinateDirection(Direction d) {
         switch (d) {
             case SOUTH:
                 return new Coordinate(0, -1);
@@ -294,14 +296,27 @@ public class Map {
 
     }
 
+    /**
+     * checks if roomID is a valid ID
+     *
+     * @param ID is the ID of a room
+     * @return rooms by their Identification
+     */
     public Room getRoomByID(int ID) {
-        if (rooms.get(ID) == null) return null;
+        if (rooms.get(ID) == null) {
+            return null;
+        }
         if (rooms.get(ID).getRoomID() == ID) {
             return (Room) rooms.get(ID);
         }
         return null;
     }
 
+    /**
+     * loads the rooms
+     *
+     * @param arrayRooms array with rooms
+     */
     public void load(IRoom[] arrayRooms) {
         for (IRoom room : arrayRooms) {
             Room r = new Room(room);
@@ -311,7 +326,9 @@ public class Map {
         }
 
     }
-    
+    /**
+     * resets the rooms
+     */
     public void reset() {
         rooms.clear();
     }

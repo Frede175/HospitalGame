@@ -6,24 +6,14 @@ import java.util.Map;
 import javafx.scene.image.Image;
 
 /**
- *
- * @author larsjorgensen
+ * Controller for the death screen.
+ * 
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
-public class ImageResource {
-    
-    /**
-     * Contains all the names of the images
-     */
-    String[] names = {
-        "deathScreen.png",
-        "doctor.png",
-        "player.png",
-        "porter.png",
-        "computer.png",
-        "sprite.png",
-        "victoryScreen.png"
-    };
-    
+public class ImageResource {   
     /**
      * Contains all the images.
      */
@@ -39,16 +29,11 @@ public class ImageResource {
      */
     public ImageResource() {
         images = new HashMap<>();
-        Images[] imgKeys = Images.values();
-        for (int i = 0; i < names.length; i++) {
-            URL url = getClass().getClassLoader().getResource("ui/images/" + names[i]);
-            images.put(imgKeys[i], new Image(url.toString()));
+        for(Images img : Images.values()) {
+            URL url = getClass().getClassLoader().getResource("ui/images/" + img.toString());
+            images.put(img, new Image(url.toString()));
         }
-        
-        spriteSheet = new SpriteSheet(getImage(Images.SPRITE), 64, 22);
-        
-        
-        
+        spriteSheet = new SpriteSheet(getImage(Images.SPRITE), 64, 15);
     }
     
     /**

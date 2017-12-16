@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -22,10 +22,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+
 /**
- * FXML Controller class
- *
- * @author larsjorgensen
+ * NPC Controller.
+ * 
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public class NPCController implements Initializable {
 
@@ -40,6 +44,9 @@ public class NPCController implements Initializable {
     @FXML
     private HBox hBox;
     
+    /**
+     * Contains the IPlayer reference.
+     */
     @FXML
     private IPlayer player;
     
@@ -53,10 +60,19 @@ public class NPCController implements Initializable {
      */
     private boolean isFocussed = false;
     
+    /**
+     * Array containing which NPCs currently shown on screen.
+     */
     INPC[] npcs;
     
-    private UIType type;  
+    /**
+     * Which UIFocus this controller is.
+     */
+    private UIFocus type;  
     
+    /**
+     * Contains the main controller instance.
+     */
     private MainController mainController;
     
     /**
@@ -83,6 +99,11 @@ public class NPCController implements Initializable {
         }
     }
     
+    /**
+     * Generates a VBox containing a NPC icon, a label and an onClick interact.
+     * @param index Which NPC in the room from the NPC array.
+     * @return A VBox containing a NPC icon, a label with the name and an onClick interact.
+     */
     public VBox createNPCUI(int index) {
         VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);
@@ -102,13 +123,17 @@ public class NPCController implements Initializable {
         return vBox;
     }
     
+    /**
+     * Injects a MainController.
+     * @param mainController Which MainController to inject.
+     */
     public void injectMainController(MainController mainController) {
         this.mainController = mainController;
     }
     
     /**
      * Returns the npc type image for the given npc.
-     * @param npc which npc type image to return
+     * @param npc which npc type image to return.
      * @return the given npc type image.
      */
     public ImageView getImageOfNPC(INPC npc) {
@@ -118,13 +143,13 @@ public class NPCController implements Initializable {
         img.setFitWidth(70);
         switch (npc.getNPCID()) {
             case COMPUTER:
-                img.setImage(UI.getInstance().getImageResource().getImage(Images.COMPUTER));
+                img.setImage(UI.getInstance().getImageResource().getSprite(Sprites.COMPUTER));
                 break;
             case DOCTOR:
-                img.setImage(UI.getInstance().getImageResource().getImage(Images.DOCTOR));
+                img.setImage(UI.getInstance().getImageResource().getSprite(Sprites.DOCTOR));
                 break;
             case PORTER:
-                img.setImage(UI.getInstance().getImageResource().getImage(Images.PORTER));
+                img.setImage(UI.getInstance().getImageResource().getSprite(Sprites.PORTER));
                 break;
             default:
                 throw new AssertionError();
@@ -132,24 +157,43 @@ public class NPCController implements Initializable {
         return img;
     }
     
+    /**
+     * Sets this fragment to be focussed.
+     * @param focus True if this fragment is focussed.
+     */
     public void setFocus(boolean focus) {
         this.isFocussed = focus;
     }
     
+    /**
+     * Gets the selected index.
+     * @return The selected index.
+     */
     public int getSelectedIndex() {
         return selectedIndex;
     }
     
+    /**
+     * Sets the selected index.
+     * @param index Which index to be selected.
+     */
     public void setSelectedIndex(int index) {
         if(index >= 0 && index < npcs.length) {
             this.selectedIndex = index;
         }
     }
     
-    public void setType(UIType type) {
+    /**
+     * Sets this fragments type
+     * @param type Which type this fragment is.
+     */
+    public void setType(UIFocus type) {
         this.type = type;
     }
     
+    /**
+     * Interacts with the NPC and player, an setting the interact String to the interact label.
+     */
     public void interact() {
         mainController.setInteractionText(business.interact(player, npcs[selectedIndex]));
         mainController.updateGUI();

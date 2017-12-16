@@ -8,11 +8,19 @@ package ui;
 import javafx.scene.canvas.Canvas;
 
 /**
- *
- * @author Tobias
+ * Resizeable canvas.
+ * 
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public class ResizableCanvas extends Canvas{
     
+    /**
+     * 
+     * @return Returns true if the canvas is resizeable.
+     */
     @Override
     public boolean isResizable(){
         return true;

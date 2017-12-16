@@ -7,13 +7,16 @@ package business.Item;
 
 import common.BloodType;
 import common.IBloodBag;
-import common.IBonusPointItem;
 import common.ItemName;
 
-/**
- *
- * @author andreasmolgaard-andersen
- */
+    /**
+    * Class to execute the functions of bloodbag
+    *
+    * @author Frederik Schultz Rosenberg
+    * @author Andreas Bøgh Mølgaard-Andersen
+    * @author Lars Bjerregaard Jørgensen
+    * @author Robert Francisti
+    */
 public class BloodBag extends BonusPointItem implements IBloodBag {
 
     /**
@@ -33,9 +36,13 @@ public class BloodBag extends BonusPointItem implements IBloodBag {
         super(bonusPoints, name, weight);
         this.bloodType = bloodType;
     }
-    
+    /**
+     * gets bloodtype from bloodbag
+     * 
+     * @param bloodBag bloodbag which can be used to identify bloodtype
+     */
     public BloodBag(IBloodBag bloodBag) {
-        super((IBonusPointItem)bloodBag);
+        super(bloodBag);
         bloodType = bloodBag.getBloodType();
     }
 

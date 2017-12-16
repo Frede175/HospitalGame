@@ -11,8 +11,12 @@ import java.util.List;
 import java.util.Map.Entry;
 
 /**
- *
- * @author Tobias
+ * UIHighscore
+ * 
+ * @author Frederik Schultz Rosenberg
+ * @author Andreas Bøgh Mølgaard-Andersen
+ * @author Lars Bjerregaard Jørgensen
+ * @author Robert Francisti
  */
 public class UIHighScore {
 
