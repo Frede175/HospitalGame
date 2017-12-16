@@ -146,5 +146,11 @@ public interface IBusiness {
      */
     void closing();
     
+    /**
+     * 
+     * @return Array of rooms
+     */
+    IRoom[] getRooms();
+    
     
 }
