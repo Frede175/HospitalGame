@@ -272,7 +272,7 @@ public class Map {
     /**
      *
      * @param d holds the coordinates to the directions in which room you're at.
-     * @returns the SOUTH,EAST,WEST,NORTH coordinates.
+     * @return the SOUTH,EAST,WEST,NORTH coordinates.
      */
     private Coordinate getCoordinateDirection(Direction d) {
         switch (d) {

@@ -40,7 +40,7 @@ public class NPCFacade implements INPCFacade {
      *
      * @param player 
      * @param npc
-     * @returns interract player with npc
+     * @return interract player with npc
      */
     @Override
     public String interact(IPlayer player, INPC npc) {
@@ -176,7 +176,7 @@ public class NPCFacade implements INPCFacade {
      *
      * @param room
      * @return
-     * @returns array of npc's in the room.
+     * @return array of npc's in the room.
      */
     @Override
     public INPC[] getNPCsFromRoom(IRoom room) {

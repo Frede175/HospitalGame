@@ -72,7 +72,7 @@ public class Coordinate implements ICoordinate {
     * checks if object is a coordinate. 
     * 
     * @param obj is an object
-    * @returns coordinates to object
+    * @return coordinates to object
     */
     @Override
     public boolean equals(Object obj) {

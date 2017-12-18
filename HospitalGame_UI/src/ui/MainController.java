@@ -264,7 +264,6 @@ public class MainController implements Initializable {
     
     /**
      * Open the menu scene.
-     * @throws IOException 
      */
     public void openMenu() {
         business.pause();
