@@ -22,7 +22,7 @@ public interface INPCFacade {
      *
      * @param player
      * @param NPC
-     * @returns interract player with npc
+     * @return interract player with npc
      */
     public String interact(IPlayer player, INPC NPC);
     
@@ -102,7 +102,7 @@ public interface INPCFacade {
      *
      * @param room
      * @return
-     * @returns array of npc's in the room.
+     * @return array of npc's in the room.
      */
     public INPC[] getNPCsFromRoom(IRoom room);
 

@@ -196,7 +196,7 @@ public class Room implements IRoom {
      * c is the coordinate
      *
      * @return
-     * @returns the coordinate
+     * @return the coordinate
      */
     @Override
     public ICoordinate getCoordinate() {
@@ -213,7 +213,7 @@ public class Room implements IRoom {
     }
     /**
      * 
-     * @returns the inventory
+     * @return the inventory
      */
     @Override
     public IInventory getInventory() {

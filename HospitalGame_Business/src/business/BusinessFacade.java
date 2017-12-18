@@ -190,7 +190,7 @@ public class BusinessFacade implements IBusiness {
 
     /**
      *
-     * @returns highscore
+     * @return highscore
      */
     @Override
     public IHighScore getHighScore() {
@@ -425,7 +425,7 @@ public class BusinessFacade implements IBusiness {
     /**
      * checks if there is a saved game on the filesystem
      *
-     * @returns true if it can be saved
+     * @return true if it can be saved
      */
     @Override
     public boolean saveGameAvailable() {

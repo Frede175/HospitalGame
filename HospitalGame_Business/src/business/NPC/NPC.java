@@ -134,7 +134,7 @@ public abstract class NPC implements INPC {
     /**
      * getter for getCurrentRoomID
      * 
-     * @returns the ID of current room
+     * @return the ID of current room
      */
     @Override
     public int getCurrentRoomID() {
