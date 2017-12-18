@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" minWidth="-Infinity" style="-fx-background-color: none;" styleClass="mainFxmlClass" stylesheets="@../css/NPC.css" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.NPCController">
+    <children>
+        <Label fx:id="title" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" text="NPCS In Room" VBox.vgrow="ALWAYS">
+           <font>
+              <Font size="24.0" />
+           </font>
+        </Label>
+      <HBox fx:id="hBox" alignment="CENTER" />
+    </children>
+ </VBox>
